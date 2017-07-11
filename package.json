@@ -1,0 +1,31 @@
+{
+  "name": "wedding_in",
+  "version": "2.0.0",
+  "description": "wedding event management app",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "'git'"
+  },
+  "keywords": [
+    "wedding"
+  ],
+  "author": "kolyasa_aleksey",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.30",
+    "mongojs": "^2.4.0",
+    "mongoose": "^4.11.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

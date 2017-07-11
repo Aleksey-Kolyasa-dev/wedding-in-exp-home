@@ -1,0 +1,186 @@
+<div class="projects-list">
+    <header class="proj-view-header text-right">
+        <h2>РЕСТОРАН</h2>
+    </header>
+
+    <div class="guests-list-main">
+
+        <!--FIANCE SIDE *START*-->
+        <div class="fiance-side-main ">
+            <header class="guests-fiance-side text-center">
+                <h4 class="guests-side-head">СТОРОНА ЖЕНИХА</h4>
+            </header>
+            <div>
+                <table class="table">
+                    <thead class="guest-side-table-head">
+                        <tr style="color: white">
+                            <th class="text-center">№</th>
+                            <th >Имя</th>
+                            <th class="text-center">Отношение</th>
+                            <th class="text-center">№ группы</th>
+                            <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="guest">
+                            <td class="text-center">1</td>
+                            <td>{{currentProject.fianceName | uppercase}}</td>
+                            <td class="text-left">жених</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">
+                                <input type="checkbox">
+                            </td>
+                        </tr>
+                        <tr ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'" ng-repeat="guest in currentProject.fianceSideGuests | orderBy : 'guestGroup'">
+                            <td class="text-center">{{$index+2}}</td>
+                            <td>
+                                <a
+                                        class="guest-link"
+                                        ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'"
+                                        data-toggle="modal" data-target="#guest-edit"
+                                        ng-click="addNewGuests.guestEdit(currentProject.fianceSideGuests.indexOf(guest))">
+                                    {{guest.guestName | uppercase}}
+                                </a>
+                            </td>
+                            <td class="text-left">{{guest.guestRelation  | lowercase}}</td>
+                            <td class="text-center">{{guest.guestGroup}}</td>
+                            <td class="text-center">
+                                <input type="checkbox" ng-model="guest.guestWillBe" ng-change="addNewGuests.guestEditDone()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="width:200px">
+                                <input type="text" ng-model="addNewGuests.newMguestName" class="new-guest-input" placeholder="Имя">
+                            </td>
+                            <td colspan="1" style="width:150px">
+                                <input type="text" ng-model="addNewGuests.newMguestRelation" class="new-guest-input" placeholder="Отношение">
+                            </td>
+                            <td>
+                                <input type="number" ng-model="addNewGuests.newMguestGroup" style="width:70px" class="new-guest-input" placeholder="гр.№">
+                            </td>
+                            <td >
+                                <input
+                                        type="button"
+                                        ng-click="addNewGuests.addNewGuest('M', addNewGuests.newMguestName, addNewGuests.newMguestRelation, addNewGuests.newMguestGroup)"
+                                        ng-disabled="!addNewGuests.newMguestName || !addNewGuests.newMguestRelation || !addNewGuests.newMguestGroup"
+                                        style="width:40px; height:30px"
+                                        class="btn btn-success btn-xs"
+                                        value="+">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--FIANCE SIDE *END*-->
+
+        <!--FIANCEE SIDE *START*-->
+        <div class="fiancee-side-main ">
+            <header class="guests-fiancee-side text-center">
+                <h4 class="guests-side-head">СТОРОНА НЕВЕСТЫ</h4>
+            </header>
+            <div>
+                <table class="table">
+                    <thead class="guest-side-table-head2">
+                    <tr style="color: white">
+                        <th>№</th>
+                        <th>Имя</th>
+                        <th>отношение</th>
+                        <th>группа</th>
+                        <th><span class="glyphicon glyphicon-check"></span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="color: white">
+                        <td class="text-center">1</td>
+                        <td>{{currentProject.fianceeName | uppercase}}</td>
+                        <td class="text-center">невеста</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">
+                            <input type="checkbox">
+                        </td>
+                    </tr>
+                    <tr style="color: white">
+                        <td class="text-center">1</td>
+                        <td>СТАНИСЛАВ АНАТОЛИЕВИЧ</td>
+                        <td class="text-center">тесть</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">
+                            <input type="checkbox">
+                        </td>
+                        <!--<td class="text-center">
+                            <button class="btn btn-xs btn-default">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </button>
+                        </td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--FIANCEE SIDE *END*-->
+
+    </div>
+
+    <!-- MODAL GUEST EDIT *START* -->
+    <div id="guest-edit" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">close</button>
+                    <h4 class="modal-title"><b>РЕДАКТИРОВАНИЕ</b></h4>
+                </div>
+                <div class="modal-body wed-modals">
+                    <div class="add-new-proj-main">
+                        <form name="guestDataEdit" novalidate ng-submit="">
+                            <div>
+                                <div class="form-group">
+                                    <label>Имя</label>
+                                    <input name="guestEditName" class="form-control" ng-model="addNewGuests.guestUnderEdit.guestName"
+                                           type="text" required ng-minlength='2'>
+                                </div>
+                                <div class="form-group">
+                                    <label>Отношение</label>
+                                    <input name="guestEditRelation" class="form-control" ng-model="addNewGuests.guestUnderEdit.guestRelation"
+                                           type="text" required ng-minlength='2'>
+                                </div>
+                                <div class="form-group">
+                                    <label>№ Группы</label>
+                                    <input name="guestEditGroup" class="form-control" ng-model="addNewGuests.guestUnderEdit.guestGroup"
+                                           type="number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                    <input type="checkbox"
+                                           name="guestEditWillBe"
+                                           class="ch-box"
+                                           style="margin-right: 5px; margin-left: 3px"
+                                           ng-model="addNewGuests.guestUnderEdit.guestWillBe"
+                                           >Будет в ресторане</label>
+                                </div>
+                                <div class="form-groupS">
+                                        <input type="button"
+                                               class="btn btn-xs btn-danger guest-del-btn"
+                                               ng-click="addNewGuests.guestDelete(currentProject.fianceSideGuests.indexOf(addNewGuests.guestUnderEdit))"
+                                               value="удалить"
+                                               data-dismiss="modal"
+                                               ng-disabled="addNewGuests.guestUnderEdit.guestWillBe"
+                                               >
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block"
+                                        ng-disabled="guestDataEdit.$invalid" data-dismiss="modal"
+                                        ng-click="addNewGuests.guestEditDone()">
+                                    <b>ПРИНЯТЬ</b>
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL GUEST EDIT *END* -->
+
+</div>

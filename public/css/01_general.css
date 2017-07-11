@@ -1,0 +1,29 @@
+@font-face{
+    font-family: "Rage Italic";
+    src: url('../img/fonts/Rage Italic.ttf');
+}
+@font-face{
+    font-family: ArialRounded;
+    src: url('../img/fonts/ARLRDBD.ttf');
+}
+@font-face{
+    font-family: bickhamscr2;
+    src: url('../img/fonts/AdineKirnberg.ttf');
+}
+.wed-app-main{
+    font-family: ArialRounded, Arial;
+    margin: 10px;
+
+}
+.main{
+    /*padding: 0;
+    background: black;*/
+    background-image: url("../img/main_bg.jpg");
+    background-repeat: no-repeat;
+    height: 100%;
+}
+.project_main{
+    background-image: url("../img/main_bg.jpg");
+    background-repeat: no-repeat;
+    height: 100%;
+}

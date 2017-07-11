@@ -1,0 +1,12 @@
+.wed-project-body-right{
+    width: 100%;
+}
+.proj-view-header{
+    width: 100%;
+    border-bottom: 1px solid #ffffff;
+    padding-right: 25px;
+}
+.proj-view-header h2{
+    color: #ffffff;
+    font-style: italic;
+}

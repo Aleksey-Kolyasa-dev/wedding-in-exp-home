@@ -1,0 +1,64 @@
+.guests-list-main div{
+    float: left;
+}
+.fiance-side-main,
+.fiancee-side-main{
+    margin-top: 15px;
+    margin-left : 30px;
+}
+.guests-fiancee-side{
+}
+.guests-side-head{
+    color: #ffffff;
+}
+.guest-side-table-head{
+    color: #ffffff;
+    /*border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;*/
+    background: rgba(112, 117, 255, 0.50);
+}
+.guest-side-table-head2{
+    color: #ffffff;
+    /*border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;*/
+    background: rgba(241, 109, 255, 0.51);
+}
+.new-guest-input{
+    background: rgba(2, 12, 12, 0.36);
+    border: 1px solid #ffffff;
+   /* width: 200;*/
+    border-radius: 5px;
+    padding-left: 10px;
+    color: #ffffff;
+    font-size: 120%;
+}
+.guest{
+    color : #ffffff;
+}
+.guest-abs{
+    color : rgba(225, 225, 225, 0.36);
+}
+.ch-box,
+.guest td input,
+.guest-abs td input{
+    width : 17px;
+    height: 17px;
+    cursor: pointer;
+}
+.guest-link{
+    text-decoration: none !important;
+}
+.guest-link:hover{
+    cursor : pointer;
+    color : #ffffff;
+    border : 1px solid #ffffff;
+    border-radius: 3px;
+    padding : 3px;
+}
+
+/*EDIT MODAL*/
+.guest-del-btn{
+    float: right;
+    margin-bottom: 20px;
+    margin-top: -40px;
+}

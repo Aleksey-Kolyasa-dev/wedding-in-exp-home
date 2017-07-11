@@ -1,0 +1,28 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>WED_in</title>
+	
+	<link rel="stylesheet" href="libs/css/angular-toastr.min.css">
+	<link rel="stylesheet" href="libs/css/bootstrap.css">
+	<link rel="stylesheet" href="libs/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="libs/css/jquery-ui-1.9.2.custom.css">
+
+
+	<link rel="stylesheet" href="css/01_general.css">
+	<link rel="stylesheet" href="css/02_main-page.css">
+	<link rel="stylesheet" href="css/projects/00_project_general.css">
+	<link rel="stylesheet" href="css/projects/01_project_budget.css">
+	<link rel="stylesheet" href="css/projects/02_project_restaurant.css">
+
+
+
+	<script data-main="js/main.js" src="libs/js/require.js"></script>
+	
+</head>
+<body>
+	<div class="container-fluid wed-app-main" ng-class="dynamicBackground" style="margin: 0" ng-controller="wedMainCtrl">
+		<div ng-view ></div>
+	</div>
+</body>
+</html>
