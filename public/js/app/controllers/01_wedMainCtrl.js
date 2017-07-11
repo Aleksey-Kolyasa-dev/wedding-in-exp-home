@@ -149,8 +149,18 @@ define(['angular'], function (angular) {
             },
 
             guestDelete: function (index) {
-                var test = $scope.currentProject.fianceSideGuests.splice(index, 1);
-                toastr.info(test);
+                $scope.currentProject.fianceSideGuests.splice(index, 1);
+
+                var self = this;
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject).then(
+                    function (data) {
+                        self._clear();
+                        toastr.success('GUEST DELETED SUCCESS');
+                    },
+                    function (err) {
+                        toastr.error('ERROR: Guest_M delete AJAX failed');
+                        throw new Error('ERROR: Guest_M delete AJAX failed' + err);
+                    });
             }
         };
 

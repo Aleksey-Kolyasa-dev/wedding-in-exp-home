@@ -65,8 +65,6 @@ router.put('/projects/:id', function (req, res, next) {
         updatedProject.notes = project.notes;
         updatedProject.fianceSideGuests = project.fianceSideGuests;
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
-
-
         console.log(updatedProject);
     }
     if(!updatedProject){
