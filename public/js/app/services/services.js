@@ -54,7 +54,8 @@ define(['angular'], function (angular) {
                             break;
 
                         case "PUT" :
-                            $http({method: "PUT", url: self.baseURL + data.id, data: data}).success(function (data) {
+                            $http({method: "PUT", url: self.baseURL + data._id, data: data}).success(function (data) {
+                                //$log.log('SERVICE ' + data );
                                 deferred.resolve(data);
                             }).error(function (err) {
                                 toastr.error('ERROR: PUT method failed');

@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
 });
 
 
-// Get All Projects
+// GET All Projects
 router.get('/projects', function (req, res, next) {
     db.weddings.find(function (err, projects) {
         if(err){
@@ -21,7 +21,7 @@ router.get('/projects', function (req, res, next) {
     });
 });
 
-// Get Single Project
+// GET Single Project
 router.get('/projects/:id', function (req, res, next) {
     db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
@@ -32,9 +32,64 @@ router.get('/projects/:id', function (req, res, next) {
     });
 });
 
-// Post Single Project
+// POST Single Project
 router.post('/projects', function (req, res, next) {
-    db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
+   var newProject = req.body;
+   if(!newProject.fianceName || !newProject.fianceeName || !newProject.weddingDate || !newProject.wedBudget || !newProject.email || !newProject.telephone) {
+       res.status(400);
+       res.json({
+           "error" : "POST ERROR: not all required fields was filled in"
+       });
+   } else {
+       db.weddings.save(newProject, function (err, newProject) {
+           if(err){
+               res.send(err);
+           }
+           res.json(newProject);
+           console.log(newProject);
+       });
+   }
+});
+// PUT Single Project
+router.put('/projects/:id', function (req, res, next) {
+    var project = req.body;
+    var updatedProject = {};
+
+    if(project.fianceName && project.fianceeName){
+        updatedProject.fianceName = project.fianceName;
+        updatedProject.fianceeName = project.fianceeName;
+        updatedProject.weddingDate = project.weddingDate;
+        updatedProject.wedBudget = project.wedBudget;
+        updatedProject.email = project.email;
+        updatedProject.telephone = project.telephone;
+        updatedProject.notes = project.notes;
+        updatedProject.fianceSideGuests = project.fianceSideGuests;
+        updatedProject.fianceeSideGuests = project.fianceeSideGuests;
+
+
+        console.log(updatedProject);
+    }
+    if(!updatedProject){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, updatedProject, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            console.log(project);
+            res.json(project);
+
+        });
+    }
+});
+
+
+// DELETE Single Project
+router.delete('/projects/:id', function (req, res, next) {
+    db.weddings.remove({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
             res.send(err);
         }
