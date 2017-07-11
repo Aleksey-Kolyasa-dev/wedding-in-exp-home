@@ -11,7 +11,7 @@ define(['angular'], function (angular) {
         $location.path('/index');
         $scope.dynamicBackground = "main";
 
-        //Projects list update fn
+        // Projects list update fn
         function updateProjectsList() {
             ResourceService._ajaxRequest("GET", null, null).then(function (projects) {
                 $scope.projects = projects;
@@ -43,7 +43,7 @@ define(['angular'], function (angular) {
             return new Date(project.weddingDate).setHours(23, 59, 0) > Date.now();
         };
 
-        // Exit to Main Page
+        // Exit to Home Page
         $scope.goToMain = function () {
             $location.path('/index');
             $scope.currentProject = {};
@@ -90,7 +90,6 @@ define(['angular'], function (angular) {
         };
 
         // Add new guests (in restaurant)
-
         $scope.addNewGuests = {
             newMguestName: null,
             newMguestRelation: null,

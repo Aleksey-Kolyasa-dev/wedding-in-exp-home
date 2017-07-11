@@ -29,7 +29,7 @@
                     <ul ng-repeat="project in projects | orderBy : 'weddingDate'" >
                         <li ng-if="projectListDateCheck(project)">
                             <p>
-                                <a ng-click="goToProject(project.id)">Свадьба
+                                <a ng-click="goToProject(project._id)">Свадьба
                                     <b>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</b>
                                     жених: <b>{{project.fianceName | uppercase}}</b>,
                                     невеста: <b>{{project.fianceeName | uppercase}}</b>,

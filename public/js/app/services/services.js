@@ -11,7 +11,7 @@ define(['angular'], function (angular) {
             // 'http://localhost:2403/wedding/'
             // 'http://localhost:27017/weddings/'
             // 'https://mlab.com/databases/alkol_db/collections/weddings'
-            baseURL: 'http://localhost:5000/projects',
+            baseURL: 'http://localhost:5000/projects/',
             _ajaxRequest: function (method, url, data) {
                 var self = this;
                 var deferred = $q.defer();

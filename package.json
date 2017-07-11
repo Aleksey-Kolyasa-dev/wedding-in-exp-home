@@ -2,7 +2,7 @@
   "name": "wedding_in",
   "version": "2.0.0",
   "description": "wedding event management app",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "node index.js"
   },
