@@ -12,7 +12,7 @@ define(['angular'], function (angular) {
             // 'http://localhost:27017/weddings/'
             // 'https://mlab.com/databases/alkol_db/collections/weddings'
             baseURL: 'http://localhost:5000/projects/',
-            _ajaxRequest: function (method, url, data) {
+            _ajaxRequest: function (method, url, data, keyURL) {
                 var self = this;
                 var deferred = $q.defer();
                 var result = Promise.resolve();
@@ -54,14 +54,19 @@ define(['angular'], function (angular) {
                             break;
 
                         case "PUT" :
-                            $http({method: "PUT", url: self.baseURL + data._id, data: data}).success(function (data) {
-                                //$log.log('SERVICE ' + data );
-                                deferred.resolve(data);
-                            }).error(function (err) {
-                                toastr.error('ERROR: PUT method failed');
-                                deferred.reject('ERROR: PUT method failed');
-                                throw new Error('ERROR: PUT method failed: ' + err);
-                            });
+                            if(!keyURL){
+                                $http({method: "PUT", url: self.baseURL + data._id, data: data}).success(function (data) {
+                                    //$log.log('SERVICE ' + data );
+                                    deferred.resolve(data);
+                                }).error(function (err) {
+                                    toastr.error('ERROR: PUT method failed');
+                                    deferred.reject('ERROR: PUT method failed');
+                                    throw new Error('ERROR: PUT method failed: ' + err);
+                                });
+                            }
+                            if(keyURL){
+
+                            }
                             break;
 
                         case "DELETE" :
