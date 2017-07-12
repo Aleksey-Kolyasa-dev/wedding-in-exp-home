@@ -58,14 +58,14 @@ router.put('/projects/:id', function (req, res, next) {
     if(project.fianceName && project.fianceeName){
         updatedProject.fianceName = project.fianceName;
         updatedProject.fianceeName = project.fianceeName;
-        updatedProject.weddingDate = project.weddingDate;
+        /*updatedProject.weddingDate = project.weddingDate;
         updatedProject.wedBudget = project.wedBudget;
         updatedProject.email = project.email;
         updatedProject.telephone = project.telephone;
         updatedProject.notes = project.notes;
         updatedProject.fianceSideGuests = project.fianceSideGuests;
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
-        console.log(updatedProject);
+        console.log(updatedProject);*/
     }
     if(!updatedProject){
         res.status(400);
@@ -73,7 +73,7 @@ router.put('/projects/:id', function (req, res, next) {
             "error" : "PUT ERROR: validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, updatedProject, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { fianceSideGuests : project.fianceSideGuests }}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }
