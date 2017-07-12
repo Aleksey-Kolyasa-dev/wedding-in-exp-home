@@ -52,7 +52,7 @@
                                 <input type="text" ng-model="addNewGuests.newMguestName" class="new-guest-input" placeholder="Имя">
                             </td>
                             <td colspan="1" style="width:150px">
-                                <input type="text" ng-model="addNewGuests.newMguestRelation" class="new-guest-input" placeholder="Отношение">
+                                <input type="text" ng-model="addNewGuests.newMguestRelation" class="new-guest-input" placeholder="Отношение" list="guestRelationList">
                             </td>
                             <td>
                                 <input type="number" ng-model="addNewGuests.newMguestGroup" style="width:70px" class="new-guest-input" placeholder="гр.№">
@@ -121,7 +121,7 @@
                             <input type="text" ng-model="addNewGuests.newWguestName" class="new-guest-input" placeholder="Имя">
                         </td>
                         <td colspan="1" style="width:150px">
-                            <input type="text" ng-model="addNewGuests.newWguestRelation" class="new-guest-input" placeholder="Отношение">
+                            <input type="text" ng-model="addNewGuests.newWguestRelation" class="new-guest-input" placeholder="Отношение" list="guestRelationList">
                         </td>
                         <td>
                             <input type="number" ng-model="addNewGuests.newWguestGroup" style="width:70px" class="new-guest-input" placeholder="гр.№">
@@ -164,7 +164,7 @@
                                 <div class="form-group">
                                     <label>Отношение</label>
                                     <input name="guestEditRelation" class="form-control" ng-model="addNewGuests.guestUnderEdit.guestRelation"
-                                           type="text" required ng-minlength='2'>
+                                           type="text" required ng-minlength='2' list="guestRelationList">
                                 </div>
                                 <div class="form-group">
                                     <label>№ Группы</label>
@@ -203,5 +203,27 @@
         </div>
     </div>
     <!-- MODAL GUEST EDIT *END* -->
+
+    <datalist id="guestRelationList">
+        <option value="отец">отец</option>
+        <option value="мать">мать</option>
+        <option value="дедушка">дедушка</option>
+        <option value="бабушка">бабушка</option>
+        <option value="брат">брат</option>
+        <option value="сестра">сестра</option>
+        <option value="тетя">тетя</option>
+        <option value="дядя">дядя</option>
+        <option value="крестный">крестный</option>
+        <option value="крестная">крестная</option>
+        <option value="свидетель">свидетель</option>
+        <option value="друг">друг</option>
+        <option value="коллега">коллега</option>
+        <option value="гость">гость</option>
+        <option value="муж сестры">муж сестры</option>
+        <option value="жена брата">жена брата</option>
+        <option value="племмяник">племмяник</option>
+        <option value="племянница">племянница</option>
+
+    </datalist>
 
 </div>
