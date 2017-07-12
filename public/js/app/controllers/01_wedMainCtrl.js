@@ -119,45 +119,41 @@ define(['angular'], function (angular) {
             addNewGuest: function (side, name, relation, group) {
                 var self = this;
                 if (name && relation && group && angular.isNumber(+group)) {
-                    // Fiance Side Guest
-                    if (side == "M") {
-                        this.guestData.guestName = name;
-                        this.guestData.guestRelation = relation;
-                        this.guestData.guestGroup = group;
-                        this.guestData.guestWillBe = true;
+                    this.guestData.guestName = name;
+                    this.guestData.guestRelation = relation;
+                    this.guestData.guestGroup = group;
+                    this.guestData.guestWillBe = true;
 
-                        $scope.currentProject.fianceSideGuests.push(this.guestData);
-
-                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, null).then(
-                            function (data) {
-                                self._clear();
-                                toastr.success('GUEST ADD SUCCESS');
-                            },
-                            function (err) {
-                                toastr.error('ERROR: Guest_M add AJAX failed');
-                                throw new Error('ERROR: Guest_M add AJAX failed' + err);
-                            });
-                    }
-                    // Fiancee Side Guest
-                    if (side == "W") {
-                        this.guestData.guestName = name;
-                        this.guestData.guestRelation = relation;
-                        this.guestData.guestGroup = group;
-                        this.guestData.guestWillBe = true;
-
-                        $scope.currentProject.fianceeSideGuests.push(this.guestData);
-
-                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, null).then(
-                            function (data) {
-                                self._clear();
-                                toastr.success('GUEST ADD SUCCESS');
-                            },
-                            function (err) {
-                                toastr.error('ERROR: Guest_W add AJAX failed');
-                                throw new Error('ERROR: Guest_W add AJAX failed' + err);
-                            });
+                    switch (side){
+                        // Fiance Side Guest
+                        case "M":
+                            $scope.currentProject.fianceSideGuests.push(this.guestData);
+                            ResourceService._ajaxRequest("PUT", null, $scope.currentProject,  "/fianceSideGuests").then(
+                                function (data) {
+                                    self._clear();
+                                    toastr.success('GUEST ADD SUCCESS');
+                                },
+                                function (err) {
+                                    toastr.error('ERROR: Guest_M add AJAX failed');
+                                    throw new Error('ERROR: Guest_M add AJAX failed' + err);
+                                });
+                        break;
+                        // Fiancee Side Guest
+                        case "W":
+                            $scope.currentProject.fianceeSideGuests.push(this.guestData);
+                            ResourceService._ajaxRequest("PUT", null, $scope.currentProject,  "/fianceeSideGuests").then(
+                                function (data) {
+                                    self._clear();
+                                    toastr.success('GUEST ADD SUCCESS');
+                                },
+                                function (err) {
+                                    toastr.error('ERROR: Guest_W add AJAX failed');
+                                    throw new Error('ERROR: Guest_W add AJAX failed' + err);
+                                });
+                        break;
                     }
                 } else {
+                    self._clear();
                     $log.log('err');
                 }
             },
