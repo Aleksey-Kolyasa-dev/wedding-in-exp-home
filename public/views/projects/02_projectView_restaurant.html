@@ -16,7 +16,7 @@
                         <tr style="color: white">
                             <th class="text-center">№</th>
                             <th >Имя</th>
-                            <th class="text-left">Отношение</th>
+                            <th class="text-center">Отношение</th>
                             <th class="text-center">№ группы</th>
                             <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
                         </tr>
@@ -25,27 +25,26 @@
                         <tr class="guest">
                             <td class="text-center">1</td>
                             <td>{{currentProject.fianceName | uppercase}}</td>
-                            <td class="text-left">жених</td>
+                            <td class="text-center">жених</td>
                             <td class="text-center">0</td>
                             <td class="text-center">
-                                <input type="checkbox">
+                                <input type="checkbox" ng-checked="true">
                             </td>
                         </tr>
                         <tr ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'" ng-repeat="guest in currentProject.fianceSideGuests | orderBy : 'guestGroup'">
                             <td class="text-center">{{$index+2}}</td>
                             <td>
-                                <a
-                                        class="guest-link"
-                                        ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'"
-                                        data-toggle="modal" data-target="#guest-edit"
-                                        ng-click="addNewGuests.guestEdit(currentProject.fianceSideGuests.indexOf(guest))">
-                                    {{guest.guestName | uppercase}}
+                                <a class="guest-link"
+                                   ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'"
+                                   data-toggle="modal" data-target="#guest-edit"
+                                   ng-click="addNewGuests.guestEdit(currentProject.fianceSideGuests.indexOf(guest), 'M')">
+                                        {{guest.guestName | uppercase}}
                                 </a>
                             </td>
-                            <td class="text-left">{{guest.guestRelation  | lowercase}}</td>
+                            <td class="text-center">{{guest.guestRelation  | lowercase}}</td>
                             <td class="text-center">{{guest.guestGroup}}</td>
                             <td class="text-center">
-                                <input type="checkbox" ng-model="guest.guestWillBe" ng-change="addNewGuests.guestEditDone()">
+                                <input type="checkbox" ng-model="guest.guestWillBe" ng-change="addNewGuests.guestEditDone('M')">
                             </td>
                         </tr>
                         <tr>
@@ -83,36 +82,59 @@
                 <table class="table">
                     <thead class="guest-side-table-head2">
                     <tr style="color: white">
-                        <th>№</th>
-                        <th>Имя</th>
-                        <th>отношение</th>
-                        <th>группа</th>
-                        <th><span class="glyphicon glyphicon-check"></span></th>
+                        <th class="text-center">№</th>
+                        <th >Имя</th>
+                        <th class="text-center">Отношение</th>
+                        <th class="text-center">№ группы</th>
+                        <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr style="color: white">
+                    <tr class="guest">
                         <td class="text-center">1</td>
                         <td>{{currentProject.fianceeName | uppercase}}</td>
                         <td class="text-center">невеста</td>
                         <td class="text-center">0</td>
                         <td class="text-center">
-                            <input type="checkbox">
+                            <input type="checkbox" ng-checked="true">
                         </td>
                     </tr>
-                    <tr style="color: white">
-                        <td class="text-center">1</td>
-                        <td>СТАНИСЛАВ АНАТОЛИЕВИЧ</td>
-                        <td class="text-center">тесть</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">
-                            <input type="checkbox">
+                    <tr ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'"
+                        ng-repeat="guest in currentProject.fianceeSideGuests | orderBy : 'guestGroup'">
+                        <td class="text-center">{{$index+2}}</td>
+                        <td>
+                            <a class="guest-link"
+                               ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'"
+                               data-toggle="modal" data-target="#guest-edit"
+                               ng-click="addNewGuests.guestEdit(currentProject.fianceeSideGuests.indexOf(guest), 'W')">
+                                {{guest.guestName | uppercase}}
+                            </a>
                         </td>
-                        <!--<td class="text-center">
-                            <button class="btn btn-xs btn-default">
-                                <span class="glyphicon glyphicon-cog"></span>
-                            </button>
-                        </td>-->
+                        <td class="text-center">{{guest.guestRelation  | lowercase}}</td>
+                        <td class="text-center">{{guest.guestGroup}}</td>
+                        <td class="text-center">
+                            <input type="checkbox" ng-model="guest.guestWillBe" ng-change="addNewGuests.guestEditDone('W')">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="width:200px">
+                            <input type="text" ng-model="addNewGuests.newWguestName" class="new-guest-input" placeholder="Имя">
+                        </td>
+                        <td colspan="1" style="width:150px">
+                            <input type="text" ng-model="addNewGuests.newWguestRelation" class="new-guest-input" placeholder="Отношение">
+                        </td>
+                        <td>
+                            <input type="number" ng-model="addNewGuests.newWguestGroup" style="width:70px" class="new-guest-input" placeholder="гр.№">
+                        </td>
+                        <td >
+                            <input
+                                    type="button"
+                                    ng-click="addNewGuests.addNewGuest('W', addNewGuests.newWguestName, addNewGuests.newWguestRelation, addNewGuests.newWguestGroup)"
+                                    ng-disabled="!addNewGuests.newWguestName || !addNewGuests.newWguestRelation || !addNewGuests.newWguestGroup"
+                                    style="width:40px; height:30px"
+                                    class="btn btn-success btn-xs"
+                                    value="+">
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -158,19 +180,18 @@
                                            ng-model="addNewGuests.guestUnderEdit.guestWillBe"
                                            >Будет в ресторане</label>
                                 </div>
-                                <div class="form-groupS">
+                                <div class="form-groupS"> <!-- ng-click="addNewGuests.guestDelete(currentProject.fianceSideGuests.indexOf(addNewGuests.guestUnderEdit))"-->
                                         <input type="button"
                                                class="btn btn-xs btn-danger guest-del-btn"
-                                               ng-click="addNewGuests.guestDelete(currentProject.fianceSideGuests.indexOf(addNewGuests.guestUnderEdit))"
+                                               ng-click="addNewGuests.guestDelete(addNewGuests.guestUnderEdit)"
                                                value="удалить"
                                                data-dismiss="modal"
-                                               ng-disabled="addNewGuests.guestUnderEdit.guestWillBe"
-                                               >
+                                               ng-disabled="addNewGuests.guestUnderEdit.guestWillBe">
                                 </div>
 
                                 <button type="submit" class="btn btn-success btn-block"
                                         ng-disabled="guestDataEdit.$invalid" data-dismiss="modal"
-                                        ng-click="addNewGuests.guestEditDone()">
+                                        ng-click="addNewGuests.guestEditDone(addNewGuests.guestUnderEdit.side)">
                                     <b>ПРИНЯТЬ</b>
                                 </button>
                             </div>

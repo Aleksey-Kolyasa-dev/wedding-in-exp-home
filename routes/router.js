@@ -86,7 +86,7 @@ router.put('/projects/:id', function (req, res, next) {
     }
 });
 
-//PUT Single Project keyURL = /fianceSideGuests
+// PUT Single Project keyURL = /fianceSideGuests
 router.put('/projects/:id/fianceSideGuests', function (req, res, next) {
     var project = req.body;
     var updatedProject = {};
@@ -104,6 +104,34 @@ router.put('/projects/:id/fianceSideGuests', function (req, res, next) {
         });
     } else {
         db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { fianceSideGuests : project.fianceSideGuests }}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+
+        });
+    }
+});
+
+// PUT Single Project keyURL = /fianceeSideGuests
+router.put('/projects/:id/fianceeSideGuests', function (req, res, next) {
+    var project = req.body;
+    var updatedProject = {};
+
+    console.log("CALL PUT BY: /fianceeSideGuests");
+
+    if(project.fianceName && project.fianceeName){
+        updatedProject.fianceName = project.fianceName;
+        updatedProject.fianceeName = project.fianceeName;
+    }
+    if(!updatedProject){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { fianceeSideGuests : project.fianceeSideGuests }}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }

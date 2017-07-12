@@ -17,6 +17,7 @@ define(['angular'], function (angular) {
                 $scope.projects = projects;
             });
         }
+
         updateProjectsList();
 
         // New Project Fn
@@ -94,6 +95,11 @@ define(['angular'], function (angular) {
             newMguestName: null,
             newMguestRelation: null,
             newMguestGroup: null,
+
+            newWguestName: null,
+            newWguestRelation: null,
+            newWguestGroup: null,
+
             guestData: {},
             guestUnderEdit: {},
 
@@ -101,6 +107,11 @@ define(['angular'], function (angular) {
                 this.newMguestName = null;
                 this.newMguestRelation = null;
                 this.newMguestGroup = null;
+
+                this.newWguestName = null;
+                this.newWguestRelation = null;
+                this.newWguestGroup = null;
+
                 this.guestData = {};
                 this.guestUnderEdit = {};
             },
@@ -108,6 +119,7 @@ define(['angular'], function (angular) {
             addNewGuest: function (side, name, relation, group) {
                 var self = this;
                 if (name && relation && group && angular.isNumber(+group)) {
+                    // Fiance Side Guest
                     if (side == "M") {
                         this.guestData.guestName = name;
                         this.guestData.guestRelation = relation;
@@ -126,41 +138,104 @@ define(['angular'], function (angular) {
                                 throw new Error('ERROR: Guest_M add AJAX failed' + err);
                             });
                     }
+                    // Fiancee Side Guest
+                    if (side == "W") {
+                        this.guestData.guestName = name;
+                        this.guestData.guestRelation = relation;
+                        this.guestData.guestGroup = group;
+                        this.guestData.guestWillBe = true;
+
+                        $scope.currentProject.fianceeSideGuests.push(this.guestData);
+
+                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, null).then(
+                            function (data) {
+                                self._clear();
+                                toastr.success('GUEST ADD SUCCESS');
+                            },
+                            function (err) {
+                                toastr.error('ERROR: Guest_W add AJAX failed');
+                                throw new Error('ERROR: Guest_W add AJAX failed' + err);
+                            });
+                    }
                 } else {
                     $log.log('err');
                 }
             },
 
-            guestEdit: function (index) {
-                this.guestUnderEdit = $scope.currentProject.fianceSideGuests[index];
+            guestEdit: function (index, side) {
+                switch (side) {
+                    case "M" :
+                        this.guestUnderEdit = $scope.currentProject.fianceSideGuests[index];
+                        this.guestUnderEdit.side = "M";
+                    break;
+
+                    case "W" :
+                        this.guestUnderEdit = $scope.currentProject.fianceeSideGuests[index];
+                        this.guestUnderEdit.side = "W";
+                    break;
+                }
             },
 
-            guestEditDone: function () {
+            guestEditDone: function (side) {
                 var self = this;
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
-                    function (data) {
-                        self._clear();
-                        toastr.success('GUEST EDIT SUCCESS');
-                    },
-                    function (err) {
-                        toastr.error('ERROR: Guest_M edit AJAX failed');
-                        throw new Error('ERROR: Guest_M edit AJAX failed' + err);
-                    });
+                switch (side){
+                    case "M":
+                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
+                            function (data) {
+                                self._clear();
+                                toastr.success('GUEST EDIT SUCCESS');
+                            },
+                            function (err) {
+                                toastr.error('ERROR: Guest_M edit AJAX failed');
+                                throw new Error('ERROR: Guest_M edit AJAX failed' + err);
+                            });
+                    break;
+
+                    case "W":
+                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
+                            function (data) {
+                                self._clear();
+                                toastr.success('GUEST EDIT SUCCESS');
+                            },
+                            function (err) {
+                                toastr.error('ERROR: Guest_W edit AJAX failed');
+                                throw new Error('ERROR: Guest_W edit AJAX failed' + err);
+                            });
+                    break;
+                }
+
             },
 
-            guestDelete: function (index) {
-                $scope.currentProject.fianceSideGuests.splice(index, 1);
-
+            guestDelete: function (guest) {
                 var self = this;
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject,"/fianceSideGuests").then(
-                    function (data) {
-                        self._clear();
-                        toastr.success('GUEST DELETED SUCCESS');
-                    },
-                    function (err) {
-                        toastr.error('ERROR: Guest_M delete AJAX failed');
-                        throw new Error('ERROR: Guest_M delete AJAX failed' + err);
-                    });
+                switch (guest.side) {
+                    case "M" :
+                        $scope.currentProject.fianceSideGuests.splice($scope.currentProject.fianceSideGuests.indexOf(guest), 1);
+                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
+                            function (data) {
+                                self._clear();
+                                toastr.success('GUEST DELETED SUCCESS');
+                            },
+                            function (err) {
+                                toastr.error('ERROR: Guest_M delete AJAX failed');
+                                throw new Error('ERROR: Guest_M delete AJAX failed' + err);
+                            });
+                    break;
+
+                    case "W" :
+                        $scope.currentProject.fianceeSideGuests.splice($scope.currentProject.fianceeSideGuests.indexOf(guest), 1);
+                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
+                            function (data) {
+                                self._clear();
+                                toastr.success('GUEST DELETED SUCCESS');
+                            },
+                            function (err) {
+                                toastr.error('ERROR: Guest_W delete AJAX failed');
+                                throw new Error('ERROR: Guest_W delete AJAX failed' + err);
+                            });
+                        break;
+                }
+
             }
         };
 
