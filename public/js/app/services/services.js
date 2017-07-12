@@ -56,7 +56,6 @@ define(['angular'], function (angular) {
                         case "PUT" :
                             if(!keyURL){
                                 $http({method: "PUT", url: self.baseURL + data._id, data: data}).success(function (data) {
-                                    //$log.log('SERVICE ' + data );
                                     deferred.resolve(data);
                                 }).error(function (err) {
                                     toastr.error('ERROR: PUT method failed');
@@ -65,6 +64,20 @@ define(['angular'], function (angular) {
                                 });
                             }
                             if(keyURL){
+                                if(angular.isString(keyURL)){
+                                    switch (keyURL){
+                                        case "/fianceSideGuests":
+                                            $http({method: "PUT", url: self.baseURL + data._id + keyURL, data: data}).success(function (data) {
+                                                deferred.resolve(data);
+                                            }).error(function (err) {
+                                                toastr.error('ERROR: PUT method failed');
+                                                deferred.reject('ERROR: PUT method failed');
+                                                throw new Error('ERROR: PUT method failed: ' + err);
+                                            });
+                                            break;
+
+                                    }
+                                }
 
                             }
                             break;

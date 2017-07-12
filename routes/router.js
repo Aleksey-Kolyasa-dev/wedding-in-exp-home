@@ -16,7 +16,7 @@ router.get('/projects', function (req, res, next) {
             res.send(err);
         } else {
             res.json(projects);
-            console.log(projects);
+            //console.log(projects);
         }
     });
 });
@@ -28,7 +28,7 @@ router.get('/projects/:id', function (req, res, next) {
             res.send(err);
         }
         res.json(project);
-        console.log(project);
+        //console.log(project);
     });
 });
 
@@ -46,26 +46,56 @@ router.post('/projects', function (req, res, next) {
                res.send(err);
            }
            res.json(newProject);
-           console.log(newProject);
+           //console.log(newProject);
        });
    }
 });
+
 // PUT Single Project
 router.put('/projects/:id', function (req, res, next) {
     var project = req.body;
     var updatedProject = {};
 
+    console.log("CALL PUT BY: Default");
+
     if(project.fianceName && project.fianceeName){
         updatedProject.fianceName = project.fianceName;
         updatedProject.fianceeName = project.fianceeName;
-        /*updatedProject.weddingDate = project.weddingDate;
+        updatedProject.weddingDate = project.weddingDate;
         updatedProject.wedBudget = project.wedBudget;
         updatedProject.email = project.email;
         updatedProject.telephone = project.telephone;
         updatedProject.notes = project.notes;
         updatedProject.fianceSideGuests = project.fianceSideGuests;
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
-        console.log(updatedProject);*/
+        //console.log(updatedProject);
+    }
+    if(!updatedProject){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, updatedProject, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+        });
+    }
+});
+
+//PUT Single Project keyURL = /fianceSideGuests
+router.put('/projects/:id/fianceSideGuests', function (req, res, next) {
+    var project = req.body;
+    var updatedProject = {};
+
+    console.log("CALL PUT BY: /fianceSideGuests");
+
+    if(project.fianceName && project.fianceeName){
+        updatedProject.fianceName = project.fianceName;
+        updatedProject.fianceeName = project.fianceeName;
     }
     if(!updatedProject){
         res.status(400);
@@ -77,22 +107,22 @@ router.put('/projects/:id', function (req, res, next) {
             if(err){
                 res.send(err);
             }
-            console.log(project);
+            //console.log(project);
             res.json(project);
 
         });
     }
 });
 
-
 // DELETE Single Project
 router.delete('/projects/:id', function (req, res, next) {
+    console.log("CALL DELETE BY: default");
     db.weddings.remove({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
             res.send(err);
         }
         res.json(project);
-        console.log(project);
+        //console.log(project);
     });
 });
 

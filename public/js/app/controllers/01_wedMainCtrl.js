@@ -116,7 +116,7 @@ define(['angular'], function (angular) {
 
                         $scope.currentProject.fianceSideGuests.push(this.guestData);
 
-                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject).then(
+                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, null).then(
                             function (data) {
                                 self._clear();
                                 toastr.success('GUEST ADD SUCCESS');
@@ -137,7 +137,7 @@ define(['angular'], function (angular) {
 
             guestEditDone: function () {
                 var self = this;
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject).then(
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
                     function (data) {
                         self._clear();
                         toastr.success('GUEST EDIT SUCCESS');
@@ -152,7 +152,7 @@ define(['angular'], function (angular) {
                 $scope.currentProject.fianceSideGuests.splice(index, 1);
 
                 var self = this;
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject).then(
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject,"/fianceSideGuests").then(
                     function (data) {
                         self._clear();
                         toastr.success('GUEST DELETED SUCCESS');
