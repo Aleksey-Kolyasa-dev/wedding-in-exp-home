@@ -1,3 +1,39 @@
+.top-sub-menu{
+    float: left;
+}
+.top-sub-menu ul{
+    padding: 0;
+}
+.top-sub-menu ul li{
+    display: inline-block;
+    padding: 5px 7px;
+    /*border: 1px solid #ffffff;*/
+   /* background: hsla(291, 64%, 42%, 0.78);*/
+    background: hsla(286, 56%, 26%, 0.78);
+    margin: 0 !important;
+}
+.top-sub-menu-active,
+.top-sub-menu ul li:hover{
+     background: hsla(291, 64%, 42%, 0.78);
+    /*background: hsla(286, 56%, 26%, 0.78);*/
+}
+.top-sub-menu ul li:first-child{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.top-sub-menu ul li:last-child{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.top-sub-menu ul li a{
+    text-decoration: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 100%;
+}
+.guests-list-main{
+    clear: both;
+}
 .guests-list-main div{
     float: left;
 }
