@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
+var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
+//var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
 
 // Routes
 router.get('/', function (req, res) {
@@ -10,7 +11,7 @@ router.get('/', function (req, res) {
 
 
 // GET All Projects
-router.get('/projects', function (req, res, next) {
+router.get('/api', function (req, res, next) {
     db.weddings.find(function (err, projects) {
         if(err){
             res.send(err);
@@ -22,7 +23,7 @@ router.get('/projects', function (req, res, next) {
 });
 
 // GET Single Project
-router.get('/projects/:id', function (req, res, next) {
+router.get('/api/:id', function (req, res, next) {
     db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
             res.send(err);
@@ -33,7 +34,7 @@ router.get('/projects/:id', function (req, res, next) {
 });
 
 // POST Single Project
-router.post('/projects', function (req, res, next) {
+router.post('/api', function (req, res, next) {
    var newProject = req.body;
    if(!newProject.fianceName || !newProject.fianceeName || !newProject.weddingDate || !newProject.wedBudget || !newProject.email || !newProject.telephone) {
        res.status(400);
@@ -51,8 +52,8 @@ router.post('/projects', function (req, res, next) {
    }
 });
 
-// PUT Single Project
-router.put('/projects/:id', function (req, res, next) {
+// PUT Single Projects
+router.put('/api/:id', function (req, res, next) {
     var project = req.body;
     var updatedProject = {};
 
@@ -87,7 +88,7 @@ router.put('/projects/:id', function (req, res, next) {
 });
 
 // PUT Single Project keyURL = /fianceSideGuests
-router.put('/projects/:id/fianceSideGuests', function (req, res, next) {
+router.put('/api/:id/fianceSideGuests', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /fianceSideGuests");
 
@@ -108,7 +109,7 @@ router.put('/projects/:id/fianceSideGuests', function (req, res, next) {
 });
 
 // PUT Single Project keyURL = /fianceeSideGuests
-router.put('/projects/:id/fianceeSideGuests', function (req, res, next) {
+router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /fianceeSideGuests");
 
@@ -129,7 +130,7 @@ router.put('/projects/:id/fianceeSideGuests', function (req, res, next) {
 });
 
 // DELETE Single Project
-router.delete('/projects/:id', function (req, res, next) {
+router.delete('/api/:id', function (req, res, next) {
     console.log("CALL DELETE BY: default");
     db.weddings.remove({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
