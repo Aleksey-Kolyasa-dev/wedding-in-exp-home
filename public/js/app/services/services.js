@@ -8,9 +8,6 @@ define(['angular'], function (angular) {
 
     function ResourceService(toastr, $http, $q, $log, $location, wedURL) {
         return {
-            // 'http://localhost:2403/wedding/'
-            // 'http://localhost:27017/weddings/'
-            // 'https://mlab.com/databases/alkol_db/collections/weddings'
             baseURL: 'http://localhost:5000/api/',
             _ajaxRequest: function (method, url, data, keyURL) {
                 var self = this;

@@ -15,7 +15,7 @@ app.set('view engine', 'html');
 
 // Routes
 app.use('/', require('./routes/router'));
-app.use('/projects', require('./routes/router'));
+app.use('/api', require('./routes/router'));
 
 // Static folder
 app.use(express.static(path.join(__dirname, './public')));
