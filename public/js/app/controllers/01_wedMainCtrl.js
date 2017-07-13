@@ -7,6 +7,7 @@ define(['angular'], function (angular) {
         $scope.currentProject = {};
         $scope.projects = [];
         $scope.newProject = {};
+        $scope.currentProjectView = {};
         $scope.toDay = new Date;
         $location.path('/index');
         $scope.dynamicBackground = "main";
@@ -58,14 +59,14 @@ define(['angular'], function (angular) {
                     $timeout(function () {
                         $scope.currentProject = project;
                         $location.path('/project');
-                        $scope.currentProjectView = "budget";
+                        $scope.currentProjectView.mainMenu = "budget";
                         $scope.dynamicBackground = "project_main";
                         $scope.addNewGuests._clear();
                     }, 500);
                 } else {
                     $scope.currentProject = project;
                     $location.path('/project');
-                    $scope.currentProjectView = "budget";
+                    $scope.currentProjectView.mainMenu = "budget";
                     $scope.dynamicBackground = "project_main";
                     $scope.addNewGuests._clear();
                 }
@@ -76,16 +77,16 @@ define(['angular'], function (angular) {
         $scope.projectView = function (view) {
             switch (view) {
                 case "budget" :
-                    $scope.currentProjectView = "budget";
+                    $scope.currentProjectView.mainMenu = view;
                     break;
                 case "restaurant" :
-                    $scope.currentProjectView = "restaurant";
+                    $scope.currentProjectView.mainMenu = view;
                     break;
                 case "restaurantPlus" :
-                    $scope.currentProjectView = "restaurantPlus";
+                    $scope.currentProjectView.mainMenu = view;
                     break;
                 case "tamada" :
-                    $scope.currentProjectView = "tamada";
+                    $scope.currentProjectView.mainMenu = view;
                     break;
             }
         };
