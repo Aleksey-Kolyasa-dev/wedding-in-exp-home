@@ -17,8 +17,7 @@ define(['angular'], function (angular) {
                 result.then(function () {
                     switch (method) {
                         case "GET" :
-                            if (!url/* && method == "GET"*/) {
-
+                            if (!url) {
                                 $http({url: self.baseURL}).success(function (data) {
                                     deferred.resolve(data);
                                 }).error(function (err) {
@@ -26,10 +25,8 @@ define(['angular'], function (angular) {
                                     deferred.reject('ERROR: GET method failed');
                                     throw new Error('ERROR: GET method failed: ' + err);
                                 });
-
                             }
-                            if (url/* && method == "GET"*/) {
-
+                            if (url) {
                                 $http({url: self.baseURL + url}).success(function (data) {
                                     deferred.resolve(data);
                                 }).error(function (err) {
@@ -51,8 +48,12 @@ define(['angular'], function (angular) {
                             break;
 
                         case "PUT" :
-                            if(!keyURL){
-                                $http({method: "PUT", url: self.baseURL + data._id, data: data}).success(function (data) {
+                            if (!keyURL) {
+                                $http({
+                                    method: "PUT",
+                                    url: self.baseURL + data._id,
+                                    data: data
+                                }).success(function (data) {
                                     deferred.resolve(data);
                                 }).error(function (err) {
                                     toastr.error('ERROR: PUT method failed');
@@ -60,29 +61,36 @@ define(['angular'], function (angular) {
                                     throw new Error('ERROR: PUT method failed: ' + err);
                                 });
                             }
-                            if(keyURL){
-                                if(angular.isString(keyURL)){
-                                    switch (keyURL){
+                            if (keyURL) {
+                                if (angular.isString(keyURL)) {
+                                    switch (keyURL) {
                                         case "/fianceSideGuests":
-                                            $http({method: "PUT", url: self.baseURL + data._id + keyURL, data: data}).success(function (data) {
+                                            $http({
+                                                method: "PUT",
+                                                url: self.baseURL + data._id + keyURL,
+                                                data: data
+                                            }).success(function (data) {
                                                 deferred.resolve(data);
                                             }).error(function (err) {
                                                 toastr.error('ERROR: PUT method failed');
                                                 deferred.reject('ERROR: PUT method failed');
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
-                                        break;
+                                            break;
 
                                         case "/fianceeSideGuests":
-                                            $http({method: "PUT", url: self.baseURL + data._id + keyURL, data: data}).success(function (data) {
+                                            $http({
+                                                method: "PUT",
+                                                url: self.baseURL + data._id + keyURL,
+                                                data: data
+                                            }).success(function (data) {
                                                 deferred.resolve(data);
                                             }).error(function (err) {
                                                 toastr.error('ERROR: PUT method failed');
                                                 deferred.reject('ERROR: PUT method failed');
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
-                                        break;
-
+                                            break;
                                     }
                                 }
 
@@ -100,8 +108,6 @@ define(['angular'], function (angular) {
                             });
                             break;
                     }
-
-
                 }).catch(function (err) {
                     toastr.error("ERROR: AJAX ops faild");
                     $log.warn(err);
