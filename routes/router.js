@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
  var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
-// var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']); //
+// var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']); 
 
 // Routes
 router.get('/', function (req, res) {
