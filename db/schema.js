@@ -41,12 +41,12 @@ var WeddingSchema = new mongoose.Schema({
         "id": "email",
         "order": 4
     },
-    "telephone": {
-        "name": "telephone",
+    "telephones": {
+        "name": "telephones",
         "type": "string",
         "typeLabel": "string",
         "required": true,
-        "id": "telephone",
+        "id": "telephones",
         "order": 5
     },
     "notes": {
