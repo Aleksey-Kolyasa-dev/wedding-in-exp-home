@@ -18,16 +18,24 @@ define(['angular'], function (angular) {
                 $scope.projects = projects;
             });
         }
-
         updateProjectsList();
 
         // New Project Fn
-        $scope.createNewProject = function () {
-            $scope.newProject.weddingDate = AppService._dateStringToObject($scope.newProject.weddingDate);
-            $scope.newProject.fianceSideGuests = [];
-            $scope.newProject.fianceeSideGuests = [];
+        $scope.createNewProject = function (newProject) {
+            // New Project Constructor
+            function NewProjectCtor(project) {
+                this.fianceName = project.fianceName;
+                this.fianceeName = project.fianceeName;
+                this.weddingDate = AppService._dateStringToObject(project.weddingDate);
+                this.wedBudget = project.wedBudget;
+                this.email = project.email;
+                this.telephones = project.telephones;
+                this.notes = project.notes;
+                this.fianceSideGuests = [];
+                this.fianceeSideGuests = [];
+            }
 
-            ResourceService._ajaxRequest("POST", null, $scope.newProject)
+            ResourceService._ajaxRequest("POST", null, new NewProjectCtor(newProject))
                 .then(function (project) {
                     $scope.currentProject = project;
                     $scope.newProject = {};
@@ -49,7 +57,7 @@ define(['angular'], function (angular) {
         $scope.goToMain = function () {
             $location.path('/index');
             $scope.currentProject = {};
-            $scope.dynamicBackground = "main";
+            //$scope.dynamicBackground = "main";
         };
 
         // Go and Load selected Project
@@ -60,14 +68,14 @@ define(['angular'], function (angular) {
                         $scope.currentProject = project;
                         $location.path('/project');
                         $scope.currentProjectView.mainMenu = "budget";
-                        $scope.dynamicBackground = "project_main";
+                        //$scope.dynamicBackground = "project_main";
                         $scope.addNewGuests._clear();
                     }, 500);
                 } else {
                     $scope.currentProject = project;
                     $location.path('/project');
                     $scope.currentProjectView.mainMenu = "budget";
-                    $scope.dynamicBackground = "project_main";
+                    //$scope.dynamicBackground = "project_main";
                     $scope.addNewGuests._clear();
                 }
             });
