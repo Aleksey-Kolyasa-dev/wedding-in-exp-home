@@ -236,7 +236,6 @@ define(['angular'], function (angular) {
             }
         };
 
-
     });// Ctrl end
 
     return wedControllers;
