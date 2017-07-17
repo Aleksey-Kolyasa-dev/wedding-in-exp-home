@@ -5,6 +5,7 @@ require.config({
 		'app'             : '../js/app/app',
 		'services'        : '../js/app/services/services',
 		'controllers'     : '../js/app/controllers/01_wedMainCtrl',
+		'newProjectCtrlModule' : '../js/app/controllers/02_wedMain_newProject',
         'directives'     : '../js/app/directives/directives',
 		'jQuery'		  : '../libs/js/jquery.min',
 		'jQueryUI'        : '../libs/js/jquery-ui.min',
@@ -38,9 +39,13 @@ require.config({
 			deps : ['angularAnimate'],
 			exports : 'angularToastr'
 		},
+        'newProjectCtrlModule' : {
+            deps : ['controllers'],
+            exports : 'newProjectCtrlModule'
+        },
 		'twitterBootstrap' : ['jQuery'],
 		'app' : {
-			deps : ['angularToastr', 'angularRoute','twitterBootstrap', 'services', 'controllers', 'directives']
+			deps : ['angularToastr', 'angularRoute','twitterBootstrap', 'services', 'newProjectCtrlModule', 'directives']
 		}
 	},
 

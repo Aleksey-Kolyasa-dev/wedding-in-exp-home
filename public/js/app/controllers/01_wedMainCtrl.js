@@ -2,11 +2,12 @@ define(['angular'], function (angular) {
     "use strict";
     var wedControllers = angular.module('wedControllers', ['wedServices']);
 
-    wedControllers.controller('wedMainCtrl', function ($scope, $log, $location, $timeout, toastr, ResourceService, AppService) {
+    wedControllers.controller('wedMainCtrl', wedMainCtrl);
+
+    function wedMainCtrl($scope, $log, $location, $timeout, toastr, ResourceService, AppService) {
         // Default Values
         $scope.currentProject = {};
         $scope.projects = [];
-        $scope.newProject = {};
         $scope.currentProjectView = {};
         $scope.toDay = new Date;
         $location.path('/index');
@@ -20,33 +21,10 @@ define(['angular'], function (angular) {
         }
         updateProjectsList();
 
-        // New Project Fn
-        $scope.createNewProject = function (newProject) {
-            // New Project Constructor
-            function NewProjectCtor(project) {
-                this.fianceName = project.fianceName;
-                this.fianceeName = project.fianceeName;
-                this.weddingDate = AppService._dateStringToObject(project.weddingDate);
-                this.wedBudget = project.wedBudget;
-                this.email = project.email;
-                this.telephones = project.telephones;
-                this.notes = project.notes;
-                this.fianceSideGuests = [];
-                this.fianceeSideGuests = [];
-            }
-
-            ResourceService._ajaxRequest("POST", null, new NewProjectCtor(newProject))
-                .then(function (project) {
-                    $scope.currentProject = project;
-                    $scope.newProject = {};
-                    updateProjectsList();
-                    toastr.success("НОВЫЙ ПРОЕКТ СВАДЬБЫ " + $scope.currentProject.fianceName + " и " + $scope.currentProject.fianceeName + " СОЗДАН УСПЕШНО!");
-                })
-                .catch(function (err) {
-                    toastr.error("ERROR: Create New Project ops failed");
-                    $log.warn("ERROR: Create New Project ops failed", err);
-                });
-        };
+        // Events handler
+        $scope.$on('newProjEvent', function () {
+            updateProjectsList();
+        });
 
         // Filter for shift expired dated projects to Archive
         $scope.projectListDateCheck = function (project) {
@@ -54,28 +32,25 @@ define(['angular'], function (angular) {
         };
 
         // Exit to Home Page
-        $scope.goToMain = function () {
+        $scope.goToHomePage = function () {
             $location.path('/index');
             $scope.currentProject = {};
-            //$scope.dynamicBackground = "main";
         };
 
         // Go and Load selected Project
-        $scope.goToProject = function (id, archive) {
+        $scope.goToSelectedProject = function (id, archive) {
             ResourceService._ajaxRequest("GET", id, null).then(function (project) {
                 if (archive) {
                     $timeout(function () {
                         $scope.currentProject = project;
                         $location.path('/project');
                         $scope.currentProjectView.mainMenu = "budget";
-                        //$scope.dynamicBackground = "project_main";
                         $scope.addNewGuests._clear();
                     }, 500);
                 } else {
                     $scope.currentProject = project;
                     $location.path('/project');
                     $scope.currentProjectView.mainMenu = "budget";
-                    //$scope.dynamicBackground = "project_main";
                     $scope.addNewGuests._clear();
                 }
             });
@@ -244,7 +219,7 @@ define(['angular'], function (angular) {
             }
         };
 
-    });// Ctrl end
+    }// Ctrl end
 
     return wedControllers;
 });

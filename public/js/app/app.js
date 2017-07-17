@@ -8,6 +8,7 @@ define([
 	'twitterBootstrap',
 	'services',
 	'controllers',
+	'newProjectCtrlModule',
 	'directives',
 	'angularRuLocale'
 ], function(angular){
@@ -18,6 +19,7 @@ define([
 		'ngAnimate',
         'toastr',
         'wedControllers',
+		'newProjectCtrlModule',
 		'wedServices',
 		'wedDerictives'
 	]);
@@ -25,7 +27,7 @@ define([
 	wedInApp.config(['$routeProvider',function ($routeProvider) {
 
 		$routeProvider.when('/index', {
-			templateUrl : '/views/main_page/00_main_page.html'
+			templateUrl : '/views/home_page/00_home_page.html'
 		}).when('/project', {
             templateUrl : '/views/projects/00_projects_main.html'
         })
