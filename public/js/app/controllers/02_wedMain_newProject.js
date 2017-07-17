@@ -34,6 +34,8 @@ define(['angular'], function (angular) {
                     $log.warn("ERROR: Create New Project ops failed", err);
                 });
         };
-    }
 
+
+
+    } // End of newProjectCtrl
 });
