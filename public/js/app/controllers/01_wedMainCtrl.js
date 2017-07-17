@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
     wedControllers.controller('wedMainCtrl', wedMainCtrl);
 
-    function wedMainCtrl($scope, $log, $location, $timeout, toastr, ResourceService, AppService) {
+    function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, ResourceService, AppService) {
         // Default Values
         $scope.currentProject = {};
         $scope.projects = [];
@@ -17,12 +17,15 @@ define(['angular'], function (angular) {
         function updateProjectsList() {
             ResourceService._ajaxRequest("GET", null, null).then(function (projects) {
                 $scope.projects = projects;
+            }).catch(function (err) {
+                toastr.error("ERROR: GET init data failed");
+                $log.warn("ERROR: GET init data failed", err);
             });
         }
         updateProjectsList();
 
         // Events handler
-        $scope.$on('newProjEvent', function () {
+        $scope.$on('projectsListChange', function () {
             updateProjectsList();
         });
 
@@ -35,6 +38,13 @@ define(['angular'], function (angular) {
         $scope.goToHomePage = function () {
             $location.path('/index');
             $scope.currentProject = {};
+        };
+
+        // Edit project init
+        $scope.editProject = function (id) {
+            $rootScope.$broadcast('editProject', {
+                id : id
+            });
         };
 
         // Go and Load selected Project

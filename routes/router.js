@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
- var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
-// var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']); 
+var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
+// var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
 
 // Routes
 router.get('/', function (req, res) {
@@ -65,7 +65,7 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.weddingDate = project.weddingDate;
         updatedProject.wedBudget = project.wedBudget;
         updatedProject.email = project.email;
-        updatedProject.telephone = project.telephone;
+        updatedProject.telephones = project.telephones;
         updatedProject.notes = project.notes;
         updatedProject.fianceSideGuests = project.fianceSideGuests;
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
@@ -131,7 +131,7 @@ router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
 
 // DELETE Single Project
 router.delete('/api/:id', function (req, res, next) {
-    console.log("CALL DELETE BY: default");
+    console.log("CALL DELETE BY: _id");
     db.weddings.remove({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
             res.send(err);

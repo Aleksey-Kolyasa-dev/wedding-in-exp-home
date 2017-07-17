@@ -99,12 +99,12 @@ define(['angular'], function (angular) {
 
                         case "DELETE" :
                             $http({method: "DELETE", url: self.baseURL + url}).success(function (data) {
-                                //deferred.resolve(data);
-                                toastr.info('User with name ' + data.name + ' was deleted');
+                                deferred.resolve(data);
+                                //toastr.warning('DELETE OPS SUCCESS');
                             }).error(function (err) {
-                                toastr.error('DELETE: PUT method failed');
-                                deferred.reject('DELETE: PUT method failed');
-                                throw new Error('DELETE: PUT method failed: ' + err);
+                                toastr.error('ERROR: DELETE method failed');
+                                deferred.reject('ERROR: DELETE method failed');
+                                throw new Error('ERROR: DELETE method failed: ' + err);
                             });
                             break;
                     }
@@ -124,6 +124,23 @@ define(['angular'], function (angular) {
                 if (angular.isString(dateString)) {
                     var dateArr = dateString.split('.');
                     return new Date(dateArr[2], dateArr[1] - 1, dateArr[0]);
+                }
+                else {
+                    toastr.error('ERROR: Date transformation error');
+                    throw new Error('ERROR: Date transformation error');
+                }
+            },
+            _objectTodateString: function (dateString) {
+                if (angular.isString(dateString)) {
+                    var date = new Date(dateString);
+                    var dateArr = [date.getDate(), date.getMonth() + 1, date.getFullYear()];
+                    if(dateArr[0] < 10){
+                        dateArr[0] = "0" + dateArr[1];
+                    }
+                    if(dateArr[1] < 10){
+                        dateArr[1] = "0" + dateArr[1];
+                    }
+                    return dateArr.join('.');
                 }
                 else {
                     toastr.error('ERROR: Date transformation error');
