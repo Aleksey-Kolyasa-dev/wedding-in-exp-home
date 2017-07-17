@@ -38,4 +38,6 @@ define(['angular'], function (angular) {
 
 
     } // End of newProjectCtrl
+
+    return newProjectCtrlModule;
 });

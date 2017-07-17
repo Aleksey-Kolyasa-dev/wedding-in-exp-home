@@ -5,7 +5,7 @@ require.config({
 		'app'             : '../js/app/app',
 		'services'        : '../js/app/services/services',
 		'controllers'     : '../js/app/controllers/01_wedMainCtrl',
-		'newProjectCtrlModule' : '../js/app/controllers/02_wedMain_newProject',
+		'newProjectCtrlModule' : '../js/app/controllers/02_wedMain_newProjectCtrl',
         'directives'     : '../js/app/directives/directives',
 		'jQuery'		  : '../libs/js/jquery.min',
 		'jQueryUI'        : '../libs/js/jquery-ui.min',
