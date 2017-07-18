@@ -1,3 +1,13 @@
+.info-panel{
+    width: 100%;
+    display: block;
+    background: rgba(37, 17, 144, 0.24);
+    color: #ffffff;
+    font-size: 120%;
+    padding: 3px 15px;
+    border-bottom: 1px solid #ffffff;
+
+}
 .top-sub-menu{
     float: left;
 }
