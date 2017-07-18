@@ -52,7 +52,7 @@ define(['angular'], function (angular) {
 
         // Apply changes
         $scope.editProjectApply = function(editedProject){
-            $scope.deleteProjectTriger = false;
+            $scope.deleteProjectTrigger = false;
             if(editedProject.weddingDate.length < 12){
                 editedProject.weddingDate = AppService._dateStringToObject(editedProject.weddingDate);
             }
@@ -73,7 +73,7 @@ define(['angular'], function (angular) {
             ResourceService._ajaxRequest("DELETE", id, null, null).then(function (data) {
                 toastr.warning('PROJECT WAS DELETED');
                 $scope.$emit('projectsListChange');
-                $scope.deleteProjectTriger = false;
+                $scope.deleteProjectTrigger = false;
             }).catch(function (err) {
                 toastr.error("ERROR: DELETE PROJECT AJAX failed");
                 $log.warn("ERROR: DELETE PROJECT AJAX failed", err);
