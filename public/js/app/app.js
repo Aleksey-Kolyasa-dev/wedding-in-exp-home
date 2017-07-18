@@ -9,6 +9,7 @@ define([
 	'services',
 	'controllers',
 	'newProjectCtrlModule',
+	'restaurantCtrlModule',
 	'directives',
 	'angularRuLocale'
 ], function(angular){
@@ -20,6 +21,7 @@ define([
         'toastr',
         'wedControllers',
 		'newProjectCtrlModule',
+		'restaurantCtrlModule',
 		'wedServices',
 		'wedDerictives'
 	]);
