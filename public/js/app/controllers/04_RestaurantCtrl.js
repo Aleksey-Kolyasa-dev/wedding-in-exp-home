@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
     restaurantCtrlModule.controller('restaurantMainCtrl', restaurantMainCtrl);
 
-    function restaurantMainCtrl($scope, $log, toastr, ResourceService) {
+    function restaurantMainCtrl($scope, $log, toastr, ResourceService, $filter) {
         // Add new guests (in restaurant)
         $scope.addNewGuests = {
             newMguestName: null,
@@ -149,6 +149,22 @@ define(['angular'], function (angular) {
 
             }
         };
-    }
+
+        $scope.guestsQty = function (project) {
+            if($scope.currentProjectView.mainMenu == 'restaurant'){
+                var filtArrM = project.fianceSideGuests.filter(function (guest) {
+                    return guest.guestWillBe == true;
+                });
+                var filtArrW = project.fianceeSideGuests.filter(function (guest) {
+                    return guest.guestWillBe == true;
+                });
+                var result = filtArrM.length + filtArrW.length + 2;
+                $scope.currentProject.guestsQty = result;
+                return result;
+            }
+        };
+
+    } // Ctrl End
+
     return restaurantCtrlModule;
 });

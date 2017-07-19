@@ -10,8 +10,8 @@
         <h2>РЕСТОРАН</h2>
     </header>
     <div class="info-panel">
-        <span style="font-style: italic">Количество гостей:
-            {{(currentProject.fianceSideGuests | filter : {guestWillBe:'true'}).length + (currentProject.fianceeSideGuests | filter : {guestWillBe:'true'}).length + 2}} чел.
+        <span style="font-style: italic">
+            Количество гостей:  {{guestsQty(currentProject)}} чел.
         </span>
     </div>
     <div class="guests-list-main">

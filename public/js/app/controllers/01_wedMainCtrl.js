@@ -38,6 +38,7 @@ define(['angular'], function (angular) {
         $scope.goToHomePage = function () {
             $location.path('/index');
             $scope.currentProject = {};
+            $scope.currentProjectView.mainMenu = null;
         };
 
         // Edit project init
@@ -54,12 +55,14 @@ define(['angular'], function (angular) {
                     $timeout(function () {
                         $scope.currentProject = project;
                         $location.path('/project');
-                        $scope.currentProjectView.mainMenu = "budget";
+                        //** $scope.currentProjectView.mainMenu = "budget";
+                        $scope.currentProjectView.mainMenu = "restaurant";
                     }, 500);
                 } else {
                     $scope.currentProject = project;
                     $location.path('/project');
-                    $scope.currentProjectView.mainMenu = "budget";
+                    //** $scope.currentProjectView.mainMenu = "budget";
+                    $scope.currentProjectView.mainMenu = "restaurant";
                 }
             });
         };
