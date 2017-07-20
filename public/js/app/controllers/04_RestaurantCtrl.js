@@ -167,7 +167,7 @@ define(['angular'], function (angular) {
                     return guest.guestWillBe == true;
                 });
                 var result = filtArrM.length + filtArrW.length + 2;
-                $scope.currentProject.guestsQty = result;
+                $scope.currentProject.restaurant.guestsQty = result;
                 return result;
             }
         };

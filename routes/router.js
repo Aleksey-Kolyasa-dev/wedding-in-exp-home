@@ -69,6 +69,7 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.notes = project.notes;
         updatedProject.fianceSideGuests = project.fianceSideGuests;
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
+        updatedProject.restaurant = project.restaurant;
         //console.log(updatedProject);
     }
     if(!updatedProject){
@@ -98,7 +99,7 @@ router.put('/api/:id/fianceSideGuests', function (req, res, next) {
             "error" : "PUT ERROR: validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { fianceSideGuests : project.fianceSideGuests, guestsQty : project.guestsQty}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { fianceSideGuests : project.fianceSideGuests, restaurant:{ guestsQty : project.restaurant.guestsQty}}}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }
@@ -119,7 +120,7 @@ router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
             "error" : "PUT ERROR: validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { fianceeSideGuests : project.fianceeSideGuests, guestsQty : project.guestsQty}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { fianceeSideGuests : project.fianceeSideGuests, restaurant:{ guestsQty : project.restaurant.guestsQty}}}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }

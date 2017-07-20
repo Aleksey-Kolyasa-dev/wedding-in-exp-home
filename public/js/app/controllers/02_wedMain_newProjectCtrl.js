@@ -18,7 +18,9 @@ define(['angular'], function (angular) {
                 this.notes = project.notes;
                 this.fianceSideGuests = [];
                 this.fianceeSideGuests = [];
-                this.guestsQty = 2;
+                this.restaurant = {
+                    guestsQty : 2
+                };
             }
 
             ResourceService._ajaxRequest("POST", null, new NewProjectCtor(newProject))
