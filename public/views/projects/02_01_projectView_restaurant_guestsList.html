@@ -58,13 +58,13 @@
                         <input type="number" ng-model="addNewGuests.newMguestGroup" style="width:70px" class="new-guest-input" placeholder="гр.№">
                     </td>
                     <td >
-                        <input
+                        <button
                                 type="button"
                                 ng-click="addNewGuests.addNewGuest('M', addNewGuests.newMguestName, addNewGuests.newMguestRelation, addNewGuests.newMguestGroup)"
                                 ng-disabled="!addNewGuests.newMguestName || !addNewGuests.newMguestRelation || !addNewGuests.newMguestGroup"
-                                style="width:40px; height:30px"
+                                style="width:34px; height:30px"
                                 class="btn btn-success btn-xs"
-                                value="+">
+                                ><span class="glyphicon glyphicon-plus"></span></button>
                     </td>
                 </tr>
                 </tbody>
@@ -127,13 +127,13 @@
                         <input type="number" ng-model="addNewGuests.newWguestGroup" style="width:70px" class="new-guest-input" placeholder="гр.№">
                     </td>
                     <td >
-                        <input
+                        <button
                                 type="button"
                                 ng-click="addNewGuests.addNewGuest('W', addNewGuests.newWguestName, addNewGuests.newWguestRelation, addNewGuests.newWguestGroup)"
                                 ng-disabled="!addNewGuests.newWguestName || !addNewGuests.newWguestRelation || !addNewGuests.newWguestGroup"
-                                style="width:40px; height:30px"
+                                style="width:34px; height:30px"
                                 class="btn btn-success btn-xs"
-                                value="+">
+                                ><span class="glyphicon glyphicon-plus"></span></button>
                     </td>
                 </tr>
                 </tbody>
