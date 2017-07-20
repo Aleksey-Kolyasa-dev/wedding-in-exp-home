@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
     restaurantCtrlModule.controller('restaurantMainCtrl', restaurantMainCtrl);
 
-    function restaurantMainCtrl($scope, $log, toastr, ResourceService, $filter) {
+    function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService, $filter) {
         // Add new guests (in restaurant)
         $scope.addNewGuests = {
             newMguestName: null,
@@ -94,7 +94,9 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
                             function (data) {
                                 self._clear();
-                                toastr.success('GUEST EDIT SUCCESS');
+                                if(_env._dev){
+                                    toastr.success('GUEST EDIT SUCCESS');
+                                }
                             },
                             function (err) {
                                 toastr.error('ERROR: Guest_M edit AJAX failed');
@@ -106,7 +108,9 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
                             function (data) {
                                 self._clear();
-                                toastr.success('GUEST EDIT SUCCESS');
+                                if(_env._dev){
+                                    toastr.success('GUEST EDIT SUCCESS');
+                                }
                             },
                             function (err) {
                                 toastr.error('ERROR: Guest_W edit AJAX failed');
@@ -125,7 +129,9 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
                             function (data) {
                                 self._clear();
-                                toastr.success('GUEST DELETED SUCCESS');
+                                if(_env._dev){
+                                    toastr.success('GUEST DELETED SUCCESS');
+                                }
                             },
                             function (err) {
                                 toastr.error('ERROR: Guest_M delete AJAX failed');
@@ -138,7 +144,9 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
                             function (data) {
                                 self._clear();
-                                toastr.success('GUEST DELETED SUCCESS');
+                                if(_env._dev){
+                                    toastr.success('GUEST DELETED SUCCESS');
+                                }
                             },
                             function (err) {
                                 toastr.error('ERROR: Guest_W delete AJAX failed');

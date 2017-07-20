@@ -3,12 +3,20 @@ define(['angular'], function (angular) {
     var wedServices = angular.module('wedServices', ['toastr', 'ngAnimate']);
 
     //wedServices.constant('wedURL', 'http://localhost:2403/wedding/');
+    wedServices.service('_env', [_env]);
     wedServices.service('ResourceService', ['toastr', '$http', '$q', '$log', '$location', ResourceService]);
     wedServices.service('AppService', ['toastr', AppService]);
+
+    function _env() {
+        return {
+            _dev : true
+            };
+    }
 
     function ResourceService(toastr, $http, $q, $log, $location, wedURL) {
         return {
             baseURL: 'http://localhost:5000/api/',
+            _devEnv : true,
             _ajaxRequest: function (method, url, data, keyURL) {
                 var self = this;
                 var deferred = $q.defer();

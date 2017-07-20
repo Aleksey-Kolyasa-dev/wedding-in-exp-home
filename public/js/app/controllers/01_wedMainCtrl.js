@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
     wedControllers.controller('wedMainCtrl', wedMainCtrl);
 
-    function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, ResourceService, AppService) {
+    function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, ResourceService, AppService) {
         // Default Values
         $scope.currentProject = {};
         $scope.projects = [];

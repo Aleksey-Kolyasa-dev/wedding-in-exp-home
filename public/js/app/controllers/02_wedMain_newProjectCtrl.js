@@ -5,7 +5,7 @@ define(['angular'], function (angular) {
     newProjectCtrlModule.controller('newProjectCtrl', newProjectCtrl);
     newProjectCtrlModule.controller('editProjectCtrl', editProjectCtrl);
 
-    function newProjectCtrl($scope, $log, toastr, ResourceService, AppService) {
+    function newProjectCtrl($scope, $log, toastr, _env, ResourceService, AppService) {
         $scope.createNewProject = function (newProject) {
             // New Project Constructor
             function NewProjectCtor(project) {
@@ -27,8 +27,9 @@ define(['angular'], function (angular) {
                     $scope.newProject = {};
                     // Emit 'newProject' event
                     $scope.$emit('projectsListChange');
-
-                    toastr.success("НОВЫЙ ПРОЕКТ СВАДЬБЫ " + project.fianceName + " и " + project.fianceeName + " СОЗДАН УСПЕШНО!");
+                    if(_env._dev){
+                        toastr.success("НОВЫЙ ПРОЕКТ СВАДЬБЫ " + project.fianceName + " и " + project.fianceeName + " СОЗДАН УСПЕШНО!");
+                    }
                 })
                 .catch(function (err) {
                     toastr.error("ERROR: Create New Project ops failed");
@@ -37,7 +38,7 @@ define(['angular'], function (angular) {
         };
     } // End of newProjectCtrl
 
-    function editProjectCtrl($scope, $log, toastr, ResourceService, AppService) {
+    function editProjectCtrl($scope, $log, toastr, _env, ResourceService, AppService) {
         $scope.editProject = {};
 
         // On 'editProject' Event => get edited project
@@ -61,7 +62,9 @@ define(['angular'], function (angular) {
             ResourceService._ajaxRequest("PUT", null, editedProject, null).then(
                 function (project) {
                     $log.log(project);
-                    toastr.info('PROJECT EDITED WITH SUCCESS');
+                    if(_env._dev){
+                        toastr.info('PROJECT EDITED WITH SUCCESS');
+                    }
                     $scope.$emit('projectsListChange');
                 },
                 function (err) {
@@ -72,7 +75,9 @@ define(['angular'], function (angular) {
 
         $scope.deleteProject = function (id) {
             ResourceService._ajaxRequest("DELETE", id, null, null).then(function (data) {
-                toastr.warning('PROJECT WAS DELETED');
+                if(_env._dev){
+                    toastr.warning('PROJECT WAS DELETED');
+                }
                 $scope.$emit('projectsListChange');
                 $scope.deleteProjectTrigger = false;
             }).catch(function (err) {
