@@ -130,6 +130,27 @@ router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
     }
 });
 
+// PUT Single Project keyURL = /quickView
+router.put('/api/:id/quickView', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /quickView");
+
+    if(!project.fianceName && !project.fianceeName){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { restaurant:{ quickView : project.restaurant.quickView}}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+        });
+    }
+});
+
 // DELETE Single Project
 router.delete('/api/:id', function (req, res, next) {
     console.log("CALL DELETE BY: _id");

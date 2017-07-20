@@ -172,6 +172,21 @@ define(['angular'], function (angular) {
             }
         };
 
+        $scope.quickView = function (project) {
+            project.restaurant.quickView = !project.restaurant.quickView;
+
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickView").then(
+                function (data) {
+                    if(_env._dev){
+                        toastr.success('view changed');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: Guest_M edit AJAX failed');
+                    throw new Error('ERROR: Guest_M edit AJAX failed' + err);
+                });
+        }
+
     } // Ctrl End
 
     return restaurantCtrlModule;
