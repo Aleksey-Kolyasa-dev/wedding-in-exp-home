@@ -2,22 +2,36 @@
     <header class="proj-view-header text-right">
         <div class="top-sub-menu">
             <ul>
-                <li ng-show="!currentProject.restaurant.quickView" class="top-sub-menu-first">
-                    <a ng-click="quickView(currentProject)">
-                         <span class="glyphicon glyphicon-pushpin"></span>  Подробно
-                    </a>
-                </li>
-                <li ng-show="currentProject.restaurant.quickView" class="top-sub-menu-first">
-                    <a ng-click="quickView(currentProject)">
-                         <span class="glyphicon glyphicon-pushpin"></span> Быстро
-                    </a>
-                </li>
+                <li><a>Гости</a></li>
                 <li><a>Ресторан</a></li>
                 <li><a>Результат</a></li>
             </ul>
         </div>
         <h2>РЕСТОРАН</h2>
     </header>
+    <div class="info-panel">
+        <div class="top-sub-menu-shift">
+            <ul>
+                <li ng-show="!currentProject.restaurant.quickView">
+                    <a ng-click="quickView(currentProject)" style="color: rgb(119, 119, 119)">
+                        <span class="glyphicon glyphicon-pushpin" style="color: #ffffff"></span>
+
+                    </a>
+                </li>
+                <li ng-show="currentProject.restaurant.quickView" style="background: rgba(0, 150, 136, 0.51);">
+                    <a ng-click="quickView(currentProject)">
+                        <span class="glyphicon glyphicon-pushpin" style="color: rgb(169, 241, 0);"></span>
+                        <strong>Быстрый расчет</strong>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <span style="font-style: italic">
+                Количество гостей:  {{guestsQty(currentProject)}} чел.
+            </span>
+        </div>
+    </div>
 
     <div ng-if="!currentProject.restaurant.quickView">
         <ng-include src="'/views/projects/02_01_projectView_restaurant_guestsList.html'"></ng-include>

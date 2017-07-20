@@ -4,9 +4,12 @@
     background: rgba(37, 17, 144, 0.24);
     color: #ffffff;
     font-size: 120%;
-    padding: 3px 15px;
+    padding: 3px 0px;
     border-bottom: 1px solid #ffffff;
 
+}
+.info-panel div{
+    display: inline-block;
 }
 .top-sub-menu{
     float: left;
@@ -17,8 +20,6 @@
 .top-sub-menu ul li{
     display: inline-block;
     padding: 5px 7px;
-    /*border: 1px solid #ffffff;*/
-   /* background: hsla(291, 64%, 42%, 0.78);*/
     background: hsla(286, 56%, 26%, 0.78);
     margin: 0 !important;
 }
@@ -27,8 +28,7 @@
      background: hsla(291, 64%, 42%, 0.78);
     /*background: hsla(286, 56%, 26%, 0.78);*/
 }
-
-.top-sub-menu-first{
+.top-sub-menu ul li:first-child{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
@@ -41,6 +41,28 @@
     cursor: pointer;
     color: #ffffff;
     font-size: 100%;
+}
+.top-sub-menu-shift{
+    /*padding: 1px 1px;*/
+    height: 24px;
+}
+.top-sub-menu-shift ul{
+    padding: 0;
+    margin-bottom: 0;
+}
+.top-sub-menu-shift ul li{
+    display: inline-block;
+    padding: 2px 7px;
+    /*background: rgba(37, 17, 144, 0.24);*/
+    margin: 0 !important;
+}
+.top-sub-menu-shift ul li a{
+    text-decoration: none;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 80%;
 }
 .guests-list-main{
     clear: both;
