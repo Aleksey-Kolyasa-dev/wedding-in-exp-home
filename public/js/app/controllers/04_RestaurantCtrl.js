@@ -159,17 +159,20 @@ define(['angular'], function (angular) {
         };
 
         $scope.guestsQty = function (project) {
-            if($scope.currentProjectView.mainMenu == 'restaurant'){
-                var filtArrM = project.fianceSideGuests.filter(function (guest) {
-                    return guest.guestWillBe == true;
-                });
-                var filtArrW = project.fianceeSideGuests.filter(function (guest) {
-                    return guest.guestWillBe == true;
-                });
-                var result = filtArrM.length + filtArrW.length + 2;
-                $scope.currentProject.restaurant.guestsQty = result;
-                return result;
+            if(!$scope.currentProjectView.restaurant.quickView){
+                if($scope.currentProjectView.mainMenu == 'restaurant'){
+                    var filtArrM = project.fianceSideGuests.filter(function (guest) {
+                        return guest.guestWillBe == true;
+                    });
+                    var filtArrW = project.fianceeSideGuests.filter(function (guest) {
+                        return guest.guestWillBe == true;
+                    });
+                    var result = filtArrM.length + filtArrW.length + 2;
+                    $scope.currentProject.restaurant.guestsQty = result;
+                    return result;
+                }
             }
+            
         };
 
         $scope.quickView = function (project) {

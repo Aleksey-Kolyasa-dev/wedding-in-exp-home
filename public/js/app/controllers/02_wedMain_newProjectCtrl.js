@@ -20,7 +20,12 @@ define(['angular'], function (angular) {
                 this.fianceeSideGuests = [];
                 this.restaurant = {
                     guestsQty : 2,
-                    quickView : false
+                    quickView : false,
+                    quickData : {
+                        quickGuestsQty : 2,
+                        quickCheck : 0,
+                        quickPercent : 0
+                    }
                 };
             }
 
