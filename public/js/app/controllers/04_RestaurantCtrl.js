@@ -159,7 +159,7 @@ define(['angular'], function (angular) {
         };
 
         $scope.guestsQty = function (project) {
-            if(!$scope.currentProjectView.restaurant.quickView){
+            if(!$scope.currentProject.restaurant.quickView){
                 if($scope.currentProjectView.mainMenu == 'restaurant'){
                     var filtArrM = project.fianceSideGuests.filter(function (guest) {
                         return guest.guestWillBe == true;
@@ -172,7 +172,9 @@ define(['angular'], function (angular) {
                     return result;
                 }
             }
-            
+            else {
+                return $scope.currentProject.restaurant.quickData.quickGuestsQty;
+            }
         };
 
         $scope.quickView = function (project) {
