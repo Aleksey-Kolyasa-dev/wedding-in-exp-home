@@ -113,6 +113,20 @@ define(['angular'], function (angular) {
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
                                             break;
+
+                                        case "/quickDataSave":
+                                            $http({
+                                                method: "PUT",
+                                                url: self.baseURL + data._id + keyURL,
+                                                data: data
+                                            }).success(function (data) {
+                                                deferred.resolve(data);
+                                            }).error(function (err) {
+                                                toastr.error('ERROR: PUT method failed');
+                                                deferred.reject('ERROR: PUT method failed');
+                                                throw new Error('ERROR: PUT method failed: ' + err);
+                                            });
+                                            break;
                                     }
                                 }
 

@@ -177,6 +177,7 @@ define(['angular'], function (angular) {
             }
         };
 
+        // Quick View ops.
         $scope.quickView = function (project) {
             project.restaurant.quickView = !project.restaurant.quickView;
 
@@ -191,6 +192,27 @@ define(['angular'], function (angular) {
                     toastr.error('ERROR: Guest_M edit AJAX failed');
                     throw new Error('ERROR: Guest_M edit AJAX failed' + err);
                 });
+        };
+
+        $scope.quickDataSave = function (quickData) {
+            if(angular.isNumber(quickData.quickGuestsQty) && angular.isNumber(quickData.quickCheck) && angular.isNumber(quickData.quickPercent)){
+
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickDataSave").then(
+                    function (data) {
+                        //console.log(data);
+                        if(_env._dev){
+                            toastr.success('quickData changed');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: quickData edit AJAX failed');
+                        throw new Error('ERROR: quickData edit AJAX failed' + err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: quickData number input failed');
+                throw new Error('ERROR: quickData number input failed' + err);
+            }
         }
 
     } // Ctrl End
