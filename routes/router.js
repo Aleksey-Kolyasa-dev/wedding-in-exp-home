@@ -141,7 +141,7 @@ router.put('/api/:id/quickView', function (req, res, next) {
             "error" : "PUT ERROR: validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { restaurant:{ quickView : project.restaurant.quickView}}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { restaurant: project.restaurant}}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }

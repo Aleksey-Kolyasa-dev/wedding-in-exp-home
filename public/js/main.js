@@ -15,7 +15,7 @@ require.config({
 		'angularToastr'	  		: '../libs/js/angular-toastr.tpls.min',
 		'angularRoute'	  		: '../libs/js/angular_route',
 		'twitterBootstrap' 		: '../libs/js/bootstrap.min',
-		'angularRuLocale'  		: 'https://code.angularjs.org/1.3.5/i18n/angular-locale_ru-by'
+		'angularRuLocale'  		: '../libs/js/misc/jquery.ui.datepicker-ru'
 	},
 
 	shim : 

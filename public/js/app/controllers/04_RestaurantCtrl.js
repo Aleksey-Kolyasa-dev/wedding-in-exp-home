@@ -182,6 +182,7 @@ define(['angular'], function (angular) {
 
             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickView").then(
                 function (data) {
+                    //console.log(data);
                     if(_env._dev){
                         toastr.success('view changed');
                     }
