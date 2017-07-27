@@ -2,19 +2,19 @@
     <form class="form" novalidate  name="quickDataForm">
         <div class="form-group quick-div">
             <label for="quick-guest-qty" class="control-label">Количество гостей</label>
-            <input type="number" required class="form-control quick-input" id="quick-guest-qty" ng-model="currentProject.restaurant.quickData.quickGuestsQty">
+            <input type="number" required class="form-control quick-input" id="quick-guest-qty" ng-model="currentProject.restaurant.quickData.quickGuestsQty"  ng-change="saveHideTrigger()">
         </div>
         <div class="form-group">
             <label for="quick-rest-check" class="control-label">Средний чек</label>
-            <input type="number" required class="form-control quick-input" id="quick-rest-check" ng-model="currentProject.restaurant.quickData.quickCheck">
+            <input type="number" required class="form-control quick-input" id="quick-rest-check" ng-model="currentProject.restaurant.quickData.quickCheck" ng-change="saveHideTrigger()">
         </div>
         <div class="form-group">
             <label for="quick-rest-percent" class="control-label">% обслуживания</label>
-            <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-percent" ng-model="currentProject.restaurant.quickData.quickPercent">
+            <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-percent" ng-model="currentProject.restaurant.quickData.quickPercent" ng-change="saveHideTrigger()">
         </div>
         <div class="form-group">
             <div class="col-xs-2">
-                <button type="submit" ng-click="quickDataSave(currentProject.restaurant.quickData)" ng-show="!quickDataForm.$invalid" class="btn btn-success btn-sm" style="margin-left: 35px">SAVE</button>
+                <button type="submit" ng-click="quickDataSave(currentProject.restaurant.quickData)" ng-hide="quickDataForm.$invalid || quickDataForm.$pristine || saveHide" class="btn btn-success btn-sm" style="margin-left: 35px">SAVE</button>
             </div>
         </div>
     </form>

@@ -199,7 +199,7 @@ define(['angular'], function (angular) {
 
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickDataSave").then(
                     function (data) {
-                        //console.log(data);
+                        $scope.saveHide = true;
                         if(_env._dev){
                             toastr.success('quickData changed');
                         }
@@ -213,6 +213,9 @@ define(['angular'], function (angular) {
                 toastr.error('ERROR: quickData number input failed');
                 throw new Error('ERROR: quickData number input failed' + err);
             }
+        };
+        $scope.saveHideTrigger = function () {
+            $scope.saveHide = false;
         }
 
     } // Ctrl End
