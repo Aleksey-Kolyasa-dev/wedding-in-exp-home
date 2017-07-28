@@ -25,7 +25,8 @@ define(['angular'], function (angular) {
                     quickData : {
                         quickGuestsQty : 2,
                         quickCheck : 0,
-                        quickPercent : 0
+                        quickPercent : 0,
+                        quickPlugs : 0,
                     }
 
                 };

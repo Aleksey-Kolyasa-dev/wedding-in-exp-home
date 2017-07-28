@@ -177,7 +177,7 @@ define(['angular'], function (angular) {
                 }
             }
             else {
-                var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck;
+                var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck + $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickPlugs;
                 $scope.currentProject.restaurant.restaurantTotal = (interQuick/100)*$scope.currentProject.restaurant.quickData.quickPercent + interQuick;
 
                 return $scope.currentProject.restaurant.quickData.quickGuestsQty;

@@ -151,7 +151,7 @@ router.put('/api/:id/quickView', function (req, res, next) {
     }
 });
 
-// PUT Single Project keyURL = /quickView
+// PUT Single Project keyURL = /quickDataSave
 router.put('/api/:id/quickDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /quickDataSave");

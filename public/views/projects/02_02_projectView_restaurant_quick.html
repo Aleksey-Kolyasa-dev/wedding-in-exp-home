@@ -1,16 +1,20 @@
 <div class="quick-main col-xs-2" style="margin-top: 20px">
-    <form class="form" novalidate  name="quickDataForm">
+    <form class="form" novalidate  name="quickDataForm" style="width: 195px">
         <div class="form-group quick-div">
             <label for="quick-guest-qty" class="control-label">Количество гостей</label>
             <input type="number" required class="form-control quick-input" id="quick-guest-qty" ng-model="currentProject.restaurant.quickData.quickGuestsQty"  ng-change="saveHideTrigger()">
         </div>
         <div class="form-group">
-            <label for="quick-rest-check" class="control-label">Средний чек</label>
+            <label for="quick-rest-check" class="control-label">Средний чек UAH</label>
             <input type="number" required class="form-control quick-input" id="quick-rest-check" ng-model="currentProject.restaurant.quickData.quickCheck" ng-change="saveHideTrigger()">
         </div>
         <div class="form-group">
-            <label for="quick-rest-percent" class="control-label">% обслуживания</label>
+            <label for="quick-rest-percent" class="control-label">% обслуживания UAH</label>
             <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-percent" ng-model="currentProject.restaurant.quickData.quickPercent" ng-change="saveHideTrigger()">
+        </div>
+        <div class="form-group">
+            <label for="quick-rest-plugs" class="control-label">Пробковый сбор UAH</label>
+            <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-plugs" ng-model="currentProject.restaurant.quickData.quickPlugs" ng-change="saveHideTrigger()">
         </div>
         <div class="form-group">
             <div class="col-xs-2">
