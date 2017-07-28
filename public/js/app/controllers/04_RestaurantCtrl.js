@@ -5,7 +5,22 @@ define(['angular'], function (angular) {
     restaurantCtrlModule.controller('restaurantMainCtrl', restaurantMainCtrl);
 
     function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService, $filter) {
-        // Add new guests (in restaurant)
+        // Default subView
+        $scope.subView = "guests";
+
+        // Subview shift Fn
+        $scope.subViewShift = function (view) {
+          switch (view){
+              case "guests" :
+                  $scope.subView = view;
+                  break;
+              case "restaurant" :
+                  $scope.subView = view;
+                  break;
+          }
+        };
+
+        // Add new guests Fn
         $scope.addNewGuests = {
             newMguestName: null,
             newMguestRelation: null,
@@ -158,6 +173,7 @@ define(['angular'], function (angular) {
             }
         };
 
+        // Guests Qty Fn
         $scope.guestsQty = function (project) {
             if(!$scope.currentProject.restaurant.quickView){
                 if($scope.currentProjectView.mainMenu == 'restaurant'){
@@ -170,8 +186,8 @@ define(['angular'], function (angular) {
                     var result = filtArrM.length + filtArrW.length + 2;
                     $scope.currentProject.restaurant.guestsQty = result;
 
-                    var interNorm = $scope.currentProject.restaurant.guestsQty * 600;
-                    $scope.currentProject.restaurant.restaurantTotal = (interNorm/100)*10 + interNorm;
+                    var interNorm = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.normalData.normalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.normalData.normalPlugs;
+                    $scope.currentProject.restaurant.restaurantTotal = (interNorm/100)*$scope.currentProject.restaurant.normalData.normalPercent + interNorm;
 
                     return result;
                 }
@@ -201,6 +217,7 @@ define(['angular'], function (angular) {
                 });
         };
 
+        // Quick Data save Fn
         $scope.quickDataSave = function (quickData) {
             if(angular.isNumber(quickData.quickGuestsQty) && angular.isNumber(quickData.quickCheck) && angular.isNumber(quickData.quickPercent)){
 
@@ -221,6 +238,8 @@ define(['angular'], function (angular) {
                 throw new Error('ERROR: quickData number input failed' + err);
             }
         };
+
+        // Trigger for "SAVE" btn behavior
         $scope.saveHideTrigger = function () {
             $scope.saveHide = false;
         }

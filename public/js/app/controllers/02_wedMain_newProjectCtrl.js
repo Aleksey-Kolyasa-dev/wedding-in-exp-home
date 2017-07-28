@@ -22,11 +22,18 @@ define(['angular'], function (angular) {
                     guestsQty : 2,
                     quickView : false,
                     restaurantTotal: 0,
+                    address : null,
+                    notes : null,
                     quickData : {
                         quickGuestsQty : 2,
                         quickCheck : 0,
                         quickPercent : 0,
                         quickPlugs : 0,
+                    },
+                    normalData : {
+                        normalCheck : 0,
+                        normalPercent : 0,
+                        normalPlugs : 0
                     }
 
                 };

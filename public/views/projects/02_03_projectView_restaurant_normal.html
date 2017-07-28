@@ -1,0 +1,22 @@
+<div class="quick-main col-xs-2" style="margin-top: 20px">
+    <form class="form" novalidate  name="normalDataForm" style="width: 195px">
+        <div class="form-group">
+            <label for="quick-rest-check" class="control-label">Средний чек UAH</label>
+            <input type="number" required class="form-control quick-input" id="quick-rest-check" ng-model="currentProject.restaurant.normalData.normalCheck" ng-change="saveHideTrigger()">
+        </div>
+        <div class="form-group">
+            <label for="quick-rest-percent" class="control-label">% обслуживания UAH</label>
+            <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-percent" ng-model="currentProject.restaurant.normalData.normalPercent" ng-change="saveHideTrigger()">
+        </div>
+        <div class="form-group">
+            <label for="quick-rest-plugs" class="control-label">Пробковый сбор UAH</label>
+            <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-plugs" ng-model="currentProject.restaurant.normalData.normalPlugs" ng-change="saveHideTrigger()">
+        </div>
+        <div class="form-group">
+            <div class="col-xs-2">
+                <button type="submit" ng-click="quickDataSave(currentProject.restaurant.quickData)" ng-hide="normalDataForm.$invalid || normalDataForm.$pristine || saveHide" class="btn btn-success btn-sm" style="margin-left: 35px">SAVE</button>
+            </div>
+        </div>
+    </form>
+</div>
+

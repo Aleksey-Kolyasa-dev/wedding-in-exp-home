@@ -2,23 +2,24 @@
     <header class="proj-view-header text-right">
         <div class="top-sub-menu">
             <ul>
-                <li><a>Гости</a></li>
-                <li><a>Ресторан</a></li>
-                <li><a>Результат</a></li>
+                <li ng-if="!currentProject.restaurant.quickView"><a ng-click="subViewShift('guests')">Гости</a></li>
+                <li ng-if="!currentProject.restaurant.quickView"><a ng-click="subViewShift('restaurant')">Ресторан</a></li>
+                <li ng-if="false"><a>Результат</a></li>
             </ul>
         </div>
         <h2>РЕСТОРАН</h2>
     </header>
+
     <div class="info-panel">
         <div class="top-sub-menu-shift">
             <ul>
-                <li ng-show="!currentProject.restaurant.quickView">
+                <li ng-show="!currentProject.restaurant.quickView && subView == 'guests'">
                     <a ng-click="quickView(currentProject)" style="color: rgb(119, 119, 119)">
                         <span class="glyphicon glyphicon-pushpin" style="color: #ffffff"></span>
 
                     </a>
                 </li>
-                <li ng-show="currentProject.restaurant.quickView" style="background: rgba(0, 150, 136, 0.51);">
+                <li ng-show="currentProject.restaurant.quickView && subView == 'guests'" style="background: rgba(0, 150, 136, 0.51);">
                     <a ng-click="quickView(currentProject)">
                         <span class="glyphicon glyphicon-pushpin" style="color: rgb(169, 241, 0);"></span>
                         <strong>Быстрый расчет</strong>
@@ -34,18 +35,21 @@
             </div>
             <div style="margin-left: 20px">
                 <span style="font-style: italic">
-                    TOTAL:  {{currentProject.restaurant.restaurantTotal | filter : number}} UAH.
+                    TOTAL:  {{currentProject.restaurant.restaurantTotal | filter : number : 1}} UAH.
                 </span>
             </div>
 
         </div>
     </div>
 
-    <div ng-if="!currentProject.restaurant.quickView">
+    <div ng-show="!currentProject.restaurant.quickView && subView == 'guests'">
         <ng-include src="'/views/projects/02_01_projectView_restaurant_guestsList.html'"></ng-include>
     </div>
-    <div ng-if="currentProject.restaurant.quickView">
+    <div ng-show="currentProject.restaurant.quickView  && subView == 'guests'">
         <ng-include src="'/views/projects/02_02_projectView_restaurant_quick.html'"></ng-include>
+    </div>
+    <div ng-show="subView == 'restaurant'">
+        <ng-include src="'/views/projects/02_03_projectView_restaurant_normal.html'"></ng-include>
     </div>
 
 </div>
