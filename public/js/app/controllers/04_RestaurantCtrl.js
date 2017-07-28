@@ -169,10 +169,17 @@ define(['angular'], function (angular) {
                     });
                     var result = filtArrM.length + filtArrW.length + 2;
                     $scope.currentProject.restaurant.guestsQty = result;
+
+                    var interNorm = $scope.currentProject.restaurant.guestsQty * 600;
+                    $scope.currentProject.restaurant.restaurantTotal = (interNorm/100)*10 + interNorm;
+
                     return result;
                 }
             }
             else {
+                var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck;
+                $scope.currentProject.restaurant.restaurantTotal = (interQuick/100)*$scope.currentProject.restaurant.quickData.quickPercent + interQuick;
+
                 return $scope.currentProject.restaurant.quickData.quickGuestsQty;
             }
         };

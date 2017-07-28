@@ -21,11 +21,13 @@ define(['angular'], function (angular) {
                 this.restaurant = {
                     guestsQty : 2,
                     quickView : false,
+                    restaurantTotal: 0,
                     quickData : {
                         quickGuestsQty : 2,
                         quickCheck : 0,
                         quickPercent : 0
                     }
+
                 };
             }
 

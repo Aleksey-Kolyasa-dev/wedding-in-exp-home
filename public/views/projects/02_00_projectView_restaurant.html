@@ -27,9 +27,17 @@
             </ul>
         </div>
         <div>
-            <span style="font-style: italic">
-                Количество гостей:  {{guestsQty(currentProject)}} чел.
-            </span>
+            <div>
+                <span style="font-style: italic">
+                    Количество гостей:  {{guestsQty(currentProject)}} чел.
+                </span>
+            </div>
+            <div style="margin-left: 20px">
+                <span style="font-style: italic">
+                    TOTAL:  {{currentProject.restaurant.restaurantTotal | filter : number}} UAH.
+                </span>
+            </div>
+
         </div>
     </div>
 
