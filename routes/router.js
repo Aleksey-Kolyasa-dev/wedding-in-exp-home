@@ -135,7 +135,7 @@ router.put('/api/:id/quickView', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /quickView");
 
-    if(!project.fianceName && !project.fianceeName){
+    if(!project.restaurant){
         res.status(400);
         res.json({
             "error" : "PUT ERROR: validation failed"
@@ -156,7 +156,7 @@ router.put('/api/:id/quickDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /quickDataSave");
 
-    if(!project.fianceName && !project.fianceeName){
+    if(!project.restaurant.quickData){
         res.status(400);
         res.json({
             "error" : "PUT ERROR: quickDataSave validation failed"
