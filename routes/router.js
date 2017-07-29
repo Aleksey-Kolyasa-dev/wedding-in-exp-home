@@ -151,7 +151,7 @@ router.put('/api/:id/quickView', function (req, res, next) {
     }
 });
 
-// PUT Single Project keyURL = /quickDataSave
+// PUT Single Project RESTAURANT keyURL = /quickDataSave
 router.put('/api/:id/quickDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /quickDataSave");
@@ -160,6 +160,27 @@ router.put('/api/:id/quickDataSave', function (req, res, next) {
         res.status(400);
         res.json({
             "error" : "PUT ERROR: quickDataSave validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { restaurant: project.restaurant}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+        });
+    }
+});
+
+// PUT Single Project RESTAURANT keyURL = /generalDataSave
+router.put('/api/:id/generalDataSave', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /generalDataSave");
+
+    if(!project.restaurant.generalData){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: generalDataSave validation failed"
         });
     } else {
         db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { restaurant: project.restaurant}}, {}, function (err, project) {

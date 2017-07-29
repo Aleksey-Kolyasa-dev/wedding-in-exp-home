@@ -10,14 +10,14 @@ define(['angular'], function (angular) {
 
         // Subview shift Fn
         $scope.subViewShift = function (view) {
-          switch (view){
-              case "guests" :
-                  $scope.subView = view;
-                  break;
-              case "restaurant" :
-                  $scope.subView = view;
-                  break;
-          }
+            switch (view) {
+                case "guests" :
+                    $scope.subView = view;
+                    break;
+                case "restaurant" :
+                    $scope.subView = view;
+                    break;
+            }
         };
 
         // Add new guests Fn
@@ -54,11 +54,11 @@ define(['angular'], function (angular) {
                     this.guestData.guestGroup = group;
                     this.guestData.guestWillBe = true;
 
-                    switch (side){
+                    switch (side) {
                         // Fiance Side Guest
                         case "M":
                             $scope.currentProject.fianceSideGuests.push(this.guestData);
-                            ResourceService._ajaxRequest("PUT", null, $scope.currentProject,  "/fianceSideGuests").then(
+                            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
                                 function (data) {
                                     self._clear();
                                     toastr.success('GUEST ADD SUCCESS');
@@ -71,7 +71,7 @@ define(['angular'], function (angular) {
                         // Fiancee Side Guest
                         case "W":
                             $scope.currentProject.fianceeSideGuests.push(this.guestData);
-                            ResourceService._ajaxRequest("PUT", null, $scope.currentProject,  "/fianceeSideGuests").then(
+                            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
                                 function (data) {
                                     self._clear();
                                     toastr.success('GUEST ADD SUCCESS');
@@ -104,12 +104,12 @@ define(['angular'], function (angular) {
 
             guestEditDone: function (side) {
                 var self = this;
-                switch (side){
+                switch (side) {
                     case "M":
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
                             function (data) {
                                 self._clear();
-                                if(_env._dev){
+                                if (_env._dev) {
                                     toastr.success('GUEST EDIT SUCCESS');
                                 }
                             },
@@ -123,7 +123,7 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
                             function (data) {
                                 self._clear();
-                                if(_env._dev){
+                                if (_env._dev) {
                                     toastr.success('GUEST EDIT SUCCESS');
                                 }
                             },
@@ -144,7 +144,7 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
                             function (data) {
                                 self._clear();
-                                if(_env._dev){
+                                if (_env._dev) {
                                     toastr.success('GUEST DELETED SUCCESS');
                                 }
                             },
@@ -159,7 +159,7 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
                             function (data) {
                                 self._clear();
-                                if(_env._dev){
+                                if (_env._dev) {
                                     toastr.success('GUEST DELETED SUCCESS');
                                 }
                             },
@@ -175,8 +175,8 @@ define(['angular'], function (angular) {
 
         // Guests Qty Fn
         $scope.guestsQty = function (project) {
-            if(!$scope.currentProject.restaurant.quickView){
-                if($scope.currentProjectView.mainMenu == 'restaurant'){
+            if (!$scope.currentProject.restaurant.quickView) {
+                if ($scope.currentProjectView.mainMenu == 'restaurant') {
                     var filtArrM = project.fianceSideGuests.filter(function (guest) {
                         return guest.guestWillBe == true;
                     });
@@ -186,15 +186,15 @@ define(['angular'], function (angular) {
                     var result = filtArrM.length + filtArrW.length + 2;
                     $scope.currentProject.restaurant.guestsQty = result;
 
-                    var interNorm = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.normalData.normalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.normalData.normalPlugs;
-                    $scope.currentProject.restaurant.restaurantTotal = (interNorm/100)*$scope.currentProject.restaurant.normalData.normalPercent + interNorm;
+                    var interGeneral = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
+                    $scope.currentProject.restaurant.restaurantTotal = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral;
 
                     return result;
                 }
             }
             else {
                 var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck + $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickPlugs;
-                $scope.currentProject.restaurant.restaurantTotal = (interQuick/100)*$scope.currentProject.restaurant.quickData.quickPercent + interQuick;
+                $scope.currentProject.restaurant.restaurantTotal = (interQuick / 100) * $scope.currentProject.restaurant.quickData.quickPercent + interQuick;
 
                 return $scope.currentProject.restaurant.quickData.quickGuestsQty;
             }
@@ -207,7 +207,7 @@ define(['angular'], function (angular) {
             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickView").then(
                 function (data) {
                     //console.log(data);
-                    if(_env._dev){
+                    if (_env._dev) {
                         toastr.success('view changed');
                     }
                 },
@@ -218,13 +218,25 @@ define(['angular'], function (angular) {
         };
 
         // Quick Data save Fn
-        $scope.quickDataSave = function (quickData) {
-            if(angular.isNumber(quickData.quickGuestsQty) && angular.isNumber(quickData.quickCheck) && angular.isNumber(quickData.quickPercent)){
+        $scope.restDataSave = function (data) {
+            if (!arguments.length) {
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/generalDataSave").then(
+                    function (data) {
+                        $scope.saveHide = true;
+                        if (_env._dev) {
+                            toastr.success('generalData changed');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: generalData edit AJAX failed');
+                        throw new Error('ERROR: generalData edit AJAX failed' + err);
+                    });
+            } else if (angular.isNumber(data.quickGuestsQty) && angular.isNumber(data.quickCheck) && angular.isNumber(data.quickPercent)) {
 
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickDataSave").then(
                     function (data) {
                         $scope.saveHide = true;
-                        if(_env._dev){
+                        if (_env._dev) {
                             toastr.success('quickData changed');
                         }
                     },
@@ -234,8 +246,8 @@ define(['angular'], function (angular) {
                     });
             }
             else {
-                toastr.error('ERROR: quickData number input failed');
-                throw new Error('ERROR: quickData number input failed' + err);
+                toastr.error('ERROR: generalData or quickData number input failed');
+                throw new Error('ERROR: generalData or quickData number input failed' + err);
             }
         };
 

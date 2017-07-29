@@ -19,21 +19,22 @@ define(['angular'], function (angular) {
                 this.fianceSideGuests = [];
                 this.fianceeSideGuests = [];
                 this.restaurant = {
-                    guestsQty : 2,
-                    quickView : false,
-                    restaurantTotal: 0,
+                    name : null,
                     address : null,
+                    guestsQty : 2,
+                    restaurantTotal: 0,
                     notes : null,
+                    quickView : false,
                     quickData : {
                         quickGuestsQty : 2,
                         quickCheck : 0,
                         quickPercent : 0,
                         quickPlugs : 0,
                     },
-                    normalData : {
-                        normalCheck : 0,
-                        normalPercent : 0,
-                        normalPlugs : 0
+                    generalData : {
+                        generalCheck : 0,
+                        generalPercent : 0,
+                        generalPlugs : 0
                     }
 
                 };

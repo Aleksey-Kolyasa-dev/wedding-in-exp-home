@@ -1,22 +1,111 @@
-<div class="quick-main col-xs-2" style="margin-top: 20px">
-    <form class="form" novalidate  name="normalDataForm" style="width: 195px">
-        <div class="form-group">
-            <label for="quick-rest-check" class="control-label">Средний чек UAH</label>
-            <input type="number" required class="form-control quick-input" id="quick-rest-check" ng-model="currentProject.restaurant.normalData.normalCheck" ng-change="saveHideTrigger()">
-        </div>
-        <div class="form-group">
-            <label for="quick-rest-percent" class="control-label">% обслуживания UAH</label>
-            <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-percent" ng-model="currentProject.restaurant.normalData.normalPercent" ng-change="saveHideTrigger()">
-        </div>
-        <div class="form-group">
-            <label for="quick-rest-plugs" class="control-label">Пробковый сбор UAH</label>
-            <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-plugs" ng-model="currentProject.restaurant.normalData.normalPlugs" ng-change="saveHideTrigger()">
-        </div>
-        <div class="form-group">
-            <div class="col-xs-2">
-                <button type="submit" ng-click="quickDataSave(currentProject.restaurant.quickData)" ng-hide="normalDataForm.$invalid || normalDataForm.$pristine || saveHide" class="btn btn-success btn-sm" style="margin-left: 35px">SAVE</button>
+<div class="row">
+    <button class="btn btn-primary" data-target="#editRestNormData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+
+    <!--<div class="quick-main col-xs-5 col-sm-4 col-md-3 col-lg-3" style="margin-top: 10px;">
+        <form class="form" novalidate  name="normalDataForm" style="width: 195px">
+            <div class="form-group">
+                <label for="quick-rest-check" class="control-label">Средний чек UAH</label>
+                <input type="number" required class="form-control quick-input" id="quick-rest-check" ng-model="currentProject.restaurant.normalData.normalCheck" ng-change="saveHideTrigger()">
+            </div>
+            <div class="form-group">
+                <label for="quick-rest-percent" class="control-label">% обслуживания UAH</label>
+                <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-percent" ng-model="currentProject.restaurant.normalData.normalPercent" ng-change="saveHideTrigger()">
+            </div>
+            <div class="form-group">
+                <label for="quick-rest-plugs" class="control-label">Пробковый сбор UAH</label>
+                <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-plugs" ng-model="currentProject.restaurant.normalData.normalPlugs" ng-change="saveHideTrigger()">
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <button type="submit" ng-click="quickDataSave(currentProject.restaurant.quickData)" ng-hide="normalDataForm.$invalid || normalDataForm.$pristine || saveHide" class="btn btn-success btn-sm" style="margin-left: 35px">SAVE</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="quick-main col-xs-7 col-sm-7 col-md-9 col-lg-9" style="margin-top: 10px;">
+        <form class="form" novalidate  name="restDataInfo" style="width: 195px">
+            <div class="form-group">
+                <label for="rest-name" class="control-label">Название ресторана</label>
+                <input type="text" class="form-control normal-info-input" id="rest-name" ng-model="currentProject.restaurant.name" ng-change="saveHideTrigger()">
+            </div>
+            <div class="form-group">
+                <label for="rest-address" class="control-label">Адресс ресторана</label>
+                <input type="text" class="form-control normal-info-input" id="rest-address" ng-model="currentProject.restaurant.address" ng-change="saveHideTrigger()">
+            </div>
+            <div class="form-group">
+                <label for="rest-notes" class="control-label">Заметки</label>
+                <textarea class="form-control quick-input-textarea" id="rest-notes" ng-model="currentProject.restaurant.notes" ng-change="saveHideTrigger()"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <button type="submit" ng-click="quickDataSave(currentProject.restaurant.quickData)" ng-hide="quickDataForm.$invalid || quickDataForm.$pristine || saveHide" class="btn btn-success btn-sm" style="margin-left: 35px">SAVE</button>
+                </div>
+            </div>
+        </form>
+    </div>-->
+
+    <!-- EDIT RESTAURANT DATA MODAL *START* -->
+    <div id="editRestNormData" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">close</button>
+                    <h4 class="modal-title"><b>РЕСТОРАН</b></h4>
+                </div>
+                <div class="modal-body wed-modals">
+                    <div class="add-new-proj-main">
+                        <form name="editRestGeneralDataForm" novalidate ng-submit="">
+                            <div class="">
+                                <div class="form-group">
+                                    <label>Название ресторана</label>
+                                    <input class="form-control" ng-model="currentProject.restaurant.name"
+                                           type="text" required ng-minlength='3'>
+                                </div>
+                                <div class="form-group">
+                                    <label>Адресс ресторана</label>
+                                    <input class="form-control" ng-model="currentProject.restaurant.address"
+                                           type="text" required ng-minlength='3'>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Средний чек UAH</label>
+                                    <input class="form-control" ng-model="currentProject.restaurant.generalData.generalCheck"
+                                           type="number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>% за обслуживание UAH</label>
+                                    <input class="form-control" ng-model="currentProject.restaurant.generalData.generalPercent"
+                                           type="number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Пробковый сбор UAH</label>
+                                    <input class="form-control" ng-model="currentProject.restaurant.generalData.generalPlugs"
+                                           type="number" required>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Заметки</label>
+                                    <textarea class="form-control" ng-model="currentProject.restaurant.notes"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block"
+                                        ng-disabled="editRestGeneralDataForm.$invalid" data-dismiss="modal"
+                                        ng-click="restDataSave()">
+                                    <b>ПРИМЕНИТЬ</b>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="deco-farames text-center">
+                            <div>
+                                <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
+    </div>
+    <!-- EDIT RESTAURANT DATA MODAL *END* -->
 </div>
+
 
