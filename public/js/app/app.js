@@ -9,6 +9,7 @@ define([
 	'services',
 	'controllers',
 	'newProjectCtrlModule',
+	'budgetCtrlModule',
 	'restaurantCtrlModule',
 	'directives',
 	'angularRuLocale'
@@ -21,6 +22,7 @@ define([
         'toastr',
         'wedControllers',
 		'newProjectCtrlModule',
+		'budgetCtrlModule',
 		'restaurantCtrlModule',
 		'wedServices',
 		'wedDerictives'

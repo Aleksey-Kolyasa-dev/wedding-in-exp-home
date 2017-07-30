@@ -6,6 +6,7 @@ require.config({
 		'services'        		: '../js/app/services/services',
 		'controllers'     		: '../js/app/controllers/01_wedMainCtrl',
 		'newProjectCtrlModule' 	: '../js/app/controllers/02_wedMain_newProjectCtrl',
+        'budgetCtrlModule' 		: '../js/app/controllers/03_BudgetCtrl',
         'restaurantCtrlModule' 	: '../js/app/controllers/04_RestaurantCtrl',
         'directives'     		: '../js/app/directives/directives',
 		'jQuery'		  		: '../libs/js/jquery.min',
@@ -44,12 +45,15 @@ require.config({
             deps : ['controllers'],
             exports : 'newProjectCtrlModule'
         },
+        'budgetCtrlModule' : {
+            deps : ['controllers']
+        },
         'restaurantCtrlModule' : {
             deps : ['controllers']
         },
 		'twitterBootstrap' : ['jQuery'],
 		'app' : {
-			deps : ['angularToastr', 'angularRoute','twitterBootstrap', 'services', 'newProjectCtrlModule', 'restaurantCtrlModule','directives']
+			deps : ['angularToastr', 'angularRoute','twitterBootstrap', 'services', 'newProjectCtrlModule', 'budgetCtrlModule','restaurantCtrlModule','directives']
 		}
 	},
 
