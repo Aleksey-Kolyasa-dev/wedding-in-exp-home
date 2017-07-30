@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
     restaurantCtrlModule.controller('restaurantMainCtrl', restaurantMainCtrl);
 
-    function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService, $filter) {
+    function restaurantMainCtrl($scope, $log, $http, toastr, _env, ResourceService, $filter) {
         // Default subView
         $scope.subView = "guests";
 
@@ -217,8 +217,9 @@ define(['angular'], function (angular) {
                 });
         };
 
-        // Quick Data save Fn
+        // Restaurant Data save Fn
         $scope.restDataSave = function (data) {
+            // Case for GENERAL DATA AJAX SAVE
             if (!arguments.length) {
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/generalDataSave").then(
                     function (data) {
@@ -231,16 +232,18 @@ define(['angular'], function (angular) {
                         toastr.error('ERROR: generalData edit AJAX failed');
                         throw new Error('ERROR: generalData edit AJAX failed' + err);
                     });
-            } else if (angular.isNumber(data.quickGuestsQty) && angular.isNumber(data.quickCheck) && angular.isNumber(data.quickPercent)) {
+            } else
+            // Case for QUICK RESTAURANT DATA AJAX SAVE
+            if (angular.isNumber(data.quickGuestsQty) && angular.isNumber(data.quickCheck) && angular.isNumber(data.quickPercent)) {
 
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickDataSave").then(
-                    function (data) {
-                        $scope.saveHide = true;
-                        if (_env._dev) {
-                            toastr.success('quickData changed');
-                        }
-                    },
-                    function (err) {
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickDataSave").then(
+                function (data) {
+                    $scope.saveHide = true;
+                    if (_env._dev) {
+                        toastr.success('quickData changed');
+                    }
+                },
+                function (err) {
                         toastr.error('ERROR: quickData edit AJAX failed');
                         throw new Error('ERROR: quickData edit AJAX failed' + err);
                     });
@@ -254,8 +257,34 @@ define(['angular'], function (angular) {
         // Trigger for "SAVE" btn behavior
         $scope.saveHideTrigger = function () {
             $scope.saveHide = false;
-        }
+        };
 
+        $scope.restGeneralDataDisplayCheck = function (value, key) {
+            if(angular.isNumber(value)){
+                if(value == 0){
+                    return 'нет';
+                } else {
+                    return value + ' ' + key;
+                }
+            }
+            if(value != '' && angular.isString(value)){
+                return value;
+            }
+            if(value == ''){
+                return "не указан";
+            } else {
+                return '';
+            }
+        };
+
+        $scope.goToSite = function (url) {
+            if(url){
+                $http({
+                    method : "GET",
+                    url : url
+                });
+            }
+        };
     } // Ctrl End
 
     return restaurantCtrlModule;

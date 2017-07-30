@@ -136,20 +136,36 @@
     text-align: center;
     width: 190px;
 }
-.quick-input-textarea{
-    background: rgba(39, 61, 176, 0.08);
-    color: #ffffff !important;
-    text-align: left;
-    padding-left: 15px;
-    font-size: 130%;
-    width: 500px;
-    height: 250px;
+
+/* RESTAURANT GENERAL DATA */
+.rest-general-page{
+    padding: 0 15px;
 }
-.normal-info-input{
-    background: rgba(39, 61, 176, 0.08);
-    color: #ffffff !important;
-    font-size: 130% !important;
-    padding-left: 15px;
-    text-align: left;
-    width: 500px;
+.rest-general-page ul{
+    list-style: none;
+    padding: 0;
+}
+.rest-general-page ul li{
+    font-size: 160%;
+    font-style: italic;
+    padding: 10px;
+    color: rgba(255, 246, 237, 0.8);
+    float: left;
+    margin-right: 10px;
+   /* box-shadow: 5px 5px 15px #5d4124;*/
+    /*border-image: url('../../img/frame_square4.png') 100 100 100 100;
+    border-color: #f4b252;
+    border-style: inset ;
+    border-width: 60px;
+    background-color: transparent;*/
+
+
+}
+/*.rest-general-page ul li:before{
+    content: url('../../img/frame_square.png');
+
+}*/
+.rest-general-data-field{
+    /*border: 2px solid #ffffff;
+    border-radius: 10px;*/
 }

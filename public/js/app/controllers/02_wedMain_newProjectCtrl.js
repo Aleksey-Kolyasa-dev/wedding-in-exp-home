@@ -21,6 +21,8 @@ define(['angular'], function (angular) {
                 this.restaurant = {
                     name : null,
                     address : null,
+                    telephones : null,
+                    website : null,
                     guestsQty : 2,
                     restaurantTotal: 0,
                     notes : null,
@@ -29,14 +31,13 @@ define(['angular'], function (angular) {
                         quickGuestsQty : 2,
                         quickCheck : 0,
                         quickPercent : 0,
-                        quickPlugs : 0,
+                        quickPlugs : 0
                     },
                     generalData : {
                         generalCheck : 0,
                         generalPercent : 0,
                         generalPlugs : 0
                     }
-
                 };
             }
 
