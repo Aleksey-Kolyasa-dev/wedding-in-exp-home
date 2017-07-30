@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
     restaurantCtrlModule.controller('restaurantMainCtrl', restaurantMainCtrl);
 
-    function restaurantMainCtrl($scope, $log, $http, toastr, _env, ResourceService, $filter) {
+    function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // Default subView
         $scope.subView = "guests";
 
@@ -259,6 +259,7 @@ define(['angular'], function (angular) {
             $scope.saveHide = false;
         };
 
+        // Display General Restaurant Data filter
         $scope.restGeneralDataDisplayCheck = function (value, key) {
             if(angular.isNumber(value)){
                 if(value == 0){
@@ -277,6 +278,7 @@ define(['angular'], function (angular) {
             }
         };
 
+        // Notes Display Filter
         $scope.notesFilter = function (notes) {
             var noteArr = notes.split('*');
             if(noteArr[0] == ''){

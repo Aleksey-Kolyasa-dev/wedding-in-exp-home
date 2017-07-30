@@ -9,7 +9,6 @@ router.get('/', function (req, res) {
     res.render('../public/index', { title : 'Wedding_in'});
 });
 
-
 // GET All Projects
 router.get('/api', function (req, res, next) {
     db.weddings.find(function (err, projects) {
@@ -69,6 +68,7 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.notes = project.notes;
         updatedProject.fianceSideGuests = project.fianceSideGuests;
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
+        updatedProject.budget = project.budget;
         updatedProject.restaurant = project.restaurant;
         //console.log(updatedProject);
     }

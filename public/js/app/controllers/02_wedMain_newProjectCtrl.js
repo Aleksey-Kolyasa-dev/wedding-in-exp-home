@@ -18,6 +18,10 @@ define(['angular'], function (angular) {
                 this.notes = project.notes;
                 this.fianceSideGuests = [];
                 this.fianceeSideGuests = [];
+                this.budget = {
+                    nationalMoney : null,
+                    currency : 0,
+                };
                 this.restaurant = {
                     name : null,
                     address : null,
