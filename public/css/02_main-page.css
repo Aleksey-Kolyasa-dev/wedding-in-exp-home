@@ -69,10 +69,19 @@
     color: #ffffff;
     font-weight: bold;
     font-size: 100%;
-}
-.main-page-menu-btn:hover{
     cursor: pointer;
-    /*box-shadow: 2px 2px 5px #9a9a9a;*/
+}
+.main-page-menu-btn-active,
+.main-page-menu-btn:hover{
+    display: block;
+    border-radius: 5px;
+    width: 150px;
+    padding: 10px 0;
+    text-decoration: none !important;
+    text-align: center;
+    font-weight: bold;
+    font-size: 100%;
+    cursor: pointer;
     color: #0ca77e;
     background: #ffffff;
 }

@@ -10,12 +10,12 @@
             <div class="wed-main-body-left"><!--col-lg-2 col-md-2 col-sm-3 col-xs-4-->
                 <div class="new-proj-main">
                     <div>
-                        <a class="main-page-menu-btn" ng-click="projectView('budget')">
+                        <a ng-class="currentProjectView.mainMenu == 'budget'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('budget')">
                             <span>БЮДЖЕТ</span>
                         </a>
                     </div>
                     <div>
-                        <a class="main-page-menu-btn" ng-click="projectView('restaurant')">
+                        <a ng-class="currentProjectView.mainMenu == 'restaurant'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('restaurant')">
                             <span>РЕСТОРАН</span>
                         </a>
                     </div>
