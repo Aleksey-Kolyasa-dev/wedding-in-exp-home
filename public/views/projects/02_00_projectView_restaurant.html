@@ -2,8 +2,8 @@
     <header class="proj-view-header text-right">
         <div class="top-sub-menu">
             <ul>
-                <li ng-if="!currentProject.restaurant.quickView"><a ng-click="subViewShift('guests')">Гости</a></li>
-                <li ng-if="!currentProject.restaurant.quickView"><a ng-click="subViewShift('restaurant')">Ресторан</a></li>
+                <li ng-if="!currentProject.restaurant.quickView" style="{{subView == 'guests'? 'background: hsla(291, 64%, 42%, 0.78)' : 'inherit'}}"><a ng-click="subViewShift('guests')">Гости</a></li>
+                <li ng-if="!currentProject.restaurant.quickView" style="{{subView == 'restaurant'? 'background: hsla(291, 64%, 42%, 0.78)' : 'inherit'}}"><a ng-click="subViewShift('restaurant')">Ресторан</a></li>
                 <li ng-if="false"><a>Результат</a></li>
             </ul>
         </div>

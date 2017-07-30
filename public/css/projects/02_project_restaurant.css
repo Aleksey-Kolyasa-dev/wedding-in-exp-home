@@ -22,9 +22,11 @@
     background: hsla(286, 56%, 26%, 0.78);
     margin: 0 !important;
 }
-.top-sub-menu-active,
+.top-sub-menu-active {
+    background: hsla(291, 64%, 42%, 0.78);
+}
 .top-sub-menu ul li:hover{
-     background: hsla(291, 64%, 42%, 0.78);
+    background: hsla(291, 64%, 42%, 0.78);
 }
 .top-sub-menu ul li:first-child{
     border-top-left-radius: 5px;
