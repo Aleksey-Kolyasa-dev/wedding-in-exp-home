@@ -32,7 +32,9 @@ define([
 			templateUrl : '/views/home_page/00_home_page.html'
 		}).when('/project', {
             templateUrl : '/views/projects/00_projects_main.html'
-        })
+        }).otherwise({
+        	template : "<h1 style='color: #ffffff;'>404 Not Found By Me!</h1>"
+		});
 
 	}]);
 
