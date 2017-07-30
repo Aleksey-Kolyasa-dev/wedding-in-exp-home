@@ -145,27 +145,14 @@
     list-style: none;
     padding: 0;
 }
-.rest-general-page ul li{
+.rest-general-list {
     font-size: 160%;
     font-style: italic;
-    padding: 10px;
+    padding: 20px 15px;
     color: rgba(255, 246, 237, 0.8);
     float: left;
     margin-right: 10px;
-   /* box-shadow: 5px 5px 15px #5d4124;*/
-    /*border-image: url('../../img/frame_square4.png') 100 100 100 100;
-    border-color: #f4b252;
-    border-style: inset ;
-    border-width: 60px;
-    background-color: transparent;*/
-
-
 }
-/*.rest-general-page ul li:before{
-    content: url('../../img/frame_square.png');
-
-}*/
-.rest-general-data-field{
-    /*border: 2px solid #ffffff;
-    border-radius: 10px;*/
+.rest-info-data{
+    color: #ffffff;
 }

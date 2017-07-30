@@ -276,7 +276,14 @@ define(['angular'], function (angular) {
                 return '';
             }
         };
-        
+
+        $scope.notesFilter = function (notes) {
+            var noteArr = notes.split('*');
+            if(noteArr[0] == ''){
+                noteArr.splice(0,1);
+            }
+            return noteArr;
+        };
     } // Ctrl End
 
     return restaurantCtrlModule;
