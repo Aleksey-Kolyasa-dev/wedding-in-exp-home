@@ -8,7 +8,7 @@
             <p>Ресторан: {{currentProject.restaurant.name}}.</p>
             <p>Адрес: {{currentProject.restaurant.address}}.</p>
             <p>Телефон: {{restGeneralDataDisplayCheck(currentProject.restaurant.telephones)}}</p>
-            <p>Вэбсайт: <a ng-click="goToSite(currentProject.restaurant.website)">{{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</a></p>
+            <p>Вэбсайт: {{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</p>
             <hr>
             <p>Заметки: {{currentProject.restaurant.notes}}.</p>
         </li>

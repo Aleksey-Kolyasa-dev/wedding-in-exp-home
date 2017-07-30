@@ -276,15 +276,7 @@ define(['angular'], function (angular) {
                 return '';
             }
         };
-
-        $scope.goToSite = function (url) {
-            if(url){
-                $http({
-                    method : "GET",
-                    url : url
-                });
-            }
-        };
+        
     } // Ctrl End
 
     return restaurantCtrlModule;
