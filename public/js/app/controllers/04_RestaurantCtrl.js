@@ -225,6 +225,13 @@ define(['angular'], function (angular) {
         $scope.restDataSave = function (data) {
             // Case for GENERAL DATA AJAX SAVE
             if (!arguments.length) {
+                $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + ($scope.currentProject.restaurant.total.paidNat / $scope.currentProject.budget.currency);
+                $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + ($scope.currentProject.restaurant.total.paidUsd * $scope.currentProject.budget.currency);
+
+                $scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
+                $scope.currentProject.restaurant.total.restTotalNat =  $scope.currentProject.restaurant.total.planNat - $scope.currentProject.restaurant.total.paidTotalNat;
+
+
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/generalDataSave").then(
                     function (data) {
                         $scope.saveHide = true;
@@ -262,7 +269,7 @@ define(['angular'], function (angular) {
             }
         };
 
-        // Trigger for "SAVE" btn behavior
+        // Trigger for "SAVE" btn behavior in quickView
         $scope.saveHideTrigger = function () {
             $scope.saveHide = false;
         };

@@ -40,12 +40,12 @@
             </div>
             <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic">
-                    ФАКТ ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
+                    ФАКТ ЗАТРАТ:  {{currentProject.restaurant.total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.paidTotalUsd | number : 1}} USD
                 </span>
             </div>
             <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic">
-                    ДОПЛАТАТИТЬ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
+                    ДОПЛАТАТИТЬ:  {{currentProject.restaurant.total.restTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.restTotalUsd | number : 1}} USD
                 </span>
             </div>
 

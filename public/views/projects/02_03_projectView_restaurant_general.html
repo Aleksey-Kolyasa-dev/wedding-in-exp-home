@@ -66,7 +66,7 @@
                                 </label>
                             </div>
                             <div class="form-group text-center">
-                                <label>% за обслуживание {{currentProject.budget.nationalMoney}}
+                                <label>% за обслуживание
                                 <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPercent"
                                        type="number" required>
                                 </label>
@@ -81,13 +81,13 @@
                             <div class="form-group text-center">
                                 <label>Оплаченно в {{currentProject.budget.nationalMoney}}
                                 <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidNat"
-                                       type="number">
+                                      required type="number">
                                 </label>
                             </div>
                             <div class="form-group text-center">
                                 <label>Оплаченно в USD
                                     <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidUsd"
-                                           type="number">
+                                          required type="number">
                                 </label>
                             </div>
                             <hr>

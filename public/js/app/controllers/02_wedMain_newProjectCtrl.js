@@ -49,7 +49,11 @@ define(['angular'], function (angular) {
                         planUsd : 0,
                         planNat : 0,
                         paidUsd : 0,
-                        paidNat : 0
+                        paidNat : 0,
+                        paidTotalUsd : 0,
+                        paidTotalNat : 0,
+                        restTotalUsd : 0,
+                        restTotalNat : 0
                     }
                 };
             }
