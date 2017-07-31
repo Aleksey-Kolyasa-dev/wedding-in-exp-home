@@ -37,7 +37,7 @@ define(['angular'], function (angular) {
 
         // Notes Display Filter
         $scope.notesFilter = function (notes) {
-            if(notes === null){
+            if(notes == null){
                 return '';
             } else {
                 var noteArr = notes.split('*');

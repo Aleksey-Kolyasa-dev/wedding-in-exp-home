@@ -35,7 +35,12 @@
             </div>
             <div style="margin-left: 20px">
                 <span style="font-style: italic">
-                    TOTAL:  {{currentProject.restaurant.restaurantTotal | filter : number : 1}} {{currentProject.budget.nationalMoney}}.
+                    ПЛАН ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
+                </span>
+            </div>
+            <div style="margin-left: 20px">
+                <span style="font-style: italic">
+                    ПЛАН ОСТАТОК:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
                 </span>
             </div>
 

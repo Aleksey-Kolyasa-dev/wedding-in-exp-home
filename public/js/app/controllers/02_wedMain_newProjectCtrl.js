@@ -44,6 +44,12 @@ define(['angular'], function (angular) {
                         generalCheck : 0,
                         generalPercent : 0,
                         generalPlugs : 0
+                    },
+                    total : {
+                        planUsd : 0,
+                        planNat : 0,
+                        paidUsd : 0,
+                        paidNat : 0
                     }
                 };
             }

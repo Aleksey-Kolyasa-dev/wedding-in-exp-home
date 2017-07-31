@@ -187,14 +187,14 @@ define(['angular'], function (angular) {
                     $scope.currentProject.restaurant.guestsQty = result;
 
                     var interGeneral = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
-                    $scope.currentProject.restaurant.restaurantTotal = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral;
+                    $scope.currentProject.restaurant.total.planNat = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral;
 
                     return result;
                 }
             }
             else {
                 var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck + $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickPlugs;
-                $scope.currentProject.restaurant.restaurantTotal = (interQuick / 100) * $scope.currentProject.restaurant.quickData.quickPercent + interQuick;
+                $scope.currentProject.restaurant.total.planNat = (interQuick / 100) * $scope.currentProject.restaurant.quickData.quickPercent + interQuick;
 
                 return $scope.currentProject.restaurant.quickData.quickGuestsQty;
             }
@@ -284,7 +284,7 @@ define(['angular'], function (angular) {
 
         // Notes Display Filter
         $scope.notesFilter = function (notes) {
-            if(notes === null){
+            if(notes == null){
                 return '';
             } else {
                     var noteArr = notes.split('*');
