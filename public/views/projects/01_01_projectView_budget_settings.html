@@ -2,13 +2,8 @@
     <div class="rest-general-list">
         <p>Национальная валюта: <span class="rest-info-data">{{currentProject.budget.nationalMoney}}</span></p>
         <p>Курс: 1 USD = <span class="rest-info-data">{{currentProject.budget.currency + ' ' + currentProject.budget.nationalMoney}}</span></p>
-       <!-- <p>Телефон: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.telephones)}}</span></p>
-        <p>Вэбсайт: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</span></p>-->
         <hr>
-        <!--<p>Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} UAH</span></p>
-        <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, 'UAH') }}</span></p>
-        <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, 'UAH') }}</span></p>
-        <hr>-->
+
         <div style="float: right">
             <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
         </div>
@@ -20,8 +15,6 @@
             <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
         </ul>
     </div>
-
-
 
 </div>
 
