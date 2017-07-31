@@ -11,10 +11,30 @@
     </header>
 
     <div class="info-panel">
-        <div>
+        <div style="font-size: 79%; padding: 5px 0">
             <div style="margin-left: 20px">
                 <span style="font-style: italic">
-                    TOTAL:  {{currentProject.restaurant.restaurantTotal | filter : number : 1}} {{currentProject.budget.nationalMoney}}.
+                    БЮДЖЕТ: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                </span>
+            </div>
+            <div style="margin-left: 20px">
+                <span style="font-style: italic">
+                    ПЛАН ЗАТРАТ: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                </span>
+            </div>
+            <div style="margin-left: 20px">
+                <span style="font-style: italic">
+                    ОСТАТОК ПЛАН: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                </span>
+            </div>
+            <div style="margin-left: 20px">
+                <span style="font-style: italic">
+                    ФАКТ ЗАТРАТ: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                </span>
+            </div>
+            <div style="margin-left: 20px">
+                <span style="font-style: italic">
+                    ОСТАТОК ФАКТ: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
         </div>

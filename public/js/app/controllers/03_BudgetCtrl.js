@@ -35,6 +35,18 @@ define(['angular'], function (angular) {
 
         };
 
+        // Notes Display Filter
+        $scope.notesFilter = function (notes) {
+            if(notes === null){
+                return '';
+            } else {
+                var noteArr = notes.split('*');
+                if(noteArr[0] == ''){
+                    noteArr.splice(0,1);
+                }
+                return noteArr;
+            }
+        };
 
 
     } // Ctrl End
