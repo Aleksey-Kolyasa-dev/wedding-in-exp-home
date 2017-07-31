@@ -12,13 +12,15 @@ define(['angular'], function (angular) {
                 this.fianceName = project.fianceName;
                 this.fianceeName = project.fianceeName;
                 this.weddingDate = AppService._dateStringToObject(project.weddingDate);
-                this.wedBudget = project.wedBudget;
+                /*this.wedBudget = project.wedBudget;*/
                 this.email = project.email;
                 this.telephones = project.telephones;
                 this.notes = project.notes;
                 this.fianceSideGuests = [];
                 this.fianceeSideGuests = [];
                 this.budget = {
+                    budgetUSD : project.wedBudget,
+                    budgetNat : 0,
                     nationalMoney : 'units',
                     currency : 0,
                     notes : null,
@@ -83,7 +85,7 @@ define(['angular'], function (angular) {
             if(editedProject.weddingDate.length < 12){
                 editedProject.weddingDate = AppService._dateStringToObject(editedProject.weddingDate);
             }
-            $log.log(editedProject);
+            //$log.log(editedProject);
             ResourceService._ajaxRequest("PUT", null, editedProject, null).then(
                 function (project) {
                     $log.log(project);

@@ -10,6 +10,9 @@ define(['angular'], function (angular) {
 
         $scope.budgetSettingsApply = function (budget) {
             if(angular.isDefined(budget.nationalMoney) && angular.isNumber(budget.currency)){
+
+                $scope.currentProject.budget.budgetNat = $scope.currentProject.budget.budgetUSD * budget.currency;
+
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/budget").then(
                     function (data) {
                         // $scope.saveHide = true;

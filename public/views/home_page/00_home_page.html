@@ -33,7 +33,7 @@
                                     <b>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</b>
                                     жених: <b>{{project.fianceName | uppercase}}</b>,
                                     невеста: <b>{{project.fianceeName | uppercase}}</b>,
-                                    бюджет: <b>{{(project.wedBudget | number : 0 )}}</b> USD
+                                    бюджет: <b>{{(project.budget.budgetUSD | number : 0 )}}</b> USD
                                 </a>
                                 <a style="margin-left: 5px" ng-click="editProject(project._id)" data-toggle="modal" data-target="#editProject"><span class="glyphicon glyphicon-cog"></span></a>
                             </p>
@@ -128,7 +128,7 @@
                                             <b>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</b>
                                             жених: <b>{{project.fianceName | uppercase}}</b>,
                                             невеста: <b>{{project.fianceeName | uppercase}}</b>,
-                                            бюджет: <b>{{(project.wedBudget | number : 0 )}}</b> USD
+                                            бюджет: <b>{{(project.budget.budgetUSD | number : 0 )}}</b> USD
                                         </a>
                                         <a style="margin-left: 5px" ng-click="editProject(project._id)" data-toggle="modal" data-target="#editProject"><span class="glyphicon glyphicon-cog"></span></a>
                                     </p>
@@ -176,7 +176,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Запланированный бюджет USD</label>
-                                        <input name="wedBudget" class="form-control" ng-model="editProject.wedBudget"
+                                        <input name="wedBudget" class="form-control" ng-model="editProject.budget.budgetUSD"
                                                type="number" required ng-minlength='3'>
                                     </div>
                                     <div class="form-group">

@@ -35,7 +35,7 @@ router.get('/api/:id', function (req, res, next) {
 // POST Single Project
 router.post('/api', function (req, res, next) {
    var newProject = req.body;
-   if(!newProject.fianceName || !newProject.fianceeName || !newProject.weddingDate || !newProject.wedBudget || !newProject.email || !newProject.telephones) {
+   if(!newProject.fianceName || !newProject.fianceeName || !newProject.weddingDate || !newProject.budget.budgetUSD || !newProject.email || !newProject.telephones) {
        res.status(400);
        res.json({
            "error" : "POST ERROR: not all required fields was filled in"
@@ -62,7 +62,7 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.fianceName = project.fianceName;
         updatedProject.fianceeName = project.fianceeName;
         updatedProject.weddingDate = project.weddingDate;
-        updatedProject.wedBudget = project.wedBudget;
+        /*updatedProject.wedBudget = project.wedBudget;*/
         updatedProject.email = project.email;
         updatedProject.telephones = project.telephones;
         updatedProject.notes = project.notes;
