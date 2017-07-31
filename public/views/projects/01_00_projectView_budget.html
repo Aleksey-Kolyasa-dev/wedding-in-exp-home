@@ -1,6 +1,6 @@
 <div class="budget-main" ng-controller="budgetMainCtrl">
     <header class="proj-view-header text-right">
-        <div class="top-sub-menu">
+        <div class="top-sub-menu" ng-if="false">
             <ul>
                 <li ><a >Гости</a></li>
                 <li ><a >Ресторан</a></li>
@@ -10,31 +10,31 @@
         <h2>БЮДЖЕТ</h2>
     </header>
 
-    <div class="info-panel">
-        <div style="font-size: 79%; padding: 5px 0">
-            <div style="margin-left: 20px">
-                <span style="font-style: italic">
-                    БЮДЖЕТ: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+    <div class="info-panel-budget">
+        <div>
+            <div>
+                <span class="info-panel-dyn-good">
+                    БЮДЖЕТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
-            <div style="margin-left: 20px">
-                <span style="font-style: italic">
-                    ПЛАН ЗАТРАТ: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+            <div>
+                <span class="info-panel-dyn-good">
+                    ПЛАН ЗАТРАТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
-            <div style="margin-left: 20px">
-                <span style="font-style: italic">
-                    ОСТАТОК ПЛАН: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+            <div>
+                <span class="info-panel-dyn-good">
+                    ОСТАТОК ПЛАН: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
-            <div style="margin-left: 20px">
-                <span style="font-style: italic">
-                    ФАКТ ЗАТРАТ: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+            <div>
+                <span class="info-panel-dyn-good">
+                    ФАКТ ЗАТРАТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
-            <div style="margin-left: 20px">
-                <span style="font-style: italic">
-                    ОСТАТОК ФАКТ: {{currentProject.budget.budgetUSD}} USD / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+            <div>
+                <span class="info-panel-dyn-good">
+                    ОСТАТОК ФАКТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
         </div>

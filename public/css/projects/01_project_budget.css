@@ -2,3 +2,22 @@
     border-left: 1px solid #feffef;
     padding-left: 15px;
 }
+.info-panel-budget{
+    width: 100%;
+    display: block;
+    background: rgba(37, 17, 144, 0.24);
+    padding: 3px 0px;
+    border-bottom: 1px solid #ffffff;
+}
+.info-panel-budget div{
+    display: inline-block;
+    padding: 5px 0;
+    font-style: italic;
+    font-weight: bold;
+}
+.info-panel-budget div div{
+    margin-left: 20px
+}
+.info-panel-dyn-good{
+    color: rgb(25, 239, 182)
+}
