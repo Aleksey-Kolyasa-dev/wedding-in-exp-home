@@ -231,22 +231,26 @@ define(['angular'], function (angular) {
                     function (err) {
                         toastr.error('ERROR: generalData edit AJAX failed');
                         throw new Error('ERROR: generalData edit AJAX failed' + err);
-                    });
-            } else
+                    })
+                    .catch(function (err) {
+                    toastr.error("ERROR: generalData edit AJAX failed");
+                    $log.error("ERROR: generalData edit AJAX failed", err);
+                });
+            }
             // Case for QUICK RESTAURANT DATA AJAX SAVE
-            if (angular.isNumber(data.quickGuestsQty) && angular.isNumber(data.quickCheck) && angular.isNumber(data.quickPercent)) {
+            else if (angular.isNumber(data.quickGuestsQty) && angular.isNumber(data.quickCheck) && angular.isNumber(data.quickPercent)) {
 
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickDataSave").then(
-                function (data) {
-                    $scope.saveHide = true;
-                    if (_env._dev) {
-                        toastr.success('quickData changed');
-                    }
-                },
-                function (err) {
-                        toastr.error('ERROR: quickData edit AJAX failed');
-                        throw new Error('ERROR: quickData edit AJAX failed' + err);
-                    });
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickDataSave").then(
+                    function (data) {
+                        $scope.saveHide = true;
+                        if (_env._dev) {
+                            toastr.success('quickData changed');
+                        }
+                    },
+                    function (err) {
+                            toastr.error('ERROR: quickData edit AJAX failed');
+                            throw new Error('ERROR: quickData edit AJAX failed' + err);
+                });
             }
             else {
                 toastr.error('ERROR: generalData or quickData number input failed');
@@ -280,11 +284,15 @@ define(['angular'], function (angular) {
 
         // Notes Display Filter
         $scope.notesFilter = function (notes) {
-            var noteArr = notes.split('*');
-            if(noteArr[0] == ''){
-                noteArr.splice(0,1);
+            if(notes === null){
+                return '';
+            } else {
+                    var noteArr = notes.split('*');
+                    if(noteArr[0] == ''){
+                        noteArr.splice(0,1);
+                    }
+                    return noteArr;
             }
-            return noteArr;
         };
     } // Ctrl End
 

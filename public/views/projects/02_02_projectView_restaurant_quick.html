@@ -6,20 +6,22 @@
                 <input type="number" required class="form-control quick-input" id="quick-guest-qty" ng-model="currentProject.restaurant.quickData.quickGuestsQty"  ng-change="saveHideTrigger()">
             </div>
             <div class="form-group">
-                <label for="quick-rest-check" class="control-label">Средний чек UAH</label>
+                <label for="quick-rest-check" class="control-label">Средний чек {{currentProject.budget.nationalMoney}}</label>
                 <input type="number" required class="form-control quick-input" id="quick-rest-check" ng-model="currentProject.restaurant.quickData.quickCheck" ng-change="saveHideTrigger()">
             </div>
             <div class="form-group">
-                <label for="quick-rest-percent" class="control-label">% обслуживания UAH</label>
+                <label for="quick-rest-percent" class="control-label">% обслуживания {{currentProject.budget.nationalMoney}}</label>
                 <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-percent" ng-model="currentProject.restaurant.quickData.quickPercent" ng-change="saveHideTrigger()">
             </div>
             <div class="form-group">
-                <label for="quick-rest-plugs" class="control-label">Пробковый сбор UAH</label>
+                <label for="quick-rest-plugs" class="control-label">Пробковый сбор {{currentProject.budget.nationalMoney}}</label>
                 <input type="number" required ng-maxlength="3" class="form-control quick-input" id="quick-rest-plugs" ng-model="currentProject.restaurant.quickData.quickPlugs" ng-change="saveHideTrigger()">
             </div>
             <div class="form-group">
                 <div class="col-xs-2">
-                    <button type="submit" ng-click="restDataSave(currentProject.restaurant.quickData)" ng-hide="quickDataForm.$invalid || quickDataForm.$pristine || saveHide" class="btn btn-success btn-sm" style="margin-left: 35px">SAVE</button>
+                    <button type="submit" ng-click="restDataSave(currentProject.restaurant.quickData)" ng-hide="quickDataForm.$invalid || quickDataForm.$pristine || saveHide" class="btn btn-success btn-sm" style="margin-left: 35px">
+                        SAVE <span class="glyphicon glyphicon-save"></span>
+                    </button>
                 </div>
             </div>
         </form>

@@ -19,8 +19,9 @@ define(['angular'], function (angular) {
                 this.fianceSideGuests = [];
                 this.fianceeSideGuests = [];
                 this.budget = {
-                    nationalMoney : null,
+                    nationalMoney : 'units',
                     currency : 0,
+                    notes : null,
                 };
                 this.restaurant = {
                     name : null,

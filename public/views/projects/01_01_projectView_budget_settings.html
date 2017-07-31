@@ -1,0 +1,73 @@
+<div class="rest-general-page">
+    <div class="rest-general-list">
+        <p>Нац. Валюта: <span class="rest-info-data">{{currentProject.budget.nationalMoney}}</span></p>
+        <p>Курс: 1 USD = <span class="rest-info-data">{{currentProject.budget.currency + ' ' + currentProject.budget.nationalMoney}}</span></p>
+       <!-- <p>Телефон: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.telephones)}}</span></p>
+        <p>Вэбсайт: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</span></p>-->
+        <hr>
+        <!--<p>Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} UAH</span></p>
+        <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, 'UAH') }}</span></p>
+        <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, 'UAH') }}</span></p>
+        <hr>-->
+        <div style="float: right">
+            <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+    </div>
+
+    <div class="rest-general-list" style="margin-left: 20px">
+        <p>Заметки:</p>
+        <ul ng-repeat="note in notesFilter(currentProject.restaurant.notes)" style="padding: 0; list-style: none">
+            <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
+        </ul>
+    </div>
+
+
+
+</div>
+
+<!-- EDIT RESTAURANT GENERAL DATA MODAL *START* -->
+<div id="editRestGeneralData" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">close</button>
+                <h4 class="modal-title"><b>БЮЖДЕТ ВВОД ДАННЫХ</b></h4>
+            </div>
+            <div class="modal-body wed-modals">
+                <div class="add-new-proj-main">
+                    <form name="editBudgetGeneralDataForm" novalidate ng-submit="">
+                        <div class="">
+                            <div class="form-group">
+                                <label>Нацтональная валюта</label>
+                                <input class="form-control" ng-model="currentProject.budget.nationalMoney"
+                                       type="text" required ng-minlength='1' placeholder="UAH, RUB, BLR ...">
+                            </div>
+                            <div class="form-group">
+                                <label>Курс валют 1 USD</label>
+                                <input class="form-control" ng-model="currentProject.budget.currency"
+                                       type="number" required ng-minlength='1'>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label>Заметки</label>
+                                <textarea class="form-control" ng-model="currentProject.budget.notes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block"
+                                    ng-disabled="editBudgetGeneralDataForm.$invalid" data-dismiss="modal"
+                                    ng-click="budgetSettingsApply(currentProject.budget)">
+                                <b>ПРИМЕНИТЬ</b>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="deco-farames text-center">
+                        <div>
+                            <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EDIT RESTAURANT GENERAL DATA MODAL *END* -->

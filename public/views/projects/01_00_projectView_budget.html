@@ -11,19 +11,24 @@
     </header>
 
     <div class="info-panel">
-
         <div>
-            <div>
-                <span style="font-style: italic">
-                    Количество гостей:  {{guestsQty(currentProject)}} чел.
-                </span>
-            </div>
             <div style="margin-left: 20px">
                 <span style="font-style: italic">
-                    TOTAL:  {{currentProject.restaurant.restaurantTotal | filter : number : 1}} UAH.
+                    TOTAL:  {{currentProject.restaurant.restaurantTotal | filter : number : 1}} {{currentProject.budget.nationalMoney}}.
                 </span>
             </div>
         </div>
-
     </div>
+
+    <div ng-show="subView == 'settings'">
+        <ng-include src="'/views/projects/01_01_projectView_budget_settings.html'"></ng-include>
+    </div>
+    <div ng-show="subView == 'restaurant'">
+        <ng-include src="'/views/projects/02_03_projectView_restaurant_general.html'"></ng-include>
+    </div>
+
+
+
+
+
 </div>

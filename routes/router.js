@@ -193,6 +193,27 @@ router.put('/api/:id/generalDataSave', function (req, res, next) {
     }
 });
 
+// PUT Single Project BUDGET keyURL = /budget
+router.put('/api/:id/budget', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /budget");
+
+    if(!project.budget){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: budget validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { budget: project.budget}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+        });
+    }
+});
+
 // DELETE Single Project
 router.delete('/api/:id', function (req, res, next) {
     console.log("CALL DELETE BY: _id");
