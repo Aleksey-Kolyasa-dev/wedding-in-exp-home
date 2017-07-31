@@ -1,6 +1,6 @@
 <div class="rest-general-page">
     <div class="rest-general-list">
-        <p>Нац. Валюта: <span class="rest-info-data">{{currentProject.budget.nationalMoney}}</span></p>
+        <p>Национальная валюта: <span class="rest-info-data">{{currentProject.budget.nationalMoney}}</span></p>
         <p>Курс: 1 USD = <span class="rest-info-data">{{currentProject.budget.currency + ' ' + currentProject.budget.nationalMoney}}</span></p>
        <!-- <p>Телефон: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.telephones)}}</span></p>
         <p>Вэбсайт: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</span></p>-->
@@ -38,7 +38,7 @@
                     <form name="editBudgetGeneralDataForm" novalidate ng-submit="">
                         <div class="">
                             <div class="form-group">
-                                <label>Нацтональная валюта</label>
+                                <label>Национальная валюта</label>
                                 <input class="form-control" ng-model="currentProject.budget.nationalMoney"
                                        type="text" required ng-minlength='1' placeholder="UAH, RUB, BLR ...">
                             </div>
