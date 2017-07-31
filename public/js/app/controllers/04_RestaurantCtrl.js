@@ -189,12 +189,16 @@ define(['angular'], function (angular) {
                     var interGeneral = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
                     $scope.currentProject.restaurant.total.planNat = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral;
 
+                    $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
+
                     return result;
                 }
             }
             else {
                 var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck + $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickPlugs;
                 $scope.currentProject.restaurant.total.planNat = (interQuick / 100) * $scope.currentProject.restaurant.quickData.quickPercent + interQuick;
+
+                $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
 
                 return $scope.currentProject.restaurant.quickData.quickGuestsQty;
             }

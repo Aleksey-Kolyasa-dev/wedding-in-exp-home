@@ -10,7 +10,7 @@
         <h2>РЕСТОРАН</h2>
     </header>
 
-    <div class="info-panel">
+    <div class="info-panel" style="{{subView == 'guests'? 'padding: 3px 0 1px' : 'inherit'}}">
         <div class="top-sub-menu-shift">
             <ul>
                 <li ng-show="!currentProject.restaurant.quickView && subView == 'guests'">
@@ -35,15 +35,15 @@
             </div>
             <div style="margin-left: 20px">
                 <span style="font-style: italic">
-                    ПЛАН ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{(currentProject.restaurant.total.planNat / currentProject.budget.currency)  | number : 1 }} USD
+                    ПЛАН ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.planUsd | number : 1}} USD
                 </span>
             </div>
-            <div style="margin-left: 20px">
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic">
                     ФАКТ ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
                 </span>
             </div>
-            <div style="margin-left: 20px">
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic">
                     ДОПЛАТАТИТЬ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
                 </span>
