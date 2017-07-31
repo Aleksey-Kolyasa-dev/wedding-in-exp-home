@@ -35,12 +35,17 @@
             </div>
             <div style="margin-left: 20px">
                 <span style="font-style: italic">
-                    ПЛАН ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
+                    ПЛАН ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{(currentProject.restaurant.total.planNat / currentProject.budget.currency)  | number : 1 }} USD
                 </span>
             </div>
             <div style="margin-left: 20px">
                 <span style="font-style: italic">
-                    ПЛАН ОСТАТОК:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
+                    ФАКТ ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
+                </span>
+            </div>
+            <div style="margin-left: 20px">
+                <span style="font-style: italic">
+                    ДОПЛАТАТИТЬ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}.
                 </span>
             </div>
 

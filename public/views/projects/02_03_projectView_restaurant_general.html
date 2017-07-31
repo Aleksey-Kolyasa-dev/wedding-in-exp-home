@@ -6,8 +6,11 @@
         <p>Вэбсайт: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</span></p>
         <hr>
         <p>Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
-        <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, currentProject.budget.nationalMoney) }}</span></p>
+        <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, '%') }}</span></p>
         <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, currentProject.budget.nationalMoney) }}</span></p>
+        <hr>
+        <p>Оплаченно в  {{currentProject.budget.nationalMoney}}: <span class="rest-info-data">{{currentProject.restaurant.total.paidNat}}</span></p>
+        <p>Оплаченно в USD: <span class="rest-info-data">{{currentProject.restaurant.total.paidUsd}}</span></p>
         <hr>
         <div style="float: right">
             <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
@@ -56,23 +59,39 @@
                                        type="text">
                             </div>
                             <hr>
-                            <div class="form-group">
-                                <label>Средний чек {{currentProject.budget.nationalMoney}}</label>
-                                <input class="form-control" ng-model="currentProject.restaurant.generalData.generalCheck"
+                            <div class="form-group text-center">
+                                <label>Средний чек {{currentProject.budget.nationalMoney}}
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck"
                                        type="number" required>
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label>% за обслуживание {{currentProject.budget.nationalMoney}}</label>
-                                <input class="form-control" ng-model="currentProject.restaurant.generalData.generalPercent"
+                            <div class="form-group text-center">
+                                <label>% за обслуживание {{currentProject.budget.nationalMoney}}
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPercent"
                                        type="number" required>
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label>Пробковый сбор {{currentProject.budget.nationalMoney}}</label>
-                                <input class="form-control" ng-model="currentProject.restaurant.generalData.generalPlugs"
+                            <div class="form-group text-center">
+                                <label>Пробковый сбор {{currentProject.budget.nationalMoney}}
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPlugs"
                                        type="number" required>
+                                </label>
                             </div>
                             <hr>
-                            <div class="form-group">
+                            <div class="form-group text-center">
+                                <label>Оплаченно в {{currentProject.budget.nationalMoney}}
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidNat"
+                                       type="number">
+                                </label>
+                            </div>
+                            <div class="form-group text-center">
+                                <label>Оплаченно в USD
+                                    <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidUsd"
+                                           type="number">
+                                </label>
+                            </div>
+                            <hr>
+                            <div class="form-group" style="margin-top: 10px">
                                 <label>Заметки</label>
                                 <textarea class="form-control" ng-model="currentProject.restaurant.notes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
                             </div>
