@@ -6,6 +6,7 @@
     font-size: 120%;
     padding: 0 0 5px;
     border-bottom: 1px solid #ffffff;
+    font-weight: bold;
 }
 .info-panel div{
     display: inline-block;

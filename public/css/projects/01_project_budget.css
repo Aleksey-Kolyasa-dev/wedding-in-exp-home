@@ -10,13 +10,15 @@
     border-bottom: 1px solid #ffffff;
 }
 .info-panel-budget div{
+    text-align: center;
     display: inline-block;
-    padding: 5px 0;
+    padding: 3px 0;
     font-style: italic;
     font-weight: bold;
+    font-size: 100%;
 }
 .info-panel-budget div div{
-    margin-left: 20px
+    margin-right: 20px
 }
 .info-panel-dyn-good{
     color: rgb(25, 239, 182)

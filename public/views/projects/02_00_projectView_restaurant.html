@@ -10,7 +10,7 @@
         <h2>РЕСТОРАН</h2>
     </header>
 
-    <div class="info-panel" style="{{subView == 'guests'? 'padding: 3px 0 1px' : 'inherit'}}">
+    <div class="info-panel" style="{{subView == 'guests'? currentProject.restaurant.quickView ? 'padding: 3px 0 3px' :'padding: 3px 0 1px' : 'inherit'}}">
         <div class="top-sub-menu-shift">
             <ul>
                 <li ng-show="!currentProject.restaurant.quickView && subView == 'guests'">

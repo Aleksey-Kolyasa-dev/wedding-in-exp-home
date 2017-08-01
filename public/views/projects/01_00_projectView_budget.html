@@ -7,29 +7,31 @@
                 <li ><a>Результат</a></li>
             </ul>
         </div>
-        <h2>БЮДЖЕТ</h2>
+        <h2>
+            БЮДЖЕТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+        </h2>
     </header>
 
     <div class="info-panel-budget">
         <div>
-            <div>
-                <span class="info-panel-dyn-good">
-                    БЮДЖЕТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
-                </span>
-            </div>
-            <div>
+            <div style="margin-left: 30px">
                 <span class="info-panel-dyn-good">
                     ПЛАН ЗАТРАТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
             <div>
                 <span class="info-panel-dyn-good">
-                    ОСТАТОК ПЛАН: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                    ФАКТ ЗАТРАТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
             <div>
                 <span class="info-panel-dyn-good">
-                    ФАКТ ЗАТРАТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                    ДОПЛАТИТЬ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                </span>
+            </div>
+            <div>
+                <span class="info-panel-dyn-good">
+                    ОСТАТОК ПЛАН: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
             </div>
             <div>
