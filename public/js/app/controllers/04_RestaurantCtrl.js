@@ -3,6 +3,7 @@ define(['angular'], function (angular) {
     var restaurantCtrlModule = angular.module('restaurantCtrlModule', ['wedServices']);
 
     restaurantCtrlModule.controller('restaurantMainCtrl', restaurantMainCtrl);
+    restaurantCtrlModule.controller('restaurantPlusMainCtrl', restaurantPlusMainCtrl);
 
     function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // Default subView
@@ -15,6 +16,9 @@ define(['angular'], function (angular) {
                     $scope.subView = view;
                     break;
                 case "restaurant" :
+                    $scope.subView = view;
+                    break;
+                case "restaurantPlus" :
                     $scope.subView = view;
                     break;
             }
@@ -307,6 +311,10 @@ define(['angular'], function (angular) {
                     return noteArr;
             }
         };
+    } // Ctrl End
+
+    function restaurantPlusMainCtrl($scope, $log, toastr, _env, ResourceService) {
+
     } // Ctrl End
 
     return restaurantCtrlModule;

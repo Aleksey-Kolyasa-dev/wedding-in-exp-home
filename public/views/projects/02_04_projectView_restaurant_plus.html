@@ -1,0 +1,116 @@
+<div class="rest-general-page">
+    <div class="rest-general-list">
+        <p>Ресторан: <span class="rest-info-data">{{currentProject.restaurant.name}}</span></p>
+        <p>Адрес: <span class="rest-info-data">{{currentProject.restaurant.address}}</span></p>
+        <p>Телефон: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.telephones)}}</span></p>
+        <p>Вэбсайт: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</span></p>
+        <hr>
+        <p>Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
+        <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, '%') }}</span></p>
+        <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, currentProject.budget.nationalMoney) }}</span></p>
+        <hr>
+        <p>Оплаченно в  {{currentProject.budget.nationalMoney}}: <span class="rest-info-data">{{currentProject.restaurant.total.paidNat}}</span></p>
+        <p>Оплаченно в USD: <span class="rest-info-data">{{currentProject.restaurant.total.paidUsd}}</span></p>
+        <hr>
+        <div style="float: right">
+            <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+    </div>
+
+    <div class="rest-general-list" style="margin-left: 20px">
+        <p>Заметки:</p>
+        <ul ng-repeat="note in notesFilter(currentProject.restaurant.notes)" style="padding: 0; list-style: none">
+            <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- EDIT RESTAURANT GENERAL DATA MODAL *START* -->
+<div id="editRestGeneralData" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">close</button>
+                <h4 class="modal-title"><b>РЕСТОРАН</b></h4>
+            </div>
+            <div class="modal-body wed-modals">
+                <div class="add-new-proj-main">
+                    <form name="editRestGeneralDataForm" novalidate ng-submit="">
+                        <div class="">
+                            <div class="form-group">
+                                <label>Название ресторана</label>
+                                <input class="form-control" ng-model="currentProject.restaurant.name"
+                                       type="text" required ng-minlength='3'>
+                            </div>
+                            <div class="form-group">
+                                <label>Адресс ресторана</label>
+                                <input class="form-control" ng-model="currentProject.restaurant.address"
+                                       type="text" required ng-minlength='3'>
+                            </div>
+                            <div class="form-group">
+                                <label>Контактный тлф.</label>
+                                <input class="form-control" ng-model="currentProject.restaurant.telephones"
+                                       type="text">
+                            </div>
+                            <div class="form-group">
+                                <label>Вэбсайт</label>
+                                <input class="form-control" ng-model="currentProject.restaurant.website"
+                                       type="text">
+                            </div>
+                            <hr>
+                            <div class="form-group text-center">
+                                <label>Средний чек {{currentProject.budget.nationalMoney}}
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck"
+                                       type="number" required>
+                                </label>
+                            </div>
+                            <div class="form-group text-center">
+                                <label>% за обслуживание
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPercent"
+                                       type="number" required>
+                                </label>
+                            </div>
+                            <div class="form-group text-center">
+                                <label>Пробковый сбор {{currentProject.budget.nationalMoney}}
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPlugs"
+                                       type="number" required>
+                                </label>
+                            </div>
+                            <hr>
+                            <div class="form-group text-center">
+                                <label>Оплаченно в {{currentProject.budget.nationalMoney}}
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidNat"
+                                      required type="number">
+                                </label>
+                            </div>
+                            <div class="form-group text-center">
+                                <label>Оплаченно в USD
+                                    <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidUsd"
+                                          required type="number">
+                                </label>
+                            </div>
+                            <hr>
+                            <div class="form-group" style="margin-top: 10px">
+                                <label>Заметки</label>
+                                <textarea class="form-control" ng-model="currentProject.restaurant.notes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block"
+                                    ng-disabled="editRestGeneralDataForm.$invalid" data-dismiss="modal"
+                                    ng-click="restDataSave()">
+                                <b>ПРИМЕНИТЬ</b>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="deco-farames text-center">
+                        <div>
+                            <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EDIT RESTAURANT GENERAL DATA MODAL *END* -->
