@@ -7,7 +7,8 @@ define(['angular'], function (angular) {
 
     function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // Default subView
-        $scope.subView = "guests";
+        //$scope.subView = "guests";
+        $scope.subView = "restaurantPlus";
 
         // Subview shift Fn
         $scope.subViewShift = function (view) {

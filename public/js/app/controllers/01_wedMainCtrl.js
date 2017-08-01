@@ -56,13 +56,13 @@ define(['angular'], function (angular) {
                         $scope.currentProject = project;
                         $location.path('/project');
                         //** $scope.currentProjectView.mainMenu = "budget";
-                        $scope.currentProjectView.mainMenu = "budget";
+                        $scope.currentProjectView.mainMenu = "restaurant";
                     }, 500);
                 } else {
                     $scope.currentProject = project;
                     $location.path('/project');
                     //** $scope.currentProjectView.mainMenu = "budget";
-                    $scope.currentProjectView.mainMenu = "budget";
+                    $scope.currentProjectView.mainMenu = "restaurant";
                 }
             });
         };

@@ -23,7 +23,7 @@ define(['angular'], function (angular) {
                     budgetNat : 0,
                     nationalMoney : 'units',
                     currency : 0,
-                    notes : null,
+                    notes : null
                 };
                 this.restaurant = {
                     name : null,
@@ -31,7 +31,7 @@ define(['angular'], function (angular) {
                     telephones : null,
                     website : null,
                     guestsQty : 2,
-                    restaurantTotal: 0,
+                    /*restaurantTotal: 0,*/
                     notes : null,
                     quickView : false,
                     quickData : {
@@ -45,6 +45,28 @@ define(['angular'], function (angular) {
                         generalPercent : 0,
                         generalPlugs : 0
                     },
+                    total : {
+                        planUsd : 0,
+                        planNat : 0,
+                        paidUsd : 0,
+                        paidNat : 0,
+                        paidTotalUsd : 0,
+                        paidTotalNat : 0,
+                        restTotalUsd : 0,
+                        restTotalNat : 0
+                    }
+                };
+                this.restaurantPlus = {
+                    expCollection : [{
+                        name : 'ТОРТ',
+                        tariff : 200,
+                        Qnt : 5,
+                        QntName : 'kg',
+                        summ : 0,
+                        paid : 0,
+                        rest : 0,
+                        usd : false
+                    }],
                     total : {
                         planUsd : 0,
                         planNat : 0,
