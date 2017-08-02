@@ -60,12 +60,13 @@ define(['angular'], function (angular) {
                     expCollection : [{
                         name : 'ТОРТ',
                         tariff : 200,
-                        Qnt : 5,
-                        QntName : 'kg',
-                        summ : 0,
+                        multiplier : 5,
+                        unit : 'kg',
+                        toPai : 0,
                         paid : 0,
                         rest : 0,
-                        usd : false
+                        usd : false,
+                        money : null
                     }],
                     total : {
                         planUsd : 0,

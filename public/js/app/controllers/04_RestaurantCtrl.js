@@ -315,7 +315,51 @@ define(['angular'], function (angular) {
     } // Ctrl End
 
     function restaurantPlusMainCtrl($scope, $log, toastr, _env, ResourceService) {
+        // Add New Expense Item Fn
+        $scope.addNewExpenseItem = function (item) {
+          if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
+              // If 'unit' is not defined
+              if(item.unit == ''){
+                  item.unit = 'не указан';
+              }
+              // Intermediate calculations
+              item.toPai = item.tariff * item.multiplier;
+              item.rest = item.toPai - item.paid;
 
+              // Money type check
+              if(!item.usd){
+                  item.money = $scope.currentProject.budget.nationalMoney;
+              } else {
+                  item.money = 'USD';
+              }
+
+              // Add expense item to expCollection
+              $scope.currentProject.restaurantPlus.expCollection.push(item);
+
+              // ADD EXPENSE ITEM to DB
+              ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
+                  function (data) {
+                      if (_env._dev) {
+                          toastr.success('New Expense Item created!');
+                      }
+                  },
+                  function (err) {
+                      toastr.error('ERROR: New Expense Item AJAX failed');
+                      throw new Error('ERROR: New Expense Item AJAX failed' + err);
+                  })
+                  .catch(function (err) {
+                      toastr.error("ERROR: New Expense Item AJAX failed");
+                      $log.error("ERROR: New Expense Item AJAX failed", err);
+                  });
+          }
+          else {
+              toastr.error('ERROR: expense input check failed');
+              throw new Error('ERROR: expense input check failed' + err);
+          }
+        };
+
+        // Shortcut
+        $scope.items = $scope.currentProject.restaurantPlus.expCollection;
     } // Ctrl End
 
     return restaurantCtrlModule;

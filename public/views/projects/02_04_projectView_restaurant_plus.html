@@ -1,10 +1,10 @@
 <div class="rest-plus-page" ng-controller="restaurantPlusMainCtrl">
 
-    <!--FIANCE SIDE *START*-->
+    <!--EXPENSE ITEMS TABLE *START*-->
     <div class="fiance-side-main ">
         <div style="padding: 0">
             <div style="float: left">
-                <button class="btn btn-warning" data-target="#addNewExpenceItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-warning" data-target="#addNewExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <header class="guests-fiance-side" style="float: right">
                 <h4 class="guests-side-head">ДОПОЛНИТЕЛЬНЫЕ ЗАТРАТЫ ПО РЕСТОРАНУ</h4>
@@ -14,11 +14,11 @@
         <div>
             <table class="table">
                 <thead class="guest-side-table-head">
-                <tr style="color: white">
+                    <tr style="color: white">
                     <th class="text-center">№</th>
                     <th>ЗАТРАТЫ</th>
                     <th class="text-center">ТАРИФ</th>
-                    <th class="text-center">КОЕФФИЦИЕНТ</th>
+                    <th class="text-center">МНОЖИТЕЛЬ</th>
                     <th class="text-center">НОМИНАЛ</th>
                     <th class="text-center">К ОПЛАТЕ</th>
                     <th class="text-center">ОПЛАЧЕННО</th>
@@ -28,122 +28,76 @@
                 </thead>
 
                 <tbody>
-                    <tr class="guest" ng-repeat="item in curre">
-                        <td class="text-center">1</td>
-                        <td>Торт</td>
-                        <td class="text-center">200</td>
-                        <td class="text-center">5</td>
-                        <td class="text-center">кг</td>
-                        <td class="text-center">1000</td>
-                        <td class="text-center">300</td>
-                        <td class="text-center">700</td>
+                    <tr class="guest" ng-repeat="item in items">
+                        <td class="text-center">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center">{{item.tariff}} {{item.money}}</td>
+                        <td class="text-center">{{item.multiplier}}</td>
+                        <td class="text-center">{{item.unit}}</td>
+                        <td class="text-center">{{item.toPai}} {{item.money}}</td>
+                        <td class="text-center">{{item.paid}} {{item.money}}</td>
+                        <td class="text-center">{{item.rest}} {{item.money}}</td>
                         <td class="text-center">
                             <div>
-                                <button class="btn btn-primary" data-target="#editRestGeneralData" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-primary" data-target="#editExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                             </div>
                         </td>
                     </tr>
-                    <tr class="guest">
-                        <td class="text-center">1</td>
-                        <td>Торт</td>
-                        <td class="text-center">200</td>
-                        <td class="text-center">5</td>
-                        <td class="text-center">кг</td>
-                        <td class="text-center">1000</td>
-                        <td class="text-center">300</td>
-                        <td class="text-center">700</td>
-                        <td class="text-center">
-                            <div>
-                                <button class="btn btn-primary" data-target="#editRestGeneralData" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
-                            </div>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
         </div>
     </div>
-    <!--FIANCE SIDE *END*-->
+    <!--EXPENSE ITEMS TABLE  *END*-->
 
-
-
-
-
-
-
-    <!-- EDIT RESTAURANT GENERAL DATA MODAL *START* -->
-    <div id="addNewExpenceItem" class="modal fade">
-        <div class="modal-dialog">
+    <!-- ADD EXPENSE ITEM MODAL *START* -->
+    <div id="addNewExpenseItem" class="modal fade">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">close</button>
-                    <h4 class="modal-title"><b>РЕСТОРАН</b></h4>
+                    <h4 class="modal-title"><b>ДОБАВИТЬ</b></h4>
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
-                        <form name="editRestGeneralDataForm" novalidate ng-submit="">
-                            <div class="">
+                        <form name="addNewExpenseItemForm" novalidate>
+                            <div>
                                 <div class="form-group">
-                                    <label>Название ресторана</label>
-                                    <input class="form-control" ng-model="currentProject.restaurant.name"
-                                           type="text" required ng-minlength='3'>
+                                    <label>Наименование</label>
+                                    <input class="form-control" ng-model="newItem.name"
+                                           type="text" required ng-minlength='2'>
                                 </div>
                                 <div class="form-group">
-                                    <label>Адресс ресторана</label>
-                                    <input class="form-control" ng-model="currentProject.restaurant.address"
-                                           type="text" required ng-minlength='3'>
+                                    <label>Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <input class="form-control" ng-model="newItem.tariff"
+                                           type="number" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Контактный тлф.</label>
-                                    <input class="form-control" ng-model="currentProject.restaurant.telephones"
+                                    <label>Множитель</label>
+                                    <input class="form-control" ng-model="newItem.multiplier"
+                                           type="number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Номинал</label>
+                                    <input class="form-control" ng-model="newItem.unit"
                                            type="text">
                                 </div>
+                                <hr>
                                 <div class="form-group">
-                                    <label>Вэбсайт</label>
-                                    <input class="form-control" ng-model="currentProject.restaurant.website"
-                                           type="text">
+                                    <label>Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <input class="form-control" ng-model="newItem.paid"
+                                           type="number" required>
                                 </div>
                                 <hr>
-                                <div class="form-group text-center">
-                                    <label>Средний чек {{currentProject.budget.nationalMoney}}
-                                    <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck"
-                                           type="number" required>
-                                    </label>
-                                </div>
-                                <div class="form-group text-center">
-                                    <label>% за обслуживание
-                                    <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPercent"
-                                           type="number" required>
-                                    </label>
-                                </div>
-                                <div class="form-group text-center">
-                                    <label>Пробковый сбор {{currentProject.budget.nationalMoney}}
-                                    <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPlugs"
-                                           type="number" required>
-                                    </label>
-                                </div>
-                                <hr>
-                                <div class="form-group text-center">
-                                    <label>Оплаченно в {{currentProject.budget.nationalMoney}}
-                                    <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidNat"
-                                          required type="number">
-                                    </label>
-                                </div>
-                                <div class="form-group text-center">
-                                    <label>Оплаченно в USD
-                                        <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidUsd"
-                                              required type="number">
-                                    </label>
-                                </div>
-                                <hr>
-                                <div class="form-group" style="margin-top: 10px">
-                                    <label>Заметки</label>
-                                    <textarea class="form-control" ng-model="currentProject.restaurant.notes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                                <div class="form-group text-right" style="width: 100%">
+                                    <label style="cursor: pointer;">Расчет в USD
+                                    <input style="width: 16px; height: 16px; cursor: pointer" ng-model="newItem.usd"
+                                           type="checkbox"></label>
                                 </div>
 
+
                                 <button type="submit" class="btn btn-success btn-block"
-                                        ng-disabled="editRestGeneralDataForm.$invalid" data-dismiss="modal"
-                                        ng-click="restDataSave()">
+                                        ng-disabled="addNewExpenseItemForm.$invalid" data-dismiss="modal"
+                                        ng-click="addNewExpenseItem(newItem)">
                                     <b>ПРИМЕНИТЬ</b>
                                 </button>
                             </div>
@@ -158,5 +112,5 @@
             </div>
         </div>
     </div>
-    <!-- EDIT RESTAURANT GENERAL DATA MODAL *END* -->
+    <!-- ADD EXPENSE ITEM MODAL MODAL *END* -->
 </div>
