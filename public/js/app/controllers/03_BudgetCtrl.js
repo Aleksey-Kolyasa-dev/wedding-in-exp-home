@@ -15,7 +15,6 @@ define(['angular'], function (angular) {
 
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/budget").then(
                     function (data) {
-                        // $scope.saveHide = true;
                         if (_env._dev) {
                             toastr.success('budget changed');
                         }

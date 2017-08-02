@@ -4,7 +4,9 @@ define(['angular'], function (angular) {
 
     newProjectCtrlModule.controller('newProjectCtrl', newProjectCtrl);
     newProjectCtrlModule.controller('editProjectCtrl', editProjectCtrl);
-
+    /*
+    *  NEW PROJECT CTRL
+    * */
     function newProjectCtrl($scope, $log, toastr, _env, ResourceService, AppService) {
         $scope.createNewProject = function (newProject) {
             // New Project Constructor
@@ -98,14 +100,24 @@ define(['angular'], function (angular) {
         };
     } // End of newProjectCtrl
 
+    /*
+    * EDIT PROJECT CTRL
+    * */
     function editProjectCtrl($scope, $log, toastr, _env, ResourceService, AppService) {
+        // Default values
         $scope.editProject = {};
 
+        // budget update Fn
+        function budgetUpdate() {
+            $scope.editProject.budget.budgetNat = $scope.editProject.budget.budgetUSD * $scope.editProject.budget.currency;
+        }
         // On 'editProject' Event => get edited project
         $scope.$on('editProject', function (e, args) {
            ResourceService._ajaxRequest("GET", args.id, null, null).then(function (project) {
                project.weddingDate = AppService._objectTodateString(project.weddingDate);
                $scope.editProject = project;
+               budgetUpdate();
+               //$scope.editProject.budget.budgetNat = $scope.editProject.budget.budgetUSD * $scope.editProject.budget.currency;
            }).catch(function (err) {
                toastr.error("ERROR: GET init data failed");
                $log.warn("ERROR: GET init data failed", err);
@@ -118,7 +130,8 @@ define(['angular'], function (angular) {
             if(editedProject.weddingDate.length < 12){
                 editedProject.weddingDate = AppService._dateStringToObject(editedProject.weddingDate);
             }
-            //$log.log(editedProject);
+            budgetUpdate();
+            //$scope.editProject.budget.budgetNat = $scope.editProject.budget.budgetUSD * $scope.editProject.budget.currency;
             ResourceService._ajaxRequest("PUT", null, editedProject, null).then(
                 function (project) {
                     $log.log(project);

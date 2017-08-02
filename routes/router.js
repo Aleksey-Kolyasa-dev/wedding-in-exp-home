@@ -62,7 +62,6 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.fianceName = project.fianceName;
         updatedProject.fianceeName = project.fianceeName;
         updatedProject.weddingDate = project.weddingDate;
-        /*updatedProject.wedBudget = project.wedBudget;*/
         updatedProject.email = project.email;
         updatedProject.telephones = project.telephones;
         updatedProject.notes = project.notes;
@@ -70,7 +69,7 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
         updatedProject.budget = project.budget;
         updatedProject.restaurant = project.restaurant;
-        //console.log(updatedProject);
+        updatedProject.restaurantPlus = project.restaurantPlus;
     }
     if(!updatedProject){
         res.status(400);
