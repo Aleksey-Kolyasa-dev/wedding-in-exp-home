@@ -5,6 +5,9 @@ define(['angular'], function (angular) {
     restaurantCtrlModule.controller('restaurantMainCtrl', restaurantMainCtrl);
     restaurantCtrlModule.controller('restaurantPlusMainCtrl', restaurantPlusMainCtrl);
 
+    /*
+     * RESTAURANT MAIN CTRL
+     * */
     function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // Default subView
         //$scope.subView = "guests";
@@ -314,6 +317,9 @@ define(['angular'], function (angular) {
         };
     } // Ctrl End
 
+    /*
+    * RESTAURANT PLUS CTRL
+    * */
     function restaurantPlusMainCtrl($scope, $log, toastr, _env, ResourceService) {
         $scope.itemToEdit = {};
         $scope.newItem = {};
@@ -325,7 +331,7 @@ define(['angular'], function (angular) {
         $scope.addNewExpenseItem = function (item) {
           if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
               // If 'unit' is not defined
-              if(item.unit == ''){
+              if(item.unit == '' || item.unit == null){
                   item.unit = 'не указан';
               }
               // Intermediate calculations
@@ -345,6 +351,7 @@ define(['angular'], function (angular) {
               // ADD EXPENSE ITEM to DB
               ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
                   function (data) {
+                      $scope.newItem = {};
                       if (_env._dev) {
                           toastr.success('New Expense Item created!');
                       }
@@ -367,13 +374,14 @@ define(['angular'], function (angular) {
         // Edit Expense Item Fn
         $scope.editExpenseItem = function (index) {
            $scope.itemToEdit = $scope.items[index];
+            $scope.removeTrigger = false;
         };
 
-        // APPLY CHANGES
+        // SAVE EDITED ITEM in DB
         $scope.editExpenseItemSave = function (item) {
             if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
                 // If 'unit' is not defined
-                if(item.unit == ''){
+                if(item.unit == '' || item.unit == null){
                     item.unit = 'не указан';
                 }
                 // Intermediate calculations
@@ -390,6 +398,8 @@ define(['angular'], function (angular) {
                 // SAVE CHANGES of EXPENSE ITEM to DB
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
                     function (data) {
+                        $scope.removeTrigger = false;
+                        $scope.itemToEdit = {};
                         if (_env._dev) {
                             toastr.success('Expense Item Edited!');
                         }
@@ -408,9 +418,29 @@ define(['angular'], function (angular) {
                 throw new Error('ERROR: expense input check failed' + err);
             }
         };
-        // Delete
-        $scope.deleteExpenseItem = function (index) {
 
+        // DELETE ITEM
+        $scope.deleteExpenseItem = function (index) {
+            // Remove from model
+            $scope.currentProject.restaurantPlus.expCollection.splice(index, 1);
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
+                function (data) {
+                    $scope.removeTrigger = false;
+                    $scope.itemToEdit = {};
+                    if (_env._dev) {
+                        toastr.warning('Expense Item removed');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: New Expense Item AJAX failed');
+                    throw new Error('ERROR: New Expense Item AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Expense Item Edit AJAX failed");
+                    $log.error("ERROR: Expense Item Edit AJAX failed", err);
+                });
         }
 
     } // Ctrl End

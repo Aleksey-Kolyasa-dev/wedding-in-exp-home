@@ -1,7 +1,7 @@
 <div class="rest-plus-page" ng-controller="restaurantPlusMainCtrl">
 
     <!--EXPENSE ITEMS TABLE *START*-->
-    <div class="fiance-side-main ">
+    <div class="fiance-side-main col-xs-11">
         <div style="padding: 0">
             <div style="float: left">
                 <button class="btn btn-warning" data-target="#addNewExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
@@ -64,28 +64,28 @@
                                 <div class="form-group">
                                     <label>Наименование</label>
                                     <input class="form-control" ng-model="newItem.name"
-                                           type="text" ng-minlength='2'>
+                                           type="text" required ng-minlength='2' placeholder="введите наименование">
                                 </div>
                                 <div class="form-group">
                                     <label>Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.tariff"
-                                           type="number" required>
+                                           type="number" required placeholder="стоимость">
                                 </div>
                                 <div class="form-group">
                                     <label>Множитель</label>
                                     <input class="form-control" ng-model="newItem.multiplier"
-                                           type="number" required>
+                                           type="number" required placeholder="1, 2, 5.5, 10...">
                                 </div>
                                 <div class="form-group">
                                     <label>Номинал</label>
                                     <input class="form-control" ng-model="newItem.unit"
-                                           type="text">
+                                           type="text" placeholder="в час, за кг, ...">
                                 </div>
                                 <hr>
                                 <div class="form-group">
                                     <label>Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.paid"
-                                           type="number" required>
+                                           type="number" required placeholder="сумма или 0">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
@@ -122,7 +122,7 @@
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
-                        <form name="addNewExpenseItemForm" novalidate>
+                        <form name="editExpenseItemForm" novalidate>
                             <div>
                                 <div class="form-group">
                                     <label>Наименование</label>
@@ -157,22 +157,21 @@
                                                type="checkbox"></label>
                                 </div>
                                 <hr>
-                                <div class="text-centers">
+                                <div class="text-center">
                                     <div class="form-group" style="width: 100%">
-                                        <label style="cursor: pointer;">
-                                            <input style="width: 16px; height: 16px; cursor: pointer" ng-model="removeTrigger"
-                                                   type="checkbox">  удалить</label>
+                                        <label style="cursor: pointer; font-size: 90%; color: silver">
+                                            <input style="width: 16px; display: none; height: 16px; cursor: pointer" ng-model="removeTrigger"
+                                                   type="checkbox">Удалить запись</label>
                                     </div>
-                                    <button ng-show="removeTrigger" type="submit" class="btn btn-danger btn-xs"
-                                            data-dismiss="modal"
-                                            ng-click="deleteExpenseItem(items.indexOf(itemToEdit))">
-                                        <b>ПОДТВЕРДИТЬ УДАЛЕНИЕ</b>
-                                    </button>
                                 </div>
-
                                 <hr>
-                                <button type="submit" class="btn btn-success btn-block"
-                                        ng-disabled="addNewExpenseItemForm.$invalid" data-dismiss="modal"
+                                <button ng-show="removeTrigger" type="submit" class="btn btn-danger btn-block"
+                                        data-dismiss="modal"
+                                        ng-click="deleteExpenseItem(items.indexOf(itemToEdit))">
+                                    <b>ПОДТВЕРДИТЬ УДАЛЕНИЕ</b>
+                                </button>
+                                <button ng-show="!removeTrigger" type="submit" class="btn btn-success btn-block"
+                                        ng-disabled="editExpenseItemForm.$invalid" data-dismiss="modal"
                                         ng-click="editExpenseItemSave(itemToEdit)">
                                     <b>ПРИМЕНИТЬ</b>
                                 </button>
