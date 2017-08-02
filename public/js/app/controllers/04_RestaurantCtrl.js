@@ -334,10 +334,21 @@ define(['angular'], function (angular) {
               if(item.unit == '' || item.unit == null){
                   item.unit = 'не указан';
               }
+              // multiplier correction
+              if(item.multiplier <= 0 ){
+                  item.multiplier = 1;
+              }
+              // tariff correction
+              if(item.tariff < 0){
+                  item.tariff *=-1;
+              }
+              // paid correction
+              if(item.paid < 0){
+                  item.paid *= -1;
+              }
               // Intermediate calculations
               item.toPai = item.tariff * item.multiplier;
               item.rest = item.toPai - item.paid;
-
               // Money type check
               if(!item.usd){
                   item.money = $scope.currentProject.budget.nationalMoney;
@@ -383,6 +394,18 @@ define(['angular'], function (angular) {
                 // If 'unit' is not defined
                 if(item.unit == '' || item.unit == null){
                     item.unit = 'не указан';
+                }
+                // multiplier correction
+                if(item.multiplier <= 0 ){
+                    item.multiplier = 1;
+                }
+                // tariff correction
+                if(item.tariff < 0){
+                    item.tariff *=-1;
+                }
+                // paid correction
+                if(item.paid < 0){
+                    item.paid *= -1;
                 }
                 // Intermediate calculations
                 item.toPai = item.tariff * item.multiplier;
