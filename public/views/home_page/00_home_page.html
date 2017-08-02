@@ -198,11 +198,13 @@
                                         <label for="delete-trigger" style="cursor: pointer">
                                         <input id="delete-trigger" class="form-controls" ng-model="deleteProjectTrigger"
                                                   type="checkbox" style="height: 16px; width: 16px; cursor: pointer;  margin-right: 5px">Удалить проект</label>
-                                        <button ng-if="deleteProjectTrigger" type="submit" class="btn btn-xs btn-danger" data-dismiss="modal" ng-click="deleteProject(editProject._id)">ПОДТВЕРДИТЬ УДАЛЕНИЕ</button>
                                     </div>
+                                    <button ng-if="deleteProjectTrigger" type="submit" class="btn btn-danger btn-block" data-dismiss="modal" ng-click="deleteProject(editProject._id)">
+                                        ПОДТВЕРДИТЬ УДАЛЕНИЕ
+                                    </button>
                                     <button type="submit" class="btn btn-success btn-block"
                                             ng-disabled="editProj.$invalid" data-dismiss="modal"
-                                            ng-click="editProjectApply(editProject)">
+                                            ng-click="editProjectApply(editProject)" ng-if="!deleteProjectTrigger">
                                         <b>ПРИМЕНИТЬ</b>
                                     </button>
                                 </div>

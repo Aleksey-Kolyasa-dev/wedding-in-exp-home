@@ -107,17 +107,18 @@ define(['angular'], function (angular) {
         // Default values
         $scope.editProject = {};
 
-        // budget update Fn
+        // Budget update Fn
         function budgetUpdate() {
             $scope.editProject.budget.budgetNat = $scope.editProject.budget.budgetUSD * $scope.editProject.budget.currency;
         }
-        // On 'editProject' Event => get edited project
+
+        // On 'editProject' EVENT => get edited project
         $scope.$on('editProject', function (e, args) {
            ResourceService._ajaxRequest("GET", args.id, null, null).then(function (project) {
                project.weddingDate = AppService._objectTodateString(project.weddingDate);
                $scope.editProject = project;
+               // Budget update
                budgetUpdate();
-               //$scope.editProject.budget.budgetNat = $scope.editProject.budget.budgetUSD * $scope.editProject.budget.currency;
            }).catch(function (err) {
                toastr.error("ERROR: GET init data failed");
                $log.warn("ERROR: GET init data failed", err);
@@ -130,8 +131,10 @@ define(['angular'], function (angular) {
             if(editedProject.weddingDate.length < 12){
                 editedProject.weddingDate = AppService._dateStringToObject(editedProject.weddingDate);
             }
+            // Budget update
             budgetUpdate();
-            //$scope.editProject.budget.budgetNat = $scope.editProject.budget.budgetUSD * $scope.editProject.budget.currency;
+
+            // Save to DB
             ResourceService._ajaxRequest("PUT", null, editedProject, null).then(
                 function (project) {
                     $log.log(project);
