@@ -12,7 +12,7 @@
         </div>
 
         <div>
-            <table class="table">
+            <table class="table table-responsive">
                 <thead class="guest-side-table-head">
                     <tr style="color: white">
                     <th class="text-center">№</th>
@@ -39,7 +39,7 @@
                         <td class="text-center">{{item.rest}} {{item.money}}</td>
                         <td class="text-center">
                             <div>
-                                <button class="btn btn-primary" data-target="#editExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                             </div>
                         </td>
                     </tr>
@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <label>Наименование</label>
                                     <input class="form-control" ng-model="newItem.name"
-                                           type="text" required ng-minlength='2'>
+                                           type="text" ng-minlength='2'>
                                 </div>
                                 <div class="form-group">
                                     <label>Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
@@ -93,8 +93,6 @@
                                     <input style="width: 16px; height: 16px; cursor: pointer" ng-model="newItem.usd"
                                            type="checkbox"></label>
                                 </div>
-
-
                                 <button type="submit" class="btn btn-success btn-block"
                                         ng-disabled="addNewExpenseItemForm.$invalid" data-dismiss="modal"
                                         ng-click="addNewExpenseItem(newItem)">
@@ -113,4 +111,82 @@
         </div>
     </div>
     <!-- ADD EXPENSE ITEM MODAL MODAL *END* -->
+
+    <!-- EDIT EXPENSE ITEM MODAL *START* -->
+    <div id="editExpenseItem" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">close</button>
+                    <h4 class="modal-title"><b>ДОБАВИТЬ</b></h4>
+                </div>
+                <div class="modal-body wed-modals">
+                    <div class="add-new-proj-main">
+                        <form name="addNewExpenseItemForm" novalidate>
+                            <div>
+                                <div class="form-group">
+                                    <label>Наименование</label>
+                                    <input class="form-control" ng-model="itemToEdit.name"
+                                           type="text" required ng-minlength='2'>
+                                </div>
+                                <div class="form-group">
+                                    <label>Тариф {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <input class="form-control" ng-model="itemToEdit.tariff"
+                                           type="number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Множитель</label>
+                                    <input class="form-control" ng-model="itemToEdit.multiplier"
+                                           type="number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Номинал</label>
+                                    <input class="form-control" ng-model="itemToEdit.unit"
+                                           type="text">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Оплаченно {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <input class="form-control" ng-model="itemToEdit.paid"
+                                           type="number" required>
+                                </div>
+                                <hr>
+                                <div class="form-group text-right" style="width: 100%">
+                                    <label style="cursor: pointer;">Расчет в USD
+                                        <input style="width: 16px; height: 16px; cursor: pointer" ng-model="itemToEdit.usd"
+                                               type="checkbox"></label>
+                                </div>
+                                <hr>
+                                <div class="text-centers">
+                                    <div class="form-group" style="width: 100%">
+                                        <label style="cursor: pointer;">
+                                            <input style="width: 16px; height: 16px; cursor: pointer" ng-model="removeTrigger"
+                                                   type="checkbox">  удалить</label>
+                                    </div>
+                                    <button ng-show="removeTrigger" type="submit" class="btn btn-danger btn-xs"
+                                            data-dismiss="modal"
+                                            ng-click="deleteExpenseItem(items.indexOf(itemToEdit))">
+                                        <b>ПОДТВЕРДИТЬ УДАЛЕНИЕ</b>
+                                    </button>
+                                </div>
+
+                                <hr>
+                                <button type="submit" class="btn btn-success btn-block"
+                                        ng-disabled="addNewExpenseItemForm.$invalid" data-dismiss="modal"
+                                        ng-click="editExpenseItemSave(itemToEdit)">
+                                    <b>ПРИМЕНИТЬ</b>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="deco-farames text-center">
+                            <div>
+                                <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- EDIT EXPENSE ITEM MODAL MODAL *END* -->
 </div>

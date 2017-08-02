@@ -315,6 +315,12 @@ define(['angular'], function (angular) {
     } // Ctrl End
 
     function restaurantPlusMainCtrl($scope, $log, toastr, _env, ResourceService) {
+        $scope.itemToEdit = {};
+        $scope.newItem = {};
+
+        // Shortcut
+        $scope.items = $scope.currentProject.restaurantPlus.expCollection;
+
         // Add New Expense Item Fn
         $scope.addNewExpenseItem = function (item) {
           if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
@@ -358,8 +364,55 @@ define(['angular'], function (angular) {
           }
         };
 
-        // Shortcut
-        $scope.items = $scope.currentProject.restaurantPlus.expCollection;
+        // Edit Expense Item Fn
+        $scope.editExpenseItem = function (index) {
+           $scope.itemToEdit = $scope.items[index];
+        };
+
+        // APPLY CHANGES
+        $scope.editExpenseItemSave = function (item) {
+            if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
+                // If 'unit' is not defined
+                if(item.unit == ''){
+                    item.unit = 'не указан';
+                }
+                // Intermediate calculations
+                item.toPai = item.tariff * item.multiplier;
+                item.rest = item.toPai - item.paid;
+
+                // Money type check
+                if(!item.usd){
+                    item.money = $scope.currentProject.budget.nationalMoney;
+                } else {
+                    item.money = 'USD';
+                }
+
+                // SAVE CHANGES of EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
+                    function (data) {
+                        if (_env._dev) {
+                            toastr.success('Expense Item Edited!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: New Expense Item AJAX failed');
+                        throw new Error('ERROR: New Expense Item AJAX failed' + err);
+                    })
+                    .catch(function (err) {
+                        toastr.error("ERROR: Expense Item Edit AJAX failed");
+                        $log.error("ERROR: Expense Item Edit AJAX failed", err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: expense input check failed');
+                throw new Error('ERROR: expense input check failed' + err);
+            }
+        };
+        // Delete
+        $scope.deleteExpenseItem = function (index) {
+
+        }
+
     } // Ctrl End
 
     return restaurantCtrlModule;
