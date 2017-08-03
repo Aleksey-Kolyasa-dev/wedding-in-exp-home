@@ -13,6 +13,11 @@ define(['angular'], function (angular) {
         //$scope.subView = "guests";
         $scope.subView = "restaurantPlus";
 
+        // EVENT SUBSCRIBE
+        $scope.$on('totalValuesChanged', function () {
+            restaurantTotal();
+            toastr.info('DONE');
+        });
         // Subview shift Fn
         $scope.subViewShift = function (view) {
             switch (view) {
@@ -27,6 +32,27 @@ define(['angular'], function (angular) {
                     break;
             }
         };
+
+        // TOTAL RESTAURANT CALCULATION Fn
+        function restaurantTotal() {
+            // RESTAURANT GUESTS expenses calculations in National Money
+            var interGeneral = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
+            $scope.currentProject.restaurant.total.planNat = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral + $scope.currentProject.restaurantPlus.total.planNat;
+
+            // RESTAURANT GUESTS expenses calculations in USD
+            $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
+
+            // RESTAURANT PAID TOTAL DATA calculation
+            $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + ($scope.currentProject.restaurant.total.paidNat / $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidUsd;
+            //$scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + ($scope.currentProject.restaurant.total.paidUsd * $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidNat;
+            $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidTotalUsd * $scope.currentProject.budget.currency;
+
+            // RESTAURANT REST TOTAL DATA calculation
+            $scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidUsd - $scope.currentProject.restaurantPlus.total.paidTotalUsd;
+            $scope.currentProject.restaurant.total.restTotalNat =  $scope.currentProject.restaurant.total.restTotalUsd * $scope.currentProject.budget.currency;
+
+           // $log.log( $scope.currentProject.restaurantPlus);
+        }
 
         // Add new guests Fn
         $scope.addNewGuests = {
@@ -194,10 +220,10 @@ define(['angular'], function (angular) {
                     var result = filtArrM.length + filtArrW.length + 2;
                     $scope.currentProject.restaurant.guestsQty = result;
 
-                    var interGeneral = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
-                    $scope.currentProject.restaurant.total.planNat = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral;
+                    //var interGeneral = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
+                    //$scope.currentProject.restaurant.total.planNat = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral;
 
-                    $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
+                   // $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
 
                     // Do total calculations
                     restaurantTotal();
@@ -231,17 +257,6 @@ define(['angular'], function (angular) {
                     throw new Error('ERROR: Guest_M edit AJAX failed' + err);
                 });
         };
-
-        // TOTAL RESTAURANT CALCULATION Fn
-        function restaurantTotal() {
-            // RESTAURANT PAID TOTAL DATA calculation
-            $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + ($scope.currentProject.restaurant.total.paidNat / $scope.currentProject.budget.currency);
-            $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + ($scope.currentProject.restaurant.total.paidUsd * $scope.currentProject.budget.currency);
-
-            // RESTAURANT REST TOTAL DATA calculation
-            $scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
-            $scope.currentProject.restaurant.total.restTotalNat =  $scope.currentProject.restaurant.total.planNat - $scope.currentProject.restaurant.total.paidTotalNat;
-        }
 
         // Restaurant Data save Fn
         $scope.restDataSave = function (data) {
@@ -338,7 +353,7 @@ define(['angular'], function (angular) {
         $scope.items = $scope.currentProject.restaurantPlus.expCollection;
         $scope.total = $scope.currentProject.restaurantPlus.total;
         
-        // Update total values
+        // Update total values Fn
         function updateTotalValues() {
             $scope.total = {
                 planUsd : 0,
@@ -351,6 +366,7 @@ define(['angular'], function (angular) {
                 restTotalNat : 0
             };
             angular.forEach($scope.items, function (item) {
+                // USD and Nat plans separation
                 if(item.usd){
                     $scope.total.planUsd += item.toPai;
                     $scope.total.planNat = $scope.total.planUsd * $scope.currentProject.budget.currency;
@@ -365,16 +381,21 @@ define(['angular'], function (angular) {
                     $scope.total.paidNat += item.paid;
                     $scope.total.paidUsd = $scope.total.paidNat / $scope.currentProject.budget.currency;
                 }
-
             });
-
+            // Total Paid calculations
             $scope.total.paidTotalUsd += $scope.total.paidUsd;
-            $scope.total.paidTotalNat = $scope.total.paidTotalUsd / $scope.currentProject.budget.currency;
-
+            $scope.total.paidTotalNat = $scope.total.paidTotalUsd * $scope.currentProject.budget.currency;
+            // Total Rest calculations
             $scope.total.restTotalUsd = $scope.total.planUsd - $scope.total.paidTotalUsd;
             $scope.total.restTotalNat = $scope.total.restTotalUsd * $scope.currentProject.budget.currency;
+
+            // in the end copy obj back
+            $scope.currentProject.restaurantPlus.total = $scope.total;
+
+            // Emit Total Value Changes EVENT
+            $scope.$emit('totalValuesChanged');
         }
-        // Update total values
+        // Update total values immediate evoke
         updateTotalValues();
 
         // Add New Expense Item Fn
@@ -406,16 +427,17 @@ define(['angular'], function (angular) {
                   item.money = 'USD';
               }
 
-
-
               // Add expense item to expCollection
               $scope.currentProject.restaurantPlus.expCollection.push(item);
 
+              // Update total values
+              updateTotalValues();
               // ADD EXPENSE ITEM to DB
               ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
                   function (data) {
                       // Update total values
-                      updateTotalValues();
+                      //updateTotalValues();
+
                       $scope.newItem = {};
                       if (_env._dev) {
                           toastr.success('New Expense Item created!');

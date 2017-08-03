@@ -31,12 +31,12 @@
                     <tr class="guest" ng-repeat="item in items">
                         <td class="text-center">{{$index + 1}}</td>
                         <td>{{item.name}}</td>
-                        <td class="text-center">{{item.tariff}} {{item.money}}</td>
+                        <td class="text-center">{{item.tariff  | number : 1}} {{item.money}}</td>
                         <td class="text-center">{{item.multiplier}}</td>
                         <td class="text-center">{{item.unit}}</td>
-                        <td class="text-center">{{item.toPai}} {{item.money}}</td>
-                        <td class="text-center">{{item.paid}} {{item.money}}</td>
-                        <td class="text-center">{{item.rest}} {{item.money}}</td>
+                        <td class="text-center">{{item.toPai  | number : 1}} {{item.money}}</td>
+                        <td class="text-center">{{item.paid  | number : 1}} {{item.money}}</td>
+                        <td class="text-center">{{item.rest  | number : 1}} {{item.money}}</td>
                         <td class="text-center">
                             <div>
                                 <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
@@ -49,9 +49,9 @@
                         <td class="text-center"></td>
                         <td class="text-center"></td>
                         <td class="text-center">ИТОГО:</td>
-                        <td class="text-center">{{total.planNat}} {{currentProject.budget.nationalMoney}} / {{total.planUsd}} USD</td>
-                        <td class="text-center">{{total.paidTotalNat}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd}} USD</td>
-                        <td class="text-center">{{total.restTotalNat}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd}} USD</td>
+                        <td class="text-center"  style="color: silver">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.planUsd  | number : 1}} USD</td>
+                        <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd  | number : 1}} USD</td>
+                        <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd  | number : 1}} USD</td>
                         <td class="text-center"></td>
                     </tr>
                 </tbody>
