@@ -44,11 +44,13 @@ define(['angular'], function (angular) {
 
             // RESTAURANT PAID TOTAL DATA calculation
             $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + ($scope.currentProject.restaurant.total.paidNat / $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidUsd;
-            //$scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + ($scope.currentProject.restaurant.total.paidUsd * $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidNat;
-            $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidTotalUsd * $scope.currentProject.budget.currency;
+            $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + ($scope.currentProject.restaurant.total.paidUsd * $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidNat;
+            //$scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidTotalUsd * $scope.currentProject.budget.currency;
 
             // RESTAURANT REST TOTAL DATA calculation
-            $scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidUsd - $scope.currentProject.restaurantPlus.total.paidTotalUsd;
+            //$scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidUsd - $scope.currentProject.restaurantPlus.total.paidTotalUsd;
+            $scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
+
             $scope.currentProject.restaurant.total.restTotalNat =  $scope.currentProject.restaurant.total.restTotalUsd * $scope.currentProject.budget.currency;
 
            // $log.log( $scope.currentProject.restaurantPlus);
@@ -138,6 +140,8 @@ define(['angular'], function (angular) {
 
             guestEditDone: function (side) {
                 var self = this;
+                // Do total calculations
+                restaurantTotal();
                 switch (side) {
                     case "M":
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
