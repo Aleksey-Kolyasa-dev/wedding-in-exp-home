@@ -7,7 +7,7 @@
                 <button class="btn btn-warning" data-target="#addNewExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <header class="guests-fiance-side" style="float: right">
-                <h4 class="guests-side-head">ДОПОЛНИТЕЛЬНЫЕ ЗАТРАТЫ ПО РЕСТОРАНУ</h4>
+                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">ДОПОЛНИТЕЛЬНЫЕ ЗАТРАТЫ ПО РЕСТОРАНУ</h4>
             </header>
         </div>
 
@@ -43,16 +43,16 @@
                             </div>
                         </td>
                     </tr>
-                    <tr class="guest">
-                        <td class="text-center">x</td>
-                        <td>TOTAL:</td>
-                        <td class="text-center">empty</td>
-                        <td class="text-center">empty</td>
-                        <td class="text-center">empty</td>
+                    <tr class="guest total-footer-data">
+                        <td class="text-center"></td>
+                        <td></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">ИТОГО:</td>
                         <td class="text-center">{{total.planNat}} {{currentProject.budget.nationalMoney}} / {{total.planUsd}} USD</td>
                         <td class="text-center">{{total.paidTotalNat}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd}} USD</td>
                         <td class="text-center">{{total.restTotalNat}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd}} USD</td>
-                        <td class="text-center">empty</td>
+                        <td class="text-center"></td>
                     </tr>
                 </tbody>
             </table>

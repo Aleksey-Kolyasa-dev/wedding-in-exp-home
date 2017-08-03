@@ -27,3 +27,8 @@
     background-repeat: no-repeat;
     height: 100%;
 }
+.total-footer-data{
+    background: rgba(131, 38, 145, 0.4);
+    font-weight: bold;
+    font-style: italic;
+}
