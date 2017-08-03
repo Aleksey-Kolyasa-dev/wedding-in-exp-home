@@ -12,11 +12,13 @@ define(['angular'], function (angular) {
         // Default subView
         //$scope.subView = "guests";
         $scope.subView = "restaurantPlus";
-
+        /*$scope.restaurantPlannedGuestExpDisplayNat = {};
+        $scope.restaurantPlannedGuestExpDisplayUsd = {};
+        $scope.restaurantRestGuestExpDisplayNat = {};
+        $scope.restaurantRestGuestExpDisplayUsd = {};*/
         // EVENT SUBSCRIBE
         $scope.$on('totalValuesChanged', function () {
             restaurantTotal();
-            toastr.info('DONE');
         });
         // Subview shift Fn
         $scope.subViewShift = function (view) {
@@ -45,15 +47,17 @@ define(['angular'], function (angular) {
             // RESTAURANT PAID TOTAL DATA calculation
             $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + ($scope.currentProject.restaurant.total.paidNat / $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidUsd;
             $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + ($scope.currentProject.restaurant.total.paidUsd * $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidNat;
-            //$scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidTotalUsd * $scope.currentProject.budget.currency;
 
             // RESTAURANT REST TOTAL DATA calculation
-            //$scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidUsd - $scope.currentProject.restaurantPlus.total.paidTotalUsd;
             $scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
-
             $scope.currentProject.restaurant.total.restTotalNat =  $scope.currentProject.restaurant.total.restTotalUsd * $scope.currentProject.budget.currency;
 
-           // $log.log( $scope.currentProject.restaurantPlus);
+            // Display data calculation
+            $scope.restaurantPlannedGuestExpDisplayNat = $scope.currentProject.restaurant.total.planNat - $scope.currentProject.restaurantPlus.total.planNat;
+            $scope.restaurantPlannedGuestExpDisplayUsd = $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurantPlus.total.planUsd;
+
+            $scope.restaurantRestGuestExpDisplayNat = $scope.restaurantPlannedGuestExpDisplayNat - $scope.currentProject.restaurant.total.paidNat;
+            $scope.restaurantRestGuestExpDisplayUsd = $scope.restaurantRestGuestExpDisplayNat / $scope.currentProject.budget.currency;
         }
 
         // Add new guests Fn

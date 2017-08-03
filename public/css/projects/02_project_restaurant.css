@@ -158,3 +158,8 @@
 .rest-info-data{
     color: #ffffff;
 }
+.notation{
+    font-style: italic;
+    font-size: 80%;
+    color: #bfbfbf;
+}

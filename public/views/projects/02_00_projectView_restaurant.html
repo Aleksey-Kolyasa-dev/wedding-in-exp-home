@@ -2,9 +2,9 @@
     <header class="proj-view-header text-right">
         <div class="top-sub-menu"  ng-if="!currentProject.restaurant.quickView">
             <ul>
-                <li style="{{subView == 'guests'? 'background: hsla(291, 64%, 42%, 0.78)' : 'inherit'}}"><a ng-click="subViewShift('guests')">Гости</a></li>
-                <li style="{{subView == 'restaurant'? 'background: hsla(291, 64%, 42%, 0.78)' : 'inherit'}}"><a ng-click="subViewShift('restaurant')">Ресторан</a></li>
-                <li style="{{subView == 'restaurantPlus'? 'background: hsla(291, 64%, 42%, 0.78)' : 'inherit'}}"><a ng-click="subViewShift('restaurantPlus')">Ресторан +</a></li>
+                <li style="{{subView == 'guests'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('guests')">Гости</a></li>
+                <li style="{{subView == 'restaurant'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurant')">Ресторан</a></li>
+                <li style="{{subView == 'restaurantPlus'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurantPlus')">Ресторан +</a></li>
             </ul>
         </div>
         <h2>РЕСТОРАН</h2>
@@ -27,10 +27,15 @@
                 </li>
             </ul>
         </div>
-        <div>
-            <div ng-if="subView != 'restaurantPlus'">
+        <div title="с учетом всего (гости, ресторан, ресторан+)">
+            <div ng-if="subView == 'guests'">
                 <span style="font-style: italic">
-                    Количество гостей:  {{guestsQty(currentProject)}} чел.
+                    Гостей:  {{guestsQty(currentProject)}} чел.
+                </span>
+            </div>
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
+                <span style="font-style: italic; color: white">
+                     ИТОГО ЗА ВЕСЬ РЕСТОРАН:
                 </span>
             </div>
             <div style="margin-left: 20px">
@@ -40,7 +45,7 @@
             </div>
             <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic">
-                    ФАКТ ЗАТРАТ:  {{currentProject.restaurant.total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.paidTotalUsd | number : 1}} USD
+                    ОПЛАЧЕННО:  {{currentProject.restaurant.total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.paidTotalUsd | number : 1}} USD
                 </span>
             </div>
             <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">

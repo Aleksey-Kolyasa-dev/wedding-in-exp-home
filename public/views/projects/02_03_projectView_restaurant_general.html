@@ -9,11 +9,23 @@
         <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, '%') }}</span></p>
         <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, currentProject.budget.nationalMoney) }}</span></p>
         <hr>
-        <p>Оплаченно в  {{currentProject.budget.nationalMoney}}: <span class="rest-info-data">{{currentProject.restaurant.total.paidNat}}</span></p>
-        <p>Оплаченно в USD: <span class="rest-info-data">{{currentProject.restaurant.total.paidUsd}}</span></p>
+        <p>Оплаченно(аванс): <span class="rest-info-data">{{currentProject.restaurant.total.paidNat}} {{currentProject.budget.nationalMoney}}</span></p>
+        <p ng-show="false">Оплаченно в USD: <span class="rest-info-data">{{currentProject.restaurant.total.paidUsd}}</span></p>
         <hr>
         <div style="float: right">
             <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+    </div>
+    <div class="rest-general-list">
+        <div style="background: rgba(16, 49, 42, 0.31);">
+            <hr>
+            <div style="margin: 0 10px" class="text-center">
+
+                <p title="Без учета доп. расходов (Ресторан +)" class="rest-info-data">План расходов по ресторану: <span >{{restaurantPlannedGuestExpDisplayNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{restaurantPlannedGuestExpDisplayUsd | number : 1}} USD</span></p>
+                <p title="Без учета доп. расходов (Ресторан +)" class="rest-info-data">Доплатить по ресторану: <span>{{restaurantRestGuestExpDisplayNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{restaurantRestGuestExpDisplayUsd | number : 1}} USD</span></p>
+                <p class="notation">*без учета доп. расходов (Ресторан +)</p>
+            </div>
+            <hr>
         </div>
     </div>
 
@@ -84,7 +96,7 @@
                                       required type="number">
                                 </label>
                             </div>
-                            <div class="form-group text-center">
+                            <div class="form-group text-center" ng-show="false">
                                 <label>Оплаченно в USD
                                     <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidUsd"
                                           required type="number">

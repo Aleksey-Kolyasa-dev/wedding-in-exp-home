@@ -59,7 +59,7 @@ define(['angular'], function (angular) {
                     }
                 };
                 this.restaurantPlus = {
-                    expCollection : [{
+                    expCollection : [/*{
                         name : 'ТОРТ',
                         tariff : 200,
                         multiplier : 5,
@@ -69,7 +69,7 @@ define(['angular'], function (angular) {
                         rest : 0,
                         usd : false,
                         money : null
-                    }],
+                    }*/],
                     total : {
                         planUsd : 0,
                         planNat : 0,

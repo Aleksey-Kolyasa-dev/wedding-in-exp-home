@@ -7,7 +7,7 @@
                 <button class="btn btn-warning" data-target="#addNewExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <header class="guests-fiance-side" style="float: right">
-                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">ДОПОЛНИТЕЛЬНЫЕ ЗАТРАТЫ ПО РЕСТОРАНУ</h4>
+                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">ДОПОЛНИТЕЛЬНЫЕ РАСХОДЫ</h4>
             </header>
         </div>
 
@@ -20,7 +20,7 @@
                     <th class="text-center">ТАРИФ</th>
                     <th class="text-center">МНОЖИТЕЛЬ</th>
                     <th class="text-center">НОМИНАЛ</th>
-                    <th class="text-center">К ОПЛАТЕ</th>
+                    <th class="text-center">СУММА</th>
                     <th class="text-center">ОПЛАЧЕННО</th>
                     <th class="text-center">ДОПЛАТИТЬ</th>
                     <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
@@ -43,13 +43,11 @@
                             </div>
                         </td>
                     </tr>
-                    <tr class="guest total-footer-data">
-                        <td class="text-center"></td>
+                    <tr class="guest total-footer-data" ng-if="currentProject.restaurantPlus.expCollection.length">
                         <td></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center">ИТОГО:</td>
-                        <td class="text-center"  style="color: silver">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.planUsd  | number : 1}} USD</td>
+                        <td class="text-left" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО ПО ДОП. РАСХОДАМ:</td>
+
+                        <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.planUsd  | number : 1}} USD</td>
                         <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd  | number : 1}} USD</td>
                         <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd  | number : 1}} USD</td>
                         <td class="text-center"></td>
