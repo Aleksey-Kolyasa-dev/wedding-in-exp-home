@@ -330,11 +330,52 @@ define(['angular'], function (angular) {
     * RESTAURANT PLUS CTRL
     * */
     function restaurantPlusMainCtrl($scope, $log, toastr, _env, ResourceService) {
+        // Default data
         $scope.itemToEdit = {};
         $scope.newItem = {};
 
-        // Shortcut
+        // Shortcuts
         $scope.items = $scope.currentProject.restaurantPlus.expCollection;
+        $scope.total = $scope.currentProject.restaurantPlus.total;
+        
+        // Update total values
+        function updateTotalValues() {
+            $scope.total = {
+                planUsd : 0,
+                planNat : 0,
+                paidUsd : 0,
+                paidNat : 0,
+                paidTotalUsd : 0,
+                paidTotalNat : 0,
+                restTotalUsd : 0,
+                restTotalNat : 0
+            };
+            angular.forEach($scope.items, function (item) {
+                if(item.usd){
+                    $scope.total.planUsd += item.toPai;
+                    $scope.total.planNat = $scope.total.planUsd * $scope.currentProject.budget.currency;
+
+                    $scope.total.paidUsd += item.paid;
+                    $scope.total.paidNat = $scope.total.paidUsd * $scope.currentProject.budget.currency;
+                }
+                if(!item.usd){
+                    $scope.total.planNat += item.toPai;
+                    $scope.total.planUsd = $scope.total.planNat / $scope.currentProject.budget.currency;
+
+                    $scope.total.paidNat += item.paid;
+                    $scope.total.paidUsd = $scope.total.paidNat / $scope.currentProject.budget.currency;
+                }
+
+            });
+
+            $scope.total.paidTotalUsd += $scope.total.paidUsd;
+            $scope.total.paidTotalNat = $scope.total.paidTotalUsd / $scope.currentProject.budget.currency;
+
+            $scope.total.restTotalUsd = $scope.total.planUsd - $scope.total.paidTotalUsd;
+            $scope.total.restTotalNat = $scope.total.restTotalUsd * $scope.currentProject.budget.currency;
+        }
+        // Update total values
+        updateTotalValues();
 
         // Add New Expense Item Fn
         $scope.addNewExpenseItem = function (item) {
@@ -365,12 +406,16 @@ define(['angular'], function (angular) {
                   item.money = 'USD';
               }
 
+
+
               // Add expense item to expCollection
               $scope.currentProject.restaurantPlus.expCollection.push(item);
 
               // ADD EXPENSE ITEM to DB
               ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
                   function (data) {
+                      // Update total values
+                      updateTotalValues();
                       $scope.newItem = {};
                       if (_env._dev) {
                           toastr.success('New Expense Item created!');
@@ -427,6 +472,9 @@ define(['angular'], function (angular) {
                     item.money = 'USD';
                 }
 
+                // Update total values
+                updateTotalValues();
+
                 // SAVE CHANGES of EXPENSE ITEM to DB
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
                     function (data) {
@@ -455,6 +503,9 @@ define(['angular'], function (angular) {
         $scope.deleteExpenseItem = function (index) {
             // Remove from model
             $scope.currentProject.restaurantPlus.expCollection.splice(index, 1);
+
+            // Update total values
+            updateTotalValues();
 
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
