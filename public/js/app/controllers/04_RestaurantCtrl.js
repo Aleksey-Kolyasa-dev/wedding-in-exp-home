@@ -20,6 +20,7 @@ define(['angular'], function (angular) {
         $scope.$on('totalValuesChanged', function () {
             restaurantTotal();
         });
+
         // Subview shift Fn
         $scope.subViewShift = function (view) {
             switch (view) {
