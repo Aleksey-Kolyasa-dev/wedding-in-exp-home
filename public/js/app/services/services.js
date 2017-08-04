@@ -9,14 +9,13 @@ define(['angular'], function (angular) {
 
     function _env() {
         return {
-            _dev : true
+            _dev : false
             };
     }
 
     function ResourceService(toastr, $http, $q, $log, $location, wedURL) {
         return {
             baseURL: 'http://localhost:5000/api/',
-            _devEnv : true,
             _ajaxRequest: function (method, url, data, keyURL) {
                 var self = this;
                 var deferred = $q.defer();

@@ -23,6 +23,7 @@
     background: hsla(286, 56%, 26%, 0.78);
     margin: 0 !important;
     letter-spacing: 2px;
+    transition: background 800ms ease;
 }
 .top-sub-menu-active {
     background: hsla(291, 64%, 42%, 0.78);

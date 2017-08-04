@@ -14,7 +14,6 @@ define(['angular'], function (angular) {
                 this.fianceName = project.fianceName;
                 this.fianceeName = project.fianceeName;
                 this.weddingDate = AppService._dateStringToObject(project.weddingDate);
-                /*this.wedBudget = project.wedBudget;*/
                 this.email = project.email;
                 this.telephones = project.telephones;
                 this.notes = project.notes;

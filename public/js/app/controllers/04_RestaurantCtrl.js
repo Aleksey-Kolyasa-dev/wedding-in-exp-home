@@ -9,18 +9,20 @@ define(['angular'], function (angular) {
      * RESTAURANT MAIN CTRL
      * */
     function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService) {
-        $scope.count = 0;
+        if(_env._dev){
+            $scope.count = 0;
+        }
+
         // Default subView
-        //$scope.subView = "guests";
-        $scope.subView = "restaurantPlus";
+        $scope.subView = "guests";
         $scope.currentProject.restaurant.quickView = false;
 
-        // EVENT SUBSCRIBE
+        // EVENT SUBSCRIBE do recalculations if event
         $scope.$on('totalValuesChanged', function () {
             restaurantTotal();
         });
 
-        // WATCH GUESTS QTY VALUE
+        // WATCH GUESTS QTY VALUE and do recalculations if changed
         $scope.$watch("currentProject.restaurant.guestsQty", function () {
             restaurantTotal();
         });
@@ -65,14 +67,14 @@ define(['angular'], function (angular) {
                 $scope.currentProject.restaurant.total.restUsd = $scope.currentProject.restaurant.total.restNat / $scope.currentProject.budget.currency;
 
             // FULL RESTAURANT EXPENSES
-            $scope.currentProject.restaurant.total.planTotalNat = $scope.currentProject.restaurant.total.planNat + $scope.currentProject.restaurantPlus.total.planNat;
-            $scope.currentProject.restaurant.total.planTotalUsd = $scope.currentProject.restaurant.total.planUsd + $scope.currentProject.restaurantPlus.total.planUsd;
+                $scope.currentProject.restaurant.total.planTotalNat = $scope.currentProject.restaurant.total.planNat + $scope.currentProject.restaurantPlus.total.planNat;
+                $scope.currentProject.restaurant.total.planTotalUsd = $scope.currentProject.restaurant.total.planUsd + $scope.currentProject.restaurantPlus.total.planUsd;
 
-            $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + $scope.currentProject.restaurantPlus.total.paidTotalNat;
-            $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + $scope.currentProject.restaurantPlus.total.paidTotalUsd;
+                $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + $scope.currentProject.restaurantPlus.total.paidTotalNat;
+                $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + $scope.currentProject.restaurantPlus.total.paidTotalUsd;
 
-            $scope.currentProject.restaurant.total.restTotalNat = $scope.currentProject.restaurant.total.planTotalNat - $scope.currentProject.restaurant.total.paidTotalNat;
-            $scope.currentProject.restaurant.total.restTotalUsd = $scope.currentProject.restaurant.total.planTotalUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
+                $scope.currentProject.restaurant.total.restTotalNat = $scope.currentProject.restaurant.total.planTotalNat - $scope.currentProject.restaurant.total.paidTotalNat;
+                $scope.currentProject.restaurant.total.restTotalUsd = $scope.currentProject.restaurant.total.planTotalUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
 
             if (_env._dev) {
                 if ($scope.currentProject.restaurant.total.restTotalNat / $scope.currentProject.budget.currency != $scope.currentProject.restaurant.total.restTotalUsd) {
@@ -255,8 +257,6 @@ define(['angular'], function (angular) {
 
                     return result;
                 }
-                // Do total calculations
-                //restaurantTotal();
             }
             else {
                 var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck;
@@ -464,9 +464,6 @@ define(['angular'], function (angular) {
               // ADD EXPENSE ITEM to DB
               ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
                   function (data) {
-                      // Update total values
-                      //updateTotalValues();
-
                       $scope.newItem = {};
                       if (_env._dev) {
                           toastr.success('New Expense Item created!');
