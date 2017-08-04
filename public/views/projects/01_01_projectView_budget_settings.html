@@ -1,24 +1,33 @@
 <div class="rest-general-page">
     <div class="rest-general-list">
-        <p>Национальная валюта: <span class="rest-info-data">{{currentProject.budget.nationalMoney}}</span></p>
-        <p>Курс: 1 USD = <span class="rest-info-data">{{currentProject.budget.currency + ' ' + currentProject.budget.nationalMoney}}</span></p>
-        <hr>
-
-        <div style="float: right">
-            <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+        <div class="info-glass-panel">
+            <hr>
+            <div>
+                <p>Национальная валюта: <span class="rest-info-data">{{currentProject.budget.nationalMoney}}</span></p>
+                <p>Курс: 1 USD = <span class="rest-info-data">{{currentProject.budget.currency + ' ' + currentProject.budget.nationalMoney}}</span></p>
+            </div>
+            <hr>
+            <div>
+                <div style="float: right">
+                    <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+                </div>
+            </div>
         </div>
-        <br>
-            <p>Заметки:</p>
-            <ul ng-repeat="note in notesFilter(currentProject.budget.notes)" style="padding: 0; list-style: none">
-                <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
-            </ul>
-
     </div>
 
-
-
+    <div class="rest-general-list">
+        <div class="info-glass-panel">
+            <hr>
+            <div>
+                <p>Заметки:</p>
+                <ul ng-repeat="note in notesFilter(currentProject.budget.notes)" style="padding: 0; list-style: none">
+                    <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
+                </ul>
+            </div>
+            <hr>
+        </div>
+    </div>
 </div>
-
 <!-- EDIT RESTAURANT GENERAL DATA MODAL *START* -->
 <div id="editRestGeneralData" class="modal fade">
     <div class="modal-dialog">

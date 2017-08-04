@@ -33,25 +33,35 @@ define(['angular'], function (angular) {
                     telephones : null,
                     website : null,
                     guestsQty : 2,
-                    /*restaurantTotal: 0,*/
                     notes : null,
                     quickView : false,
                     quickData : {
                         quickGuestsQty : 2,
                         quickCheck : 0,
                         quickPercent : 0,
-                        quickPlugs : 0
+                        quickPlugs : 0,
+                        planNat : 0,
+                        planUsd : 0
                     },
                     generalData : {
                         generalCheck : 0,
                         generalPercent : 0,
-                        generalPlugs : 0
+                        generalPlugs : 0,
+
+                        sumCheckNat : 0,
+                        sumPercentNat : 0,
+                        sumPlugsNat : 0,
+                        fullCheckNat : 0
                     },
                     total : {
                         planUsd : 0,
                         planNat : 0,
                         paidUsd : 0,
                         paidNat : 0,
+                        restUsd : 0,
+                        restNat : 0,
+                        planTotalUsd : 0,
+                        planTotalNat : 0,
                         paidTotalUsd : 0,
                         paidTotalNat : 0,
                         restTotalUsd : 0,

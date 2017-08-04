@@ -1,40 +1,71 @@
 <div class="rest-general-page">
+    <!--general data-->
     <div class="rest-general-list">
-        <p>Ресторан: <span class="rest-info-data">{{currentProject.restaurant.name}}</span></p>
-        <p>Адрес: <span class="rest-info-data">{{currentProject.restaurant.address}}</span></p>
-        <p>Телефон: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.telephones)}}</span></p>
-        <p>Вэбсайт: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</span></p>
-        <hr>
-        <p>Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
-        <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, '%') }}</span></p>
-        <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, currentProject.budget.nationalMoney) }}</span></p>
-        <hr>
-        <p>Оплаченно(аванс): <span class="rest-info-data">{{currentProject.restaurant.total.paidNat}} {{currentProject.budget.nationalMoney}}</span></p>
-        <p ng-show="false">Оплаченно в USD: <span class="rest-info-data">{{currentProject.restaurant.total.paidUsd}}</span></p>
-        <hr>
-        <div style="float: right">
-            <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+        <div class="info-glass-panel">
+            <hr>
+            <div>
+                <p>Ресторан: <span class="rest-info-data">{{currentProject.restaurant.name}}</span></p>
+                <p>Адрес: <span class="rest-info-data">{{currentProject.restaurant.address}}</span></p>
+                <p>Телефон: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.telephones)}}</span></p>
+                <p>Вэбсайт: <span class="rest-info-data">{{restGeneralDataDisplayCheck(currentProject.restaurant.website)}}</span></p>
+            </div>
+            <hr>
+            <div>
+                <p>Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, '%') }}</span></p>
+                <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, currentProject.budget.nationalMoney) }}</span></p>
+            </div>
+            <hr>
+            <div>
+                <p>Оплаченно(аванс): <span class="rest-info-data">{{currentProject.restaurant.total.paidNat}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p ng-show="false">Оплаченно в USD: <span class="rest-info-data">{{currentProject.restaurant.total.paidUsd}}</span></p>
+            </div>
+            <hr>
+            <div>
+                <div style="float: right">
+                    <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="rest-general-list">
-        <div style="background: rgba(16, 49, 42, 0.31);">
-            <hr>
-            <div style="margin: 0 10px" class="text-center">
+    <!--general data-->
 
-                <p title="Без учета доп. расходов (Ресторан +)" class="rest-info-data">План расходов по ресторану: <span >{{restaurantPlannedGuestExpDisplayNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{restaurantPlannedGuestExpDisplayUsd | number : 1}} USD</span></p>
-                <p title="Без учета доп. расходов (Ресторан +)" class="rest-info-data">Доплатить по ресторану: <span>{{restaurantRestGuestExpDisplayNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{restaurantRestGuestExpDisplayUsd | number : 1}} USD</span></p>
+   <!-- statistic-->
+    <div class="rest-general-list">
+        <div class="info-glass-panel">
+            <hr>
+            <div class="text-center">
+                <p title="Без учета доп. расходов (Ресторан +)" class="rest-info-data">План расходов по ресторану: <span >{{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p title="Без учета доп. расходов (Ресторан +)" class="rest-info-data">Доплатить по ресторану: <span>{{currentProject.restaurant.total.restNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
                 <p class="notation">*без учета доп. расходов (Ресторан +)</p>
+            </div>
+            <hr>
+            <div style="font-size: 70%;" class="text-center">
+                <p class="rest-info-data">СТАТИСТИКА</p>
+                <p class="rest-info-data">Средний чек с учетом % и сбора: <span>{{currentProject.restaurant.generalData.fullCheckNat | number : 1}} {{currentProject.budget.nationalMoney}} за чел.</span></p>
+
+                <p class="rest-info-data">За % обслуживания: <span>{{currentProject.restaurant.generalData.sumPercentNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p class="rest-info-data">За пробковый сбор: <span>{{currentProject.restaurant.generalData.sumPlugsNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
             </div>
             <hr>
         </div>
     </div>
+    <!-- statistic-->
 
-    <div class="rest-general-list" style="margin-left: 20px">
-        <p>Заметки:</p>
-        <ul ng-repeat="note in notesFilter(currentProject.restaurant.notes)" style="padding: 0; list-style: none">
-            <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
-        </ul>
+    <!--notes-->
+    <div class="rest-general-list" >
+        <div class="info-glass-panel">
+            <hr>
+            <div>
+                <p>Заметки:</p>
+                <ul ng-repeat="note in notesFilter(currentProject.restaurant.notes)" style="padding: 0; list-style: none">
+                    <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
+                </ul>
+            </div>
+            <hr>
+        </div>
     </div>
+    <!--notes-->
 
 </div>
 
@@ -94,12 +125,6 @@
                                 <label>Оплаченно в {{currentProject.budget.nationalMoney}}
                                 <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidNat"
                                       required type="number">
-                                </label>
-                            </div>
-                            <div class="form-group text-center" ng-show="false">
-                                <label>Оплаченно в USD
-                                    <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidUsd"
-                                          required type="number">
                                 </label>
                             </div>
                             <hr>

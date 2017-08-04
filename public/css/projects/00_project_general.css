@@ -18,3 +18,9 @@ body{
     font-weight: bold;
     /*font-style: italic;*/
 }
+.info-glass-panel{
+    background: rgba(16, 49, 42, 0.31);
+}
+.info-glass-panel div{
+    margin: 0 10px;
+}

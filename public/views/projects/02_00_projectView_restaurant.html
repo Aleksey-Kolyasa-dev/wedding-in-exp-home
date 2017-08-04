@@ -7,10 +7,11 @@
                 <li style="{{subView == 'restaurantPlus'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurantPlus')">Ресторан +</a></li>
             </ul>
         </div>
-        <h2>РЕСТОРАН</h2>
+        <h2>РЕСТОРАН {{count}}</h2>
     </header>
 
     <div class="info-panel" style="{{subView == 'guests'? currentProject.restaurant.quickView ? 'padding: 3px 0 3px' :'padding: 3px 0 1px' : 'inherit'}}">
+
         <div class="top-sub-menu-shift">
             <ul>
                 <li ng-show="!currentProject.restaurant.quickView && subView == 'guests'">
@@ -27,27 +28,38 @@
                 </li>
             </ul>
         </div>
+
         <div title="с учетом всего (гости, ресторан, ресторан+)">
             <div ng-if="subView == 'guests'">
                 <span style="font-style: italic">
                     Гостей:  {{guestsQty(currentProject)}} чел.
                 </span>
             </div>
+
+            <div style="margin-left: 20px" ng-if="currentProject.restaurant.quickView">
+                <span style="font-style: italic">
+                    СУММА:  {{currentProject.restaurant.quickData.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.quickData.planUsd | number : 1}} USD
+                </span>
+            </div>
+
             <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic; color: white">
-                     ИТОГО ЗА ВЕСЬ РЕСТОРАН:
+                     ЗА ВЕСЬ РЕСТОРАН:
                 </span>
             </div>
-            <div style="margin-left: 20px">
+
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic">
-                    ПЛАН ЗАТРАТ:  {{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.planUsd | number : 1}} USD
+                    ПЛАН РАСХОДОВ:  {{currentProject.restaurant.total.planTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.planTotalUsd | number : 1}} USD
                 </span>
             </div>
+
             <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic">
                     ОПЛАЧЕННО:  {{currentProject.restaurant.total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.paidTotalUsd | number : 1}} USD
                 </span>
             </div>
+
             <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
                 <span style="font-style: italic">
                     ДОПЛАТАТИТЬ:  {{currentProject.restaurant.total.restTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{currentProject.restaurant.total.restTotalUsd | number : 1}} USD

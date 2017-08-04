@@ -9,15 +9,19 @@ define(['angular'], function (angular) {
      * RESTAURANT MAIN CTRL
      * */
     function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService) {
+        $scope.count = 0;
         // Default subView
         //$scope.subView = "guests";
         $scope.subView = "restaurantPlus";
-        /*$scope.restaurantPlannedGuestExpDisplayNat = {};
-        $scope.restaurantPlannedGuestExpDisplayUsd = {};
-        $scope.restaurantRestGuestExpDisplayNat = {};
-        $scope.restaurantRestGuestExpDisplayUsd = {};*/
+        $scope.currentProject.restaurant.quickView = false;
+
         // EVENT SUBSCRIBE
         $scope.$on('totalValuesChanged', function () {
+            restaurantTotal();
+        });
+
+        // WATCH GUESTS QTY VALUE
+        $scope.$watch("currentProject.restaurant.guestsQty", function () {
             restaurantTotal();
         });
 
@@ -38,30 +42,47 @@ define(['angular'], function (angular) {
 
         // TOTAL RESTAURANT CALCULATION Fn
         function restaurantTotal() {
-            // RESTAURANT GUESTS expenses calculations in National Money
-            var interGeneral = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
-            $scope.currentProject.restaurant.total.planNat = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral + $scope.currentProject.restaurantPlus.total.planNat;
+            // RESTAURANT Expenses calculations
+                // GuestQty*Check
+                $scope.currentProject.restaurant.generalData.sumCheckNat = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck;
+                // Define percentage
+                $scope.currentProject.restaurant.generalData.sumPercentNat = ($scope.currentProject.restaurant.generalData.sumCheckNat / 100)*$scope.currentProject.restaurant.generalData.generalPercent;
+                // Define plugs summ
+                $scope.currentProject.restaurant.generalData.sumPlugsNat = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
 
-            // RESTAURANT GUESTS expenses calculations in USD
-            $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
+                // Define restaurant plan nat/usd
+                $scope.currentProject.restaurant.total.planNat = $scope.currentProject.restaurant.generalData.sumCheckNat + $scope.currentProject.restaurant.generalData.sumPercentNat + $scope.currentProject.restaurant.generalData.sumPlugsNat;  // check + % + plugs
+                $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
 
-            // RESTAURANT PAID TOTAL DATA calculation
-            $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + ($scope.currentProject.restaurant.total.paidNat / $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidUsd;
-            $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + ($scope.currentProject.restaurant.total.paidUsd * $scope.currentProject.budget.currency) + $scope.currentProject.restaurantPlus.total.paidNat;
+                // Define check per guest counted with % and plugs effect
+                $scope.currentProject.restaurant.generalData.fullCheckNat = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.restaurant.guestsQty;
 
-            // RESTAURANT REST TOTAL DATA calculation
-            $scope.currentProject.restaurant.total.restTotalUsd =  $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
-            $scope.currentProject.restaurant.total.restTotalNat =  $scope.currentProject.restaurant.total.restTotalUsd * $scope.currentProject.budget.currency;
+                // Define paidUsd by paidNat*currency
+                $scope.currentProject.restaurant.total.paidUsd =  $scope.currentProject.restaurant.total.paidNat / $scope.currentProject.budget.currency;
 
-            // Display data calculation
-            $scope.restaurantPlannedGuestExpDisplayNat = $scope.currentProject.restaurant.total.planNat - $scope.currentProject.restaurantPlus.total.planNat;
-            $scope.restaurantPlannedGuestExpDisplayUsd = $scope.currentProject.restaurant.total.planUsd - $scope.currentProject.restaurantPlus.total.planUsd;
+                // Define rest to pay by total plan - total paid
+                $scope.currentProject.restaurant.total.restNat = $scope.currentProject.restaurant.total.planNat - $scope.currentProject.restaurant.total.paidNat;
+                $scope.currentProject.restaurant.total.restUsd = $scope.currentProject.restaurant.total.restNat / $scope.currentProject.budget.currency;
 
-            $scope.restaurantRestGuestExpDisplayNat = $scope.restaurantPlannedGuestExpDisplayNat - $scope.currentProject.restaurant.total.paidNat;
-            $scope.restaurantRestGuestExpDisplayUsd = $scope.restaurantRestGuestExpDisplayNat / $scope.currentProject.budget.currency;
+            // FULL RESTAURANT EXPENSES
+            $scope.currentProject.restaurant.total.planTotalNat = $scope.currentProject.restaurant.total.planNat + $scope.currentProject.restaurantPlus.total.planNat;
+            $scope.currentProject.restaurant.total.planTotalUsd = $scope.currentProject.restaurant.total.planUsd + $scope.currentProject.restaurantPlus.total.planUsd;
+
+            $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + $scope.currentProject.restaurantPlus.total.paidTotalNat;
+            $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + $scope.currentProject.restaurantPlus.total.paidTotalUsd;
+
+            $scope.currentProject.restaurant.total.restTotalNat = $scope.currentProject.restaurant.total.planTotalNat - $scope.currentProject.restaurant.total.paidTotalNat;
+            $scope.currentProject.restaurant.total.restTotalUsd = $scope.currentProject.restaurant.total.planTotalUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
+
+            if (_env._dev) {
+                if ($scope.currentProject.restaurant.total.restTotalNat / $scope.currentProject.budget.currency != $scope.currentProject.restaurant.total.restTotalUsd) {
+                    toastr.warning('CHECK FAILED: ResrMain: 56');
+                }
+                $scope.count++;
+            }
         }
 
-        // Add new guests Fn
+        // GUESTS OPS. Fn
         $scope.addNewGuests = {
             newMguestName: null,
             newMguestRelation: null,
@@ -102,7 +123,9 @@ define(['angular'], function (angular) {
                             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
                                 function (data) {
                                     self._clear();
-                                    toastr.success('GUEST ADD SUCCESS');
+                                    if (_env._dev) {
+                                        toastr.success('GUEST ADD SUCCESS');
+                                    }
                                 },
                                 function (err) {
                                     toastr.error('ERROR: Guest_M add AJAX failed');
@@ -115,7 +138,9 @@ define(['angular'], function (angular) {
                             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
                                 function (data) {
                                     self._clear();
-                                    toastr.success('GUEST ADD SUCCESS');
+                                    if (_env._dev) {
+                                        toastr.success('GUEST ADD SUCCESS');
+                                    }
                                 },
                                 function (err) {
                                     toastr.error('ERROR: Guest_W add AJAX failed');
@@ -123,6 +148,7 @@ define(['angular'], function (angular) {
                                 });
                             break;
                     }
+
                 } else {
                     self._clear();
                     $log.log('err');
@@ -145,8 +171,7 @@ define(['angular'], function (angular) {
 
             guestEditDone: function (side) {
                 var self = this;
-                // Do total calculations
-                restaurantTotal();
+
                 switch (side) {
                     case "M":
                         ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
@@ -176,7 +201,6 @@ define(['angular'], function (angular) {
                             });
                         break;
                 }
-
             },
 
             guestDelete: function (guest) {
@@ -229,22 +253,16 @@ define(['angular'], function (angular) {
                     var result = filtArrM.length + filtArrW.length + 2;
                     $scope.currentProject.restaurant.guestsQty = result;
 
-                    //var interGeneral = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck + $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
-                    //$scope.currentProject.restaurant.total.planNat = (interGeneral / 100) * $scope.currentProject.restaurant.generalData.generalPercent + interGeneral;
-
-                   // $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
-
-                    // Do total calculations
-                    restaurantTotal();
-
                     return result;
                 }
+                // Do total calculations
+                //restaurantTotal();
             }
             else {
-                var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck + $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickPlugs;
-                $scope.currentProject.restaurant.total.planNat = (interQuick / 100) * $scope.currentProject.restaurant.quickData.quickPercent + interQuick;
+                var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck;
 
-                $scope.currentProject.restaurant.total.planUsd = $scope.currentProject.restaurant.total.planNat / $scope.currentProject.budget.currency;
+                $scope.currentProject.restaurant.quickData.planNat = interQuick + ((interQuick / 100) * $scope.currentProject.restaurant.quickData.quickPercent) + ($scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickPlugs);
+                $scope.currentProject.restaurant.quickData.planUsd = $scope.currentProject.restaurant.quickData.planNat / $scope.currentProject.budget.currency;
 
                 return $scope.currentProject.restaurant.quickData.quickGuestsQty;
             }
@@ -253,7 +271,7 @@ define(['angular'], function (angular) {
         // Quick View ops.
         $scope.quickView = function (project) {
             project.restaurant.quickView = !project.restaurant.quickView;
-
+            /*
             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickView").then(
                 function (data) {
                     //console.log(data);
@@ -264,13 +282,14 @@ define(['angular'], function (angular) {
                 function (err) {
                     toastr.error('ERROR: Guest_M edit AJAX failed');
                     throw new Error('ERROR: Guest_M edit AJAX failed' + err);
-                });
+                });*/
         };
 
         // Restaurant Data save Fn
         $scope.restDataSave = function (data) {
             // Case for GENERAL DATA AJAX SAVE
             if (!arguments.length) {
+
                 // Do total calculations
                 restaurantTotal();
 
@@ -317,7 +336,7 @@ define(['angular'], function (angular) {
             $scope.saveHide = false;
         };
 
-        // Display General Restaurant Data filter
+        // Display filter for General Restaurant Data
         $scope.restGeneralDataDisplayCheck = function (value, key) {
             if(angular.isNumber(value)){
                 if(value == 0){
@@ -336,7 +355,7 @@ define(['angular'], function (angular) {
             }
         };
 
-        // Notes Display Filter
+        //  Display Filter for Notes
         $scope.notesFilter = function (notes) {
             if(notes == null){
                 return '';
@@ -348,6 +367,7 @@ define(['angular'], function (angular) {
                     return noteArr;
             }
         };
+
     } // Ctrl End
 
     /*
