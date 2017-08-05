@@ -9,7 +9,7 @@ define(['angular'], function (angular) {
 
     function _env() {
         return {
-            _dev : false
+            _dev : true
             };
     }
 
