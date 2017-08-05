@@ -661,8 +661,9 @@ define(['angular'], function (angular) {
             // Emit Total Value Changes EVENT
             $scope.$emit('totalValuesChanged');
         }
+
         // Update total values immediate evoke
-        updateTotalValues();
+        //updateTotalValues();
 
         // Add New Expense Item Fn
         $scope.addNewExpenseItem = function (item) {
