@@ -12,7 +12,6 @@ define(['angular'], function (angular) {
         if(_env._dev){
             $scope.count = 0;
         }
-
         // Default subView
         $scope.subView = "guests";
         $scope.currentProject.restaurant.quickView = false;
@@ -33,12 +32,18 @@ define(['angular'], function (angular) {
                 case "guests" :
                     $scope.subView = view;
                     break;
-                case "restaurant" :
-                    $scope.subView = view;
-                    break;
-                case "restaurantPlus" :
-                    $scope.subView = view;
-                    break;
+            case "restaurantMenu" :
+                $scope.subView = view;
+                break;
+            case "restaurantCakes" :
+                $scope.subView = view;
+                break;
+            case "restaurant" :
+                $scope.subView = view;
+                break;
+            case "restaurantPlus" :
+                $scope.subView = view;
+                break;
             }
         };
 
