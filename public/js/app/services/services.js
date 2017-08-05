@@ -2,7 +2,6 @@ define(['angular'], function (angular) {
     "use strict";
     var wedServices = angular.module('wedServices', ['toastr', 'ngAnimate']);
 
-    //wedServices.constant('wedURL', 'http://localhost:2403/wedding/');
     wedServices.service('_env', [_env]);
     wedServices.service('ResourceService', ['toastr', '$http', '$q', '$log', '$location', ResourceService]);
     wedServices.service('AppService', ['toastr', AppService]);

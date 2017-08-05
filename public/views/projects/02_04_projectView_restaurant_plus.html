@@ -15,25 +15,25 @@
             <table class="table table-responsive info-glass-panel">
                 <thead class="guest-side-table-head">
                     <tr style="color: white">
-                    <th class="text-center">№</th>
-                    <th>РАСХОДЫ</th>
-                    <th class="text-center">ТАРИФ</th>
-                    <th class="text-center">МНОЖИТЕЛЬ</th>
-                    <th class="text-center">НОМИНАЛ</th>
-                    <th class="text-center">СУММА</th>
-                    <th class="text-center">ОПЛАЧЕННО</th>
-                    <th class="text-center">ДОПЛАТИТЬ</th>
-                    <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
-                </tr>
+                        <th class="text-center hidden-md hidden-sm hidden-xs">№</th>
+                        <th>РАСХОДЫ</th>
+                        <th class="text-center hidden-sm hidden-xs">ТАРИФ</th>
+                        <th class="text-center hidden-sm hidden-xs">МНОЖИТЕЛЬ</th>
+                        <th class="text-center hidden-md hidden-sm hidden-xs">НОМИНАЛ</th>
+                        <th class="text-center">СУММА</th>
+                        <th class="text-center">ОПЛАЧЕННО</th>
+                        <th class="text-center">ДОПЛАТИТЬ</th>
+                        <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
+                    </tr>
                 </thead>
 
                 <tbody>
                     <tr class="guest" ng-repeat="item in items">
-                        <td class="text-center">{{$index + 1}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
                         <td>{{item.name}}</td>
-                        <td class="text-center">{{item.tariff  | number : 1}} {{item.money}}</td>
-                        <td class="text-center">{{item.multiplier}}</td>
-                        <td class="text-center">{{item.unit}}</td>
+                        <td class="text-center hidden-sm hidden-xs">{{item.tariff  | number : 1}} {{item.money}}</td>
+                        <td class="text-center hidden-sm hidden-xs">{{item.multiplier}}</td>
+                        <td class="text-center hidden-md hidden-md hidden-sm hidden-xs">{{item.unit}}</td>
                         <td class="text-center">{{item.toPai  | number : 1}} {{item.money}}</td>
                         <td class="text-center">{{item.paid  | number : 1}} {{item.money}}</td>
                         <td class="text-center">{{item.rest  | number : 1}} {{item.money}}</td>
@@ -44,9 +44,11 @@
                         </td>
                     </tr>
                     <tr class="guest total-footer-data" ng-if="currentProject.restaurantPlus.expCollection.length">
-                        <td></td>
-                        <td class="text-left" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО ПО ДОП. РАСХОДАМ:</td>
-
+                        <td class="hidden-md hidden-sm hidden-xs"></td>
+                        <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО ПО ДОП. РАСХОДАМ:</td>
+                        <td class="visible-md" colspan="3"></td>
+                        <td class="visible-sm"></td>
+                        <td class="visible-xs"></td>
                         <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.planUsd  | number : 1}} USD</td>
                         <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd  | number : 1}} USD</td>
                         <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd  | number : 1}} USD</td>
