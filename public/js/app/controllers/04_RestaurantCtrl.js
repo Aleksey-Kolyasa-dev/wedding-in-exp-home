@@ -3,6 +3,8 @@ define(['angular'], function (angular) {
     var restaurantCtrlModule = angular.module('restaurantCtrlModule', ['wedServices']);
 
     restaurantCtrlModule.controller('restaurantMainCtrl', restaurantMainCtrl);
+    restaurantCtrlModule.controller('restaurantMenuMainCtrl', restaurantMenuMainCtrl);
+    restaurantCtrlModule.controller('restaurantCakesMainCtrl', restaurantCakesMainCtrl);
     restaurantCtrlModule.controller('restaurantPlusMainCtrl', restaurantPlusMainCtrl);
 
     /*
@@ -13,7 +15,7 @@ define(['angular'], function (angular) {
             $scope.count = 0;
         }
         // Default subView
-        $scope.subView = "guests";
+        $scope.subView = "restaurantCakes";
         $scope.currentProject.restaurant.quickView = false;
 
         // EVENT SUBSCRIBE do recalculations if event
@@ -276,18 +278,6 @@ define(['angular'], function (angular) {
         // Quick View ops.
         $scope.quickView = function (project) {
             project.restaurant.quickView = !project.restaurant.quickView;
-            /*
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickView").then(
-                function (data) {
-                    //console.log(data);
-                    if (_env._dev) {
-                        toastr.success('view changed');
-                    }
-                },
-                function (err) {
-                    toastr.error('ERROR: Guest_M edit AJAX failed');
-                    throw new Error('ERROR: Guest_M edit AJAX failed' + err);
-                });*/
         };
 
         // Restaurant Data save Fn
@@ -373,7 +363,28 @@ define(['angular'], function (angular) {
             }
         };
 
-    } // Ctrl End
+    } // *END* RESTAURANT MAIN CTRL
+
+
+    /*
+     * RESTAURANT MENU CTRL
+     * */
+    function restaurantMenuMainCtrl($scope, $log, toastr, _env, ResourceService) {
+        // Default data
+
+
+    } //*END* RESTAURANT MENU CTRL
+
+
+    /*
+     * RESTAURANT CAKES CTRL
+     * */
+    function restaurantCakesMainCtrl($scope, $log, toastr, _env, ResourceService) {
+        // Default data
+
+
+    } //*END* RESTAURANT CAKES CTRL
+
 
     /*
     * RESTAURANT PLUS CTRL
@@ -579,7 +590,11 @@ define(['angular'], function (angular) {
                 });
         }
 
-    } // Ctrl End
+    } // *END* RESTAURANT PLUS CTRL
+
+
+
+
 
     return restaurantCtrlModule;
 });
