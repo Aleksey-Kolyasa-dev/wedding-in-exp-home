@@ -90,7 +90,7 @@ define(['angular'], function (angular) {
                         restTotalUsd : 0,
                         restTotalNat : 0
                     },
-                    notes : null,
+                    notes : null
                 };
                 this.restaurantPlus = {
                     expCollection : [/*{
