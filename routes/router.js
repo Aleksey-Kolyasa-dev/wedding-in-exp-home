@@ -69,6 +69,8 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
         updatedProject.budget = project.budget;
         updatedProject.restaurant = project.restaurant;
+        updatedProject.restaurantMenu = project.restaurantMenu;
+        updatedProject.restaurantCakes = project.restaurantCakes;
         updatedProject.restaurantPlus = project.restaurantPlus;
     }
     if(!updatedProject){
@@ -183,6 +185,27 @@ router.put('/api/:id/generalDataSave', function (req, res, next) {
         });
     } else {
         db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { restaurant: project.restaurant}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+        });
+    }
+});
+
+// PUT Single Project RESTAURANT PLUS keyURL = /restaurantCakesDataSave
+router.put('/api/:id/restaurantCakesDataSave', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /restaurantCakesDataSave");
+
+    if(!project.restaurantCakes.expCollection){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: New Expense Item validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { restaurantCakes: project.restaurantCakes}}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }

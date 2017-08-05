@@ -4,7 +4,7 @@
     <div class="fiance-side-main col-xs-11">
         <div style="padding: 0">
             <div style="float: left">
-                <button class="btn btn-warning" data-target="#addNewExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-warning" data-target="#addNewMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <header class="guests-fiance-side" style="float: right">
                 <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">ДОПОЛНИТЕЛЬНЫЕ РАСХОДЫ</h4>
@@ -39,7 +39,7 @@
                         <td class="text-center">{{item.rest  | number : 1}} {{item.money}}</td>
                         <td class="text-center">
                             <div>
-                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                             </div>
                         </td>
                     </tr>
@@ -61,7 +61,7 @@
     <!--EXPENSE ITEMS TABLE  *END*-->
 
     <!-- ADD EXPENSE ITEM MODAL *START* -->
-    <div id="addNewExpenseItem" class="modal fade">
+    <div id="addNewMenuItem" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,7 +124,7 @@
     <!-- ADD EXPENSE ITEM MODAL MODAL *END* -->
 
     <!-- EDIT EXPENSE ITEM MODAL *START* -->
-    <div id="editExpenseItem" class="modal fade">
+    <div id="editMenuItem" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">

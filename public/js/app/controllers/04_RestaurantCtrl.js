@@ -381,7 +381,228 @@ define(['angular'], function (angular) {
      * */
     function restaurantCakesMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // Default data
+        $scope.itemToEdit = {};
+        $scope.newItem = {};
 
+        // Shortcuts
+        $scope.items = $scope.currentProject.restaurantCakes.expCollection;
+        $scope.total = $scope.currentProject.restaurantCakes.total;
+
+        // GUEST CHANGE EVENT WATCHER
+        $scope.$watch('currentProject.restaurant.guestsQty', function () {
+            angular.forEach($scope.currentProject.restaurantCakes.expCollection, function (item) {
+                // Intermediate calculations
+                item.totalKg = (item.grPerGuest / 1000)* $scope.currentProject.restaurant.guestsQty;
+                item.toPai = item.totalKg * item.kgPrice;
+                item.rest = item.toPai - item.paid;
+
+
+                // Update total values
+                updateTotalValues();
+            });
+        });
+
+        // Update total values Fn
+        function updateTotalValues() {
+            $scope.total = {
+                planUsd : 0,
+                planNat : 0,
+                paidUsd : 0,
+                paidNat : 0,
+                paidTotalUsd : 0,
+                paidTotalNat : 0,
+                restTotalUsd : 0,
+                restTotalNat : 0
+            };
+            angular.forEach($scope.items, function (item) {
+                // USD and Nat plans separation
+                if(item.usd){
+                    $scope.total.planUsd += item.toPai;
+                    $scope.total.planNat = $scope.total.planUsd * $scope.currentProject.budget.currency;
+
+                    $scope.total.paidUsd += item.paid;
+                    $scope.total.paidNat = $scope.total.paidUsd * $scope.currentProject.budget.currency;
+                }
+                if(!item.usd){
+                    $scope.total.planNat += item.toPai;
+                    $scope.total.planUsd = $scope.total.planNat / $scope.currentProject.budget.currency;
+
+                    $scope.total.paidNat += item.paid;
+                    $scope.total.paidUsd = $scope.total.paidNat / $scope.currentProject.budget.currency;
+                }
+            });
+            // Total Paid calculations
+            $scope.total.paidTotalUsd += $scope.total.paidUsd;
+            $scope.total.paidTotalNat = $scope.total.paidTotalUsd * $scope.currentProject.budget.currency;
+            // Total Rest calculations
+            $scope.total.restTotalUsd = $scope.total.planUsd - $scope.total.paidTotalUsd;
+            $scope.total.restTotalNat = $scope.total.restTotalUsd * $scope.currentProject.budget.currency;
+
+            // in the end copy obj back
+            $scope.currentProject.restaurantCakes.total = $scope.total;
+
+            // Emit Total Value Changes EVENT
+            $scope.$emit('totalValuesChanged');
+        }
+
+        // Update total values immediate evoke
+       // updateTotalValues();
+
+        // Add New Expense Item Fn
+        $scope.addNewExpenseItem = function (item) {
+            if(item.name != '' && angular.isNumber(item.grPerGuest) && angular.isNumber(item.kgPrice) && angular.isNumber(item.paid)){
+                // grPerGuest correction
+                if(item.grPerGuest < 0){
+                    item.grPerGuest *=-1;
+                }
+                // grPerGuest correction
+                if(item.kgPrice < 0){
+                    item.kgPrice *=-1;
+                }
+                // paid correction
+                if(item.paid < 0){
+                    item.paid *= -1;
+                }
+                // Intermediate calculations
+                item.totalKg = (item.grPerGuest / 1000)* $scope.currentProject.restaurant.guestsQty;
+                item.toPai = item.totalKg * item.kgPrice;
+                item.rest = item.toPai - item.paid;
+
+                // Money type check
+                if(!item.usd){
+                    item.money = $scope.currentProject.budget.nationalMoney;
+                } else {
+                    item.money = 'USD';
+                }
+
+                // Add expense item to expCollection
+                $scope.currentProject.restaurantCakes.expCollection.push(item);
+
+                // Update total values
+                updateTotalValues();
+
+                // ADD EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
+                    function (data) {
+                        $scope.newItem = {};
+                        if (_env._dev) {
+                            toastr.success('Cakes Item created!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: Cakes Item AJAX failed');
+                        throw new Error('ERROR: Cakes Item AJAX failed' + err);
+                    })
+                    .catch(function (err) {
+                        toastr.error("ERROR: Cakes Item AJAX failed");
+                        $log.error("ERROR: Cakes Item AJAX failed", err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: Cakes input check failed');
+                throw new Error('ERROR: Cakes input check failed' + err);
+            }
+        };
+
+        // Edit Expense Item Fn
+        $scope.editExpenseItem = function (index) {
+            $scope.itemToEdit = $scope.items[index];
+            $scope.removeTrigger = false;
+        };
+
+        // SAVE EDITED ITEM in DB
+        $scope.editExpenseItemSave = function (item) {
+            if(item.name != '' && angular.isNumber(item.grPerGuest) && angular.isNumber(item.kgPrice) && angular.isNumber(item.paid)){
+                // grPerGuest correction
+                if(item.grPerGuest < 0){
+                    item.grPerGuest *=-1;
+                }
+                // grPerGuest correction
+                if(item.kgPrice < 0){
+                    item.kgPrice *=-1;
+                }
+                // paid correction
+                if(item.paid < 0){
+                    item.paid *= -1;
+                }
+                // Intermediate calculations
+                item.totalKg = (item.grPerGuest / 1000)* $scope.currentProject.restaurant.guestsQty;
+                item.toPai = item.totalKg * item.kgPrice;
+                item.rest = item.toPai - item.paid;
+
+                // Money type check
+                if(!item.usd){
+                    item.money = $scope.currentProject.budget.nationalMoney;
+                } else {
+                    item.money = 'USD';
+                }
+
+                // Update total values
+                updateTotalValues();
+
+                // SAVE CHANGES of EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
+                    function (data) {
+                        $scope.removeTrigger = false;
+                        $scope.itemToEdit = {};
+                        if (_env._dev) {
+                            toastr.success('Expense Item Edited!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: New Expense Item AJAX failed');
+                        throw new Error('ERROR: New Expense Item AJAX failed' + err);
+                    })
+                    .catch(function (err) {
+                        toastr.error("ERROR: Expense Item Edit AJAX failed");
+                        $log.error("ERROR: Expense Item Edit AJAX failed", err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: expense input check failed');
+                throw new Error('ERROR: expense input check failed' + err);
+            }
+        };
+
+        // DELETE ITEM
+        $scope.deleteExpenseItem = function (index) {
+            // Remove from model
+            $scope.currentProject.restaurantCakes.expCollection.splice(index, 1);
+
+            // Update total values
+            updateTotalValues();
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
+                function (data) {
+                    $scope.removeTrigger = false;
+                    $scope.itemToEdit = {};
+                    if (_env._dev) {
+                        toastr.warning('Expense Item removed');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: New Expense Item AJAX failed');
+                    throw new Error('ERROR: New Expense Item AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Expense Item Edit AJAX failed");
+                    $log.error("ERROR: Expense Item Edit AJAX failed", err);
+                });
+        };
+
+        // Notes Display Filter
+        $scope.notesFilter = function (notes) {
+            if(notes == null){
+                return '';
+            } else {
+                var noteArr = notes.split('*');
+                if(noteArr[0] == ''){
+                    noteArr.splice(0,1);
+                }
+                return noteArr;
+            }
+        };
 
     } //*END* RESTAURANT CAKES CTRL
 

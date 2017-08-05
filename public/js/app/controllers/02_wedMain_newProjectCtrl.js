@@ -67,6 +67,31 @@ define(['angular'], function (angular) {
                         restTotalNat : 0
                     }
                 };
+                this.restaurantMenu = {};
+                this.restaurantCakes = {
+                    expCollection : [{
+                     name : 'ТОРТ', // *<input S
+                     grPerGuest : 0, // *<input N
+                     totalKg : 0, // guestsQ * grPerGuest
+                     kgPrice : 0, // *<input N
+                     toPai : 0, // totalKg * kgPrice
+                     paid : 0, // *<input N
+                     rest : 0, // toPai - paid
+                     usd : false,
+                     money : null
+                     }],
+                    total : {
+                        planUsd : 0, // planNat / currency
+                        planNat : 0, // sum[toPai]
+                        paidUsd : 0, // paidNat / currency
+                        paidNat : 0, // sum[paid]
+                        paidTotalUsd : 0, //
+                        paidTotalNat : 0, //
+                        restTotalUsd : 0,
+                        restTotalNat : 0
+                    },
+                    notes : null,
+                };
                 this.restaurantPlus = {
                     expCollection : [/*{
                         name : 'ТОРТ',
