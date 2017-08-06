@@ -371,6 +371,223 @@ define(['angular'], function (angular) {
      * */
     function restaurantMenuMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // Default data
+        $scope.itemToEdit = {};
+        $scope.newItem = {};
+
+        // Shortcuts
+        $scope.items = $scope.currentProject.restaurantMenu.expCollection;
+        $scope.total = $scope.currentProject.restaurantMenu.total;
+        $scope.categories = $scope.currentProject.restaurantMenu.categories;
+
+        // GUEST CHANGE EVENT WATCHER
+        $scope.$watch('currentProject.restaurant.guestsQty', function () {
+            // Update total values
+            updateTotalValues();
+        });
+
+        // Update total values Fn
+        function updateTotalValues() {
+            $scope.total = {
+                totalMenuPriceNat : 0, // sum[toPai]
+                totalMenuWeight : 0, // sum[totalWeight]
+
+                calculatedCheck : 0, // sum[toPay] / guestsQty
+                weightPerGuest : 0 // sum[totalWeight] / guestsQty
+            };
+
+            angular.forEach($scope.items, function (item) {
+                // Define total menu price & weight
+                $scope.total.totalMenuPriceNat += item.toPay;
+                $scope.total.totalMenuWeight += item.totalWeight;
+            });
+
+            // Define calculatedCheck & weightPerGuest
+            $scope.total.calculatedCheck = $scope.total.totalMenuPriceNat / $scope.currentProject.restaurant.guestsQty;
+            $scope.total.weightPerGuest = $scope.total.totalMenuWeight / $scope.currentProject.restaurant.guestsQty;
+
+            // in the end copy obj back
+            $scope.currentProject.restaurantMenu.total = $scope.total;
+
+            // Emit Total Value Changes EVENT
+            $scope.$emit('totalValuesChanged');
+        }
+
+        // Update total values immediate evoke
+        // updateTotalValues();
+
+        // Add New Expense Item Fn
+        $scope.addNewExpenseItem = function (item) {
+            if(item.name != ''
+                && angular.isNumber(item.portionWeight)
+                && angular.isNumber(item.portionPrice)
+                && angular.isNumber(item.portionQty)
+                && $scope.categories.some(function (category) {
+                    return item.category == category; })) {
+
+                // portionWeight correction
+                if(item.portionWeight < 0){
+                    item.grPerGuest *=-1;
+                }
+                // portionPrice correction
+                if(item.portionPrice < 0){
+                    item.kgPrice *=-1;
+                }
+                // portionQty correction
+                if(item.portionQty < 0){
+                    item.portionQty *= -1;
+                }
+
+                // Intermediate calculations
+                item.toPay = item.portionPrice * item.portionQty;
+                item.totalWeight = item.portionWeight * item.portionQty;
+
+                // Add expense item to expCollection
+                $scope.currentProject.restaurantMenu.expCollection.push(item);
+
+                // Update total values
+                updateTotalValues();
+
+                // ADD EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
+                    function (data) {
+                        $scope.newItem = {};
+                        if (_env._dev) {
+                            toastr.success('Menu Item created!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: Menu Item AJAX failed');
+                        throw new Error('ERROR: Menu Item AJAX failed' + err);
+                    })
+                    .catch(function (err) {
+                        toastr.error("ERROR: Menu Item AJAX failed");
+                        $log.error("ERROR: Menu Item AJAX failed", err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: Menu input check failed');
+                throw new Error('ERROR: Menu input check failed' + err);
+            }
+        };
+
+        // Edit Expense Item Fn
+        $scope.editExpenseItem = function (index) {
+            $scope.itemToEdit = $scope.items[index];
+            $scope.removeTrigger = false;
+        };
+
+        // SAVE EDITED ITEM in DB
+        $scope.editExpenseItemSave = function (item) {
+            if(item.name != ''
+                && angular.isNumber(item.portionWeight)
+                && angular.isNumber(item.portionPrice)
+                && angular.isNumber(item.portionQty)
+                && $scope.categories.some(function (category) {
+                    return item.category == category; })) {
+
+                // portionWeight correction
+                if(item.portionWeight < 0){
+                    item.grPerGuest *=-1;
+                }
+                // portionPrice correction
+                if(item.portionPrice < 0){
+                    item.kgPrice *=-1;
+                }
+                // portionQty correction
+                if(item.portionQty < 0){
+                    item.portionQty *= -1;
+                }
+
+                // Intermediate calculations
+                item.toPay = item.portionPrice * item.portionQty;
+                item.totalWeight = item.portionWeight * item.portionQty;
+
+                // Update total values
+                updateTotalValues();
+
+                // SAVE CHANGES of EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
+                    function (data) {
+                        $scope.removeTrigger = false;
+                        $scope.itemToEdit = {};
+                        if (_env._dev) {
+                            toastr.success('Expense Item Edited!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: Menu Edit Item AJAX failed');
+                        throw new Error('ERROR: Menu Edit Item AJAX failed' + err);
+                    })
+                    .catch(function (err) {
+                        toastr.error("ERROR: Menu Edit Edit AJAX failed");
+                        $log.error("ERROR: Menu Edit Edit AJAX failed", err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: Menu input check failed');
+                throw new Error('ERROR: Menu input check failed' + err);
+            }
+        };
+
+        // DELETE ITEM
+        $scope.deleteExpenseItem = function (index) {
+            // Remove from model
+            $scope.currentProject.restaurantMenu.expCollection.splice(index, 1);
+
+            // Update total values
+            updateTotalValues();
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
+                function (data) {
+                    $scope.removeTrigger = false;
+                    $scope.itemToEdit = {};
+                    if (_env._dev) {
+                        toastr.warning('Menu Item removed');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: New Expense Item AJAX failed');
+                    throw new Error('ERROR: New Expense Item AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Menu Item Remove AJAX failed");
+                    $log.error("ERROR: Menu Item Remove AJAX failed", err);
+                });
+        };
+
+        // Notes Display Filter
+        $scope.notesFilter = function (notes) {
+            if(notes == null){
+                return '';
+            } else {
+                var noteArr = notes.split('*');
+                if(noteArr[0] == ''){
+                    noteArr.splice(0,1);
+                }
+                return noteArr;
+            }
+        };
+
+        // Notes Save
+        $scope.noteSave = function () {
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
+                function (data) {
+                    if (_env._dev) {
+                        toastr.info('Notes are saved!');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: Notes AJAX failed');
+                    throw new Error('ERROR: Notes AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Notes AJAX failed");
+                    $log.error("ERROR: Notes AJAX failed", err);
+                });
+        };
 
 
     } //*END* RESTAURANT MENU CTRL
@@ -548,17 +765,17 @@ define(['angular'], function (angular) {
                         }
                     },
                     function (err) {
-                        toastr.error('ERROR: New Expense Item AJAX failed');
-                        throw new Error('ERROR: New Expense Item AJAX failed' + err);
+                        toastr.error('ERROR: Cake Edit Item AJAX failed');
+                        throw new Error('ERROR: Cake Edit Item AJAX failed' + err);
                     })
                     .catch(function (err) {
-                        toastr.error("ERROR: Expense Item Edit AJAX failed");
-                        $log.error("ERROR: Expense Item Edit AJAX failed", err);
+                        toastr.error("ERROR: Cake Edit Item AJAX failed");
+                        $log.error("ERROR: Cake Edit Item AJAX failed", err);
                     });
             }
             else {
-                toastr.error('ERROR: expense input check failed');
-                throw new Error('ERROR: expense input check failed' + err);
+                toastr.error('ERROR: cake input check failed');
+                throw new Error('ERROR: cake input check failed' + err);
             }
         };
 
@@ -576,7 +793,7 @@ define(['angular'], function (angular) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
                     if (_env._dev) {
-                        toastr.warning('Expense Item removed');
+                        toastr.warning('Cake Item removed');
                     }
                 },
                 function (err) {
@@ -584,8 +801,8 @@ define(['angular'], function (angular) {
                     throw new Error('ERROR: New Expense Item AJAX failed' + err);
                 })
                 .catch(function (err) {
-                    toastr.error("ERROR: Expense Item Edit AJAX failed");
-                    $log.error("ERROR: Expense Item Edit AJAX failed", err);
+                    toastr.error("ERROR: Cake Item Remove AJAX failed");
+                    $log.error("ERROR: Cake Item Remove AJAX failed", err);
                 });
         };
 

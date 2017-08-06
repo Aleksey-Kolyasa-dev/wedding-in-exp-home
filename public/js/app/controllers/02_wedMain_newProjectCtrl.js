@@ -79,8 +79,7 @@ define(['angular'], function (angular) {
                     }],
                     total : {
                         totalMenuPriceNat : 0, // sum[toPai]
-                        totalMenuPriceUsd : 0, // totalMenuPriceNat / currency
-                        totalMenuWeight : 0, // sum[totalWeight] * guestsQty
+                        totalMenuWeight : 0, // sum[totalWeight]
 
                         calculatedCheck : 0, // sum[toPay] / guestsQty
                         weightPerGuest : 0 // sum[totalWeight] / guestsQty
