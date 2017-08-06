@@ -378,6 +378,26 @@ define(['angular'], function (angular) {
         $scope.items = $scope.currentProject.restaurantMenu.expCollection;
         $scope.total = $scope.currentProject.restaurantMenu.total;
         $scope.categories = $scope.currentProject.restaurantMenu.categories;
+        $scope.dispalyCategotries = {};
+
+        // Category Header Display Filter
+       function categoryHeaderFilter() {
+           $scope.dispalyCategotries = {};
+           angular.forEach($scope.currentProject.restaurantMenu.expCollection, function(item) {
+               switch (item.category){
+                   case
+               }
+               if(item.category == 'Холодные закуски'){
+                    $scope.dispalyCategotries.coldDishes = true;
+                }
+
+               if(item.category == 'Салаты'){
+                   $scope.dispalyCategotries.salads = true;
+               }
+            });
+           $log.log( $scope.dispalyCategotries);
+        }
+        categoryHeaderFilter();
 
         // GUEST CHANGE EVENT WATCHER
         $scope.$watch('currentProject.restaurant.guestsQty', function () {
@@ -447,6 +467,8 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
+                categoryHeaderFilter();
+
                 // ADD EXPENSE ITEM to DB
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
                     function (data) {
@@ -505,13 +527,15 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
+                categoryHeaderFilter();
+
                 // SAVE CHANGES of EXPENSE ITEM to DB
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
                     function (data) {
                         $scope.removeTrigger = false;
                         $scope.itemToEdit = {};
                         if (_env._dev) {
-                            toastr.success('Expense Item Edited!');
+                            toastr.success('Menu Item Edited!');
                         }
                     },
                     function (err) {
@@ -555,6 +579,9 @@ define(['angular'], function (angular) {
                     $log.error("ERROR: Menu Item Remove AJAX failed", err);
                 });
         };
+
+
+        //$log.log($scope.items);
 
         // Notes Display Filter
         $scope.notesFilter = function (notes) {

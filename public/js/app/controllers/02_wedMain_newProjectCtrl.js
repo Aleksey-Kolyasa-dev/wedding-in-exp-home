@@ -68,7 +68,8 @@ define(['angular'], function (angular) {
                     }
                 };
                 this.restaurantMenu = {
-                    expCollection : [{
+                    expCollection : [
+                       /* {
                         name : 'ТОРТ', // *<input S
                         portionWeight : 0, // *<input N
                         portionPrice : 0, // *<input N
@@ -76,7 +77,8 @@ define(['angular'], function (angular) {
                         toPay : 0, // portionPrice * portionQty
                         totalWeight: 0, // portionWeight * portionQty
                         category : null // *<input S
-                    }],
+                    }*/
+                    ],
                     total : {
                         totalMenuPriceNat : 0, // sum[toPai]
                         totalMenuWeight : 0, // sum[totalWeight]

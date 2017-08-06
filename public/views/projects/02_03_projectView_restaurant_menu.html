@@ -31,18 +31,33 @@
                 </thead>
 
                 <tbody>
-                <div>
-
-                </div>
-                    <tr><td colspan="8" class="guest-side-table-head" ng-if="true">Хородные закуски</td></tr>
-                    <tr class="guest" ng-repeat="item in items">
+                    <!--Холодные закуски-->
+                    <tr ng-show="dispalyCategotries.coldDishes"><td colspan="8" class="guest-side-table-head">Хородные закуски</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Холодные закуски'}">
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center">{{item.totalWeight  | number}} {{item.money}} гр.</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Холодные закуски-->
+                    <tr ng-show="dispalyCategotries.salads"><td colspan="8" class="guest-side-table-head">Салаты</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Салаты'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
                             <div>
                                 <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
@@ -136,7 +151,7 @@
                                 <hr>
                                 <div class="form-group">
                                     <label>Категория</label>
-                                    <select class="form-control" ng-model="itemToEdit.category"
+                                    <select class="form-control" ng-model="newItem.category"
                                             ng-options="item for item in categories"
                                             required ng-minlength='1' >
                                     </select>
