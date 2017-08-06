@@ -67,7 +67,37 @@ define(['angular'], function (angular) {
                         restTotalNat : 0
                     }
                 };
-                this.restaurantMenu = {};
+                this.restaurantMenu = {
+                    expCollection : [{
+                        name : 'ТОРТ', // *<input S
+                        portionWeight : 0, // *<input N
+                        portionPrice : 0, // *<input N
+                        portionQty : 0, // *<input N
+                        toPay : 0, // portionPrice * portionQty
+                        totalWeight: 0, // portionWeight * portionQty
+                        category : null // *<input S
+                    }],
+                    total : {
+                        totalMenuPriceNat : 0, // sum[toPai]
+                        totalMenuPriceUsd : 0, // totalMenuPriceNat / currency
+                        totalMenuWeight : 0, // sum[totalWeight] * guestsQty
+
+                        calculatedCheck : 0, // sum[toPay] / guestsQty
+                        weightPerGuest : 0 // sum[totalWeight] / guestsQty
+                    },
+                    categories : [
+                        "Холодные закуски",
+                        "Салаты",
+                        "Горячие закуски",
+                        "Основные блюда",
+                        "Диссерт",
+                        "Напитки А",
+                        "Напитки Б/А",
+                        "Фуршет",
+                        "Инное"
+                    ],
+                    notes : null
+                };
                 this.restaurantCakes = {
                     expCollection : [{
                      name : 'ТОРТ', // *<input S
