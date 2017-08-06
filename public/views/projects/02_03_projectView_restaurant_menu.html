@@ -31,6 +31,10 @@
                 </thead>
 
                 <tbody>
+                <div>
+
+                </div>
+                    <tr><td colspan="8" class="guest-side-table-head" ng-if="true">Хородные закуски</td></tr>
                     <tr class="guest" ng-repeat="item in items">
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
                         <td>{{item.name}}</td>
@@ -46,6 +50,7 @@
                         </td>
                     </tr>
 
+                    <!--footers-->
                     <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">
                         <td class="hidden-md hidden-sm hidden-xs"></td>
                         <td class="text-left  hidden-xs hidden-sm" colspan="3" style="font-style: italic; font-weight: inherit">ИТОГО ПО МЕНЮ:</td>
@@ -66,7 +71,7 @@
                         <td class="text-center">{{total.weightPerGuest  | number}} гр. еды</td>
                         <td class="text-center"></td>
                     </tr>
-
+                    <!--footers-->
                 </tbody>
             </table>
         </div>
