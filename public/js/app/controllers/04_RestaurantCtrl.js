@@ -15,7 +15,7 @@ define(['angular'], function (angular) {
             $scope.count = 0;
         }
         // Default subView
-        $scope.subView = "restaurantCakes";
+        $scope.subView = "restaurantMenu";
         $scope.currentProject.restaurant.quickView = false;
 
         // EVENT SUBSCRIBE do recalculations if event

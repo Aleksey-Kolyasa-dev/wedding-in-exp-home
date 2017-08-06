@@ -1,5 +1,4 @@
 .main-page-header{
-    /*background: radial-gradient(#fff7ee, #f4f4f4);*/
 }
 .wed-main-header{
     height:109px;
@@ -130,7 +129,6 @@
 
 /* MODALS */
 .wed-modals{
-    /*background: linear-gradient(rgba(255, 105, 28, 0.52), rgba(248, 177, 82, 0.53));*/
     background-image: url("../img/main_bg.jpg");
 }
 .form-group label{
@@ -141,5 +139,4 @@
 .form-group input{
     color: #160051;
     font-size: 120%;
-    /*font-weight: normal;*/
 }
