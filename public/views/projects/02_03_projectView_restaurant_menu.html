@@ -16,48 +16,56 @@
         <!--Table-->
         <div>
             <table class="table table-responsive info-glass-panel">
+
                 <thead class="guest-side-table-head">
-                <tr style="color: white">
-                    <th class="text-center hidden-md hidden-sm hidden-xs">№</th>
-                    <th>БЛЮДО</th>
-                    <th class="text-center hidden-sm hidden-xs">ВЕС ПОРЦИИ</th>
-                    <th class="text-center hidden-sm hidden-xs">ЦЕНА ПОРЦИИ</th>
-                    <th class="text-center hidden-md hidden-sm hidden-xs">КОЛИЧЕСТВО</th>
-                    <th class="text-center">СУММА</th>
-                    <th class="text-center">ОБЩИЙ ВЕС</th>
-                    <th class="text-center"></th>
-                    <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
-                </tr>
+                    <tr style="color: white">
+                        <th class="text-center hidden-md hidden-sm hidden-xs">№</th>
+                        <th>БЛЮДО</th>
+                        <th class="text-center hidden-md hidden-sm hidden-xs">ВЕС ПОРЦИИ</th>
+                        <th class="text-center hidden-sm hidden-xs">ЦЕНА ПОРЦИИ</th>
+                        <th class="text-center hidden-sm hidden-xs">КОЛИЧЕСТВО</th>
+                        <th class="text-center">СУММА</th>
+                        <th class="text-center">ОБЩИЙ ВЕС</th>
+                        <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                <tr class="guest" ng-repeat="item in items">
-                    <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
-                    <td>{{item.name}}</td>
-                    <td class="text-center hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
-                    <td class="text-center hidden-md hidden-md hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                    <td class="text-center hidden-md hidden-md hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
-                    <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                    <td class="text-center">{{item.totalWeight  | number}} {{item.money}} гр.</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        <div>
-                            <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
-                        </div>
-                    </td>
-                </tr>
+                    <tr class="guest" ng-repeat="item in items">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} {{item.money}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
 
-                <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">
-                    <td class="hidden-md hidden-sm hidden-xs"></td>
-                    <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО ПО ИЗДЕЛИЯМ:</td>
-                    <td class="visible-md" colspan="3"></td>
-                    <td class="visible-sm"></td>
-                    <td class="visible-xs"></td>
-                    <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.planUsd  | number : 1}} USD</td>
-                    <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd  | number : 1}} USD</td>
-                    <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd  | number : 1}} USD</td>
-                    <td class="text-center"></td>
-                </tr>
+                    <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">
+                        <td class="hidden-md hidden-sm hidden-xs"></td>
+                        <td class="text-left  hidden-xs hidden-sm" colspan="3" style="font-style: italic; font-weight: inherit">ИТОГО ПО МЕНЮ:</td>
+                        <td class="visible-lg" colspan="1"></td>
+                        <td class="visible-sm"></td>
+                        <td class="visible-xs"></td>
+                        <td class="text-center">{{total.totalMenuPriceNat | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{total.totalMenuWeight  | number}} гр.</td>
+                        <td class="text-center"></td>
+                    </tr>
+                    <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">
+                        <td class="hidden-md hidden-sm hidden-xs"></td>
+                        <td class="text-left  hidden-xs hidden-sm" colspan="3" style="font-style: italic; font-weight: inherit">ИТОГО НА ГОСТЯ:</td>
+                        <td class="visible-lg" colspan="1"></td>
+                        <td class="visible-sm"></td>
+                        <td class="visible-xs"></td>
+                        <td class="text-center">{{total.calculatedCheck | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{total.weightPerGuest  | number}} гр. еды</td>
+                        <td class="text-center"></td>
+                    </tr>
 
                 </tbody>
             </table>
