@@ -85,7 +85,7 @@ define(['angular'], function (angular) {
 
             if (_env._dev) {
                 if ($scope.currentProject.restaurant.total.restTotalNat / $scope.currentProject.budget.currency != $scope.currentProject.restaurant.total.restTotalUsd) {
-                    toastr.warning('CHECK FAILED: ResrMain: 56');
+                    //toastr.warning('CHECK FAILED: ResrMain: 56');
                 }
                 $scope.count++;
             }
@@ -381,22 +381,41 @@ define(['angular'], function (angular) {
         $scope.dispalyCategotries = {};
 
         // Category Header Display Filter
-       function categoryHeaderFilter() {
+        function categoryHeaderFilter() {
            $scope.dispalyCategotries = {};
            angular.forEach($scope.currentProject.restaurantMenu.expCollection, function(item) {
-               switch (item.category){
-                   case
-               }
                if(item.category == 'Холодные закуски'){
                     $scope.dispalyCategotries.coldDishes = true;
                 }
-
                if(item.category == 'Салаты'){
                    $scope.dispalyCategotries.salads = true;
+               }
+               if(item.category == 'Горячие закуски'){
+                   $scope.dispalyCategotries.hotDishes = true;
+               }
+               if(item.category == 'Основные блюда'){
+                   $scope.dispalyCategotries.mainDishes = true;
+               }
+               if(item.category == 'Дисерт'){
+                   $scope.dispalyCategotries.disetrs = true;
+               }
+               if(item.category == 'Напитки А'){
+                   $scope.dispalyCategotries.drinksA = true;
+               }
+               if(item.category == 'Напитки Б/А'){
+                   $scope.dispalyCategotries.drinksBA = true;
+               }
+               if(item.category == 'Фуршет'){
+                   $scope.dispalyCategotries.furshet = true;
+               }
+               if(item.category == 'Инное'){
+                   $scope.dispalyCategotries.other = true;
                }
             });
            $log.log( $scope.dispalyCategotries);
         }
+
+        // Category Header Update
         categoryHeaderFilter();
 
         // GUEST CHANGE EVENT WATCHER
@@ -467,6 +486,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
+                // Category Header Update
                 categoryHeaderFilter();
 
                 // ADD EXPENSE ITEM to DB
@@ -527,6 +547,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
+                // Category Header Update
                 categoryHeaderFilter();
 
                 // SAVE CHANGES of EXPENSE ITEM to DB
@@ -560,6 +581,9 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
+
+            // Category Header Update
+            categoryHeaderFilter();
 
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(

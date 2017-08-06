@@ -164,3 +164,13 @@
     font-size: 80%;
     color: #bfbfbf;
 }
+/*MENU*/
+.dishes-category{
+    color: rgb(194, 241, 165);
+    background: rgba(59, 101, 21, 0.5);
+    height: 10px !important;
+    font-style: italic;
+    font-size: 99%;
+    font-weight: bold;
+    padding: 3px 20px !important;
+}

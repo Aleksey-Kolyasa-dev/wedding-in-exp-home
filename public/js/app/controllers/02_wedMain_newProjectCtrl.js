@@ -91,7 +91,7 @@ define(['angular'], function (angular) {
                         "Салаты",
                         "Горячие закуски",
                         "Основные блюда",
-                        "Диссерт",
+                        "Дисерт",
                         "Напитки А",
                         "Напитки Б/А",
                         "Фуршет",
@@ -100,17 +100,19 @@ define(['angular'], function (angular) {
                     notes : null
                 };
                 this.restaurantCakes = {
-                    expCollection : [{
-                     name : 'ТОРТ', // *<input S
-                     grPerGuest : 0, // *<input N
-                     totalKg : 0, // guestsQ * grPerGuest
-                     kgPrice : 0, // *<input N
-                     toPai : 0, // totalKg * kgPrice
-                     paid : 0, // *<input N
-                     rest : 0, // toPai - paid
-                     usd : false,
-                     money : null
-                     }],
+                    expCollection : [
+                        /*{
+                             name : 'ТОРТ', // *<input S
+                             grPerGuest : 0, // *<input N
+                             totalKg : 0, // guestsQ * grPerGuest
+                             kgPrice : 0, // *<input N
+                             toPai : 0, // totalKg * kgPrice
+                             paid : 0, // *<input N
+                             rest : 0, // toPai - paid
+                             usd : false,
+                             money : null
+                         }*/
+                     ],
                     total : {
                         planUsd : 0, // planNat / currency
                         planNat : 0, // sum[toPai]
