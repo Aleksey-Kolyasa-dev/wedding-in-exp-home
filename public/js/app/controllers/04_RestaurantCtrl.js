@@ -395,11 +395,9 @@ define(['angular'], function (angular) {
                 item.totalKg = (item.grPerGuest / 1000)* $scope.currentProject.restaurant.guestsQty;
                 item.toPai = item.totalKg * item.kgPrice;
                 item.rest = item.toPai - item.paid;
-
-
-                // Update total values
-                updateTotalValues();
             });
+            // Update total values
+            updateTotalValues();
         });
 
         // Update total values Fn
