@@ -21,12 +21,18 @@ define(['angular'], function (angular) {
         // EVENT SUBSCRIBE do recalculations if event
         $scope.$on('totalValuesChanged', function () {
             restaurantTotal();
+            if (_env._dev){
+                //$log.log('UPDATE: reason - totalValuesChanged EVENT', $scope.count);
+            }
         });
 
         // WATCH GUESTS QTY VALUE and do recalculations if changed
-        $scope.$watch("currentProject.restaurant.guestsQty", function () {
+        /*$scope.$watch("currentProject.restaurant.guestsQty", function () {
             restaurantTotal();
-        });
+            if (_env._dev){
+                $log.log('UPDATE: reason - GUESTS QTY change EVENT', $scope.count);
+            }
+        });*/
 
         // Subview shift Fn
         $scope.subViewShift = function (view) {
@@ -287,6 +293,9 @@ define(['angular'], function (angular) {
 
                 // Do total calculations
                 restaurantTotal();
+                if (_env._dev){
+                    $log.log('UPDATE: reason - RESTAURANT DATA SAVE EVENT', $scope.count);
+                }
 
                 // SAVE RESTAURANT DATA
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/generalDataSave").then(
@@ -412,7 +421,10 @@ define(['angular'], function (angular) {
                    $scope.dispalyCategotries.other = true;
                }
             });
-           $log.log( $scope.dispalyCategotries);
+
+           if(_env._dev){
+               $log.log( $scope.dispalyCategotries);
+           }
         }
 
         // Category Header Update
@@ -422,6 +434,10 @@ define(['angular'], function (angular) {
         $scope.$watch('currentProject.restaurant.guestsQty', function () {
             // Update total values
             updateTotalValues();
+            if (_env._dev){
+                $log.log('update by MENU: reason - GUEST QTY EVENT ', $scope.count)
+            }
+
         });
 
         // Update total values Fn
@@ -485,6 +501,9 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+                if (_env._dev){
+                    $log.log('update by MENU: reason - ADD MENU ITEM EVENT ', $scope.count)
+                }
 
                 // Category Header Update
                 categoryHeaderFilter();
@@ -546,6 +565,9 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+                if (_env._dev){
+                    $log.log('update by MENU: reason - EDIT MENU EVENT ', $scope.count)
+                }
 
                 // Category Header Update
                 categoryHeaderFilter();
@@ -581,6 +603,9 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
+            if (_env._dev){
+                $log.log('update by MENU: reason - REMOVE MENU ITEM EVENT ', $scope.count)
+            }
 
             // Category Header Update
             categoryHeaderFilter();
@@ -603,9 +628,6 @@ define(['angular'], function (angular) {
                     $log.error("ERROR: Menu Item Remove AJAX failed", err);
                 });
         };
-
-
-        //$log.log($scope.items);
 
         // Notes Display Filter
         $scope.notesFilter = function (notes) {
@@ -664,8 +686,13 @@ define(['angular'], function (angular) {
                 item.toPai = item.totalKg * item.kgPrice;
                 item.rest = item.toPai - item.paid;
             });
+
             // Update total values
             updateTotalValues();
+            if (_env._dev){
+                $log.log('update by CAKE: reason - GUEST QTY EVENT ', $scope.count)
+            }
+
         });
 
         // Update total values Fn
@@ -709,6 +736,7 @@ define(['angular'], function (angular) {
 
             // Emit Total Value Changes EVENT
             $scope.$emit('totalValuesChanged');
+
         }
 
         // Update total values immediate evoke
@@ -744,8 +772,11 @@ define(['angular'], function (angular) {
                 // Add expense item to expCollection
                 $scope.currentProject.restaurantCakes.expCollection.push(item);
 
-                // Update total values
+               // Update total values
                 updateTotalValues();
+                if (_env._dev){
+                    $log.log('update by CAKE: reason - ADD CAKE EVENT ', $scope.count)
+                }
 
                 // ADD EXPENSE ITEM to DB
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
@@ -805,6 +836,9 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+                if (_env._dev){
+                    $log.log('update by CAKE: reason - EDIT CAKE EVENT ', $scope.count)
+                }
 
                 // SAVE CHANGES of EXPENSE ITEM to DB
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
@@ -837,6 +871,10 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
+            if (_env._dev){
+                $log.log('update by CAKE: reason - REMOVE CAKE EVENT ', $scope.count)
+            }
+
 
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
@@ -985,6 +1023,10 @@ define(['angular'], function (angular) {
 
               // Update total values
               updateTotalValues();
+              if (_env._dev){
+                  $log.log('update by PLUS: reason - ADD PLUS EXP EVENT ', $scope.count)
+              }
+
               // ADD EXPENSE ITEM to DB
               ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
                   function (data) {
@@ -1046,6 +1088,9 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+                if (_env._dev){
+                    $log.log('update by PLUS: reason - EDIT PLUS EXP EVENT ', $scope.count)
+                }
 
                 // SAVE CHANGES of EXPENSE ITEM to DB
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
@@ -1078,6 +1123,9 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
+            if (_env._dev){
+                $log.log('update by PLUS: reason - REMOVE PLUS EXP EVENT ', $scope.count)
+            }
 
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
