@@ -72,11 +72,11 @@ define(['angular'], function (angular) {
                 $scope.currentProject.restaurant.total.restUsd = $scope.currentProject.restaurant.total.restNat / $scope.currentProject.budget.currency;
 
             // FULL RESTAURANT EXPENSES
-                $scope.currentProject.restaurant.total.planTotalNat = $scope.currentProject.restaurant.total.planNat + $scope.currentProject.restaurantPlus.total.planNat;
-                $scope.currentProject.restaurant.total.planTotalUsd = $scope.currentProject.restaurant.total.planUsd + $scope.currentProject.restaurantPlus.total.planUsd;
+                $scope.currentProject.restaurant.total.planTotalNat = $scope.currentProject.restaurant.total.planNat + $scope.currentProject.restaurantPlus.total.planNat + $scope.currentProject.restaurantCakes.total.planNat;
+                $scope.currentProject.restaurant.total.planTotalUsd = $scope.currentProject.restaurant.total.planUsd + $scope.currentProject.restaurantPlus.total.planUsd + $scope.currentProject.restaurantCakes.total.planUsd;
 
-                $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + $scope.currentProject.restaurantPlus.total.paidTotalNat;
-                $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + $scope.currentProject.restaurantPlus.total.paidTotalUsd;
+                $scope.currentProject.restaurant.total.paidTotalNat = $scope.currentProject.restaurant.total.paidNat + $scope.currentProject.restaurantPlus.total.paidTotalNat + $scope.currentProject.restaurantCakes.total.paidTotalNat;
+                $scope.currentProject.restaurant.total.paidTotalUsd = $scope.currentProject.restaurant.total.paidUsd + $scope.currentProject.restaurantPlus.total.paidTotalUsd + $scope.currentProject.restaurantCakes.total.paidTotalUsd;
 
                 $scope.currentProject.restaurant.total.restTotalNat = $scope.currentProject.restaurant.total.planTotalNat - $scope.currentProject.restaurant.total.paidTotalNat;
                 $scope.currentProject.restaurant.total.restTotalUsd = $scope.currentProject.restaurant.total.planTotalUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
@@ -731,6 +731,7 @@ define(['angular'], function (angular) {
             // Total Paid calculations
             $scope.total.paidTotalUsd += $scope.total.paidUsd;
             $scope.total.paidTotalNat = $scope.total.paidTotalUsd * $scope.currentProject.budget.currency;
+
             // Total Rest calculations
             $scope.total.restTotalUsd = $scope.total.planUsd - $scope.total.paidTotalUsd;
             $scope.total.restTotalNat = $scope.total.restTotalUsd * $scope.currentProject.budget.currency;

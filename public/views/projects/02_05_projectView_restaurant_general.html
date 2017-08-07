@@ -35,14 +35,14 @@
         <div class="info-glass-panel">
             <hr>
             <div class="text-center">
-                <p title="Без учета доп. расходов (Ресторан +)" class="rest-info-data">План расходов по ресторану: <span >{{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
-                <p title="Без учета доп. расходов (Ресторан +)" class="rest-info-data">Доплатить по ресторану: <span>{{currentProject.restaurant.total.restNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
-                <p class="notation">*без учета доп. расходов (Ресторан +)</p>
+                <p class="rest-info-data" style="color: rgba(175, 203, 255, 0.96)">План расходов по ресторану: <span >{{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p class="rest-info-data" style="color: rgba(175, 203, 255, 0.96)">Доплатить по ресторану: <span>{{currentProject.restaurant.total.restNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p class="notation">*только за стол (без учета "Кондитера" и "Ресторан +")</p>
             </div>
             <hr>
             <div style="font-size: 70%;" class="text-center">
                 <p class="rest-info-data">СТАТИСТИКА</p>
-                <p class="rest-info-data">Средний чек с учетом % и сбора: <span>{{currentProject.restaurant.generalData.fullCheckNat | number : 1}} {{currentProject.budget.nationalMoney}} за чел.</span></p>
+                <p class="rest-info-data" style="font-size: 112% !important; color: #74ea94">Расчетный чек с учетом % и сбора: <span>{{currentProject.restaurant.generalData.fullCheckNat | number : 1}} {{currentProject.budget.nationalMoney}} за чел.</span></p>
 
                 <p class="rest-info-data">За % обслуживания: <span>{{currentProject.restaurant.generalData.sumPercentNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
                 <p class="rest-info-data">За пробковый сбор: <span>{{currentProject.restaurant.generalData.sumPlugsNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
