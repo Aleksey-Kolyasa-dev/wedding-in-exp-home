@@ -53,7 +53,7 @@ define(['angular'], function (angular) {
         $scope.menuCheck = function () {
             if($scope.currentProject.useMenuCheck){
                 $scope.currentProject.restaurant.generalData.generalCheck = $scope.currentProject.restaurantMenu.total.calculatedCheck;
-                $log.log($scope.currentProject.restaurantMenu.total.calculatedCheck);
+                //$log.log($scope.currentProject.restaurantMenu.total.calculatedCheck);
             } else {
                 $scope.currentProject.restaurant.generalData.generalCheck = buffer;
             }
