@@ -11,7 +11,8 @@
             </div>
             <hr>
             <div>
-                <p>Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p ng-if="!currentProject.useMenuCheck">Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p style="color: #dbde55" ng-if="currentProject.useMenuCheck">Расчетный чек из меню: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
                 <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, '%') }}</span></p>
                 <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, currentProject.budget.nationalMoney) }}</span></p>
             </div>
@@ -35,14 +36,14 @@
         <div class="info-glass-panel">
             <hr>
             <div class="text-center">
-                <p class="rest-info-data" style="color: rgba(175, 203, 255, 0.96)">План расходов по ресторану: <span >{{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
-                <p class="rest-info-data" style="color: rgba(175, 203, 255, 0.96)">Доплатить по ресторану: <span>{{currentProject.restaurant.total.restNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p class="rest-info-data" style="color: #f0ad4e">План расходов по ресторану: <span style="color: #ffffff">{{currentProject.restaurant.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p class="rest-info-data" style="color: #f0ad4e">Доплатить по ресторану: <span style="color: #ffffff">{{currentProject.restaurant.total.restNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
                 <p class="notation">*только за стол (без учета "Кондитера" и "Ресторан +")</p>
             </div>
             <hr>
             <div style="font-size: 70%;" class="text-center">
                 <p class="rest-info-data">СТАТИСТИКА</p>
-                <p class="rest-info-data" style="font-size: 112% !important; color: #74ea94">Расчетный чек с учетом % и сбора: <span>{{currentProject.restaurant.generalData.fullCheckNat | number : 1}} {{currentProject.budget.nationalMoney}} за чел.</span></p>
+                <p class="rest-info-data" style="font-size: 112% !important; color: #39f18c">Расчетный чек с учетом % и сбора: <span style="color: #ffffff">{{currentProject.restaurant.generalData.fullCheckNat | number : 1}} {{currentProject.budget.nationalMoney}} за чел.</span></p>
 
                 <p class="rest-info-data">За % обслуживания: <span>{{currentProject.restaurant.generalData.sumPercentNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
                 <p class="rest-info-data">За пробковый сбор: <span>{{currentProject.restaurant.generalData.sumPlugsNat | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
@@ -103,14 +104,16 @@
                             <hr>
                             <div class="form-group text-center">
                                 <label>Средний чек {{currentProject.budget.nationalMoney}}
-                                <input ng-disabled="removeTrigger"  class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck"
+                                <input ng-disabled="currentProject.useMenuCheck"
+                                       style="{{currentProject.useMenuCheck? 'background: rgba(112, 205, 88, 0.44); color: #ffffff' : 'null'}}"
+                                       class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck"
                                        type="number" required>
                                 </label>
                             </div>
                             <div class="text-center">
                                 <div class="form-group" style="width: 100%">
-                                    <label id="menu-check-use" style="{{(removeTrigger)? 'color: #76dc5e': 'color: #ffffff'}}">
-                                        <input style="width: 18px; height: 18px; cursor: pointer;" ng-model="removeTrigger"
+                                    <label id="menu-check-use" style="{{(currentProject.useMenuCheck)? 'color: #76dc5e': 'color: #ffffff'}}">
+                                        <input style="width: 18px; height: 18px; cursor: pointer;" ng-model="currentProject.useMenuCheck" ng-change="menuCheck()"
                                                type="checkbox"> <span style="margin-bottom: 5px;">Использовать чек из меню</span></label>
                                 </div>
                             </div>

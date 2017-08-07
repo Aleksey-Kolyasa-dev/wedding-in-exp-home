@@ -17,7 +17,7 @@ define(['angular'], function (angular) {
         // Default values
         $scope.subView = "restaurant";
         $scope.currentProject.restaurant.quickView = false;
-        $scope.removeTrigger = false;
+
 
         // EVENT SUBSCRIBE do recalculations if event
         $scope.$on('totalValuesChanged', function () {
@@ -46,6 +46,33 @@ define(['angular'], function (angular) {
                 $scope.subView = view;
                 break;
             }
+        };
+
+        // USE MENU CHECK Fu & buffer
+        var buffer = $scope.currentProject.restaurant.generalData.generalCheck;
+        $scope.menuCheck = function () {
+            if($scope.currentProject.useMenuCheck){
+                $scope.currentProject.restaurant.generalData.generalCheck = $scope.currentProject.restaurantMenu.total.calculatedCheck;
+                $log.log($scope.currentProject.restaurantMenu.total.calculatedCheck);
+            } else {
+                $scope.currentProject.restaurant.generalData.generalCheck = buffer;
+            }
+
+            // SAVE MenuCheck SAVE DATA
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/useMenuCheckDataSave").then(
+                function (data) {
+                    if (_env._dev) {
+                        toastr.success('useMenuCheck changed');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: useMenuCheck edit AJAX failed');
+                    throw new Error('ERROR: useMenuCheck edit AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: useMenuCheck edit AJAX failed");
+                    $log.error("ERROR: useMenuCheck edit AJAX failed", err);
+                });
         };
 
         // TOTAL RESTAURANT CALCULATION Fn
