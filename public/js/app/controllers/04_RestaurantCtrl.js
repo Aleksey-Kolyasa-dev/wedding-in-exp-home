@@ -94,7 +94,19 @@ define(['angular'], function (angular) {
                     //toastr.warning('CHECK FAILED: ResrMain: 56');
                 }
                 $scope.count++;
+                if (_env._dev){
+                    $log.log('UPDATE: EVENT', $scope.count, "PROJECT: ", $scope.currentProject.restaurant.total);
+
+                }
             }
+
+           /* ResourceService._ajaxRequest("GET", $scope.currentProject._id, null).then(function (project) {
+
+                    $scope.currentProject = project;
+                   // $location.path('/project');
+                    //!** $scope.currentProjectView.mainMenu = "budget";
+                    $log.log('currentProject AJAX UPDATE');
+            });*/
         }
 
         // GUESTS OPS. Fn

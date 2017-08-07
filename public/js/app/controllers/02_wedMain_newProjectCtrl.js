@@ -23,7 +23,7 @@ define(['angular'], function (angular) {
                     budgetUSD : project.wedBudget,
                     budgetNat : 0,
                     nationalMoney : 'units',
-                    currency : 0,
+                    currency : 1,
                     notes : null
                 };
                 this.restaurant = {
@@ -166,6 +166,7 @@ define(['angular'], function (angular) {
                 });
         };
     } // End of newProjectCtrl
+
 
     /*
     * EDIT PROJECT CTRL
