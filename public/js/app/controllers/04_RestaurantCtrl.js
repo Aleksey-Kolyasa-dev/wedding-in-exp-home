@@ -14,9 +14,10 @@ define(['angular'], function (angular) {
         if(_env._dev){
             $scope.count = 0;
         }
-        // Default subView
+        // Default values
         $scope.subView = "restaurant";
         $scope.currentProject.restaurant.quickView = false;
+        $scope.removeTrigger = false;
 
         // EVENT SUBSCRIBE do recalculations if event
         $scope.$on('totalValuesChanged', function () {

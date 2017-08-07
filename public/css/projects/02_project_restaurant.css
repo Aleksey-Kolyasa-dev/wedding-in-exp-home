@@ -164,6 +164,19 @@
     font-size: 80%;
     color: #bfbfbf;
 }
+#menu-check-use{
+    cursor: pointer;
+    font-size: 110%;
+
+    padding-bottom: 3px;
+    font-weight: bold;
+    font-style: italic;
+    margin: -4px 0 0 16px;
+}
+#menu-check-use span{
+    position: relative;
+    top: -4px;
+}
 /*MENU*/
 .dishes-category{
     color: rgb(194, 241, 165);

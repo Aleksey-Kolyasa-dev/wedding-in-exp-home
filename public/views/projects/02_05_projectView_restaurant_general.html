@@ -83,12 +83,12 @@
                             <div class="form-group">
                                 <label>Название ресторана</label>
                                 <input class="form-control" ng-model="currentProject.restaurant.name"
-                                       type="text" required ng-minlength='3'>
+                                       type="text" required ng-minlength='1'>
                             </div>
                             <div class="form-group">
                                 <label>Адресс ресторана</label>
                                 <input class="form-control" ng-model="currentProject.restaurant.address"
-                                       type="text" required ng-minlength='3'>
+                                       type="text" required ng-minlength='1'>
                             </div>
                             <div class="form-group">
                                 <label>Контактный тлф.</label>
@@ -103,9 +103,16 @@
                             <hr>
                             <div class="form-group text-center">
                                 <label>Средний чек {{currentProject.budget.nationalMoney}}
-                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck"
+                                <input ng-disabled="removeTrigger"  class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck"
                                        type="number" required>
                                 </label>
+                            </div>
+                            <div class="text-center">
+                                <div class="form-group" style="width: 100%">
+                                    <label id="menu-check-use" style="{{(removeTrigger)? 'color: #76dc5e': 'color: #ffffff'}}">
+                                        <input style="width: 18px; height: 18px; cursor: pointer;" ng-model="removeTrigger"
+                                               type="checkbox"> <span style="margin-bottom: 5px;">Использовать чек из меню</span></label>
+                                </div>
                             </div>
                             <div class="form-group text-center">
                                 <label>% за обслуживание
