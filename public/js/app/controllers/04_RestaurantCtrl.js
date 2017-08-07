@@ -15,7 +15,7 @@ define(['angular'], function (angular) {
             $scope.count = 0;
         }
         // Default subView
-        $scope.subView = "restaurantMenu";
+        $scope.subView = "restaurant";
         $scope.currentProject.restaurant.quickView = false;
 
         // EVENT SUBSCRIBE do recalculations if event
@@ -25,14 +25,6 @@ define(['angular'], function (angular) {
                 //$log.log('UPDATE: reason - totalValuesChanged EVENT', $scope.count);
             }
         });
-
-        // WATCH GUESTS QTY VALUE and do recalculations if changed
-        /*$scope.$watch("currentProject.restaurant.guestsQty", function () {
-            restaurantTotal();
-            if (_env._dev){
-                $log.log('UPDATE: reason - GUESTS QTY change EVENT', $scope.count);
-            }
-        });*/
 
         // Subview shift Fn
         $scope.subViewShift = function (view) {
@@ -94,10 +86,10 @@ define(['angular'], function (angular) {
                     //toastr.warning('CHECK FAILED: ResrMain: 56');
                 }
                 $scope.count++;
-                if (_env._dev){
-                    $log.log('UPDATE: EVENT', $scope.count, "PROJECT: ", $scope.currentProject.restaurant.total);
+                /*if (_env._dev){
+                    $log.log('UPDATE: EVENT', $scope.count);
 
-                }
+                }*/
             }
 
            /* ResourceService._ajaxRequest("GET", $scope.currentProject._id, null).then(function (project) {
@@ -449,7 +441,6 @@ define(['angular'], function (angular) {
             if (_env._dev){
                 $log.log('update by MENU: reason - GUEST QTY EVENT ', $scope.count)
             }
-
         });
 
         // Update total values Fn
@@ -950,6 +941,14 @@ define(['angular'], function (angular) {
         // Default data
         $scope.itemToEdit = {};
         $scope.newItem = {};
+
+        // WATCH CURRENCY VALUE and do recalculations if changed
+        $scope.$watch("currentProject.budget.currency", function () {
+            updateTotalValues();
+            if (_env._dev){
+                $log.log('update Plus: reason - CURRENCY change EVENT', $scope.count);
+            }
+        });
 
         // Shortcuts
         $scope.items = $scope.currentProject.restaurantPlus.expCollection;
