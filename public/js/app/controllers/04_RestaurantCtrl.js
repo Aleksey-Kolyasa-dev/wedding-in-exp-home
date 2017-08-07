@@ -426,9 +426,9 @@ define(['angular'], function (angular) {
                }
             });
 
-           if(_env._dev){
+          /* if(_env._dev){
                $log.log( $scope.dispalyCategotries);
-           }
+           }*/
         }
 
         // Category Header Update
@@ -438,6 +438,7 @@ define(['angular'], function (angular) {
         $scope.$watch('currentProject.restaurant.guestsQty', function () {
             // Update total values
             updateTotalValues();
+            console.clear();
             if (_env._dev){
                 $log.log('update by MENU: reason - GUEST QTY EVENT ', $scope.count)
             }
