@@ -75,28 +75,29 @@
                                 <div class="form-group">
                                     <label>Наименование</label>
                                     <input class="form-control" ng-model="newItem.name"
-                                           type="text" required ng-minlength='2' placeholder="введите наименование">
+                                           type="text" required ng-minlength='1' placeholder="введите наименование"
+                                           name="expItemNewName" style="{{(addNewExpenseItemForm.expItemNewName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
-                                    <input class="form-control" ng-model="newItem.tariff"
-                                           type="number" required placeholder="стоимость">
+                                    <input class="form-control" ng-model="newItem.tariff" type="number" required placeholder="стоимость"
+                                           name="expItemNewTariff" style="{{(addNewExpenseItemForm.expItemNewTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Множитель</label>
-                                    <input class="form-control" ng-model="newItem.multiplier"
-                                           type="number" required placeholder="1, 2, 5.5, 10...">
+                                    <input class="form-control" ng-model="newItem.multiplier" type="number" required placeholder="1, 2, 5.5, 10..."
+                                           name="expItemNewMulti" style="{{(addNewExpenseItemForm.expItemNewMulti.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+
                                 </div>
                                 <div class="form-group">
                                     <label>Номинал</label>
-                                    <input class="form-control" ng-model="newItem.unit"
-                                           type="text" placeholder="в час, за кг, ...">
+                                    <input class="form-control" ng-model="newItem.unit" type="text" placeholder="в час, за кг, ...">
                                 </div>
                                 <hr>
                                 <div class="form-group">
                                     <label>Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
-                                    <input class="form-control" ng-model="newItem.paid"
-                                           type="number" required placeholder="сумма или 0">
+                                    <input class="form-control" ng-model="newItem.paid" type="number" required placeholder="сумма или 0"
+                                           name="expItemNewPaid" style="{{(addNewExpenseItemForm.expItemNewPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
@@ -137,18 +138,18 @@
                             <div>
                                 <div class="form-group">
                                     <label>Наименование</label>
-                                    <input class="form-control" ng-model="itemToEdit.name"
-                                           type="text" required ng-minlength='2'>
+                                    <input class="form-control" ng-model="itemToEdit.name" type="text" required ng-minlength='1'
+                                           name="expItemEditName" style="{{(editExpenseItemForm.expItemEditName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Тариф {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
-                                    <input class="form-control" ng-model="itemToEdit.tariff"
-                                           type="number" required>
+                                    <input class="form-control" ng-model="itemToEdit.tariff" type="number" required
+                                           name="expItemEditTariff" style="{{(editExpenseItemForm.expItemEditTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Множитель</label>
-                                    <input class="form-control" ng-model="itemToEdit.multiplier"
-                                           type="number" required>
+                                    <input class="form-control" ng-model="itemToEdit.multiplier" type="number" required
+                                           name="expItemEditMulti" style="{{(editExpenseItemForm.expItemEditMulti.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Номинал</label>
@@ -158,8 +159,10 @@
                                 <hr>
                                 <div class="form-group">
                                     <label>Оплаченно {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
-                                    <input class="form-control" ng-model="itemToEdit.paid"
-                                           type="number" required>
+                                    <input class="form-control" ng-model="itemToEdit.paid" type="number" required
+                                           name="expItemEditPaid" style="{{(editExpenseItemForm.expItemEditPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+
+
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">

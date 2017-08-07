@@ -83,13 +83,13 @@
                         <div class="">
                             <div class="form-group">
                                 <label>Название ресторана</label>
-                                <input class="form-control" ng-model="currentProject.restaurant.name"
-                                       type="text" required ng-minlength='1'>
+                                <input class="form-control" ng-model="currentProject.restaurant.name" type="text" required ng-minlength='1'
+                                       name="editRestGeneralName" style="{{(editRestGeneralDataForm.editRestGeneralName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                             </div>
                             <div class="form-group">
                                 <label>Адресс ресторана</label>
-                                <input class="form-control" ng-model="currentProject.restaurant.address"
-                                       type="text" required ng-minlength='1'>
+                                <input class="form-control" ng-model="currentProject.restaurant.address" type="text" required ng-minlength='1'
+                                       name="editRestGeneralAddress" style="{{(editRestGeneralDataForm.editRestGeneralAddress.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                             </div>
                             <div class="form-group">
                                 <label>Контактный тлф.</label>
@@ -105,35 +105,36 @@
                             <div class="form-group text-center">
                                 <label>Средний чек {{currentProject.budget.nationalMoney}}
                                 <input ng-disabled="currentProject.useMenuCheck"
-                                       style="{{currentProject.useMenuCheck? 'background: rgba(112, 205, 88, 0.44); color: #ffffff' : 'null'}}"
-                                       class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck"
-                                       type="number" required>
+                                       style="{{editRestGeneralDataForm.editRestGeneralCheck.$invalid? 'background: rgba(226, 251, 96, 0.81)': currentProject.useMenuCheck? 'background: rgba(112, 205, 88, 0.44); color: #ffffff' : 'null'}}"
+                                       class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck" type="number" required
+                                       name="editRestGeneralCheck" >
                                 </label>
                             </div>
                             <div class="text-center">
                                 <div class="form-group" style="width: 100%">
                                     <label id="menu-check-use" style="{{(currentProject.useMenuCheck)? 'color: #76dc5e': 'color: #ffffff'}}">
                                         <input style="width: 18px; height: 18px; cursor: pointer;" ng-model="currentProject.useMenuCheck" ng-change="menuCheck()"
-                                               type="checkbox"> <span style="margin-bottom: 5px;">Использовать чек из меню</span></label>
+                                               type="checkbox"> <span style="margin-bottom: 5px;">Использовать чек из меню</span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group text-center">
                                 <label>% за обслуживание
-                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPercent"
-                                       type="number" required>
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPercent" type="number" required
+                                       name="editRestGeneralPercent" style="{{(editRestGeneralDataForm.editRestGeneralPercent.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </label>
                             </div>
                             <div class="form-group text-center">
                                 <label>Пробковый сбор {{currentProject.budget.nationalMoney}}
-                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPlugs"
-                                       type="number" required>
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalPlugs" type="number" required
+                                       name="editRestGeneralPlugs" style="{{(editRestGeneralDataForm.editRestGeneralPlugs.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </label>
                             </div>
                             <hr>
                             <div class="form-group text-center">
                                 <label>Оплаченно в {{currentProject.budget.nationalMoney}}
-                                <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidNat"
-                                      required type="number">
+                                <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidNat" required type="number"
+                                       name="editRestGeneralPaid" style="{{(editRestGeneralDataForm.editRestGeneralPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </label>
                             </div>
                             <hr>
