@@ -192,7 +192,7 @@
                         <td class="visible-sm"></td>
                         <td class="visible-xs"></td>
                         <td class="text-center">{{total.totalMenuPriceNat | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center">{{total.totalMenuWeight  | number}} гр.</td>
+                        <td class="text-center">{{(total.totalMenuWeight / 1000)  | number : 1}} кг. еды всего</td>
                         <td class="text-center"></td>
                     </tr>
                     <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">
@@ -202,7 +202,7 @@
                         <td class="visible-sm"></td>
                         <td class="visible-xs"></td>
                         <td class="text-center">{{total.calculatedCheck | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center">{{total.weightPerGuest  | number : 0}} гр. еды / чел.</td>
+                        <td class="text-center">{{total.weightPerGuest  | number : 0}} гр. еды на чел.</td>
                         <td class="text-center"></td>
                     </tr>
                     <!--footers-->
