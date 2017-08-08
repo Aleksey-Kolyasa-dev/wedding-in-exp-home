@@ -79,7 +79,7 @@
                                            name="expItemNewName" style="{{(addNewExpenseItemForm.expItemNewName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="newItem.usd? 'usd-use' : 'null'">Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.tariff" type="number" required placeholder="стоимость"
                                            name="expItemNewTariff" style="{{(addNewExpenseItemForm.expItemNewTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
@@ -95,13 +95,13 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label>Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="newItem.usd? 'usd-use' : 'null'">Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.paid" type="number" required placeholder="сумма или 0"
                                            name="expItemNewPaid" style="{{(addNewExpenseItemForm.expItemNewPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
-                                    <label style="cursor: pointer;">Расчет в USD
+                                    <label style="cursor: pointer;" ng-class="newItem.usd? 'usd-use' : 'null'">Расчет в USD
                                     <input style="width: 16px; height: 16px; cursor: pointer" ng-model="newItem.usd"
                                            type="checkbox"></label>
                                 </div>
@@ -142,7 +142,7 @@
                                            name="expItemEditName" style="{{(editExpenseItemForm.expItemEditName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Тариф {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="itemToEdit.usd? 'usd-use' : 'null'">Тариф {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="itemToEdit.tariff" type="number" required
                                            name="expItemEditTariff" style="{{(editExpenseItemForm.expItemEditTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
@@ -158,15 +158,13 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label>Оплаченно {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="itemToEdit.usd? 'usd-use' : 'null'">Оплаченно {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="itemToEdit.paid" type="number" required
                                            name="expItemEditPaid" style="{{(editExpenseItemForm.expItemEditPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
-
-
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
-                                    <label style="cursor: pointer;">Расчет в USD
+                                    <label style="cursor: pointer;" ng-class="itemToEdit.usd? 'usd-use' : 'null'">Расчет в USD
                                         <input style="width: 16px; height: 16px; cursor: pointer" ng-model="itemToEdit.usd"
                                                type="checkbox"></label>
                                 </div>

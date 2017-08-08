@@ -39,7 +39,7 @@
                     <td class="text-center">{{guest.guestRelation  | lowercase}}</td>
                     <td class="text-center">{{guest.guestGroup}}</td>
                     <td class="text-center">
-                        <input type="checkbox" ng-model="guest.guestWillBe" ng-change="addNewGuests.guestEditDone('M')">
+                        <input type="checkbox" ng-model="guest.guestWillBe" ng-disabled="checkboxDisabled" ng-change="addNewGuests.guestEditDone('M')">
                     </td>
                 </tr>
                 <tr>
@@ -108,7 +108,7 @@
                     <td class="text-center">{{guest.guestRelation  | lowercase}}</td>
                     <td class="text-center">{{guest.guestGroup}}</td>
                     <td class="text-center">
-                        <input type="checkbox" ng-model="guest.guestWillBe" ng-change="addNewGuests.guestEditDone('W')">
+                        <input type="checkbox" ng-disabled="checkboxDisabled"  ng-model="guest.guestWillBe" ng-change="addNewGuests.guestEditDone('W')">
                     </td>
                 </tr>
                 <tr>

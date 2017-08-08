@@ -110,19 +110,19 @@
                                            name="addNewCakeGrPerGuest" style="{{(addNewCakeItemForm.addNewCakeGrPerGuest.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Цена за Кг {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="newItem.usd? 'usd-use' : 'null'">Цена за Кг {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.kgPrice" type="number" required placeholder="цена или 0"
                                            name="addNewCakeKgPrice" style="{{(addNewCakeItemForm.addNewCakeKgPrice.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label>Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="newItem.usd? 'usd-use' : 'null'">Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.paid" type="number" required placeholder="сумма или 0"
                                            name="addNewCakePaid" style="{{(addNewCakeItemForm.addNewCakePaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
-                                    <label style="cursor: pointer;">Расчет в USD
+                                    <label style="cursor: pointer;" ng-class="newItem.usd? 'usd-use' : 'null'">Расчет в USD
                                     <input style="width: 16px; height: 16px; cursor: pointer" ng-model="newItem.usd"
                                            type="checkbox"></label>
                                 </div>
@@ -169,19 +169,19 @@
                                            name="editCakeGrPerGuest" style="{{(editCakeItemForm.editCakeGrPerGuest.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Цена за Кг {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="itemToEdit.usd? 'usd-use' : 'null'">Цена за Кг {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="itemToEdit.kgPrice" type="number" required placeholder="цена или 0"
                                            name="editCakeKgPrice" style="{{(editCakeItemForm.editCakeKgPrice.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label>Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="itemToEdit.usd? 'usd-use' : 'null'">Оплаченно {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="itemToEdit.paid" type="number" required placeholder="сумма или 0"
                                            name="editCakePaid" style="{{(editCakeItemForm.editCakePaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
-                                    <label style="cursor: pointer;">Расчет в USD
+                                    <label style="cursor: pointer;" ng-class="itemToEdit.usd? 'usd-use' : 'null'">Расчет в USD
                                         <input style="width: 16px; height: 16px; cursor: pointer" ng-model="itemToEdit.usd"
                                                type="checkbox"></label>
                                 </div>

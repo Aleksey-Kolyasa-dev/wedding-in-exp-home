@@ -60,32 +60,37 @@
                                     <div class="form-group">
                                         <label>Имя жениха</label>
                                         <input name="fianceName" class="form-control" ng-model="newProject.fianceName"
-                                               type="text" required ng-minlength='2'>
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(addNewProj.fianceName.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Имя невесты</label>
                                         <input name="fianceeName" class="form-control" ng-model="newProject.fianceeName"
-                                               type="text" required ng-minlength='2'>
+                                               type="text" required ng-minlength='2' ng-class="(addNewProj.fianceeName.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Дата свадьбы</label>
                                         <input name="weddingDate" class="form-control" ng-model="newProject.weddingDate"
-                                               type="text" directive-datepicker required>
+                                               type="text" directive-datepicker required
+                                               ng-class="(addNewProj.weddingDate.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Запланированный бюджет USD</label>
                                         <input name="wedBudget" class="form-control" ng-model="newProject.wedBudget"
-                                               type="number" required ng-minlength='3'>
+                                               type="number" required ng-minlength='2'
+                                               ng-class="(addNewProj.wedBudget.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>E-mail</label>
-                                        <input name="e-mail" class="form-control" ng-model="newProject.email"
-                                               type="email" required>
+                                        <input name="eMail" class="form-control" ng-model="newProject.email"
+                                               type="email" required
+                                               ng-class="(addNewProj.eMail.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Контактный телефон</label>
                                         <input name="telephones" class="form-control" ng-model="newProject.telephones"
-                                               type="text" required ng-minlength='8'>
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(addNewProj.telephones.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Заметки</label>
@@ -162,32 +167,38 @@
                                     <div class="form-group">
                                         <label>Имя жениха</label>
                                         <input name="fianceName" class="form-control" ng-model="editProject.fianceName"
-                                               type="text" required ng-minlength='2'>
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(editProj.fianceName.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Имя невесты</label>
                                         <input name="fianceeName" class="form-control" ng-model="editProject.fianceeName"
-                                               type="text" required ng-minlength='2'>
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(editProj.fianceeName.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Дата свадьбы</label>
                                         <input name="weddingDate" class="form-control" ng-model="editProject.weddingDate"
-                                               type="text" directive-datepicker required>
+                                               type="text" directive-datepicker required
+                                               ng-class="(editProj.weddingDate.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Запланированный бюджет USD</label>
                                         <input name="wedBudget" class="form-control" ng-model="editProject.budget.budgetUSD"
-                                               type="number" required ng-minlength='3'>
+                                               type="number" required ng-minlength='2'
+                                               ng-class="(editProj.wedBudget.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>E-mail</label>
-                                        <input name="e-mail" class="form-control" ng-model="editProject.email"
-                                               type="email" required>
+                                        <input name="eMail" class="form-control" ng-model="editProject.email"
+                                               type="email" required
+                                               ng-class="(editProj.eMail.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Контактный телефон</label>
                                         <input name="telephone" class="form-control" ng-model="editProject.telephones"
-                                               type="text" required ng-minlength='2'>
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(editProj.telephone.$invalid)? 'invalid-input' : 'null'">
                                     </div>
                                     <div class="form-group">
                                         <label>Заметки</label>

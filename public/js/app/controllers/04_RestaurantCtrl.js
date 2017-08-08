@@ -14,9 +14,11 @@ define(['angular'], function (angular) {
         if(_env._dev){
             $scope.count = 0;
         }
+
         // Default values
         $scope.subView = "restaurant";
         $scope.currentProject.restaurant.quickView = false;
+        $scope.checkboxDisabled = !_env._dev;
 
 
         // EVENT SUBSCRIBE do recalculations if event
