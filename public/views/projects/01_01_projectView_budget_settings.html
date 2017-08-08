@@ -1,5 +1,11 @@
 <div class="rest-general-page">
+    <!--MONEY SETTINGS *START*-->
     <div class="rest-general-list">
+        <div>
+            <header class="guests-fiance-side text-right">
+                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">НАСТРОЙКА ВАЛЮТЫ</h4>
+            </header>
+        </div>
         <div class="info-glass-panel">
             <hr>
             <div>
@@ -13,8 +19,63 @@
                 </div>
             </div>
         </div>
-    </div>
 
+
+    </div>
+    <!--MONEY SETTINGS  *END*-->
+
+
+    <!--BUDGET RESULTS REPORT TABLE *START*-->
+    <div class="rest-general-list col-xs-8">
+        <div class="fiance-side-main" style="margin-top: 10px !important;">
+        <div style="padding: 0">
+            <header class="guests-fiance-side" style="float: right">
+                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">ТАБЛИЦА РАСХОДОВ</h4>
+            </header>
+        </div>
+
+        <div>
+            <table class="table table-responsive info-glass-panel">
+                <thead class="guest-side-table-head">
+                <tr style="color: white">
+                    <th class="text-center hidden-sm hidden-xs">№</th>
+                    <th>КАТЕГОРИЯ</th>
+                    <th class="text-center">СУММА</th>
+                    <th class="text-center">ОПЛАЧЕННО</th>
+                    <th class="text-center">ДОПЛАТИТЬ</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr class="guest" >
+                    <td class="text-center hidden-sm hidden-xs">1</td>
+                    <td><b><i>РЕСТОРАН</i></b></td>
+                    <td class="text-center">{{currentProject.restaurant.total.planTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.planTotalUsd  | number : 1}} USD</span></td>
+                    <td class="text-center">{{currentProject.restaurant.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.paidTotalUsd  | number : 1}} USD</span></td>
+                    <td class="text-center">{{currentProject.restaurant.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.restTotalUsd  | number : 1}} USD</span></td>
+                </tr>
+
+
+
+
+
+
+                <tr class="guest total-footer-data" >
+                    <td class="hidden-xs hidden-sm"></td>
+                    <td class="text-left" colspan="1" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
+                    <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.planUsd  | number : 1}} USD</td>
+                    <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd  | number : 1}} USD</td>
+                    <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd  | number : 1}} USD</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    <!--BUDGET RESULTS REPORT TABLE  *END*-->
+
+
+    <!--NOTES *START*-->
     <div class="rest-general-list">
         <div class="info-glass-panel">
             <hr>
@@ -27,7 +88,10 @@
             <hr>
         </div>
     </div>
+    <!--NOTES *END*-->
 </div>
+
+
 <!-- EDIT BUDGET DATA MODAL *START* -->
 <div id="editBudgetData" class="modal fade">
     <div class="modal-dialog">
