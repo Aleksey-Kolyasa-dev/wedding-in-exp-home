@@ -43,12 +43,13 @@
                             <div class="form-group">
                                 <label>Национальная валюта</label>
                                 <input class="form-control" ng-model="currentProject.budget.nationalMoney"
-                                       type="text" required ng-minlength='1' placeholder="UAH, RUB, BLR ...">
+                                       type="text" required ng-minlength='1' placeholder="UAH, RUB, BLR ..."
+                                       name="editBudgetNatName" ng-class="(editBudgetGeneralDataForm.editBudgetNatName.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
                                 <label>Курс валют 1 USD</label>
-                                <input class="form-control" ng-model="currentProject.budget.currency"
-                                       type="number" required ng-minlength='1'>
+                                <input class="form-control" ng-model="currentProject.budget.currency" type="number" required ng-minlength='1'
+                                       name="editBudgetCurrency" ng-class="(editBudgetGeneralDataForm.editBudgetCurrency.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <hr>
                             <div class="form-group">

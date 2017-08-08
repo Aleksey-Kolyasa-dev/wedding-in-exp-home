@@ -153,18 +153,20 @@
                         <div>
                             <div class="form-group">
                                 <label>Имя</label>
-                                <input name="guestEditName" class="form-control" ng-model="addNewGuests.guestUnderEdit.guestName"
-                                       type="text" required ng-minlength='2'>
+                                <input class="form-control" ng-model="addNewGuests.guestUnderEdit.guestName"
+                                       type="text" required ng-minlength='1'
+                                       name="guestEditName" ng-class="(guestDataEdit.guestEditName.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
                                 <label>Отношение</label>
-                                <input name="guestEditRelation" class="form-control" ng-model="addNewGuests.guestUnderEdit.guestRelation"
-                                       type="text" required ng-minlength='2' list="guestRelationList">
+                                <input class="form-control" ng-model="addNewGuests.guestUnderEdit.guestRelation"
+                                       type="text" required ng-minlength='2' list="guestRelationList"
+                                       name="guestEditRelation" ng-class="(guestDataEdit.guestEditRelation.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
                                 <label>№ Группы</label>
-                                <input name="guestEditGroup" class="form-control" ng-model="addNewGuests.guestUnderEdit.guestGroup"
-                                       type="number" required>
+                                <input class="form-control" ng-model="addNewGuests.guestUnderEdit.guestGroup" type="number" required
+                                       name="guestEditGroup" ng-class="(guestDataEdit.guestEditGroup.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
                                 <label>

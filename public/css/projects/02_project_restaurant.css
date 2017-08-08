@@ -125,6 +125,9 @@
     margin-bottom: 20px;
     margin-top: -40px;
 }
+.invalid-input{
+    background: rgba(226, 251, 96, 0.81);
+}
 
 /*QUICK CALCULATION*/
 .quick-main{
