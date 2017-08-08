@@ -67,6 +67,7 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.notes = project.notes;
         updatedProject.fianceSideGuests = project.fianceSideGuests;
         updatedProject.fianceeSideGuests = project.fianceeSideGuests;
+        updatedProject.useMenuCheck = project.useMenuCheck;
         updatedProject.budget = project.budget;
         updatedProject.restaurant = project.restaurant;
         updatedProject.restaurantMenu = project.restaurantMenu;
