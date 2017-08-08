@@ -472,6 +472,21 @@ define(['angular'], function (angular) {
             }
         });
 
+        // USE MENU CHECK CHANGE EVENT WATCHER
+        $scope.$watch('currentProject.restaurantMenu.total.calculatedCheck', function () {
+            // if use menu check choice 'true'
+            if($scope.currentProject.useMenuCheck){
+                $scope.currentProject.restaurant.generalData.generalCheck = $scope.currentProject.restaurantMenu.total.calculatedCheck;
+
+                // Emit Total Value Changes EVENT
+                $scope.$emit('totalValuesChanged');
+
+                if (_env._dev){
+                    $log.log('update by MENU: reason - MENU CHECK CHANGED', $scope.count)
+                }
+            }
+        });
+
         // Update total values Fn
         function updateTotalValues() {
             $scope.total = {
@@ -976,7 +991,7 @@ define(['angular'], function (angular) {
         $scope.$watch("currentProject.budget.currency", function () {
             updateTotalValues();
             if (_env._dev){
-                $log.log('update Plus: reason - CURRENCY change EVENT', $scope.count);
+                $log.log('update by PLUS: reason - CURRENCY change EVENT', $scope.count);
             }
         });
 

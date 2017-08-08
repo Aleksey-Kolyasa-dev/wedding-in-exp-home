@@ -11,8 +11,8 @@
             </div>
             <hr>
             <div>
-                <p ng-if="!currentProject.useMenuCheck">Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
-                <p style="color: #dbde55" ng-if="currentProject.useMenuCheck">Расчетный чек из меню: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p ng-if="!currentProject.useMenuCheck">Средний чек ресторана: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck  | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p style="color: #dbde55" ng-if="currentProject.useMenuCheck">Расчетный чек из меню: <span class="rest-info-data">{{currentProject.restaurant.generalData.generalCheck | number : 1}} {{currentProject.budget.nationalMoney}}</span></p>
                 <p>% за обслуживание: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPercent, '%') }}</span></p>
                 <p>Пробковый сбор: <span class="rest-info-data">{{ restGeneralDataDisplayCheck(currentProject.restaurant.generalData.generalPlugs, currentProject.budget.nationalMoney) }}</span></p>
             </div>
