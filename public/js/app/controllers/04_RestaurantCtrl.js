@@ -1062,7 +1062,11 @@ define(['angular'], function (angular) {
                   item.unit = 'не указан';
               }
               // multiplier correction
-              if(item.multiplier <= 0 ){
+              if(item.multiplier < 0 ){
+                  item.multiplier = 1;
+              }
+              // multiplier correction
+              if(item.multiplier == 0 ){
                   item.multiplier = 1;
               }
               // tariff correction
@@ -1129,7 +1133,11 @@ define(['angular'], function (angular) {
                     item.unit = 'не указан';
                 }
                 // multiplier correction
-                if(item.multiplier <= 0 ){
+                if(item.multiplier < 0 ){
+                    item.multiplier = 1;
+                }
+                // multiplier correction
+                if(item.multiplier == 0 ){
                     item.multiplier = 1;
                 }
                 // tariff correction
@@ -1209,7 +1217,7 @@ define(['angular'], function (angular) {
                     toastr.error("ERROR: Expense Item Edit AJAX failed");
                     $log.error("ERROR: Expense Item Edit AJAX failed", err);
                 });
-        }
+        };
 
     } // *END* RESTAURANT PLUS CTRL
 

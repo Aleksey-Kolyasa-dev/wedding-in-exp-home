@@ -132,7 +132,7 @@ define(['angular'], function (angular) {
                         tariff : 200,
                         multiplier : 5,
                         unit : 'kg',
-                        toPai : 0,
+                        toPay : 0,
                         paid : 0,
                         rest : 0,
                         usd : false,
@@ -148,6 +148,30 @@ define(['angular'], function (angular) {
                         restTotalUsd : 0,
                         restTotalNat : 0
                     }
+                };
+                this.decor = {
+                    expCollection : [/*{
+                     name : 'ТОРТ',
+                     tariff : 200,
+                     multiplier : 5,
+                     unit : 'kg',
+                     toPai : 0,
+                     paid : 0,
+                     rest : 0,
+                     usd : false,
+                     money : null
+                     }*/],
+                    total : {
+                        planUsd : 0,
+                        planNat : 0,
+                        paidUsd : 0,
+                        paidNat : 0,
+                        paidTotalUsd : 0,
+                        paidTotalNat : 0,
+                        restTotalUsd : 0,
+                        restTotalNat : 0
+                    },
+                    notes : null
                 };
             }
 

@@ -73,6 +73,8 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.restaurantMenu = project.restaurantMenu;
         updatedProject.restaurantCakes = project.restaurantCakes;
         updatedProject.restaurantPlus = project.restaurantPlus;
+        updatedProject.decor = project.decor;
+
     }
     if(!updatedProject){
         res.status(400);
@@ -123,6 +125,27 @@ router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
         });
     } else {
         db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { fianceeSideGuests : project.fianceeSideGuests, restaurant : project.restaurant }}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+        });
+    }
+});
+
+// PUT Single Project BUDGET keyURL = /budget
+router.put('/api/:id/budget', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /budget");
+
+    if(!project.budget){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: budget validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { budget: project.budget}}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }
@@ -279,18 +302,18 @@ router.put('/api/:id/restaurantPlusNewExpItemSave', function (req, res, next) {
     }
 });
 
-// PUT Single Project BUDGET keyURL = /budget
-router.put('/api/:id/budget', function (req, res, next) {
+// PUT Single Project DECOR keyURL = /decorDataSave
+router.put('/api/:id/decorDataSave', function (req, res, next) {
     var project = req.body;
-    console.log("CALL PUT BY: /budget");
+    console.log("CALL PUT BY: /decorDataSave");
 
-    if(!project.budget){
+    if(!project.decor.expCollection){
         res.status(400);
         res.json({
-            "error" : "PUT ERROR: budget validation failed"
+            "error" : "PUT ERROR: DECOR Expense Item validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { budget: project.budget}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { decor: project.decor}}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }
