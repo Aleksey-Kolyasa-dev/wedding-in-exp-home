@@ -741,7 +741,14 @@ define(['angular'], function (angular) {
             if (_env._dev){
                 $log.log('update by CAKE: reason - GUEST QTY EVENT ', $scope.count)
             }
+        });
 
+        // WATCH CURRENCY VALUE and do recalculations if changed
+        $scope.$watch("currentProject.budget.currency", function () {
+            updateTotalValues();
+            if (_env._dev){
+                $log.log('update by CAKE: reason - CURRENCY change EVENT', $scope.count);
+            }
         });
 
         // Update total values Fn

@@ -69,11 +69,11 @@
             <!-- MENU LEFT *END* -->
 
             <!-- PROJECT'S VIEWS *START* -->
-            <div class="wed-project-body-right" ng-switch on="currentProjectView.mainMenu">
-                <div ng-switch-when="budget">
+            <div class="wed-project-body-right">
+                <div ng-show="currentProjectView.mainMenu == 'budget'">
                     <ng-include src="'/views/projects/01_00_projectView_budget.html'"></ng-include>
                 </div>
-                <div ng-switch-when="restaurant">
+                <div ng-show="currentProjectView.mainMenu == 'restaurant'">
                     <ng-include src="'/views/projects/02_00_projectView_restaurant.html'"></ng-include>
                 </div>
             </div>
