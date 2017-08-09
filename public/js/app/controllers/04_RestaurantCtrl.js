@@ -1127,7 +1127,7 @@ define(['angular'], function (angular) {
               // Update total values
               updateTotalValues();
               if (_env._dev){
-                  $log.log('update by PLUS: reason - ADD PLUS EXP EVENT ', $scope.count)
+                  $log.log('update by PLUS: reason - ADD PLUS EXP EVENT ', $scope.count);
               }
 
               // ADD EXPENSE ITEM to DB
@@ -1196,7 +1196,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
                 if (_env._dev){
-                    $log.log('update by PLUS: reason - EDIT PLUS EXP EVENT ', $scope.count)
+                    $log.log('update by PLUS: reason - EDIT PLUS EXP EVENT ', $scope.count);
                 }
 
                 // SAVE CHANGES of EXPENSE ITEM to DB
@@ -1231,7 +1231,7 @@ define(['angular'], function (angular) {
             // Update total values
             updateTotalValues();
             if (_env._dev){
-                $log.log('update by PLUS: reason - REMOVE PLUS EXP EVENT ', $scope.count)
+                $log.log('update by PLUS: reason - REMOVE PLUS EXP EVENT ', $scope.count);
             }
 
             // SAVE CHANGES in DB

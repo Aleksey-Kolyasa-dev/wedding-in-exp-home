@@ -16,7 +16,7 @@ define(['angular'], function (angular) {
         $scope.$watch("currentProject.budget.currency", function () {
             updateTotalValues();
             if (_env._dev){
-                $log.log('update by DECOR: reason - CURRENCY change EVENT', $scope.count);
+                $log.log('update by DECOR: reason - CURRENCY change EVENT');
             }
         });
 
@@ -65,8 +65,6 @@ define(['angular'], function (angular) {
             // in the end copy obj back
             $scope.currentProject.decor.total = $scope.total;
 
-            // Emit Total Value Changes EVENT
-            //***$scope.$emit('totalValuesChanged');
         }
 
         // Add New Expense Item Fn
@@ -95,6 +93,7 @@ define(['angular'], function (angular) {
               // Intermediate calculations
               item.toPay = item.tariff * item.multiplier;
               item.rest = item.toPay - item.paid;
+
               // Money type check
               if(!item.usd){
                   item.money = $scope.currentProject.budget.nationalMoney;
@@ -108,7 +107,7 @@ define(['angular'], function (angular) {
               // Update total values
               updateTotalValues();
               if (_env._dev){
-                  $log.log('update by DECOR: reason - ADD DECOR EXP EVENT ', $scope.count)
+                  $log.log('update by DECOR: reason - ADD DECOR EXP EVENT ');
               }
 
               // ADD EXPENSE ITEM to DB
@@ -177,7 +176,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
                 if (_env._dev){
-                    $log.log('update by DECOR: reason - EDIT DECOR EXP EVENT ', $scope.count)
+                    $log.log('update by DECOR: reason - EDIT DECOR EXP EVENT ');
                 }
 
                 // SAVE CHANGES of EXPENSE ITEM to DB
@@ -212,7 +211,7 @@ define(['angular'], function (angular) {
             // Update total values
             updateTotalValues();
             if (_env._dev){
-                $log.log('update by DECOR: reason - REMOVE DECOR EXP EVENT ', $scope.count)
+                $log.log('update by DECOR: reason - REMOVE DECOR EXP EVENT ');
             }
 
             // SAVE CHANGES in DB
@@ -268,9 +267,6 @@ define(['angular'], function (angular) {
         };
 
     } // *END* DECOR MAIN CTRL
-
-
-
 
 
     return decorCtrlModule;
