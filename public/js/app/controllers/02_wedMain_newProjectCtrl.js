@@ -231,5 +231,6 @@ define(['angular'], function (angular) {
             });
         };
     }
+
     return newProjectCtrlModule;
 });
