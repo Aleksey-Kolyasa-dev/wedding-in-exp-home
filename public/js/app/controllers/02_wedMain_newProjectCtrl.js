@@ -31,8 +31,7 @@ define(['angular'], function (angular) {
                     budgetUSD : project.wedBudget,
                     budgetNat : 0,
                     nationalMoney : 'units',
-                    currency : 1,
-                    notes : null
+                    currency : 1
                 };
                 this.restaurant = {
                     name : null,
@@ -40,7 +39,6 @@ define(['angular'], function (angular) {
                     telephones : null,
                     website : null,
                     guestsQty : 2,
-                    notes : null,
                     quickView : false,
                     quickData : {
                         quickGuestsQty : 2,
@@ -73,7 +71,7 @@ define(['angular'], function (angular) {
                         paidTotalNat : 0,
                         restTotalUsd : 0,
                         restTotalNat : 0
-                    },
+                    }
                 };
                 this.restaurantMenu = {
                     expCollection : [
@@ -152,7 +150,7 @@ define(['angular'], function (angular) {
                         paidTotalNat : 0,
                         restTotalUsd : 0,
                         restTotalNat : 0
-                    },
+                    }
                 };
                 this.decor = {
                     expCollection : [/*{

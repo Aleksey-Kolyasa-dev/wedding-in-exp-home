@@ -66,27 +66,6 @@
     <!--CAKES ITEMS TABLE  *END*-->
 
 
-    <!--CAKES NOTES  *START*-->
-    <div class="rest-general-page" style="margin-left: 15px;">
-        <div class="rest-general-list">
-            <div class="info-glass-panel">
-                <hr>
-                <div>
-                    <p>
-                        <button class="btn btn-default" style="margin-right: 15px" data-target="#cakesNotes" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
-                        Заметки:
-                    </p>
-                    <ul ng-repeat="note in notesFilter(currentProject.restaurantCakes.notes)" style="padding: 0; list-style: none">
-                        <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
-                    </ul>
-                </div>
-                <hr>
-            </div>
-        </div>
-    </div>
-    <!--CAKES NOTES  *END*-->
-
-
     <!-- ADD CAKES ITEM MODAL *START* -->
     <div id="addNewCakeItem" class="modal fade">
         <div class="modal-dialog modal-sm">
@@ -220,6 +199,27 @@
     </div>
     <!-- EDIT CAKES ITEM  MODAL *END* -->
 
+
+    <!-- NOTES  *START*-->
+    <div class="rest-general-page" style="margin-left: 15px;">
+        <div class="rest-general-list">
+            <div class="info-glass-panel">
+                <hr>
+                <div>
+                    <p>
+                        <button class="btn btn-default" style="margin-right: 15px" data-target="#cakesNotes" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                        Заметки:
+                    </p>
+                    <ul ng-repeat="note in notesFilter(currentProject.cakesNotes)" style="padding: 0; list-style: none">
+                        <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
+                    </ul>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <!-- NOTES  *END*-->
+
     <!-- NOTES MODAL *START* -->
     <div id="cakesNotes" class="modal fade">
         <div class="modal-dialog">
@@ -234,7 +234,7 @@
                             <div>
                                 <div class="form-group" style="margin-top: 10px">
                                     <label></label>
-                                    <textarea class="form-control" ng-model="currentProject.restaurantCakes.notes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                                    <textarea class="form-control" ng-model="currentProject.cakesNotes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
                                 </div>
                                 <hr>
                                 <button type="submit" class="btn btn-success btn-block"

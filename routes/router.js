@@ -155,6 +155,7 @@ router.put('/api/:id/budget', function (req, res, next) {
     }
 });
 
+
 // PUT Single Project BUDGET keyURL = /budgetNotes
 router.put('/api/:id/budgetNotes', function (req, res, next) {
     var project = req.body;
@@ -174,6 +175,121 @@ router.put('/api/:id/budgetNotes', function (req, res, next) {
         });
     }
 });
+// PUT Single Project RESTAURANT keyURL = /restNotes
+router.put('/api/:id/restNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /restNotes");
+
+    if(!project.restNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: restNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { restNotes: project.restNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+// PUT Single Project RESTAURANT keyURL = /guestsNotes
+router.put('/api/:id/guestsNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /guestsNotes");
+
+    if(!project.guestsNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: guestsNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { guestsNotes: project.guestsNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+// PUT Single Project RESTAURANT keyURL = /menuNotes
+router.put('/api/:id/menuNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /menuNotes");
+
+    if(!project.menuNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: menuNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { menuNotes: project.menuNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+// PUT Single Project RESTAURANT keyURL = /cakesNotes
+router.put('/api/:id/cakesNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /cakesNotes");
+
+    if(!project.cakesNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: cakesNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { cakesNotes: project.cakesNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+// PUT Single Project RESTAURANT keyURL = /plusNotes
+router.put('/api/:id/plusNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /plusNotes");
+
+    if(!project.plusNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: plusNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { plusNotes: project.plusNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+// PUT Single Project DECOR keyURL = /decorNotes
+router.put('/api/:id/decorNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /decorNotes");
+
+    if(!project.decorNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: decorNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { decorNotes: project.decorNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+
 
 // PUT Single Project keyURL = /quickView
 router.put('/api/:id/quickView', function (req, res, next) {
@@ -233,26 +349,6 @@ router.put('/api/:id/useMenuCheckDataSave', function (req, res, next) {
                 res.send(err);
             }
             //console.log(project);
-            res.json(project);
-        });
-    }
-});
-
-// PUT Single Project RESTAURANT keyURL = /guestsNotes
-router.put('/api/:id/guestsNotes', function (req, res, next) {
-    var project = req.body;
-    console.log("CALL PUT BY: /guestsNotes");
-
-    if(!project.guestsNotes){
-        res.status(400);
-        res.json({
-            "error" : "PUT ERROR: guestsNotes validation failed"
-        });
-    } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { guestsNotes: project.guestsNotes}}, {}, function (err, project) {
-            if(err){
-                res.send(err);
-            }
             res.json(project);
         });
     }

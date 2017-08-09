@@ -213,7 +213,7 @@
                         <button class="btn btn-default" style="margin-right: 15px" data-target="#plusNotes" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                         Заметки:
                     </p>
-                    <ul ng-repeat="note in notesFilter(currentProject.restaurantPlus.notes)" style="padding: 0; list-style: none">
+                    <ul ng-repeat="note in notesFilter(currentProject.plusNotes)" style="padding: 0; list-style: none">
                         <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
                     </ul>
                 </div>
@@ -237,7 +237,7 @@
                             <div>
                                 <div class="form-group" style="margin-top: 10px">
                                     <label></label>
-                                    <textarea class="form-control" ng-model="currentProject.restaurantPlus.notes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                                    <textarea class="form-control" ng-model="currentProject.plusNotes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
                                 </div>
                                 <hr>
                                 <button type="submit" class="btn btn-success btn-block"
