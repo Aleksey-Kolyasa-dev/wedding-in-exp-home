@@ -19,11 +19,6 @@
                             <span>РЕСТОРАН</span>
                         </a>
                     </div>
-                    <!--<div>
-                        <a class="main-page-menu-btn" ng-click="projectView('restaurantPlus')">
-                            <span>РЕСТОРАН +</span>
-                        </a>
-                    </div>-->
                     <div>
                         <a class="main-page-menu-btn" ng-click="projectView('decor')">
                             <span>ДЕКОРАТОР</span>
@@ -75,6 +70,9 @@
                 </div>
                 <div ng-show="currentProjectView.mainMenu == 'restaurant'">
                     <ng-include src="'/views/projects/02_00_projectView_restaurant.html'"></ng-include>
+                </div>
+                <div ng-show="currentProjectView.mainMenu == 'decor'">
+                    <ng-include src="'/views/projects/03_00_projectView_decor.html'"></ng-include>
                 </div>
             </div>
             <!-- PROJECT'S VIEWS *END* -->

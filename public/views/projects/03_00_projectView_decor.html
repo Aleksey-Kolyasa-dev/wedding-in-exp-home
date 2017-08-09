@@ -1,0 +1,48 @@
+<div class="projects-list" ng-controller="restaurantMainCtrl">
+    <!--Header-->
+    <header class="proj-view-header text-right">
+
+        <h2>ДЕКОРАТОР{{count}}</h2>
+    </header>
+    <!--Header-->
+
+    <!--Info-panel-->
+    <div class="info-panel" style="{{subView == 'guests'? currentProject.restaurant.quickView ? 'padding: 3px 0 3px' :'padding: 3px 0 1px' : 'inherit'}}">
+
+        <div title="с учетом всего (гости, ресторан, ресторан+)" style="font-size: 95%">
+
+            <div style="margin-left: 20px; margin-top: 4px" ng-if="!currentProject.restaurant.quickView" class="hidden-md hidden-sm hidden-xs">
+                <span style="font-style: italic; color: white">
+                     ИТОГО:
+                </span>
+            </div>
+
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
+                <span class="info-plan">
+                    ПЛАН РАСХОДОВ:  <span class="nat-use">{{currentProject.restaurant.total.planTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.restaurant.total.planTotalUsd | number : 1}} USD</span>
+                </span>
+            </div>
+
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
+                <span class="info-paid">
+                    ОПЛАЧЕННО:  <span class="nat-use">{{currentProject.restaurant.total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.restaurant.total.paidTotalUsd | number : 1}} USD</span>
+                </span>
+            </div>
+
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
+                <span class="info-rest">
+                    ДОПЛАТАТИТЬ: <span class="nat-use">{{currentProject.restaurant.total.restTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.restaurant.total.restTotalUsd | number : 1}} USD</span>
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <!--Info-panel-->
+
+    <!--Views-->
+    <div>
+        <ng-include src="'/views/projects/03_01_projectView_decor_plus.html'"></ng-include>
+    </div>
+    <!--Views-->
+
+</div>

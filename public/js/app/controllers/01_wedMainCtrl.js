@@ -56,13 +56,13 @@ define(['angular'], function (angular) {
                         $scope.currentProject = project;
                         $location.path('/project');
                         //** $scope.currentProjectView.mainMenu = "budget";
-                        $scope.currentProjectView.mainMenu = "budget";
+                        $scope.currentProjectView.mainMenu = "decor";
                     }, 500);
                 } else {
                     $scope.currentProject = project;
                     $location.path('/project');
                     //** $scope.currentProjectView.mainMenu = "budget";
-                    $scope.currentProjectView.mainMenu = "budget";
+                    $scope.currentProjectView.mainMenu = "decor";
                 }
             });
         };
@@ -76,7 +76,7 @@ define(['angular'], function (angular) {
                 case "restaurant" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
-                case "restaurantPlus" :
+                case "decor" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
                 case "tamada" :
