@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
     budgetCtrlModule.controller('budgetMainCtrl', budgetMainCtrl);
 
-    function budgetMainCtrl($scope, $log, $timeout,toastr, _env, ResourceService) {
+    function budgetMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // Default subView
         $scope.subView = "settings";
 
@@ -39,16 +39,6 @@ define(['angular'], function (angular) {
                 toastr.error('ERROR: budget input data failed');
                 throw new Error('ERROR: budget input data failed' + err);
             }
-
-           $timeout(function () {
-               $scope.currentProjectView.mainMenu = "restaurant";
-               $timeout(function(){
-                   $scope.currentProjectView.mainMenu = "budget";
-               }, 100);
-
-           }, 200);
-           //$scope.$emit('totalValuesChanged');
-
         };
 
         // Notes Display Filter

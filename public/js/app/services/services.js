@@ -231,7 +231,7 @@ define(['angular'], function (angular) {
                     $log.warn(err);
                 });
                 return deferred.promise;
-            },
+            }
         };
     }
 
@@ -264,8 +264,7 @@ define(['angular'], function (angular) {
                     toastr.error('ERROR: Date transformation error');
                     throw new Error('ERROR: Date transformation error');
                 }
-            },
-
+            }
         };
     }
 
