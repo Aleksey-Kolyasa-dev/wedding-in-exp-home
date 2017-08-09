@@ -8,7 +8,7 @@
             </ul>
         </div>
         <h2>
-            БЮДЖЕТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+            БЮДЖЕТ: {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.budget.budgetUSD | number}} USD</span>
         </h2>
     </header>
 

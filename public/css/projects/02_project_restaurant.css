@@ -129,7 +129,8 @@
     background: rgba(226, 251, 96, 0.81);
 }
 .usd-use{
-    color: rgb(179, 247, 179)!important;
+    /*color: rgb(179, 247, 179)!important;*/
+    color: #78e278!important;
 }
 .nat-use{
     color: #ffffff;
