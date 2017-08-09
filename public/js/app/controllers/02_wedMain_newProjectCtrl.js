@@ -19,6 +19,13 @@ define(['angular'], function (angular) {
                 this.notes = project.notes;
                 this.fianceSideGuests = [];
                 this.fianceeSideGuests = [];
+                this.budgetNotes = null;
+                this.restNotes = null;
+                this.guestsNotes = null;
+                this.menuNotes = null;
+                this.cakesNotes = null;
+                this.plusNotes = null;
+                this.decorNotes = null;
                 this.useMenuCheck = false;
                 this.budget = {
                     budgetUSD : project.wedBudget,
@@ -66,7 +73,7 @@ define(['angular'], function (angular) {
                         paidTotalNat : 0,
                         restTotalUsd : 0,
                         restTotalNat : 0
-                    }
+                    },
                 };
                 this.restaurantMenu = {
                     expCollection : [
@@ -97,8 +104,7 @@ define(['angular'], function (angular) {
                         "Напитки Б/А",
                         "Фуршет",
                         "Инное"
-                    ],
-                    notes : null
+                    ]
                 };
                 this.restaurantCakes = {
                     expCollection : [
@@ -123,8 +129,7 @@ define(['angular'], function (angular) {
                         paidTotalNat : 0, //
                         restTotalUsd : 0,
                         restTotalNat : 0
-                    },
-                    notes : null
+                    }
                 };
                 this.restaurantPlus = {
                     expCollection : [/*{
@@ -147,7 +152,7 @@ define(['angular'], function (angular) {
                         paidTotalNat : 0,
                         restTotalUsd : 0,
                         restTotalNat : 0
-                    }
+                    },
                 };
                 this.decor = {
                     expCollection : [/*{
@@ -170,8 +175,7 @@ define(['angular'], function (angular) {
                         paidTotalNat : 0,
                         restTotalUsd : 0,
                         restTotalNat : 0
-                    },
-                    notes : null
+                    }
                 };
             }
 

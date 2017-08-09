@@ -406,6 +406,26 @@ define(['angular'], function (angular) {
             }
         };
 
+        // Notes Save
+        $scope.noteSave = function () {
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/guestsNotes").then(
+                function (data) {
+                    if (_env._dev) {
+                        toastr.info('Notes are saved!');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: Notes AJAX failed');
+                    throw new Error('ERROR: Notes AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Notes AJAX failed");
+                    $log.error("ERROR: Notes AJAX failed", err);
+                });
+        };
+
     } // *END* RESTAURANT MAIN CTRL
 
 
@@ -1206,7 +1226,7 @@ define(['angular'], function (angular) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
                     if (_env._dev) {
-                        toastr.warning('Expense Item removed');
+                        toastr.info('Expense Item removed');
                     }
                 },
                 function (err) {
@@ -1216,6 +1236,39 @@ define(['angular'], function (angular) {
                 .catch(function (err) {
                     toastr.error("ERROR: Expense Item Edit AJAX failed");
                     $log.error("ERROR: Expense Item Edit AJAX failed", err);
+                });
+        };
+
+        // Notes Display Filter
+        $scope.notesFilter = function (notes) {
+            if(notes == null){
+                return '';
+            } else {
+                var noteArr = notes.split('*');
+                if(noteArr[0] == ''){
+                    noteArr.splice(0,1);
+                }
+                return noteArr;
+            }
+        };
+
+        // Notes Save
+        $scope.noteSave = function () {
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
+                function (data) {
+                    if (_env._dev) {
+                        toastr.info('Notes are saved!');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: Notes AJAX failed');
+                    throw new Error('ERROR: Notes AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Notes AJAX failed");
+                    $log.error("ERROR: Notes AJAX failed", err);
                 });
         };
 

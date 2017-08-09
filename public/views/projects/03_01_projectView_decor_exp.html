@@ -7,7 +7,7 @@
                 <button class="btn btn-warning" data-target="#addNewDecorExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <header class="guests-fiance-side" style="float: right">
-                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">РАСХОДЫ ПО ДЕКОРУ</h4>
+                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">РАСХОДЫ</h4>
             </header>
         </div>
 
@@ -44,9 +44,10 @@
                         </td>
                     </tr>
 
+                    <!--FOOTER-->
                     <tr class="guest total-footer-data" ng-if="currentProject.decor.expCollection.length">
                         <td class="hidden-md hidden-sm hidden-xs"></td>
-                        <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО ПО ДЕКОРУ:</td>
+                        <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
                         <td class="visible-md" colspan="3"></td>
                         <td class="visible-sm"></td>
                         <td class="visible-xs"></td>
@@ -55,6 +56,7 @@
                         <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.restTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center"></td>
                     </tr>
+                    <!--FOOTER-->
                 </tbody>
             </table>
         </div>
@@ -230,14 +232,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">close</button>
-                    <h4 class="modal-title"><b>ЗАМЕТКИ ПО КОНДИТЕРУ</b></h4>
+                    <h4 class="modal-title"><b>ЗАМЕТКИ</b></h4>
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
                         <form>
                             <div>
                                 <div class="form-group" style="margin-top: 10px">
-                                    <label>Заметки</label>
+                                    <label></label>
                                     <textarea class="form-control" ng-model="currentProject.decor.notes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
                                 </div>
                                 <hr>

@@ -54,6 +54,26 @@ define(['angular'], function (angular) {
             }
         };
 
+        // Notes Save
+        $scope.noteSave = function () {
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/budgetNotes").then(
+                function (data) {
+                    if (_env._dev) {
+                        toastr.info('Notes are saved!');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: Notes AJAX failed');
+                    throw new Error('ERROR: Notes AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Notes AJAX failed");
+                    $log.error("ERROR: Notes AJAX failed", err);
+                });
+        };
+
 
     } // Ctrl End
 
