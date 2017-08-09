@@ -28,21 +28,23 @@
                 </thead>
 
                 <tbody>
+                    <!--BODY-->
                     <tr class="guest" ng-repeat="item in items">
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
                         <td>{{item.name}}</td>
-                        <td class="text-center hidden-sm hidden-xs"  ng-class="item.usd? 'usd-use':'null'">{{item.tariff  | number : 1}} {{item.money}}</td>
+                        <td class="text-center hidden-sm hidden-xs"  ng-class="item.usd? 'usd-use':'nat-use'">{{item.tariff  | number : 1}} {{item.money}}</td>
                         <td class="text-center hidden-sm hidden-xs">{{item.multiplier}}</td>
                         <td class="text-center hidden-md hidden-md hidden-sm hidden-xs">{{item.unit}}</td>
-                        <td class="text-center" ng-class="item.usd? 'usd-use':'null'">{{item.toPay  | number : 1}} {{item.money}}</td>
-                        <td class="text-center" ng-class="item.usd? 'usd-use':'null'">{{item.paid  | number : 1}} {{item.money}}</td>
-                        <td class="text-center" ng-class="item.usd? 'usd-use':'null'">{{item.rest  | number : 1}} {{item.money}}</td>
+                        <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.toPay  | number : 1}} {{item.money}}</td>
+                        <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.paid  | number : 1}} {{item.money}}</td>
+                        <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.rest  | number : 1}} {{item.money}}</td>
                         <td class="text-center">
                             <div>
                                 <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editDecorExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                             </div>
                         </td>
                     </tr>
+                    <!--BODY-->
 
                     <!--FOOTER-->
                     <tr class="guest total-footer-data" ng-if="currentProject.decor.expCollection.length">
@@ -51,9 +53,9 @@
                         <td class="visible-md" colspan="3"></td>
                         <td class="visible-sm"></td>
                         <td class="visible-xs"></td>
-                        <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.planUsd  | number : 1}} USD</span></td>
-                        <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.paidTotalUsd  | number : 1}} USD</span></td>
-                        <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.restTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center"><span class="nat-use">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center"><span class="nat-use">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center"><span class="nat-use">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.restTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center"></td>
                     </tr>
                     <!--FOOTER-->
@@ -83,7 +85,7 @@
                                            name="expItemNewName" style="{{(addNewDecorExpenseItemForm.expItemNewName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
-                                    <label ng-class="newItem.usd? 'usd-use' : 'null'">Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="newItem.usd? 'usd-use' : 'nat-use'">Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.tariff" type="number" required placeholder="стоимость или 0"
                                            name="expItemNewTariff" style="{{(addNewDecorExpenseItemForm.expItemNewTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
@@ -99,13 +101,13 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label ng-class="newItem.usd? 'usd-use' : 'null'">Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="newItem.usd? 'usd-use' : 'nat-use'">Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.paid" type="number" required placeholder="сумма или 0"
                                            name="expItemNewPaid" style="{{(addNewDecorExpenseItemForm.expItemNewPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
-                                    <label style="cursor: pointer;" ng-class="newItem.usd? 'usd-use' : 'null'">Расчет в USD
+                                    <label style="cursor: pointer;" ng-class="newItem.usd? 'usd-use' : 'nat-use'">Расчет в USD
                                     <input style="width: 16px; height: 16px; cursor: pointer" ng-model="newItem.usd"
                                            type="checkbox"></label>
                                 </div>
@@ -146,7 +148,7 @@
                                            name="expItemEditName" style="{{(editDecorExpenseItemForm.expItemEditName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
-                                    <label ng-class="itemToEdit.usd? 'usd-use' : 'null'">Тариф {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="itemToEdit.usd? 'usd-use' : 'nat-use'">Тариф {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="itemToEdit.tariff" type="number" required
                                            name="expItemEditTariff" style="{{(editDecorExpenseItemForm.expItemEditTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
@@ -162,13 +164,13 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label ng-class="itemToEdit.usd? 'usd-use' : 'null'">Оплаченно {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                    <label ng-class="itemToEdit.usd? 'usd-use' : 'nat-use'">Оплаченно {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="itemToEdit.paid" type="number" required
                                            name="expItemEditPaid" style="{{(editDecorExpenseItemForm.expItemEditPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
-                                    <label style="cursor: pointer;" ng-class="itemToEdit.usd? 'usd-use' : 'null'">Расчет в USD
+                                    <label style="cursor: pointer;" ng-class="itemToEdit.usd? 'usd-use' : 'nat-use'">Расчет в USD
                                         <input style="width: 16px; height: 16px; cursor: pointer" ng-model="itemToEdit.usd"
                                                type="checkbox"></label>
                                 </div>

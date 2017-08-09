@@ -221,7 +221,7 @@ define(['angular'], function (angular) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
                     if (_env._dev) {
-                        toastr.warning('DECOR Expense Item removed');
+                        toastr.info('DECOR Expense Item removed');
                     }
                 },
                 function (err) {
@@ -251,7 +251,7 @@ define(['angular'], function (angular) {
         $scope.noteSave = function () {
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/decorDataSave").then(
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/decorNotes").then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');

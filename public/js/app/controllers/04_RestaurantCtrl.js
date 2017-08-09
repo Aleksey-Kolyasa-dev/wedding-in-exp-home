@@ -426,6 +426,26 @@ define(['angular'], function (angular) {
                 });
         };
 
+        // Notes Save
+        $scope.noteRestSave = function () {
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restNotes").then(
+                function (data) {
+                    if (_env._dev) {
+                        toastr.info('Notes are saved!');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: Notes AJAX failed');
+                    throw new Error('ERROR: Notes AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Notes AJAX failed");
+                    $log.error("ERROR: Notes AJAX failed", err);
+                });
+        };
+
     } // *END* RESTAURANT MAIN CTRL
 
 
@@ -535,9 +555,6 @@ define(['angular'], function (angular) {
             // Emit Total Value Changes EVENT
             $scope.$emit('totalValuesChanged');
         }
-
-        // Update total values immediate evoke
-        // updateTotalValues();
 
         // Add New Expense Item Fn
         $scope.addNewExpenseItem = function (item) {
@@ -715,7 +732,7 @@ define(['angular'], function (angular) {
         $scope.noteSave = function () {
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/menuNotes").then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -959,7 +976,7 @@ define(['angular'], function (angular) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
                     if (_env._dev) {
-                        toastr.warning('Cake Item removed');
+                        toastr.info('Cake Item removed');
                     }
                 },
                 function (err) {
@@ -989,7 +1006,7 @@ define(['angular'], function (angular) {
         $scope.noteSave = function () {
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/cakesNotes").then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -1070,9 +1087,6 @@ define(['angular'], function (angular) {
             // Emit Total Value Changes EVENT
             $scope.$emit('totalValuesChanged');
         }
-
-        // Update total values immediate evoke
-        //updateTotalValues();
 
         // Add New Expense Item Fn
         $scope.addNewExpenseItem = function (item) {
@@ -1256,7 +1270,7 @@ define(['angular'], function (angular) {
         $scope.noteSave = function () {
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/plusNotes").then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
