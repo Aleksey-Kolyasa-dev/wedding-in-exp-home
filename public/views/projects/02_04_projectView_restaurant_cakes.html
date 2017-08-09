@@ -36,25 +36,26 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-sm hidden-xs">{{item.grPerGuest}} гр.</td>
                         <td class="text-center hidden-sm hidden-xs">{{item.totalKg | number : 1}} кг.</td>
-                        <td class="text-center hidden-md hidden-md hidden-sm hidden-xs">{{item.kgPrice | number : 1}} {{item.money}}</td>
-                        <td class="text-center">{{item.toPai  | number : 1}} {{item.money}}</td>
-                        <td class="text-center">{{item.paid  | number : 1}} {{item.money}}</td>
-                        <td class="text-center">{{item.rest  | number : 1}} {{item.money}}</td>
+                        <td class="text-center hidden-md hidden-md hidden-sm hidden-xs" ng-class="item.usd? 'usd-use':'null'">{{item.kgPrice | number : 1}} {{item.money}}</td>
+                        <td class="text-center"  ng-class="item.usd? 'usd-use':'null'">{{item.toPai  | number : 1}} {{item.money}}</td>
+                        <td class="text-center"  ng-class="item.usd? 'usd-use':'null'">{{item.paid  | number : 1}} {{item.money}}</td>
+                        <td class="text-center"  ng-class="item.usd? 'usd-use':'null'">{{item.rest  | number : 1}} {{item.money}}</td>
                         <td class="text-center">
                             <div>
                                 <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editCakeItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                             </div>
                         </td>
                     </tr>
+
                     <tr class="guest total-footer-data" ng-if="currentProject.restaurantCakes.expCollection.length">
                         <td class="hidden-md hidden-sm hidden-xs"></td>
                         <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО ПО ИЗДЕЛИЯМ:</td>
                         <td class="visible-md" colspan="3"></td>
                         <td class="visible-sm"></td>
                         <td class="visible-xs"></td>
-                        <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.planUsd  | number : 1}} USD</td>
-                        <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd  | number : 1}} USD</td>
-                        <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd  | number : 1}} USD</td>
+                        <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.restTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center"></td>
                     </tr>
                 </tbody>

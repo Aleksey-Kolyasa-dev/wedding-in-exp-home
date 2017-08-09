@@ -31,27 +31,28 @@
                     <tr class="guest" ng-repeat="item in items">
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
                         <td>{{item.name}}</td>
-                        <td class="text-center hidden-sm hidden-xs">{{item.tariff  | number : 1}} {{item.money}}</td>
+                        <td class="text-center hidden-sm hidden-xs"  ng-class="item.usd? 'usd-use':'null'">{{item.tariff  | number : 1}} {{item.money}}</td>
                         <td class="text-center hidden-sm hidden-xs">{{item.multiplier}}</td>
                         <td class="text-center hidden-md hidden-md hidden-sm hidden-xs">{{item.unit}}</td>
-                        <td class="text-center">{{item.toPai  | number : 1}} {{item.money}}</td>
-                        <td class="text-center">{{item.paid  | number : 1}} {{item.money}}</td>
-                        <td class="text-center">{{item.rest  | number : 1}} {{item.money}}</td>
+                        <td class="text-center" ng-class="item.usd? 'usd-use':'null'">{{item.toPai  | number : 1}} {{item.money}}</td>
+                        <td class="text-center" ng-class="item.usd? 'usd-use':'null'">{{item.paid  | number : 1}} {{item.money}}</td>
+                        <td class="text-center" ng-class="item.usd? 'usd-use':'null'">{{item.rest  | number : 1}} {{item.money}}</td>
                         <td class="text-center">
                             <div>
                                 <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                             </div>
                         </td>
                     </tr>
+
                     <tr class="guest total-footer-data" ng-if="currentProject.restaurantPlus.expCollection.length">
                         <td class="hidden-md hidden-sm hidden-xs"></td>
                         <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО ПО ДОП. РАСХОДАМ:</td>
                         <td class="visible-md" colspan="3"></td>
                         <td class="visible-sm"></td>
                         <td class="visible-xs"></td>
-                        <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.planUsd  | number : 1}} USD</td>
-                        <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.paidTotalUsd  | number : 1}} USD</td>
-                        <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / {{total.restTotalUsd  | number : 1}} USD</td>
+                        <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.restTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center"></td>
                     </tr>
                 </tbody>

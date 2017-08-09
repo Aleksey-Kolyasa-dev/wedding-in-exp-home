@@ -131,6 +131,9 @@
 .usd-use{
     color: rgb(179, 247, 179)!important;
 }
+.nat-use{
+    color: #ffffff;
+}
 
 /*QUICK CALCULATION*/
 .quick-main{

@@ -23,3 +23,11 @@
 .info-panel-dyn-good{
     color: rgb(25, 239, 182);
 }
+.report-panel{
+   padding-top: 4px;
+}
+.report-panel table{
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    margin-top: 2px !important;
+}
