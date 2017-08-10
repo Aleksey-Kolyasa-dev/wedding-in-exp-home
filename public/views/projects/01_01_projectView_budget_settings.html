@@ -10,7 +10,13 @@
             <hr>
             <div>
                 <div style="float: right">
-                    <button class="btn btn-default" data-target="#editBudgetData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
+                    <button class="btn btn-default"
+                            data-target="#editBudgetData"
+                            data-toggle="modal"
+                            ng-click="budgetChangeTriger(currentProject.budget.nationalMoney, currentProject.budget.currency)">
+                        Edit
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -140,19 +146,19 @@
                         <div class="">
                             <div class="form-group">
                                 <label>Национальная валюта</label>
-                                <input class="form-control" ng-model="currentProject.budget.nationalMoney"
+                                <input class="form-control" ng-model="budget.nationalMoney"
                                        type="text" required ng-minlength='1' placeholder="UAH, RUB, BLR ..."
                                        name="editBudgetNatName" ng-class="(editBudgetGeneralDataForm.editBudgetNatName.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
                                 <label>Курс валют 1 USD</label>
-                                <input class="form-control" ng-model="currentProject.budget.currency" type="number" required ng-minlength='1'
+                                <input class="form-control" ng-model="budget.currency" type="number" required ng-minlength='1'
                                        name="editBudgetCurrency" ng-class="(editBudgetGeneralDataForm.editBudgetCurrency.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <hr>
                             <button type="submit" class="btn btn-success btn-block"
                                     ng-disabled="editBudgetGeneralDataForm.$invalid" data-dismiss="modal"
-                                    ng-click="budgetSettingsApply(currentProject.budget)">
+                                    ng-click="budgetSettingsApply(budget)">
                                 <b>ПРИМЕНИТЬ</b>
                             </button>
                         </div>

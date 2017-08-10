@@ -7,6 +7,12 @@ define(['angular'], function (angular) {
     function budgetMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // Default subView
         $scope.subView = "settings";
+        $scope.budget = {};
+
+        $scope.budgetChangeTriger = function (natMoney, currency) {
+            $scope.budget.nationalMoney = natMoney;
+            $scope.budget.currency = currency;
+        };
 
         $scope.budgetSettingsApply = function (budget) {
 
@@ -19,12 +25,18 @@ define(['angular'], function (angular) {
                 if(budget.currency == 0){
                     budget.currency = 1;
                 }
+
+                //copy to data BUDGET
+                $scope.currentProject.budget.nationalMoney = budget.nationalMoney;
+                $scope.currentProject.budget.currency = budget.currency;
+
                 $scope.currentProject.budget.budgetNat = $scope.currentProject.budget.budgetUSD * budget.currency;
 
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/budget").then(
                     function (data) {
                         if (_env._dev) {
                             toastr.success('budget changed');
+                            $scope.budget = {};
                         }
                     },
                     function (err) {

@@ -19,6 +19,7 @@ define(['angular'], function (angular) {
                 this.notes = project.notes;
                 this.fianceSideGuests = [];
                 this.fianceeSideGuests = [];
+
                 this.budgetNotes = null;
                 this.restNotes = null;
                 this.guestsNotes = null;
@@ -26,7 +27,9 @@ define(['angular'], function (angular) {
                 this.cakesNotes = null;
                 this.plusNotes = null;
                 this.decorNotes = null;
+
                 this.useMenuCheck = false;
+
                 this.budget = {
                     budgetUSD : project.wedBudget,
                     budgetNat : 0,
