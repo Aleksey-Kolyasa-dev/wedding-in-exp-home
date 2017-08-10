@@ -508,7 +508,7 @@ define(['angular'], function (angular) {
         $scope.$watch('currentProject.restaurant.guestsQty', function () {
             // Update total values
             updateTotalValues();
-            console.clear();
+            //console.clear();
             if (_env._dev){
                 $log.log('update by MENU: reason - GUEST QTY EVENT ', $scope.count)
             }

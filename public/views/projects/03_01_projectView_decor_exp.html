@@ -4,7 +4,7 @@
     <div class="fiance-side-main col-xs-11">
         <div style="padding: 0">
             <div style="float: left">
-                <button class="btn btn-warning" data-target="#addNewDecorExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-warning" data-target="#{{'addNew' + conf.msgNameSm +'ExpenseItem'}}" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <header class="guests-fiance-side" style="float: right">
                 <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">РАСХОДЫ</h4>
@@ -40,14 +40,14 @@
                         <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.rest  | number : 1}} {{item.money}}</td>
                         <td class="text-center">
                             <div>
-                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editDecorExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#{{'edit' + conf.msgNameSm +'ExpenseItem'}}" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                             </div>
                         </td>
                     </tr>
                     <!--BODY-->
 
                     <!--FOOTER-->
-                    <tr class="guest total-footer-data" ng-if="currentProject.decor.expCollection.length">
+                    <tr class="guest total-footer-data" ng-if="currentProject[conf.mainProp].expCollection.length">
                         <td class="hidden-md hidden-sm hidden-xs"></td>
                         <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
                         <td class="visible-md" colspan="3"></td>
@@ -67,7 +67,7 @@
 
 
     <!-- ADD EXPENSE ITEM MODAL *START* -->
-    <div id="addNewDecorExpenseItem" class="modal fade">
+    <div id="{{'addNew' + conf.msgNameSm +'ExpenseItem'}}" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,23 +76,23 @@
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
-                        <form name="addNewDecorExpenseItemForm" novalidate>
+                        <form name="{{conf.addForm}}" novalidate>
                             <div>
                                 <div class="form-group">
                                     <label>Наименование</label>
                                     <input class="form-control" ng-model="newItem.name"
                                            type="text" required ng-minlength='1' placeholder="введите наименование"
-                                           name="expItemNewName" style="{{(addNewDecorExpenseItemForm.expItemNewName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                           name="expItemNewName" style='{{($eval(conf.addForm).expItemNewName.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}'>
                                 </div>
                                 <div class="form-group">
                                     <label ng-class="newItem.usd? 'usd-use' : 'nat-use'">Тариф {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.tariff" type="number" required placeholder="стоимость или 0"
-                                           name="expItemNewTariff" style="{{(addNewDecorExpenseItemForm.expItemNewTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                           name="expItemNewTariff" style="{{($eval(conf.addForm).expItemNewTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Множитель</label>
                                     <input class="form-control" ng-model="newItem.multiplier" type="number" required placeholder="1, 2, 5.5, 10..."
-                                           name="expItemNewMulti" style="{{(addNewDecorExpenseItemForm.expItemNewMulti.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                           name="expItemNewMulti" style="{{($eval(conf.addForm).expItemNewMulti.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
 
                                 </div>
                                 <div class="form-group">
@@ -103,7 +103,7 @@
                                 <div class="form-group">
                                     <label ng-class="newItem.usd? 'usd-use' : 'nat-use'">Оплаченно {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="newItem.paid" type="number" required placeholder="сумма или 0"
-                                           name="expItemNewPaid" style="{{(addNewDecorExpenseItemForm.expItemNewPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                           name="expItemNewPaid" style="{{($eval(conf.addForm).expItemNewPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
@@ -112,7 +112,7 @@
                                            type="checkbox"></label>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block"
-                                        ng-disabled="addNewDecorExpenseItemForm.$invalid" data-dismiss="modal"
+                                        ng-disabled="($eval(conf.addForm).$invalid)" data-dismiss="modal"
                                         ng-click="addNewExpenseItem(newItem)">
                                     <b>ПРИМЕНИТЬ</b>
                                 </button>
@@ -131,7 +131,7 @@
     <!-- ADD EXPENSE ITEM MODAL MODAL *END* -->
 
     <!-- EDIT EXPENSE ITEM MODAL *START* -->
-    <div id="editDecorExpenseItem" class="modal fade">
+    <div id="{{'edit' + conf.msgNameSm +'ExpenseItem'}}" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,22 +140,22 @@
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
-                        <form name="editDecorExpenseItemForm" novalidate>
+                        <form name="{{conf.editForm}}" novalidate>
                             <div>
                                 <div class="form-group">
                                     <label>Наименование</label>
                                     <input class="form-control" ng-model="itemToEdit.name" type="text" required ng-minlength='1'
-                                           name="expItemEditName" style="{{(editDecorExpenseItemForm.expItemEditName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                           name="expItemEditName" style="{{($eval(conf.editForm).expItemEditName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label ng-class="itemToEdit.usd? 'usd-use' : 'nat-use'">Тариф {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="itemToEdit.tariff" type="number" required
-                                           name="expItemEditTariff" style="{{(editDecorExpenseItemForm.expItemEditTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                           name="expItemEditTariff" style="{{($eval(conf.editForm).expItemEditTariff.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Множитель</label>
                                     <input class="form-control" ng-model="itemToEdit.multiplier" type="number" required
-                                           name="expItemEditMulti" style="{{(editDecorExpenseItemForm.expItemEditMulti.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                           name="expItemEditMulti" style="{{($eval(conf.editForm).expItemEditMulti.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Номинал</label>
@@ -166,7 +166,7 @@
                                 <div class="form-group">
                                     <label ng-class="itemToEdit.usd? 'usd-use' : 'nat-use'">Оплаченно {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                     <input class="form-control" ng-model="itemToEdit.paid" type="number" required
-                                           name="expItemEditPaid" style="{{(editDecorExpenseItemForm.expItemEditPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                           name="expItemEditPaid" style="{{($eval(conf.editForm).expItemEditPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </div>
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
@@ -189,7 +189,7 @@
                                     <b>ПОДТВЕРДИТЬ УДАЛЕНИЕ</b>
                                 </button>
                                 <button ng-if="!removeTrigger" type="submit" class="btn btn-success btn-block"
-                                        ng-disabled="editDecorExpenseItemForm.$invalid" data-dismiss="modal"
+                                        ng-disabled="($eval(conf.editForm).$invalid)" data-dismiss="modal"
                                         ng-click="editExpenseItemSave(itemToEdit)">
                                     <b>ПРИМЕНИТЬ</b>
                                 </button>
@@ -215,10 +215,10 @@
                 <hr>
                 <div>
                     <p>
-                        <button class="btn btn-default" style="margin-right: 15px" data-target="#decorNotes" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                        <button class="btn btn-default" style="margin-right: 15px" data-target="#{{conf.mainProp}}Notes" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
                         Заметки:
                     </p>
-                    <ul ng-repeat="note in notesFilter(currentProject.decorNotes)" style="padding: 0; list-style: none">
+                    <ul ng-repeat="note in notesFilter(currentProject[conf.mainProp +'Notes'])" style="padding: 0; list-style: none">
                         <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
                     </ul>
                 </div>
@@ -229,7 +229,7 @@
     <!--NOTES  *END*-->
 
     <!-- NOTES MODAL *START* -->
-    <div id="decorNotes" class="modal fade">
+    <div id="{{conf.mainProp}}Notes" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -242,7 +242,7 @@
                             <div>
                                 <div class="form-group" style="margin-top: 10px">
                                     <label></label>
-                                    <textarea class="form-control" ng-model="currentProject.decorNotes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                                    <textarea class="form-control" ng-model="currentProject[conf.mainProp +'Notes']" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
                                 </div>
                                 <hr>
                                 <button type="submit" class="btn btn-success btn-block"

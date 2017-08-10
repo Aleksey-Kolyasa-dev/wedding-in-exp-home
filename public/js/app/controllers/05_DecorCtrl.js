@@ -8,6 +8,22 @@ define(['angular'], function (angular) {
     * DECOR MAIN CTRL
     * */
     function decorMainCtrl($scope, $log, toastr, _env, ResourceService) {
+        // INPUT DATA CONFIG
+        $scope.conf = {
+            mainProp : 'decor',
+            msgNameBg : 'DECOR',
+            msgNameSm : 'Decor',
+
+            title : 'ДЕКОР',
+            ttlBy : 'ДЕКОРУ',
+            get addForm(){
+               return 'addNew' +  this.msgNameSm +'ExpenseForm';
+            },
+            get editForm(){
+               return 'edit' + this.msgNameSm +'ExpenseForm';
+            }
+        };
+
         // Default data
         $scope.itemToEdit = {};
         $scope.newItem = {};
@@ -16,13 +32,14 @@ define(['angular'], function (angular) {
         $scope.$watch("currentProject.budget.currency", function () {
             updateTotalValues();
             if (_env._dev){
-                $log.log('update by DECOR: reason - CURRENCY change EVENT');
+                $log.log('update by ' + $scope.conf.msgNameBg + ': reason - CURRENCY change EVENT');
             }
         });
 
         // Shortcuts
-        $scope.items = $scope.currentProject.decor.expCollection;
-        $scope.total = $scope.currentProject.decor.total;
+        $scope.items = $scope.currentProject[$scope.conf.mainProp].expCollection;
+        $scope.total = $scope.currentProject[$scope.conf.mainProp].total;
+        $scope.notes = $scope.currentProject[$scope.conf.mainProp + 'Notes'];
         
         // Update total values Fn
         function updateTotalValues() {
@@ -63,7 +80,7 @@ define(['angular'], function (angular) {
             $scope.total.restTotalNat = $scope.total.restTotalUsd * $scope.currentProject.budget.currency;
 
             // in the end copy obj back
-            $scope.currentProject.decor.total = $scope.total;
+            $scope.currentProject[$scope.conf.mainProp].total = $scope.total;
 
         }
 
@@ -102,34 +119,34 @@ define(['angular'], function (angular) {
               }
 
               // Add expense item to expCollection
-              $scope.currentProject.decor.expCollection.push(item);
+              $scope.currentProject[$scope.conf.mainProp].expCollection.push(item);
 
               // Update total values
               updateTotalValues();
               if (_env._dev){
-                  $log.log('update by DECOR: reason - ADD DECOR EXP EVENT ');
+                  $log.log('update by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +' EXP EVENT ');
               }
 
               // ADD EXPENSE ITEM to DB
-              ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/decorDataSave").then(
+              ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp + "DataSave").then(
                   function (data) {
                       $scope.newItem = {};
                       if (_env._dev) {
-                          toastr.success('New Decor Item created!');
+                          toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
                       }
                   },
                   function (err) {
-                      toastr.error('ERROR: New Decor Item AJAX failed');
-                      throw new Error('ERROR: New Decor Item AJAX failed' + err);
+                      toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                      throw new Error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed' + err);
                   })
                   .catch(function (err) {
-                      toastr.error("ERROR: New Decor Item AJAX failed");
-                      $log.error("ERROR: New Decor Item AJAX failed", err);
+                      toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                      $log.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed', err);
                   });
           }
           else {
-              toastr.error('ERROR: Decor expense input check failed');
-              throw new Error('ERROR: Decor expense input check failed' + err);
+              toastr.error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed');
+              throw new Error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed' + err);
           }
         };
 
@@ -176,60 +193,60 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
                 if (_env._dev){
-                    $log.log('update by DECOR: reason - EDIT DECOR EXP EVENT ');
+                    $log.log('update by ' + $scope.conf.msgNameBg + ': reason - EDIT ' + $scope.conf.msgNameBg + ' EXP EVENT ');
                 }
 
                 // SAVE CHANGES of EXPENSE ITEM to DB
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/decorDataSave").then(
+                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"DataSave").then(
                     function (data) {
                         $scope.removeTrigger = false;
                         $scope.itemToEdit = {};
                         if (_env._dev) {
-                            toastr.success('DECOR Expense Item Edited!');
+                            toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
                         }
                     },
                     function (err) {
-                        toastr.error('ERROR: DECOR Expense Item AJAX failed');
-                        throw new Error('ERROR: DECOR Expense Item AJAX failed' + err);
+                        toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed');
+                        throw new Error('ERROR: ' + $scope.conf.msgNameBg + 'Expense Item AJAX failed' + err);
                     })
                     .catch(function (err) {
-                        toastr.error("ERROR: DECOR Expense Item Edit AJAX failed");
-                        $log.error("ERROR: DECOR Expense Item Edit AJAX failed", err);
+                        toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
+                        $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed', err);
                     });
             }
             else {
-                toastr.error('ERROR: DECOR expense input check failed');
-                throw new Error('ERROR: DECOR expense input check failed' + err);
+                toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed');
+                throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed' + err);
             }
         };
 
         // DELETE ITEM
         $scope.deleteExpenseItem = function (index) {
             // Remove from model
-            $scope.currentProject.decor.expCollection.splice(index, 1);
+            $scope.currentProject[$scope.conf.mainProp].expCollection.splice(index, 1);
 
             // Update total values
             updateTotalValues();
             if (_env._dev){
-                $log.log('update by DECOR: reason - REMOVE DECOR EXP EVENT ');
+                $log.log('update by ' + $scope.conf.msgNameBg + ': reason - REMOVE DECOR EXP EVENT ');
             }
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/decorDataSave").then(
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"DataSave").then(
                 function (data) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
                     if (_env._dev) {
-                        toastr.info('DECOR Expense Item removed');
+                        toastr.info($scope.conf.msgNameBg + ' Expense Item removed');
                     }
                 },
                 function (err) {
-                    toastr.error('ERROR: DECOR Expense Item AJAX failed');
-                    throw new Error('ERROR: DECOR Expense Item AJAX failed' + err);
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed');
+                    throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed' + err);
                 })
                 .catch(function (err) {
-                    toastr.error("ERROR: DECOR Expense Item Edit AJAX failed");
-                    $log.error("ERROR: DECOR Expense Item Edit AJAX failed", err);
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
+                    $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed', err);
                 });
         };
 
@@ -250,7 +267,7 @@ define(['angular'], function (angular) {
         $scope.noteSave = function () {
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/decorNotes").then(
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"Notes").then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
