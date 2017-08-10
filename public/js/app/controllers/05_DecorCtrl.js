@@ -10,12 +10,18 @@ define(['angular'], function (angular) {
     function decorMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
+            // Main setup
             mainProp : 'decor',
+
+            // MSGs setup
             msgNameBg : 'DECOR',
             msgNameSm : 'Decor',
 
+            //Views setup
             title : 'ДЕКОР',
             ttlBy : 'ДЕКОРУ',
+
+            // Forms setup (auto)
             get addForm(){
                return 'addNew' +  this.msgNameSm +'ExpenseForm';
             },
