@@ -34,7 +34,28 @@ define(['angular'], function (angular) {
                     budgetUSD : project.wedBudget,
                     budgetNat : 0,
                     nationalMoney : 'units',
-                    currency : 1
+                    currency : 1,
+                    total : {
+                        // TTL SUM ALL PLANS
+                        wedPlanTotalNat : 0,
+                        wedPlanTotalUsd : 0,
+
+                        // TTL SUM ALL PAID
+                        wedPaidTotalNat : 0,
+                        wedPaidTotalUsd : 0,
+
+                        // TTL SUM ALL REST
+                        wedRestTotalNat : 0,
+                        wedRestTotalUsd : 0,
+
+                        // TOTAL WED BUDGET REST by PLAN
+                        wedBudgetRestPlanUsd : 0,
+                        wedBudgetRestPlanNat : 0,
+
+                        // TOTAL WED BUDGET REST by FACT
+                        wedBudgetRestFactUsd : 0,
+                        wedBudgetRestFactNat : 0
+                    }
                 };
                 this.restaurant = {
                     name : null,

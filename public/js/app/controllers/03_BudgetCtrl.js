@@ -9,11 +9,44 @@ define(['angular'], function (angular) {
         $scope.subView = "settings";
         $scope.budget = {};
 
+        // Budged EDIT TRIGGER Fn
         $scope.budgetChangeTriger = function (natMoney, currency) {
             $scope.budget.nationalMoney = natMoney;
             $scope.budget.currency = currency;
         };
 
+        // MAIN BUDGET CALCULATION Fn
+        function weddingBudgetTotals() {
+            var wed = $scope.currentProject;
+            // Define totals sum of planUsd/planNat
+            wed.budget.total.wedPlanTotalUsd = wed.restaurant.total.planTotalUsd + wed.decor.total.planUsd;
+            wed.budget.total.wedPlanTotalNat =  wed.budget.total.wedPlanTotalUsd / wed.budget.currency;
+
+            // Define totals sum of paidUsd/paidNat
+            wed.budget.total.wedPaidTotalUsd = wed.restaurant.total.paidTotalUsd + wed.decor.total.paidTotalUsd;
+            wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd / wed.budget.currency;
+
+            // Define totals sum of restUsd/restNat
+            wed.budget.total.wedRestTotalUsd = wed.restaurant.total.paidTotalUsd + wed.decor.total.paidTotalUsd;
+            wed.budget.total.wedRestTotalNat =  wed.budget.total.wedRestTotalUsd / wed.budget.currency;
+
+            // DEFINE WED BUDGET REST by PLAN
+            wed.budget.total.wedBudgetRestPlanUsd = wed.budget.budgetUSD - wed.budget.total.wedPlanTotalUsd;
+            wed.budget.total.wedBudgetRestPlanNat = wed.budget.total.wedBudgetRestPlanUsd / wed.budget.currency;
+
+            // DEFINE WED BUDGET FACT by PLAN
+            wed.budget.total.wedBudgetRestFactUsd = wed.budget.budgetUSD - wed.budget.total.wedPaidTotalUsd;
+            wed.budget.total.wedBudgetRestFactNat = wed.budget.total.wedBudgetRestFactUsd / wed.budget.currency;
+
+            // COPY Obj back
+           $scope.currentProject = wed;
+
+            if (_env._dev){
+                $log.log('BUDGET CALCULATION UPDATE');
+            }
+        }
+
+        // SAVE CHANGES to DB
         $scope.budgetSettingsApply = function (budget) {
 
             if(angular.isDefined(budget.nationalMoney) && angular.isNumber(budget.currency)){
@@ -31,6 +64,9 @@ define(['angular'], function (angular) {
                 $scope.currentProject.budget.currency = budget.currency;
 
                 $scope.currentProject.budget.budgetNat = $scope.currentProject.budget.budgetUSD * budget.currency;
+
+                // MAIN BUDGET CALCULATION Fn
+                weddingBudgetTotals();
 
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/budget").then(
                     function (data) {
