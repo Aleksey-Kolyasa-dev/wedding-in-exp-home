@@ -56,13 +56,13 @@ define(['angular'], function (angular) {
                         $scope.currentProject = project;
                         $location.path('/project');
                         //** $scope.currentProjectView.mainMenu = "budget";
-                        $scope.currentProjectView.mainMenu = "decor";
+                        $scope.currentProjectView.mainMenu = "budget";
                     }, 500);
                 } else {
                     $scope.currentProject = project;
                     $location.path('/project');
                     //** $scope.currentProjectView.mainMenu = "budget";
-                    $scope.currentProjectView.mainMenu = "decor";
+                    $scope.currentProjectView.mainMenu = "budget";
                 }
             });
         };
@@ -72,6 +72,7 @@ define(['angular'], function (angular) {
             switch (view) {
                 case "budget" :
                     $scope.currentProjectView.mainMenu = view;
+                    $scope.$broadcast('doBudgetReCalculation');
                     break;
                 case "restaurant" :
                     $scope.currentProjectView.mainMenu = view;

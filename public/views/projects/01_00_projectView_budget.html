@@ -14,7 +14,7 @@
 
     <div class="info-panel-budget">
         <div>
-            <div style="margin-left: 30px">
+            <!--<div style="margin-left: 30px">
                 <span class="info-panel-dyn-good">
                     ПЛАН ЗАТРАТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
@@ -28,15 +28,15 @@
                 <span class="info-panel-dyn-good">
                     ДОПЛАТИТЬ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
                 </span>
-            </div>
+            </div>-->
             <div>
                 <span class="info-panel-dyn-good">
-                    ОСТАТОК ПЛАН: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                    ОСТАТОК БЮДЖЕТА ПО ПЛАНУ: {{budgetTotals.wedBudgetRestPlanNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{budgetTotals.wedBudgetRestPlanUsd | number : 1}} USD
                 </span>
             </div>
             <div>
                 <span class="info-panel-dyn-good">
-                    ОСТАТОК ФАКТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+                    ОСТАТОК БЮДЖЕТА ПО ФАКТУ: {{budgetTotals.wedBudgetRestFactNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{budgetTotals.wedBudgetRestFactUsd | number : 1}} USD
                 </span>
             </div>
         </div>

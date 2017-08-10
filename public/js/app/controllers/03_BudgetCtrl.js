@@ -4,10 +4,18 @@ define(['angular'], function (angular) {
 
     budgetCtrlModule.controller('budgetMainCtrl', budgetMainCtrl);
 
-    function budgetMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function budgetMainCtrl($scope, $log, toastr, $timeout ,_env, ResourceService) {
         // Default subView
         $scope.subView = "settings";
         $scope.budget = {};
+
+        // Shortcuts
+        $scope.budgetTotals = $scope.currentProject.budget.total;
+
+        // EVENT SUBSCRIBE
+        $scope.$on('doBudgetReCalculation', function () {
+            weddingBudgetTotals();
+        });
 
         // Budged EDIT TRIGGER Fn
         $scope.budgetChangeTriger = function (natMoney, currency) {
@@ -20,31 +28,34 @@ define(['angular'], function (angular) {
             var wed = $scope.currentProject;
             // Define totals sum of planUsd/planNat
             wed.budget.total.wedPlanTotalUsd = wed.restaurant.total.planTotalUsd + wed.decor.total.planUsd;
-            wed.budget.total.wedPlanTotalNat =  wed.budget.total.wedPlanTotalUsd / wed.budget.currency;
+            wed.budget.total.wedPlanTotalNat =  wed.budget.total.wedPlanTotalUsd * wed.budget.currency;
 
             // Define totals sum of paidUsd/paidNat
             wed.budget.total.wedPaidTotalUsd = wed.restaurant.total.paidTotalUsd + wed.decor.total.paidTotalUsd;
-            wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd / wed.budget.currency;
+            wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd * wed.budget.currency;
 
             // Define totals sum of restUsd/restNat
             wed.budget.total.wedRestTotalUsd = wed.restaurant.total.paidTotalUsd + wed.decor.total.paidTotalUsd;
-            wed.budget.total.wedRestTotalNat =  wed.budget.total.wedRestTotalUsd / wed.budget.currency;
+            wed.budget.total.wedRestTotalNat =  wed.budget.total.wedRestTotalUsd * wed.budget.currency;
 
             // DEFINE WED BUDGET REST by PLAN
             wed.budget.total.wedBudgetRestPlanUsd = wed.budget.budgetUSD - wed.budget.total.wedPlanTotalUsd;
-            wed.budget.total.wedBudgetRestPlanNat = wed.budget.total.wedBudgetRestPlanUsd / wed.budget.currency;
+            wed.budget.total.wedBudgetRestPlanNat = wed.budget.total.wedBudgetRestPlanUsd * wed.budget.currency;
 
             // DEFINE WED BUDGET FACT by PLAN
             wed.budget.total.wedBudgetRestFactUsd = wed.budget.budgetUSD - wed.budget.total.wedPaidTotalUsd;
-            wed.budget.total.wedBudgetRestFactNat = wed.budget.total.wedBudgetRestFactUsd / wed.budget.currency;
+            wed.budget.total.wedBudgetRestFactNat = wed.budget.total.wedBudgetRestFactUsd * wed.budget.currency;
 
             // COPY Obj back
-           $scope.currentProject = wed;
+           $scope.currentProject.budget.total = wed.budget.total;
 
             if (_env._dev){
                 $log.log('BUDGET CALCULATION UPDATE');
             }
         }
+
+        // EVOKE ON-LOAD
+        weddingBudgetTotals();
 
         // SAVE CHANGES to DB
         $scope.budgetSettingsApply = function (budget) {
@@ -65,8 +76,11 @@ define(['angular'], function (angular) {
 
                 $scope.currentProject.budget.budgetNat = $scope.currentProject.budget.budgetUSD * budget.currency;
 
-                // MAIN BUDGET CALCULATION Fn
-                weddingBudgetTotals();
+                $timeout(function () {
+                    // MAIN BUDGET CALCULATION Fn
+                    weddingBudgetTotals();
+                },200);
+
 
                 ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/budget").then(
                     function (data) {

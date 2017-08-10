@@ -11,6 +11,7 @@ define(['angular'], function (angular) {
         $scope.createNewProject = function (newProject) {
             // New Project Constructor
             function NewProjectCtor(project) {
+                // INIT DATA
                 this.fianceName = project.fianceName;
                 this.fianceeName = project.fianceeName;
                 this.weddingDate = AppService._dateStringToObject(project.weddingDate);
@@ -20,6 +21,7 @@ define(['angular'], function (angular) {
                 this.fianceSideGuests = [];
                 this.fianceeSideGuests = [];
 
+                //NOTES
                 this.budgetNotes = null;
                 this.restNotes = null;
                 this.guestsNotes = null;
@@ -28,8 +30,10 @@ define(['angular'], function (angular) {
                 this.plusNotes = null;
                 this.decorNotes = null;
 
+                //INTERMEDIATE DATA
                 this.useMenuCheck = false;
 
+                // MENU DATA
                 this.budget = {
                     budgetUSD : project.wedBudget,
                     budgetNat : 0,

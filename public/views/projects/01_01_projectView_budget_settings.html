@@ -61,9 +61,9 @@
                 <tr class="guest total-footer-data" >
                     <td class="hidden-xs hidden-sm"></td>
                     <td class="text-left" colspan="1" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
-                    <td class="text-center">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.planUsd  | number : 1}} USD</span></td>
-                    <td class="text-center">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.paidTotalUsd  | number : 1}} USD</span></td>
-                    <td class="text-center">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{total.restTotalUsd  | number : 1}} USD</span></td>
+                    <td class="text-center">{{budgetTotals.wedPlanTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedPlanTotalUsd  | number : 1}} USD</span></td>
+                    <td class="text-center">{{budgetTotals.wedPaidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedPaidTotalUsd  | number : 1}} USD</span></td>
+                    <td class="text-center">{{budgetTotals.wedRestTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedRestTotalUsd  | number : 1}} USD</span></td>
                 </tr>
                 <!--FOOTER-->
                 </tbody>
