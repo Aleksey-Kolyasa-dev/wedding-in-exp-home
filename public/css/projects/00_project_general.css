@@ -17,6 +17,7 @@ body{
 .total-footer-data{
     background: rgba(131, 38, 145, 0.4);
     font-weight: bold;
+    border-bottom: 0 !important;
     /*font-style: italic;*/
 }
 .info-glass-panel{

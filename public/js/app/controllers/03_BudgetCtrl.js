@@ -35,7 +35,7 @@ define(['angular'], function (angular) {
             wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd * wed.budget.currency;
 
             // Define totals sum of restUsd/restNat
-            wed.budget.total.wedRestTotalUsd = wed.restaurant.total.paidTotalUsd + wed.decor.total.paidTotalUsd;
+            wed.budget.total.wedRestTotalUsd =  wed.restaurant.total.restTotalUsd + wed.decor.total.restTotalUsd;
             wed.budget.total.wedRestTotalNat =  wed.budget.total.wedRestTotalUsd * wed.budget.currency;
 
             // DEFINE WED BUDGET REST by PLAN
@@ -55,7 +55,10 @@ define(['angular'], function (angular) {
         }
 
         // EVOKE ON-LOAD
-        weddingBudgetTotals();
+        $timeout(function () {
+            // MAIN BUDGET CALCULATION Fn
+            weddingBudgetTotals();
+        },300);
 
         // SAVE CHANGES to DB
         $scope.budgetSettingsApply = function (budget) {

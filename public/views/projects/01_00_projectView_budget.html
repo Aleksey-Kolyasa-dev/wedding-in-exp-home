@@ -12,31 +12,16 @@
         </h2>
     </header>
 
-    <div class="info-panel-budget">
+    <div class="info-panel text-center">
         <div>
-            <!--<div style="margin-left: 30px">
-                <span class="info-panel-dyn-good">
-                    ПЛАН ЗАТРАТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
+            <div style="margin-top: 5px; margin-right: 30px">
+                <span class="info-plan">
+                    ОСТАТОК БЮДЖЕТА ПО ПЛАНУ: <span class="nat-use">{{budgetTotals.wedBudgetRestPlanNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{budgetTotals.wedBudgetRestPlanUsd | number : 1}} USD</span>
                 </span>
             </div>
             <div>
-                <span class="info-panel-dyn-good">
-                    ФАКТ ЗАТРАТ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
-                </span>
-            </div>
-            <div>
-                <span class="info-panel-dyn-good">
-                    ДОПЛАТИТЬ: {{currentProject.budget.budgetUSD | number}} $ / {{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}}
-                </span>
-            </div>-->
-            <div>
-                <span class="info-panel-dyn-good">
-                    ОСТАТОК БЮДЖЕТА ПО ПЛАНУ: {{budgetTotals.wedBudgetRestPlanNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{budgetTotals.wedBudgetRestPlanUsd | number : 1}} USD
-                </span>
-            </div>
-            <div>
-                <span class="info-panel-dyn-good">
-                    ОСТАТОК БЮДЖЕТА ПО ФАКТУ: {{budgetTotals.wedBudgetRestFactNat | number : 1}} {{currentProject.budget.nationalMoney}} / {{budgetTotals.wedBudgetRestFactUsd | number : 1}} USD
+                <span class="info-paid">
+                    ОСТАТОК БЮДЖЕТА ПО ФАКТУ: <span class="nat-use">{{budgetTotals.wedBudgetRestFactNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{budgetTotals.wedBudgetRestFactUsd | number : 1}} USD</span>
                 </span>
             </div>
         </div>

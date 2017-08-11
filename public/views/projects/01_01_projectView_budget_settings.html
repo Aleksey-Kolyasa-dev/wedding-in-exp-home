@@ -29,43 +29,45 @@
         <div class="fiance-side-main" >
         <div class="report-panel">
             <table class="table table-responsive info-glass-panel">
+
                 <thead class="guest-side-table-head">
-                <tr style="color: white">
-                    <th class="text-center hidden-sm hidden-xs">№</th>
-                    <th>КАТЕГОРИЯ</th>
-                    <th class="text-center">ПЛАН РАСХОДОВ</th>
-                    <th class="text-center">ОПЛАЧЕННО</th>
-                    <th class="text-center">ДОПЛАТИТЬ</th>
-                </tr>
+                    <tr style="color: white">
+                        <th class="text-center hidden-sm hidden-xs">№</th>
+                        <th>КАТЕГОРИЯ</th>
+                        <th class="text-center">ПЛАН РАСХОДОВ</th>
+                        <th class="text-center">ОПЛАЧЕННО</th>
+                        <th class="text-center">ДОПЛАТИТЬ</th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                <tr class="guest" >
-                    <td class="text-center hidden-sm hidden-xs">1</td>
-                    <td><b><i>РЕСТОРАН</i></b></td>
-                    <td class="text-center">{{currentProject.restaurant.total.planTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.planTotalUsd  | number : 1}} USD</span></td>
-                    <td class="text-center">{{currentProject.restaurant.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.paidTotalUsd  | number : 1}} USD</span></td>
-                    <td class="text-center">{{currentProject.restaurant.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.restTotalUsd  | number : 1}} USD</span></td>
-                </tr>
-                <tr class="guest" >
-                    <td class="text-center hidden-sm hidden-xs">2</td>
-                    <td><b><i>ДЕКОР</i></b></td>
-                    <td class="text-center">{{currentProject.decor.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.decor.total.planUsd  | number : 1}} USD</span></td>
-                    <td class="text-center">{{currentProject.decor.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.decor.total.paidTotalUsd  | number : 1}} USD</span></td>
-                    <td class="text-center">{{currentProject.decor.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.decor.total.restTotalUsd  | number : 1}} USD</span></td>
-                </tr>
+                    <tr class="guest" >
+                        <td class="text-center hidden-sm hidden-xs">1</td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('restaurant')">РЕСТОРАН</a></td>
+                        <td class="text-center">{{currentProject.restaurant.total.planTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.planTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.restaurant.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.restaurant.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
+                    <tr class="guest" ng-if="currentProject.decor.expCollection.length">
+                        <td class="text-center hidden-sm hidden-xs">2</td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('decor')">ДЕКОР</a></td>
+                        <td class="text-center">{{currentProject.decor.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.decor.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.decor.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.decor.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.decor.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.decor.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
 
 
 
-                <!--FOOTER-->
-                <tr class="guest total-footer-data" >
-                    <td class="hidden-xs hidden-sm"></td>
-                    <td class="text-left" colspan="1" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
-                    <td class="text-center">{{budgetTotals.wedPlanTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedPlanTotalUsd  | number : 1}} USD</span></td>
-                    <td class="text-center">{{budgetTotals.wedPaidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedPaidTotalUsd  | number : 1}} USD</span></td>
-                    <td class="text-center">{{budgetTotals.wedRestTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedRestTotalUsd  | number : 1}} USD</span></td>
-                </tr>
-                <!--FOOTER-->
+                    <!--FOOTER-->
+                    <tr><td colspan="5" style="border-top: 0!important;"></td></tr>
+                    <tr class="guest total-footer-data" >
+                        <td class="hidden-xs hidden-sm"></td>
+                        <td class="text-left" colspan="1" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
+                        <td class="text-center">{{budgetTotals.wedPlanTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedPlanTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{budgetTotals.wedPaidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedPaidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{budgetTotals.wedRestTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedRestTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
+                    <!--FOOTER-->
                 </tbody>
             </table>
         </div>
@@ -134,11 +136,11 @@
 
 <!-- EDIT BUDGET DATA MODAL *START* -->
 <div id="editBudgetData" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">close</button>
-                <h4 class="modal-title"><b>БЮЖДЕТ ВВОД ДАННЫХ</b></h4>
+                <h4 class="modal-title"><b>ИЗМЕНИТЬ</b></h4>
             </div>
             <div class="modal-body wed-modals">
                 <div class="add-new-proj-main">
