@@ -83,6 +83,9 @@ define(['angular'], function (angular) {
                 case "flower" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+                case "tamada" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
             }
         };
 
