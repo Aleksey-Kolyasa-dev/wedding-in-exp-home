@@ -20,12 +20,12 @@
                         </a>
                     </div>
                     <div>
-                        <a class="main-page-menu-btn" ng-click="projectView('decor')">
+                        <a ng-class="currentProjectView.mainMenu == 'decor'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('decor')">
                             <span>ДЕКОР</span>
                         </a>
                     </div>
                     <div>
-                        <a class="main-page-menu-btn" ng-click="projectView('flower')">
+                        <a ng-class="currentProjectView.mainMenu == 'flower'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('flower')">
                             <span>ФЛОРИСТ</span>
                         </a>
                     </div>
@@ -73,6 +73,9 @@
                 </div>
                 <div ng-show="currentProjectView.mainMenu == 'decor'">
                     <ng-include src="'/views/projects/03_00_projectView_decor.html'"></ng-include>
+                </div>
+                <div ng-show="currentProjectView.mainMenu == 'flower'">
+                    <ng-include src="'/views/projects/04_00_projectView_flower.html'"></ng-include>
                 </div>
             </div>
             <!-- PROJECT'S VIEWS *END* -->
