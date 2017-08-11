@@ -495,10 +495,6 @@ define(['angular'], function (angular) {
                    $scope.dispalyCategotries.other = true;
                }
             });
-
-          /* if(_env._dev){
-               $log.log( $scope.dispalyCategotries);
-           }*/
         }
 
         // Category Header Update
@@ -782,9 +778,11 @@ define(['angular'], function (angular) {
 
         // WATCH CURRENCY VALUE and do recalculations if changed
         $scope.$watch("currentProject.budget.currency", function () {
-            updateTotalValues();
-            if (_env._dev){
-                $log.log('update by CAKE: reason - CURRENCY change EVENT', $scope.count);
+            if($scope.currentProject.restaurantCakes.expCollection.length){
+                updateTotalValues();
+                if (_env._dev){
+                    $log.log('update by CAKE: reason - CURRENCY change EVENT', $scope.count);
+                }
             }
         });
 
@@ -1035,9 +1033,11 @@ define(['angular'], function (angular) {
 
         // WATCH CURRENCY VALUE and do recalculations if changed
         $scope.$watch("currentProject.budget.currency", function () {
-            updateTotalValues();
-            if (_env._dev){
-                $log.log('update by PLUS: reason - CURRENCY change EVENT', $scope.count);
+            if($scope.currentProject.restaurantPlus.expCollection.length){
+                updateTotalValues();
+                if (_env._dev){
+                    $log.log('update by PLUS: reason - CURRENCY change EVENT', $scope.count);
+                }
             }
         });
 

@@ -30,14 +30,16 @@ define(['angular'], function (angular) {
             wed.budget.total.wedPlanTotalUsd = wed.restaurant.total.planTotalUsd
                 + wed.decor.total.planUsd
                 + wed.flower.total.planUsd
-                + wed.leader.total.planUsd;
+                + wed.leader.total.planUsd
+                + wed.music.total.planUsd;
             wed.budget.total.wedPlanTotalNat =  wed.budget.total.wedPlanTotalUsd * wed.budget.currency;
 
             // Define totals sum of paidUsd/paidNat
             wed.budget.total.wedPaidTotalUsd = wed.restaurant.total.paidTotalUsd
                 + wed.decor.total.paidTotalUsd
                 + wed.flower.total.paidTotalUsd
-                + wed.leader.total.paidTotalUsd;
+                + wed.leader.total.paidTotalUsd
+                + wed.music.total.paidTotalUsd;
             wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd * wed.budget.currency;
 
             // Define totals sum of restUsd/restNat

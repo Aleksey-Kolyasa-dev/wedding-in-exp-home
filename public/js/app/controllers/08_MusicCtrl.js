@@ -1,25 +1,25 @@
 define(['angular'], function (angular) {
     "use strict";
-    var flowerCtrlModule = angular.module('flowerCtrlModule', ['wedServices']);
+    var musicCtrlModule = angular.module('musicCtrlModule', ['wedServices']);
 
-    flowerCtrlModule.controller('flowerMainCtrl', flowerMainCtrl);
+    musicCtrlModule.controller('musicMainCtrl', musicMainCtrl);
 
     /*
     * DECOR MAIN CTRL
     * */
-    function flowerMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function musicMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'flower',
+            mainProp : 'music',
 
             // MSGs setup
-            msgNameBg : 'FLOWER',
-            msgNameSm : 'Flower',
+            msgNameBg : 'MUSIC',
+            msgNameSm : 'Music',
 
             //Views setup
-            title : 'ФЛОРИСТ',
-            ttlBy : 'ФЛОРИСТУ',
+            title : 'МУЗЫКА',
+            ttlBy : 'МУЗЫКЕ',
 
             // Forms setup (auto)
             get addForm(){
@@ -36,6 +36,7 @@ define(['angular'], function (angular) {
 
         // WATCH CURRENCY VALUE and do recalculations if changed
         $scope.$watch("currentProject.budget.currency", function () {
+
             if($scope.currentProject[$scope.conf.mainProp].expCollection.lenght){
                 updateTotalValues();
                 if (_env._dev){
@@ -294,5 +295,5 @@ define(['angular'], function (angular) {
     } // *END* DECOR MAIN CTRL
 
 
-    return flowerCtrlModule;
+    return musicCtrlModule;
 });

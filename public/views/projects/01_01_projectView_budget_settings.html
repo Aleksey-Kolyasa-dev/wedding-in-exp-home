@@ -41,7 +41,7 @@
                 </thead>
 
                 <tbody>
-                    <tr class="guest" >
+                    <tr class="guest" ng-if="currentProject.restaurant.total.planTotalUsd">
                         <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
                         <td><a class="budget-table-list-link" ng-click="projectView('restaurant')">РЕСТОРАН</a></td>
                         <td class="text-center">{{currentProject.restaurant.total.planTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.planTotalUsd  | number : 1}} USD</span></td>
@@ -69,12 +69,19 @@
                         <td class="text-center">{{currentProject.leader.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.leader.total.paidTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center">{{currentProject.leader.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.leader.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
+                    <tr class="guest" ng-if="currentProject.music.expCollection.length">
+                        <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('music')">МУЗЫКА</a></td>
+                        <td class="text-center">{{currentProject.music.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.music.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.music.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.music.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.music.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.music.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
 
 
 
                     <!--FOOTER-->
                     <tr><td colspan="5" style="border-top: 0!important;"></td></tr>
-                    <tr class="guest total-footer-data" >
+                    <tr class="guest total-footer-data" ng-if="currentProject.budget.total.wedPlanTotalUsd">
                         <td class="hidden-xs hidden-sm"></td>
                         <td class="text-left" colspan="1" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
                         <td class="text-center">{{budgetTotals.wedPlanTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{budgetTotals.wedPlanTotalUsd  | number : 1}} USD</span></td>

@@ -11,6 +11,7 @@ require.config({
         'decorCtrlModule' 		: '../js/app/controllers/05_DecorCtrl',
         'flowerCtrlModule' 		: '../js/app/controllers/06_FlowerCtrl',
         'leaderCtrlModule' 		: '../js/app/controllers/07_LeaderCtrl',
+        'musicCtrlModule' 		: '../js/app/controllers/08_MusicCtrl',
         'directives'     		: '../js/app/directives/directives',
 		'jQuery'		  		: '../libs/js/jquery.min',
 		'jQueryUI'        		: '../libs/js/jquery-ui.min',
@@ -63,6 +64,9 @@ require.config({
         'leaderCtrlModule' : {
             deps : ['controllers']
         },
+		'musicCtrlModule' : {
+       		 deps : ['controllers']
+    	},
 		'twitterBootstrap' : ['jQuery'],
 		'app' : {
 			deps : [
@@ -76,6 +80,7 @@ require.config({
 				'decorCtrlModule',
 				'flowerCtrlModule',
 				'leaderCtrlModule',
+				'musicCtrlModule',
 				'directives'
 			]
 		}

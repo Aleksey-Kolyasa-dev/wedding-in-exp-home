@@ -337,6 +337,25 @@ router.put('/api/:id/leaderNotes', function (req, res, next) {
         });
     }
 });
+// PUT Single Project MUSIC keyURL = /musicNotes
+router.put('/api/:id/musicNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /musicNotes");
+
+    if(!project.musicNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: musicNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { musicNotes: project.musicNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
 
 
 
@@ -541,7 +560,25 @@ router.put('/api/:id/leaderDataSave', function (req, res, next) {
         });
     }
 });
+// PUT Single Project MUSIC keyURL = /musicDataSave
+router.put('/api/:id/musicDataSave', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /musicDataSave");
 
+    if(!project.music.expCollection){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: MUSIC Expense Item validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { music: project.music}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
 
 
 
