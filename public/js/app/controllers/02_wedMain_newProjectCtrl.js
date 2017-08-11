@@ -226,6 +226,29 @@ define(['angular'], function (angular) {
                         restTotalNat : 0
                     }
                 };
+                this.leader = {
+                    expCollection : [/*{
+                     name : 'ТОРТ',
+                     tariff : 200,
+                     multiplier : 5,
+                     unit : 'kg',
+                     toPai : 0,
+                     paid : 0,
+                     rest : 0,
+                     usd : false,
+                     money : null
+                     }*/],
+                    total : {
+                        planUsd : 0,
+                        planNat : 0,
+                        paidUsd : 0,
+                        paidNat : 0,
+                        paidTotalUsd : 0,
+                        paidTotalNat : 0,
+                        restTotalUsd : 0,
+                        restTotalNat : 0
+                    }
+                };
             }
 
             ResourceService._ajaxRequest("POST", null, new NewProjectCtor(newProject))

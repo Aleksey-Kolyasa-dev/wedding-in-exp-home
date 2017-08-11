@@ -125,7 +125,6 @@ define(['angular'], function (angular) {
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
                                             break;
-
                                         case "/restNotes":
                                             $http({
                                                 method: "PUT",
@@ -139,7 +138,6 @@ define(['angular'], function (angular) {
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
                                             break;
-
                                         case "/guestsNotes":
                                             $http({
                                                 method: "PUT",
@@ -153,7 +151,6 @@ define(['angular'], function (angular) {
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
                                             break;
-
                                         case "/menuNotes":
                                             $http({
                                                 method: "PUT",
@@ -167,7 +164,6 @@ define(['angular'], function (angular) {
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
                                             break;
-
                                         case "/cakesNotes":
                                             $http({
                                                 method: "PUT",
@@ -181,7 +177,6 @@ define(['angular'], function (angular) {
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
                                             break;
-
                                         case "/plusNotes":
                                             $http({
                                                 method: "PUT",
@@ -195,7 +190,6 @@ define(['angular'], function (angular) {
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
                                             break;
-
                                         case "/decorNotes":
                                             $http({
                                                 method: "PUT",
@@ -209,8 +203,20 @@ define(['angular'], function (angular) {
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
                                             break;
-
-                                            case "/flowerNotes":
+                                        case "/flowerNotes":
+                                            $http({
+                                                method: "PUT",
+                                                url: self.baseURL + data._id + keyURL,
+                                                data: data
+                                            }).success(function (data) {
+                                                deferred.resolve(data);
+                                            }).error(function (err) {
+                                                toastr.error('ERROR: PUT method failed');
+                                                deferred.reject('ERROR: PUT method failed');
+                                                throw new Error('ERROR: PUT method failed: ' + err);
+                                            });
+                                            break;
+                                        case "/leaderNotes":
                                             $http({
                                                 method: "PUT",
                                                 url: self.baseURL + data._id + keyURL,
@@ -337,6 +343,20 @@ define(['angular'], function (angular) {
                                             break;
 
                                         case "/flowerDataSave":
+                                            $http({
+                                                method: "PUT",
+                                                url: self.baseURL + data._id + keyURL,
+                                                data: data
+                                            }).success(function (data) {
+                                                deferred.resolve(data);
+                                            }).error(function (err) {
+                                                toastr.error('ERROR: PUT method failed');
+                                                deferred.reject('ERROR: PUT method failed');
+                                                throw new Error('ERROR: PUT method failed: ' + err);
+                                            });
+                                            break;
+
+                                        case "/leaderDataSave":
                                             $http({
                                                 method: "PUT",
                                                 url: self.baseURL + data._id + keyURL,

@@ -13,6 +13,7 @@ define([
 	'restaurantCtrlModule',
 	'decorCtrlModule',
 	'flowerCtrlModule',
+	'leaderCtrlModule',
 	'directives',
 	'angularRuLocale'
 ], function(angular){
@@ -28,6 +29,7 @@ define([
 		'restaurantCtrlModule',
 		'decorCtrlModule',
 		'flowerCtrlModule',
+		'leaderCtrlModule',
 		'wedServices',
 		'wedDerictives'
 	]);

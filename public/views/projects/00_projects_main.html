@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     <div>
-                        <a ng-class="currentProjectView.mainMenu == 'tamada'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('tamada')">
+                        <a ng-class="currentProjectView.mainMenu == 'leader'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('leader')">
                             <span>ВЕДУЩИЙ</span>
                         </a>
                     </div>
@@ -82,8 +82,8 @@
                 <div ng-show="currentProjectView.mainMenu == 'flower'">
                     <ng-include src="'/views/projects/04_00_projectView_flower.html'"></ng-include>
                 </div>
-                <div ng-show="currentProjectView.mainMenu == 'tamada'">
-                    <ng-include src="'/views/projects/05_00_projectView_tamada.html'"></ng-include>
+                <div ng-show="currentProjectView.mainMenu == 'leader'">
+                    <ng-include src="'/views/projects/05_00_projectView_leader.html'"></ng-include>
                 </div>
             </div>
             <!-- PROJECT'S VIEWS *END* -->

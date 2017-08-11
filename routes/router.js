@@ -73,6 +73,7 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.restaurantPlus = project.restaurantPlus;
         updatedProject.decor = project.decor;
         updatedProject.flower = project.flower;
+        updatedProject.leader = project.leader;
 
     }
     if(!updatedProject){
@@ -317,6 +318,25 @@ router.put('/api/:id/flowerNotes', function (req, res, next) {
         });
     }
 });
+// PUT Single Project LEADER keyURL = /leaderNotes
+router.put('/api/:id/leaderNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /leaderNotes");
+
+    if(!project.leaderNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: leaderNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { leaderNotes: project.leaderNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
 
 
 
@@ -502,7 +522,25 @@ router.put('/api/:id/flowerDataSave', function (req, res, next) {
         });
     }
 });
+// PUT Single Project LEADER keyURL = /leaderDataSave
+router.put('/api/:id/leaderDataSave', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /leaderDataSave");
 
+    if(!project.leader.expCollection){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: LEADER Expense Item validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { leader: project.leader}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
 
 
 
