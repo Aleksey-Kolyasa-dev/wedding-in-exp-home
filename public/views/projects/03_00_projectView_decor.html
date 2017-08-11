@@ -18,19 +18,19 @@
 
             <div style="margin-left: 20px">
                 <span class="info-plan">
-                    ПЛАН РАСХОДОВ:  <span class="nat-use">{{currentProject.decor.total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.decor.total.planUsd | number : 1}} USD</span>
+                    ПЛАН РАСХОДОВ:  <span class="nat-use">{{currentProject[conf.mainProp].total.planNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject[conf.mainProp].total.planUsd | number : 1}} USD</span>
                 </span>
             </div>
 
             <div style="margin-left: 20px" >
                 <span class="info-paid">
-                    ОПЛАЧЕННО:  <span class="nat-use">{{currentProject.decor.total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.decor.total.paidTotalUsd | number : 1}} USD</span>
+                    ОПЛАЧЕННО:  <span class="nat-use">{{currentProject[conf.mainProp].total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject[conf.mainProp].total.paidTotalUsd | number : 1}} USD</span>
                 </span>
             </div>
 
             <div style="margin-left: 20px" >
                 <span class="info-rest">
-                    ДОПЛАТАТИТЬ: <span class="nat-use">{{currentProject.decor.total.restTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.decor.total.restTotalUsd | number : 1}} USD</span>
+                    ДОПЛАТАТИТЬ: <span class="nat-use">{{currentProject[conf.mainProp].total.restTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject[conf.mainProp].total.restTotalUsd | number : 1}} USD</span>
                 </span>
             </div>
 

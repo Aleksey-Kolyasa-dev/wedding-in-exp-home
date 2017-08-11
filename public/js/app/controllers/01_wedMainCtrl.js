@@ -37,7 +37,7 @@ define(['angular'], function (angular) {
         // Exit to Home Page
         $scope.goToHomePage = function () {
             $location.path('/index');
-            $scope.currentProject = {};
+            //$scope.currentProject = {};
             $scope.currentProjectView.mainMenu = null;
         };
 

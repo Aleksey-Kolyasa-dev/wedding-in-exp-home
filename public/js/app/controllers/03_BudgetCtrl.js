@@ -27,15 +27,15 @@ define(['angular'], function (angular) {
         function weddingBudgetTotals() {
             var wed = $scope.currentProject;
             // Define totals sum of planUsd/planNat
-            wed.budget.total.wedPlanTotalUsd = wed.restaurant.total.planTotalUsd + wed.decor.total.planUsd;
+            wed.budget.total.wedPlanTotalUsd = wed.restaurant.total.planTotalUsd + wed.decor.total.planUsd + wed.flower.total.planUsd;
             wed.budget.total.wedPlanTotalNat =  wed.budget.total.wedPlanTotalUsd * wed.budget.currency;
 
             // Define totals sum of paidUsd/paidNat
-            wed.budget.total.wedPaidTotalUsd = wed.restaurant.total.paidTotalUsd + wed.decor.total.paidTotalUsd;
+            wed.budget.total.wedPaidTotalUsd = wed.restaurant.total.paidTotalUsd + wed.decor.total.paidTotalUsd  + wed.flower.total.paidTotalUsd;
             wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd * wed.budget.currency;
 
             // Define totals sum of restUsd/restNat
-            wed.budget.total.wedRestTotalUsd =  wed.restaurant.total.restTotalUsd + wed.decor.total.restTotalUsd;
+            wed.budget.total.wedRestTotalUsd =  wed.budget.total.wedPlanTotalUsd -  wed.budget.total.wedPaidTotalUsd;
             wed.budget.total.wedRestTotalNat =  wed.budget.total.wedRestTotalUsd * wed.budget.currency;
 
             // DEFINE WED BUDGET REST by PLAN

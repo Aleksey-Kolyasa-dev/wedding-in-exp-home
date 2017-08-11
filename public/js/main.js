@@ -9,6 +9,7 @@ require.config({
         'budgetCtrlModule' 		: '../js/app/controllers/03_BudgetCtrl',
         'restaurantCtrlModule' 	: '../js/app/controllers/04_RestaurantCtrl',
         'decorCtrlModule' 		: '../js/app/controllers/05_DecorCtrl',
+        'flowerCtrlModule' 		: '../js/app/controllers/06_FlowerCtrl',
         'directives'     		: '../js/app/directives/directives',
 		'jQuery'		  		: '../libs/js/jquery.min',
 		'jQueryUI'        		: '../libs/js/jquery-ui.min',
@@ -55,6 +56,9 @@ require.config({
         'decorCtrlModule' : {
             deps : ['controllers']
         },
+        'flowerCtrlModule' : {
+            deps : ['controllers']
+        },
 		'twitterBootstrap' : ['jQuery'],
 		'app' : {
 			deps : [
@@ -66,6 +70,7 @@ require.config({
 				'budgetCtrlModule',
 				'restaurantCtrlModule',
 				'decorCtrlModule',
+				'flowerCtrlModule',
 				'directives'
 			]
 		}

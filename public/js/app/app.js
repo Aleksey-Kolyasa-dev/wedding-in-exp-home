@@ -12,6 +12,7 @@ define([
 	'budgetCtrlModule',
 	'restaurantCtrlModule',
 	'decorCtrlModule',
+	'flowerCtrlModule',
 	'directives',
 	'angularRuLocale'
 ], function(angular){
@@ -26,6 +27,7 @@ define([
 		'budgetCtrlModule',
 		'restaurantCtrlModule',
 		'decorCtrlModule',
+		'flowerCtrlModule',
 		'wedServices',
 		'wedDerictives'
 	]);

@@ -31,7 +31,6 @@ router.get('/api/:id', function (req, res, next) {
         //console.log(project);
     });
 });
-
 // POST Single Project
 router.post('/api', function (req, res, next) {
    var newProject = req.body;
@@ -50,7 +49,6 @@ router.post('/api', function (req, res, next) {
        });
    }
 });
-
 // PUT Single Projects
 router.put('/api/:id', function (req, res, next) {
     var project = req.body;
@@ -74,6 +72,7 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.restaurantCakes = project.restaurantCakes;
         updatedProject.restaurantPlus = project.restaurantPlus;
         updatedProject.decor = project.decor;
+        updatedProject.flower = project.flower;
 
     }
     if(!updatedProject){
@@ -91,6 +90,18 @@ router.put('/api/:id', function (req, res, next) {
         });
     }
 });
+// DELETE Single Project
+router.delete('/api/:id', function (req, res, next) {
+    console.log("CALL DELETE BY: _id");
+    db.weddings.remove({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
+        if(err){
+            res.send(err);
+        }
+        res.json(project);
+        //console.log(project);
+    });
+});
+
 
 // PUT Single Project keyURL = /fianceSideGuests
 router.put('/api/:id/fianceSideGuests', function (req, res, next) {
@@ -112,7 +123,6 @@ router.put('/api/:id/fianceSideGuests', function (req, res, next) {
         });
     }
 });
-
 // PUT Single Project keyURL = /fianceeSideGuests
 router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
     var project = req.body;
@@ -133,7 +143,6 @@ router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
         });
     }
 });
-
 // PUT Single Project BUDGET keyURL = /budget
 router.put('/api/:id/budget', function (req, res, next) {
     var project = req.body;
@@ -289,6 +298,26 @@ router.put('/api/:id/decorNotes', function (req, res, next) {
         });
     }
 });
+// PUT Single Project FLOWER keyURL = /flowerNotes
+router.put('/api/:id/flowerNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /flowerNotes");
+
+    if(!project.decorNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: flowerNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { flowerNotes: project.flowerNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+
 
 
 // PUT Single Project keyURL = /quickView
@@ -311,7 +340,6 @@ router.put('/api/:id/quickView', function (req, res, next) {
         });
     }
 });
-
 // PUT Single Project RESTAURANT keyURL = /quickDataSave
 router.put('/api/:id/quickDataSave', function (req, res, next) {
     var project = req.body;
@@ -332,7 +360,6 @@ router.put('/api/:id/quickDataSave', function (req, res, next) {
         });
     }
 });
-
 // PUT Single Project RESTAURANT keyURL = /useMenuCheckDataSave
 router.put('/api/:id/useMenuCheckDataSave', function (req, res, next) {
     var project = req.body;
@@ -353,7 +380,6 @@ router.put('/api/:id/useMenuCheckDataSave', function (req, res, next) {
         });
     }
 });
-
 // PUT Single Project RESTAURANT keyURL = /generalDataSave
 router.put('/api/:id/generalDataSave', function (req, res, next) {
     var project = req.body;
@@ -374,7 +400,6 @@ router.put('/api/:id/generalDataSave', function (req, res, next) {
         });
     }
 });
-
 // PUT Single Project RESTAURANT PLUS keyURL = /restaurantMenuDataSave
 router.put('/api/:id/restaurantMenuDataSave', function (req, res, next) {
     var project = req.body;
@@ -395,7 +420,6 @@ router.put('/api/:id/restaurantMenuDataSave', function (req, res, next) {
         });
     }
 });
-
 // PUT Single Project RESTAURANT PLUS keyURL = /restaurantCakesDataSave
 router.put('/api/:id/restaurantCakesDataSave', function (req, res, next) {
     var project = req.body;
@@ -416,7 +440,6 @@ router.put('/api/:id/restaurantCakesDataSave', function (req, res, next) {
         });
     }
 });
-
 // PUT Single Project RESTAURANT PLUS keyURL = /restaurantPlusNewExpItemSave
 router.put('/api/:id/restaurantPlusNewExpItemSave', function (req, res, next) {
     var project = req.body;
@@ -438,6 +461,7 @@ router.put('/api/:id/restaurantPlusNewExpItemSave', function (req, res, next) {
     }
 });
 
+
 // PUT Single Project DECOR keyURL = /decorDataSave
 router.put('/api/:id/decorDataSave', function (req, res, next) {
     var project = req.body;
@@ -458,17 +482,33 @@ router.put('/api/:id/decorDataSave', function (req, res, next) {
         });
     }
 });
+// PUT Single Project FLOWER keyURL = /flowerDataSave
+router.put('/api/:id/flowerDataSave', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /flowerDataSave");
 
-// DELETE Single Project
-router.delete('/api/:id', function (req, res, next) {
-    console.log("CALL DELETE BY: _id");
-    db.weddings.remove({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
-        if(err){
-            res.send(err);
-        }
-        res.json(project);
-        //console.log(project);
-    });
+    if(!project.flower.expCollection){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: FLOWER Expense Item validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { flower: project.flower}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+        });
+    }
 });
+
+
+
+
+
+
+
+
 
 module.exports = router;
