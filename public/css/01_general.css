@@ -15,13 +15,13 @@
     margin: 10px;
 
 }
-.main{
-    background-image: url("../img/main_bg.jpg");
+.start_main{
+    background-image: url("../img/main_bg2.jpg");
     background-repeat: no-repeat;
     height: 1080px;
 }
-.project_main{
+.projects_main{
     background-image: url("../img/main_bg.jpg");
     background-repeat: no-repeat;
-    height: 100%;
+    height: 1080px;
 }

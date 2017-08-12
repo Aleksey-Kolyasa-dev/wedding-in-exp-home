@@ -10,8 +10,8 @@ define(['angular'], function (angular) {
         $scope.projects = [];
         $scope.currentProjectView = {};
         $scope.toDay = new Date;
-        $location.path('/index');
-        $scope.dynamicBackground = "main";
+        $location.path('/start');
+        $scope.dynamicBackground = "start_main";
 
         // Projects list update fn
         function updateProjectsList() {
@@ -37,6 +37,7 @@ define(['angular'], function (angular) {
         // Exit to Home Page
         $scope.goToHomePage = function () {
             $location.path('/index');
+            $scope.dynamicBackground = "projects_main";
             //$scope.currentProject = {};
             $scope.currentProjectView.mainMenu = null;
         };

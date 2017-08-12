@@ -46,7 +46,9 @@ define([
 
 	wedInApp.config(['$routeProvider',function ($routeProvider) {
 
-		$routeProvider.when('/index', {
+		$routeProvider.when('/start', {
+            templateUrl : '/views/start_page/00_home_page.html'
+        }).when('/index', {
 			templateUrl : '/views/home_page/00_home_page.html'
 		}).when('/project', {
             templateUrl : '/views/projects/00_projects_main.html'
