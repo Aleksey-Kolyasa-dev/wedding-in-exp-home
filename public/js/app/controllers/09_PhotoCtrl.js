@@ -1,25 +1,25 @@
 define(['angular'], function (angular) {
     "use strict";
-    var musicCtrlModule = angular.module('musicCtrlModule', ['wedServices']);
+    var photoCtrlModule = angular.module('photoCtrlModule', ['wedServices']);
 
-    musicCtrlModule.controller('musicMainCtrl', musicMainCtrl);
+    photoCtrlModule.controller('photoMainCtrl', photoMainCtrl);
 
     /*
     * DECOR MAIN CTRL
     * */
-    function musicMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function photoMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'music',
+            mainProp : 'photo',
 
             // MSGs setup
-            msgNameBg : 'MUSIC',
-            msgNameSm : 'Music',
+            msgNameBg : 'PHOTO',
+            msgNameSm : 'Photo',
 
             //Views setup
-            title : 'МУЗЫКА',
-            ttlBy : 'МУЗЫКЕ',
+            title : 'ФОТО',
+            ttlBy : 'ФОТО',
 
             // Forms setup (auto)
             get addForm(){
@@ -295,5 +295,5 @@ define(['angular'], function (angular) {
     } // *END* DECOR MAIN CTRL
 
 
-    return musicCtrlModule;
+    return photoCtrlModule;
 });

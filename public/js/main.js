@@ -12,7 +12,10 @@ require.config({
         'flowerCtrlModule' 		: '../js/app/controllers/06_FlowerCtrl',
         'leaderCtrlModule' 		: '../js/app/controllers/07_LeaderCtrl',
         'musicCtrlModule' 		: '../js/app/controllers/08_MusicCtrl',
-        'directives'     		: '../js/app/directives/directives',
+        'photoCtrlModule' 		: '../js/app/controllers/09_PhotoCtrl',
+        'videoCtrlModule' 		: '../js/app/controllers/10_VideoCtrl',
+
+		'directives'     		: '../js/app/directives/directives',
 		'jQuery'		  		: '../libs/js/jquery.min',
 		'jQueryUI'        		: '../libs/js/jquery-ui.min',
 		'angular'         		: '../libs/js/angular',
@@ -67,6 +70,14 @@ require.config({
 		'musicCtrlModule' : {
        		 deps : ['controllers']
     	},
+        'photoCtrlModule' : {
+            deps : ['controllers']
+        },
+        'videoCtrlModule' : {
+            deps : ['controllers']
+        },
+
+
 		'twitterBootstrap' : ['jQuery'],
 		'app' : {
 			deps : [
@@ -81,6 +92,10 @@ require.config({
 				'flowerCtrlModule',
 				'leaderCtrlModule',
 				'musicCtrlModule',
+                'photoCtrlModule',
+                'videoCtrlModule',
+
+
 				'directives'
 			]
 		}

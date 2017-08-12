@@ -76,6 +76,20 @@
                         <td class="text-center">{{currentProject.music.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.music.total.paidTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center">{{currentProject.music.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.music.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
+                    <tr class="guest" ng-if="currentProject.photo.expCollection.length">
+                        <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('photo')">ФОТО</a></td>
+                        <td class="text-center">{{currentProject.photo.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.photo.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.photo.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.photo.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.photo.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.photo.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
+                    <tr class="guest" ng-if="currentProject.video.expCollection.length">
+                        <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('video')">ВИДЕО</a></td>
+                        <td class="text-center">{{currentProject.video.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.video.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.video.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.video.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.video.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.video.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
 
 
 

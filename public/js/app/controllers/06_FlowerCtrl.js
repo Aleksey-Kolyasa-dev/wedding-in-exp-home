@@ -36,7 +36,7 @@ define(['angular'], function (angular) {
 
         // WATCH CURRENCY VALUE and do recalculations if changed
         $scope.$watch("currentProject.budget.currency", function () {
-            if($scope.currentProject[$scope.conf.mainProp].expCollection.lenght){
+            if($scope.currentProject[$scope.conf.mainProp].expCollection.length){
                 updateTotalValues();
                 if (_env._dev){
                     $log.log('update by ' + $scope.conf.msgNameBg + ': reason - CURRENCY change EVENT');

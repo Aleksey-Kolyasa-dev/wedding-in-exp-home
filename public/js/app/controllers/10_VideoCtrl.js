@@ -1,25 +1,25 @@
 define(['angular'], function (angular) {
     "use strict";
-    var musicCtrlModule = angular.module('musicCtrlModule', ['wedServices']);
+    var videoCtrlModule = angular.module('videoCtrlModule', ['wedServices']);
 
-    musicCtrlModule.controller('musicMainCtrl', musicMainCtrl);
+    videoCtrlModule.controller('videoMainCtrl', videoMainCtrl);
 
     /*
     * DECOR MAIN CTRL
     * */
-    function musicMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function videoMainCtrl($scope, $log, toastr, _env, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'music',
+            mainProp : 'video',
 
             // MSGs setup
-            msgNameBg : 'MUSIC',
-            msgNameSm : 'Music',
+            msgNameBg : 'VIDEO',
+            msgNameSm : 'Video',
 
             //Views setup
-            title : 'МУЗЫКА',
-            ttlBy : 'МУЗЫКЕ',
+            title : 'ВИДЕО',
+            ttlBy : 'ВИДЕО',
 
             // Forms setup (auto)
             get addForm(){
@@ -36,7 +36,6 @@ define(['angular'], function (angular) {
 
         // WATCH CURRENCY VALUE and do recalculations if changed
         $scope.$watch("currentProject.budget.currency", function () {
-
             if($scope.currentProject[$scope.conf.mainProp].expCollection.length){
                 updateTotalValues();
                 if (_env._dev){
@@ -295,5 +294,5 @@ define(['angular'], function (angular) {
     } // *END* DECOR MAIN CTRL
 
 
-    return musicCtrlModule;
+    return videoCtrlModule;
 });

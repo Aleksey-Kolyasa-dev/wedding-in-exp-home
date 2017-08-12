@@ -89,6 +89,18 @@ define(['angular'], function (angular) {
                 case "music" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+                case "photo" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
+                case "video" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
+                case "zags" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
+                case "transport" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
             }
         };
 

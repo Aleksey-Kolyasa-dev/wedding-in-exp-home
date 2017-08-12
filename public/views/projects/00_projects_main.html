@@ -40,17 +40,22 @@
                         </a>
                     </div>
                     <div>
-                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
-                            <span>ВИДЕО И ФОТО</span>
+                        <a ng-class="currentProjectView.mainMenu == 'photo'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('photo')">
+                            <span>ФОТО</span>
                         </a>
                     </div>
                     <div>
-                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
+                        <a ng-class="currentProjectView.mainMenu == 'video'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('video')">
+                            <span>ВИДЕО</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a ng-class="currentProjectView.mainMenu == 'zags'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('zags')">
                             <span>ЗАГС</span>
                         </a>
                     </div>
                     <div>
-                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
+                        <a ng-class="currentProjectView.mainMenu == 'transport'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('transport')">
                             <span>ТРАНСПОРТ</span>
                         </a>
                     </div>
@@ -87,6 +92,18 @@
                 </div>
                 <div ng-show="currentProjectView.mainMenu == 'music'">
                     <ng-include src="'/views/projects/06_00_projectView_music.html'"></ng-include>
+                </div>
+                <div ng-show="currentProjectView.mainMenu == 'photo'">
+                    <ng-include src="'/views/projects/07_00_projectView_photo.html'"></ng-include>
+                </div>
+                <div ng-show="currentProjectView.mainMenu == 'video'">
+                    <ng-include src="'/views/projects/08_00_projectView_video.html'"></ng-include>
+                </div>
+                <div ng-show="currentProjectView.mainMenu == 'zags'">
+                    <ng-include src="'/views/projects/09_00_projectView_zags.html'"></ng-include>
+                </div>
+                <div ng-show="currentProjectView.mainMenu == 'transport'">
+                    <ng-include src="'/views/projects/10_00_projectView_transport.html'"></ng-include>
                 </div>
             </div>
             <!-- PROJECT'S VIEWS *END* -->

@@ -74,6 +74,11 @@ router.put('/api/:id', function (req, res, next) {
         updatedProject.decor = project.decor;
         updatedProject.flower = project.flower;
         updatedProject.leader = project.leader;
+        updatedProject.music = project.music;
+        updatedProject.photo = project.photo;
+        updatedProject.video = project.video;
+        updatedProject.zags = project.zags;
+        updatedProject.transport = project.transport;
 
     }
     if(!updatedProject){
@@ -356,7 +361,44 @@ router.put('/api/:id/musicNotes', function (req, res, next) {
         });
     }
 });
+// PUT Single Project PHOTO keyURL = /photoNotes
+router.put('/api/:id/photoNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /photoNotes");
 
+    if(!project.photoNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: photoNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { photoNotes: project.photoNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+// PUT Single Project VIDEO keyURL = /videoNotes
+router.put('/api/:id/videoNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /videoNotes");
+
+    if(!project.videoNotes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: videoNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { videoNotes: project.videoNotes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
 
 
 // PUT Single Project keyURL = /quickView
@@ -572,6 +614,44 @@ router.put('/api/:id/musicDataSave', function (req, res, next) {
         });
     } else {
         db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { music: project.music}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+// PUT Single Project PHOTO keyURL = /photoDataSave
+router.put('/api/:id/photoDataSave', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /photoDataSave");
+
+    if(!project.photo.expCollection){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: PHOTO Expense Item validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { photo: project.photo}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+// PUT Single Project VIDEO keyURL = /videoDataSave
+router.put('/api/:id/videoDataSave', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /videoDataSave");
+
+    if(!project.video.expCollection){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: VIDEO Expense Item validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { video: project.video}}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }

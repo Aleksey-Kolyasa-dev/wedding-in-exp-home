@@ -15,6 +15,10 @@ define([
 	'flowerCtrlModule',
 	'leaderCtrlModule',
 	'musicCtrlModule',
+    'photoCtrlModule',
+    'videoCtrlModule',
+
+
 	'directives',
 	'angularRuLocale'
 ], function(angular){
@@ -32,6 +36,10 @@ define([
 		'flowerCtrlModule',
 		'leaderCtrlModule',
 		'musicCtrlModule',
+        'photoCtrlModule',
+        'videoCtrlModule',
+
+
 		'wedServices',
 		'wedDerictives'
 	]);

@@ -31,7 +31,11 @@ define(['angular'], function (angular) {
                 + wed.decor.total.planUsd
                 + wed.flower.total.planUsd
                 + wed.leader.total.planUsd
-                + wed.music.total.planUsd;
+                + wed.music.total.planUsd
+                + wed.photo.total.planUsd
+                + wed.video.total.planUsd;
+
+
             wed.budget.total.wedPlanTotalNat =  wed.budget.total.wedPlanTotalUsd * wed.budget.currency;
 
             // Define totals sum of paidUsd/paidNat
@@ -39,7 +43,9 @@ define(['angular'], function (angular) {
                 + wed.decor.total.paidTotalUsd
                 + wed.flower.total.paidTotalUsd
                 + wed.leader.total.paidTotalUsd
-                + wed.music.total.paidTotalUsd;
+                + wed.music.total.paidTotalUsd
+                + wed.photo.total.paidTotalUsd
+                + wed.video.total.paidTotalUsd;
             wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd * wed.budget.currency;
 
             // Define totals sum of restUsd/restNat
