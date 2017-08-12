@@ -292,7 +292,7 @@ define(['angular'], function (angular) {
         };
 
     } // *END* DECOR MAIN CTRL
-
+//
 
     return flowerCtrlModule;
 });
