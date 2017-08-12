@@ -14,8 +14,8 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 // Routes
-app.use('/', require('./routes/router'));
-app.use('/api', require('./routes/router'));
+app.use('/', require('./routes/projects'));
+app.use('/api', require('./routes/projects'));
 
 // Static folder
 app.use(express.static(path.join(__dirname, './public')));

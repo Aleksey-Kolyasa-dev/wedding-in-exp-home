@@ -1,16 +1,16 @@
 var express = require('express');
-var router = express.Router();
+var projectsRouter = express.Router();
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
 // var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
 
 // Routes
-router.get('/', function (req, res) {
+projectsRouter.get('/', function (req, res) {
     res.render('../public/index', { title : 'Wedding_in'});
 });
 
 // GET All Projects
-router.get('/api', function (req, res, next) {
+projectsRouter.get('/api', function (req, res, next) {
     db.weddings.find(function (err, projects) {
         if(err){
             res.send(err);
@@ -22,7 +22,7 @@ router.get('/api', function (req, res, next) {
 });
 
 // GET Single Project
-router.get('/api/:id', function (req, res, next) {
+projectsRouter.get('/api/:id', function (req, res, next) {
     db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
             res.send(err);
@@ -32,7 +32,7 @@ router.get('/api/:id', function (req, res, next) {
     });
 });
 // POST Single Project
-router.post('/api', function (req, res, next) {
+projectsRouter.post('/api', function (req, res, next) {
    var newProject = req.body;
    if(!newProject.fianceName || !newProject.fianceeName || !newProject.weddingDate || !newProject.budget.budgetUSD || !newProject.email || !newProject.telephones) {
        res.status(400);
@@ -50,7 +50,7 @@ router.post('/api', function (req, res, next) {
    }
 });
 // PUT Single Projects
-router.put('/api/:id', function (req, res, next) {
+projectsRouter.put('/api/:id', function (req, res, next) {
     var project = req.body;
     var updatedProject = {};
 
@@ -97,7 +97,7 @@ router.put('/api/:id', function (req, res, next) {
     }
 });
 // DELETE Single Project
-router.delete('/api/:id', function (req, res, next) {
+projectsRouter.delete('/api/:id', function (req, res, next) {
     console.log("CALL DELETE BY: _id");
     db.weddings.remove({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
@@ -110,7 +110,7 @@ router.delete('/api/:id', function (req, res, next) {
 
 
 // PUT Single Project keyURL = /fianceSideGuests
-router.put('/api/:id/fianceSideGuests', function (req, res, next) {
+projectsRouter.put('/api/:id/fianceSideGuests', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /fianceSideGuests");
 
@@ -130,7 +130,7 @@ router.put('/api/:id/fianceSideGuests', function (req, res, next) {
     }
 });
 // PUT Single Project keyURL = /fianceeSideGuests
-router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
+projectsRouter.put('/api/:id/fianceeSideGuests', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /fianceeSideGuests");
 
@@ -150,7 +150,7 @@ router.put('/api/:id/fianceeSideGuests', function (req, res, next) {
     }
 });
 // PUT Single Project BUDGET keyURL = /budget
-router.put('/api/:id/budget', function (req, res, next) {
+projectsRouter.put('/api/:id/budget', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /budget");
 
@@ -172,7 +172,7 @@ router.put('/api/:id/budget', function (req, res, next) {
 
 
 // PUT Single Project BUDGET keyURL = /budgetNotes
-router.put('/api/:id/budgetNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/budgetNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /budgetNotes");
 
@@ -191,7 +191,7 @@ router.put('/api/:id/budgetNotes', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT keyURL = /restNotes
-router.put('/api/:id/restNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/restNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /restNotes");
 
@@ -210,7 +210,7 @@ router.put('/api/:id/restNotes', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT keyURL = /guestsNotes
-router.put('/api/:id/guestsNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/guestsNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /guestsNotes");
 
@@ -229,7 +229,7 @@ router.put('/api/:id/guestsNotes', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT keyURL = /menuNotes
-router.put('/api/:id/menuNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/menuNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /menuNotes");
 
@@ -248,7 +248,7 @@ router.put('/api/:id/menuNotes', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT keyURL = /cakesNotes
-router.put('/api/:id/cakesNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/cakesNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /cakesNotes");
 
@@ -267,7 +267,7 @@ router.put('/api/:id/cakesNotes', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT keyURL = /plusNotes
-router.put('/api/:id/plusNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/plusNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /plusNotes");
 
@@ -286,7 +286,7 @@ router.put('/api/:id/plusNotes', function (req, res, next) {
     }
 });
 // PUT Single Project DECOR keyURL = /decorNotes
-router.put('/api/:id/decorNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/decorNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /decorNotes");
 
@@ -305,7 +305,7 @@ router.put('/api/:id/decorNotes', function (req, res, next) {
     }
 });
 // PUT Single Project FLOWER keyURL = /flowerNotes
-router.put('/api/:id/flowerNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/flowerNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /flowerNotes");
 
@@ -324,7 +324,7 @@ router.put('/api/:id/flowerNotes', function (req, res, next) {
     }
 });
 // PUT Single Project LEADER keyURL = /leaderNotes
-router.put('/api/:id/leaderNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/leaderNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /leaderNotes");
 
@@ -343,7 +343,7 @@ router.put('/api/:id/leaderNotes', function (req, res, next) {
     }
 });
 // PUT Single Project MUSIC keyURL = /musicNotes
-router.put('/api/:id/musicNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/musicNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /musicNotes");
 
@@ -362,7 +362,7 @@ router.put('/api/:id/musicNotes', function (req, res, next) {
     }
 });
 // PUT Single Project PHOTO keyURL = /photoNotes
-router.put('/api/:id/photoNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/photoNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /photoNotes");
 
@@ -381,7 +381,7 @@ router.put('/api/:id/photoNotes', function (req, res, next) {
     }
 });
 // PUT Single Project VIDEO keyURL = /videoNotes
-router.put('/api/:id/videoNotes', function (req, res, next) {
+projectsRouter.put('/api/:id/videoNotes', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /videoNotes");
 
@@ -402,7 +402,7 @@ router.put('/api/:id/videoNotes', function (req, res, next) {
 
 
 // PUT Single Project keyURL = /quickView
-router.put('/api/:id/quickView', function (req, res, next) {
+projectsRouter.put('/api/:id/quickView', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /quickView");
 
@@ -422,7 +422,7 @@ router.put('/api/:id/quickView', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT keyURL = /quickDataSave
-router.put('/api/:id/quickDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/quickDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /quickDataSave");
 
@@ -442,7 +442,7 @@ router.put('/api/:id/quickDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT keyURL = /useMenuCheckDataSave
-router.put('/api/:id/useMenuCheckDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /useMenuCheckDataSave");
 
@@ -462,7 +462,7 @@ router.put('/api/:id/useMenuCheckDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT keyURL = /generalDataSave
-router.put('/api/:id/generalDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/generalDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /generalDataSave");
 
@@ -482,7 +482,7 @@ router.put('/api/:id/generalDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT PLUS keyURL = /restaurantMenuDataSave
-router.put('/api/:id/restaurantMenuDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/restaurantMenuDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /restaurantMenuDataSave");
 
@@ -502,7 +502,7 @@ router.put('/api/:id/restaurantMenuDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT PLUS keyURL = /restaurantCakesDataSave
-router.put('/api/:id/restaurantCakesDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/restaurantCakesDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /restaurantCakesDataSave");
 
@@ -522,7 +522,7 @@ router.put('/api/:id/restaurantCakesDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project RESTAURANT PLUS keyURL = /restaurantPlusNewExpItemSave
-router.put('/api/:id/restaurantPlusNewExpItemSave', function (req, res, next) {
+projectsRouter.put('/api/:id/restaurantPlusNewExpItemSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /restaurantPlusNewExpItemSave");
 
@@ -544,7 +544,7 @@ router.put('/api/:id/restaurantPlusNewExpItemSave', function (req, res, next) {
 
 
 // PUT Single Project DECOR keyURL = /decorDataSave
-router.put('/api/:id/decorDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/decorDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /decorDataSave");
 
@@ -564,7 +564,7 @@ router.put('/api/:id/decorDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project FLOWER keyURL = /flowerDataSave
-router.put('/api/:id/flowerDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/flowerDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /flowerDataSave");
 
@@ -584,7 +584,7 @@ router.put('/api/:id/flowerDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project LEADER keyURL = /leaderDataSave
-router.put('/api/:id/leaderDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/leaderDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /leaderDataSave");
 
@@ -603,7 +603,7 @@ router.put('/api/:id/leaderDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project MUSIC keyURL = /musicDataSave
-router.put('/api/:id/musicDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/musicDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /musicDataSave");
 
@@ -622,7 +622,7 @@ router.put('/api/:id/musicDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project PHOTO keyURL = /photoDataSave
-router.put('/api/:id/photoDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/photoDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /photoDataSave");
 
@@ -641,7 +641,7 @@ router.put('/api/:id/photoDataSave', function (req, res, next) {
     }
 });
 // PUT Single Project VIDEO keyURL = /videoDataSave
-router.put('/api/:id/videoDataSave', function (req, res, next) {
+projectsRouter.put('/api/:id/videoDataSave', function (req, res, next) {
     var project = req.body;
     console.log("CALL PUT BY: /videoDataSave");
 
@@ -666,4 +666,4 @@ router.put('/api/:id/videoDataSave', function (req, res, next) {
 
 
 
-module.exports = router;
+module.exports = projectsRouter;
