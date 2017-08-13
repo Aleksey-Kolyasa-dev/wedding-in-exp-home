@@ -2,19 +2,14 @@ define(['angular'], function (angular) {
     "use strict";
     var authServices = angular.module('authServices', ['toastr', 'ngAnimate']);
 
-    authServices.service('_env', [_env]);
-    authServices.service('ResourceService', ['toastr', '$http', '$q', '$log', '$location', ResourceService]);
-    authServices.service('AppService', ['toastr', AppService]);
 
-    function _env() {
-        return {
-            _dev : true
-        };
-    }
+    authServices.service('UsersResourceService', ['toastr', '$http', '$q', '$log', '$location', UsersResourceService]);
+    //authServices.service('AppService', ['toastr', AppService]);
 
-    function ResourceService(toastr, $http, $q, $log, $location, wedURL) {
+
+    function UsersResourceService(toastr, $http, $q, $log, $location, wedURL) {
         return {
-            baseURL: 'http://localhost:5000/api/',
+            baseURL: 'http://localhost:5000/users/',
             _ajaxRequest: function (method, url, data, keyURL) {
                 var self = this;
                 var deferred = $q.defer();
@@ -470,38 +465,7 @@ define(['angular'], function (angular) {
         };
     }
 
-    function AppService(toastr) {
-        return {
-            // Transform date String "dd.mm.yyyy" to Date Obj.
-            _dateStringToObject: function (dateString) {
-                if (angular.isString(dateString)) {
-                    var dateArr = dateString.split('.');
-                    return new Date(dateArr[2], dateArr[1] - 1, dateArr[0]);
-                }
-                else {
-                    toastr.error('ERROR: Date transformation error');
-                    throw new Error('ERROR: Date transformation error');
-                }
-            },
-            _objectTodateString: function (dateString) {
-                if (angular.isString(dateString)) {
-                    var date = new Date(dateString);
-                    var dateArr = [date.getDate(), date.getMonth() + 1, date.getFullYear()];
-                    if(dateArr[0] < 10){
-                        dateArr[0] = "0" + dateArr[1];
-                    }
-                    if(dateArr[1] < 10){
-                        dateArr[1] = "0" + dateArr[1];
-                    }
-                    return dateArr.join('.');
-                }
-                else {
-                    toastr.error('ERROR: Date transformation error');
-                    throw new Error('ERROR: Date transformation error');
-                }
-            }
-        };
-    }
+
 
     return authServices;
 });
