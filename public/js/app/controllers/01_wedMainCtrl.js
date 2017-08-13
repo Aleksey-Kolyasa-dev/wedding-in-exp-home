@@ -3,7 +3,12 @@ define(['angular'], function (angular) {
     var wedControllers = angular.module('wedControllers', ['wedServices']);
 
     wedControllers.controller('wedMainCtrl', wedMainCtrl);
+    wedControllers.controller('wedProjectsMainCtrl', wedProjectsMainCtrl);
 
+
+    /*
+     * APP MAIN CTRL
+     * */
     function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, ResourceService, AppService) {
         // Default Values
         $scope.currentProject = {};
@@ -28,11 +33,6 @@ define(['angular'], function (angular) {
         $scope.$on('projectsListChange', function () {
             updateProjectsList();
         });
-
-        // Filter for shift expired dated projects to Archive
-        $scope.projectListDateCheck = function (project) {
-            return new Date(project.weddingDate).setHours(23, 59, 0) > Date.now();
-        };
 
         // Exit to Home Page
         $scope.goToHomePage = function () {
@@ -66,6 +66,18 @@ define(['angular'], function (angular) {
                     $scope.currentProjectView.mainMenu = "budget";
                 }
             });
+        };
+
+    }// Ctrl end
+
+    /*
+     * PROJECTS MAIN CTRL
+     * */
+    function wedProjectsMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, ResourceService, AppService) {
+
+        // Filter for shift expired dated projects to Archive
+        $scope.projectListDateCheck = function (project) {
+            return new Date(project.weddingDate).setHours(23, 59, 0) > Date.now();
         };
 
         // Project Left Menu navigation
@@ -106,6 +118,7 @@ define(['angular'], function (angular) {
         };
 
     }// Ctrl end
+
 
     return wedControllers;
 });

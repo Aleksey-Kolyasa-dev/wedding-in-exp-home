@@ -3,17 +3,19 @@ require.config({
 	paths : 
 	{
 		'app'             		: '../js/app/app',
-		'services'        		: '../js/app/services/services',
+		'projServices'        		: '../js/app/services/projectsServices',
+		'authServices'          : '../js/app/services/authServices',
 		'controllers'     		: '../js/app/controllers/01_wedMainCtrl',
-		'newProjectCtrlModule' 	: '../js/app/controllers/02_wedMain_newProjectCtrl',
-        'budgetCtrlModule' 		: '../js/app/controllers/03_BudgetCtrl',
-        'restaurantCtrlModule' 	: '../js/app/controllers/04_RestaurantCtrl',
-        'decorCtrlModule' 		: '../js/app/controllers/05_DecorCtrl',
-        'flowerCtrlModule' 		: '../js/app/controllers/06_FlowerCtrl',
-        'leaderCtrlModule' 		: '../js/app/controllers/07_LeaderCtrl',
-        'musicCtrlModule' 		: '../js/app/controllers/08_MusicCtrl',
-        'photoCtrlModule' 		: '../js/app/controllers/09_PhotoCtrl',
-        'videoCtrlModule' 		: '../js/app/controllers/10_VideoCtrl',
+        'usersCtrlModule'    	: '../js/app/controllers/01_start/01_usersMainCtrl',
+		'newProjectCtrlModule' 	: '../js/app/controllers/02_projects/02_wedMain_newProjectCtrl',
+        'budgetCtrlModule' 		: '../js/app/controllers/02_projects/03_BudgetCtrl',
+        'restaurantCtrlModule' 	: '../js/app/controllers/02_projects/04_RestaurantCtrl',
+        'decorCtrlModule' 		: '../js/app/controllers/02_projects/05_DecorCtrl',
+        'flowerCtrlModule' 		: '../js/app/controllers/02_projects/06_FlowerCtrl',
+        'leaderCtrlModule' 		: '../js/app/controllers/02_projects/07_LeaderCtrl',
+        'musicCtrlModule' 		: '../js/app/controllers/02_projects/08_MusicCtrl',
+        'photoCtrlModule' 		: '../js/app/controllers/02_projects/09_PhotoCtrl',
+        'videoCtrlModule' 		: '../js/app/controllers/02_projects/10_VideoCtrl',
 
 		'directives'     		: '../js/app/directives/directives',
 		'jQuery'		  		: '../libs/js/jquery.min',
@@ -48,6 +50,9 @@ require.config({
 			deps : ['angularAnimate'],
 			exports : 'angularToastr'
 		},
+        'usersCtrlModule' : {
+            deps : ['controllers']
+        },
         'newProjectCtrlModule' : {
             deps : ['controllers'],
             exports : 'newProjectCtrlModule'
@@ -84,7 +89,9 @@ require.config({
 				'angularToastr',
 				'angularRoute',
 				'twitterBootstrap',
-				'services',
+				'projServices',
+				'authServices',
+				'usersCtrlModule',
 				'newProjectCtrlModule',
 				'budgetCtrlModule',
 				'restaurantCtrlModule',

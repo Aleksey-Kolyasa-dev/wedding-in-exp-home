@@ -6,8 +6,10 @@ define([
 	'angularAnimate',
 	'angularToastr',
 	'twitterBootstrap',
-	'services',
+	'projServices',
+	'authServices',
 	'controllers',
+	'usersCtrlModule',
 	'newProjectCtrlModule',
 	'budgetCtrlModule',
 	'restaurantCtrlModule',
@@ -29,6 +31,7 @@ define([
 		'ngAnimate',
         'toastr',
         'wedControllers',
+		'usersCtrlModule',
 		'newProjectCtrlModule',
 		'budgetCtrlModule',
 		'restaurantCtrlModule',
@@ -39,7 +42,7 @@ define([
         'photoCtrlModule',
         'videoCtrlModule',
 
-
+		'authServices',
 		'wedServices',
 		'wedDerictives'
 	]);
@@ -47,11 +50,14 @@ define([
 	wedInApp.config(['$routeProvider',function ($routeProvider) {
 
 		$routeProvider.when('/start', {
-            templateUrl : '/views/start_page/00_home_page.html'
+            templateUrl : '/views/start_page/00_home_page.html',
+            controller : 'wedUsersMainCtrl'
         }).when('/index', {
-			templateUrl : '/views/home_page/00_home_page.html'
+			templateUrl : '/views/home_page/00_home_page.html',
+			controller : 'wedProjectsMainCtrl'
 		}).when('/project', {
-            templateUrl : '/views/projects/00_projects_main.html'
+            templateUrl : '/views/projects/00_projects_main.html',
+            controller : 'wedProjectsMainCtrl'
         }).otherwise({
         	template : "<h1 style='color: #ffffff;'>404 Not Found By Me!</h1>"
 		});
