@@ -7,46 +7,39 @@ var usersDB = mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
 // POST Single Project
 usersRouter.post('/', function (req, res, next) {
     var newUser = req.body;
-    var nameExist = false;
+    var promise = new Promise(function (resolve, reject) {
 
-    if (!newUser.userName || !newUser.userEmail || !newUser.userPassword) {
-        res.status(400);
-        res.json({
-            "error": "POST ERROR: not all required fields was filled in"
-        });
-    } else {
-
-        usersDB.wedUsers.find(function (err, users) {
-            if (err) {
-                res.send(err);
-            } else {
-                users.forEach(function (userInDB) {
-                    if (userInDB.userName == newUser.userName) {
-                        nameExist = true;
-                    }
-                });
-
-                if (!nameExist) {
-                    usersDB.wedUsers.save(newUser, function (err, registredUser) {
-                        if (err) {
-                            res.send(err);
-                        }
-                        console.log('CALL by: POST NEW USER');
-                        res.json(registredUser);
-                    });
-                } else {
-                    console.log('ERROR: NAME ALREADY EXIST');
-                    res.send(nameExist);
+        usersDB.wedUsers.find({}, {}, function (e, users) {
+            users.forEach(function (user) {
+                if (user.userName == newUser.userName) {
+                    reject(new Error('Name already occupied'));
                 }
-            }
+            });
+            resolve(users);
         });
+    });
 
-
-    }
+    promise.then(
+        function () {
+            usersDB.wedUsers.save(newUser, function (err, registredUser) {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+                    console.log('CALL by: POST NEW USER');
+                    res.json(registredUser);
+                }
+            });
+        },
+        function (err) {
+            console.log(err);
+            res.send(err);
+        }
+    ).catch(function (err) {
+        console.log(err);
+        res.write(err);
+    });
 });
-
-
-
 
 
 module.exports = usersRouter;

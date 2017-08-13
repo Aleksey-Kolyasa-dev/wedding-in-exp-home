@@ -38,49 +38,52 @@ define(['angular'], function (angular) {
             this.isOnline = true;
             this.admin = false;
             this.lastLogin = null;
+            this.alreadyExist = false;
         }
+
         User.prototype.passwordCrypt = function (user) {
             return user.name + $window.btoa(user.password);
         };
 
 
         $scope.doRegister = function (user) {
-          if(!user.name || !user.email || !user.password || !user.confirmPassword){
+            if (!user.name || !user.email || !user.password || !user.confirmPassword) {
 
-              toastr.error('ERROR: INVALID REGISTRATION DATA!');
-              throw new Error('ERROR: INVALID REGISTRATION DATA!');
+                toastr.error('ERROR: INVALID REGISTRATION DATA!');
+                throw new Error('ERROR: INVALID REGISTRATION DATA!');
 
-          } else if(user.password !== user.confirmPassword){
+            } else if (user.password !== user.confirmPassword) {
 
-              toastr.error('ERROR: PASSWORDS NOT COINCIDE!');
-              throw new Error('ERROR: PASSWORDS NOT COINCIDE!');
+                toastr.error('ERROR: PASSWORDS NOT COINCIDE!');
+                throw new Error('ERROR: PASSWORDS NOT COINCIDE!');
 
-          } else {
-                UsersResourceService._ajaxRequest("POST", null, new User(user), null)
-                    .then(function (project) {
-                        if(!project){
-                            toastr.error('SUCH NAME ALREADY EXIST!');
-                            throw new Error('SUCH NAME ALREADY EXIST!');
-                        } else {
+            } else {
+                UsersResourceService._ajaxRequest("POST", null, new User(user), null).then(
+                    function (user) {
+                        if(user.userName){
                             // Set newProject to Default for View
                             $scope.user = {};
-
                             if(_env._dev){
-                                toastr.success("NEW USER REGISTRED!");
+                                toastr.success("NEW USER " + user.userName + " REGISTRED!");
                             }
+                        } else {
+                            toastr.error('SUCH NAME ALREADY EXIST!');
+                            $log.log(user);
                         }
+                    },
+                    function (err) {
+                            toastr.error('ERROR, try again!');
+                            $log.log(err);
                     })
                     .catch(function (err) {
                         toastr.error('ERROR: REGISTER NEW USER "POST" AJAX failed');
                         $log.warn('ERROR: REGISTER NEW USER "POST" AJAX failed', err);
                     });
-                $log.log(new User(user));
+                //$log.log(new User(user));
             }
         };
 
     }// Ctrl end
-
-
 
 
     return usersCtrlModule;
