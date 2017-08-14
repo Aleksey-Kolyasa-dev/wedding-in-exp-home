@@ -24,35 +24,32 @@ define(['angular'], function (angular) {
      * */
     function loginCtrl($scope, $window, $log, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
 
-
         // DO LOGIN Fn
         $scope.doLogin = function(data){
             if(!data.name || !data.password){
                 toastr.error('ERROR: INVALID LOGIN INPUT!');
                 throw new Error('ERROR: INVALID LOGIN INPUT!');
             } else {
+                // Prepare request Obj.
                 var request = {
                     name : data.name,
                     password : data.name + $window.btoa(data.password)
                 };
+                // Do Login
                 UsersResourceService._ajaxRequest("POST", null, request, '/login').then(
                     function (data) {
                         if (data._id && data.userName && data.userPassword) {
+                            // Do EVENT - USER IS LOGGED IN
                             $scope.$emit('LoggedIn', data);
                             $log.log(data);
+
                             // Set newProject to Default for View
                             $scope.user = {};
                             if (_env._dev) {
                                 toastr.success("WELCOME DEAR " + data.userName + " !");
                             }
-                            return data;
-                           /* UsersResourceService._ajaxRequest("PUT", null, data, '/userOnLoginDataUpdate').then(
-
-                            );*/
-
-
                         } else {
-                            // Case if ERROR.property = 'NAME' returned
+                            // Case if ERROR.property = 'USER'
                             if(data.property == 'USER'){
                                 toastr.error(data.message);
                                 throw new Error(data.message);
@@ -62,11 +59,6 @@ define(['angular'], function (angular) {
                     function (err) {
                         toastr.error('ERROR, check and try again!');
                         $log.log(err);
-                    })
-                    .then(function (data) {
-                        UsersResourceService._ajaxRequest("PUT", null, data, '/userLoginStatus').then(function () {
-                            toastr.info('UPDATED');
-                        });
                     })
                     .catch(function (err) {
                         toastr.error('ERROR: LOGIN AJAX failed');

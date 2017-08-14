@@ -5,7 +5,6 @@ var usersDB = mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
 // var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
 
 
-
 // POST USER REGISTRATION
 usersRouter.post('/', function (req, res, next) {
     var newUser = req.body;
@@ -60,45 +59,42 @@ usersRouter.post('/login', function (req, res, next) {
         // Get all users in DB
         usersDB.wedUsers.find({}, {}, function (e, users) {
             users.forEach(function (user) {
-                // Check if such NAME already exists
-                if (user.userName == loginData.name /*&& user.userPassword == loginData.password*/) {
+                // Check if such USER exists
+                if (user.userName == loginData.name && user.userPassword == loginData.password) {
+
+                    // Update LOGIN STATUS
                     user.isLogged = true;
                     user.lastLogin = new Date();
-                    console.log('CALL POST BY: UPDATE USER DATA due to LOGIN');
+                    console.log('CALL POST BY: LOGIN, user: ' + user.userName);
+
+                    // Send USER to Client
                     res.json(user);
+                    // Do current Promise chain resolved
                     resolve(user);
 
-                    /*usersDB.wedUsers.save(user, function (err, userA) {
+                    // Do USER LOGIN STATUS update to DB
+                    usersDB.wedUsers.update({_id: mongojs.ObjectId(user._id)}, {
+                        $set: {
+                            isLogged: user.isLogged,
+                            lastLogin: user.lastLogin
+                        }
+                    }, {}, function (err, data) {
                         if (err) {
-                            reject(err);
-                        }
-                        else {
-                     res.json(userA);
-                     resolve(userA);
-                        }
-                    });*/
-                    /*usersDB.wedUsers.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { isLogged: user.isLogged, lastLogin : user.lastLogin}}, {}, function (err, loggedUser) {
-                        if(err){
                             res.send(err);
                         }
-                        console.log('CALL POST BY: UPDATE USER DATA due to LOGIN');
-                        res.json(loggedUser);
-                        resolve(loggedUser);
-                    });*/
-
-
-
+                        console.log('LOGIN STATUS UPDATE: OK');
+                    });
                 }
             });
-            // If no coincides, do  RESOLVE
+            // If no coincides, do  REJECT - USER NOT FOUND!
             reject(new UserNotFoundError('USER'));
         });
     });
 
     promise.then(
-        function (user) {
-            // Do save New Registred User in DB (if no rejects)
-            console.log('CALL POST BY: /login', user);
+        function (success) {
+            // If all ok (no rejects)
+            console.log('LOGIN SUCCESS');
         },
         // if rejected, send an error
         function (err) {
@@ -111,25 +107,6 @@ usersRouter.post('/login', function (req, res, next) {
     });
 });
 
-// PUT Single Project BUDGET keyURL = /budgetNotes
-usersRouter.put('/:id/userLoginStatus', function (req, res, next) {
-    var user = req.body;
-    console.log("CALL PUT BY: /budgetNotes");
-
-    if(!user.userName){
-        res.status(400);
-        res.json({
-            "error" : "PUT ERROR: budgetNotes validation failed"
-        });
-    } else {
-        usersDB.wedUsers.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { isLogged: user.isLogged, lastLogin : user.lastLogin}}, {}, function (err, project) {
-            if(err){
-                res.send(err);
-            }
-            res.json(project);
-        });
-    }
-});
 
 module.exports = usersRouter;
 
@@ -138,8 +115,8 @@ function PropOccupiedError(property) {
     Error.call(this, property);
     this.name = 'PropOccupiedError';
     this.property = property;
-    this.message = "ERROR: Such " + property +" already occupied";
-    if(Error.captureStackTrace){
+    this.message = "ERROR: Such " + property + " already occupied";
+    if (Error.captureStackTrace) {
         Error.captureStackTrace(this, PropOccupiedError);
     } else {
         this.stack = (new Error()).stack;
@@ -152,8 +129,8 @@ function UserNotFoundError(property) {
     Error.call(this, property);
     this.name = 'UserNotFoundError';
     this.property = property;
-    this.message = "ERROR: " + property +" NOT FOUND!";
-    if(Error.captureStackTrace){
+    this.message = "ERROR: " + property + " NOT FOUND!";
+    if (Error.captureStackTrace) {
         Error.captureStackTrace(this, UserNotFoundError);
     } else {
         this.stack = (new Error()).stack;
