@@ -23,6 +23,14 @@
             </div>
             <!-- MENU LEFT *END* -->
 
+            <!-- PROJECTS LIST *START* -->
+            <div class="wed-main-body-right"><!-- col-lg-10 col-md-10 col-sm-9 col-xs-8-->
+                <div class="projects-list">
+                    <h3 style="color: #ffffff">{{currentUser}}</h3>
+                </div>
+            </div>
+            <!-- PROJECTS LIST *END* -->
+
         </div>
         <!--MAIN BODY *END*-->
 
@@ -53,7 +61,7 @@
 
                                     <button type="submit" class="btn btn-success btn-block"
                                             ng-disabled="loginForm.$invalid" data-dismiss="modal"
-                                            ng-click="createNewProject(login)">
+                                            ng-click="doLogin(user)">
                                         <b>LOGIN</b>
                                     </button>
                                 </div>

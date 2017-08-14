@@ -39,13 +39,24 @@ define(['angular'], function (angular) {
                             break;
 
                         case "POST" :
-                            $http({method: "POST", url: self.baseURL, data: data}).success(function (data) {
+                            if(!keyURL){
+                                $http({method: "POST", url: self.baseURL, data: data}).success(function (data) {
                                     deferred.resolve(data);
-                            }).error(function (err) {
-                                toastr.error('ERROR: POST method failed');
-                                deferred.reject('ERROR: POST method failed');
-                                throw new Error('ERROR: POST method failed: ' + err);
-                            });
+                                }).error(function (err) {
+                                    toastr.error('ERROR: POST method failed');
+                                    deferred.reject('ERROR: POST method failed');
+                                    throw new Error('ERROR: POST method failed: ' + err);
+                                });
+                            }
+                            if(keyURL){
+                                $http({method: "POST", url: self.baseURL + keyURL, data: data}).success(function (data) {
+                                    deferred.resolve(data);
+                                }).error(function (err) {
+                                    toastr.error('ERROR: POST method failed');
+                                    deferred.reject('ERROR: POST method failed');
+                                    throw new Error('ERROR: POST method failed: ' + err);
+                                });
+                            }
                             break;
 
                         case "PUT" :
@@ -65,7 +76,7 @@ define(['angular'], function (angular) {
                             if (keyURL) {
                                 if (angular.isString(keyURL)) {
                                     switch (keyURL) {
-                                        case "/fianceSideGuests":
+                                        case "/userLoginStatus":
                                             $http({
                                                 method: "PUT",
                                                 url: self.baseURL + data._id + keyURL,

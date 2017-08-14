@@ -11,7 +11,10 @@ define(['angular'], function (angular) {
      * USERS MAIN CTRL
      * */
     function wedUsersMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
-
+        $scope.currentUser = {};
+        $scope.$on('LoggedIn', function (e, data) {
+            $scope.currentUser = data;
+        });
 
     }// Ctrl end
 
@@ -19,7 +22,60 @@ define(['angular'], function (angular) {
     /*
      * USERS LOGIN CTRL
      * */
-    function loginCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
+    function loginCtrl($scope, $window, $log, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
+
+
+        // DO LOGIN Fn
+        $scope.doLogin = function(data){
+            if(!data.name || !data.password){
+                toastr.error('ERROR: INVALID LOGIN INPUT!');
+                throw new Error('ERROR: INVALID LOGIN INPUT!');
+            } else {
+                var request = {
+                    name : data.name,
+                    password : data.name + $window.btoa(data.password)
+                };
+                UsersResourceService._ajaxRequest("POST", null, request, '/login').then(
+                    function (data) {
+                        if (data._id && data.userName && data.userPassword) {
+                            $scope.$emit('LoggedIn', data);
+                            $log.log(data);
+                            // Set newProject to Default for View
+                            $scope.user = {};
+                            if (_env._dev) {
+                                toastr.success("WELCOME DEAR " + data.userName + " !");
+                            }
+                            return data;
+                           /* UsersResourceService._ajaxRequest("PUT", null, data, '/userOnLoginDataUpdate').then(
+
+                            );*/
+
+
+                        } else {
+                            // Case if ERROR.property = 'NAME' returned
+                            if(data.property == 'USER'){
+                                toastr.error(data.message);
+                                throw new Error(data.message);
+                            }
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR, check and try again!');
+                        $log.log(err);
+                    })
+                    .then(function (data) {
+                        UsersResourceService._ajaxRequest("PUT", null, data, '/userLoginStatus').then(function () {
+                            toastr.info('UPDATED');
+                        });
+                    })
+                    .catch(function (err) {
+                        toastr.error('ERROR: LOGIN AJAX failed');
+                        $log.warn('ERROR: LOGIN AJAX failed', err);
+                    });
+            }
+
+        };
+
 
 
     }// Ctrl end
@@ -34,8 +90,8 @@ define(['angular'], function (angular) {
             this.userPassword = this.passwordCrypt(user);
             this.userEmail = user.email;
             this.registrationDate = new Date();
-            this.isAuth = true;
-            this.isOnline = true;
+            this.isAuth = false;
+            this.isLogged = false;
             this.admin = false;
             this.lastLogin = null;
         }
@@ -67,13 +123,13 @@ define(['angular'], function (angular) {
                         } else {
                             // Case if ERROR.property = 'NAME' returned
                             if(data.property == 'NAME'){
-                                toastr.error('ERROR: NAME OCCUPIED');
-                                throw new Error('ERROR: NAME OCCUPIED');
+                                toastr.error(data.message);
+                                throw new Error(data.message);
                             }
                             // Case if ERROR.property = 'EMAIL' returned
                             if(data.property == 'EMAIL'){
-                                toastr.error('ERROR: EMAIL OCCUPIED');
-                                throw new Error('ERROR: EMAIL OCCUPIED');
+                                toastr.error(data.message);
+                                throw new Error(data.message);
                             }
                         }
                     },
