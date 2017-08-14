@@ -4,6 +4,13 @@ var mongojs = require('mongojs');
 var usersDB = mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
 // var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
 
+// CONFIG
+var collection = 'wedUsers';
+
+
+/*
+ * USERS ROUTER
+ * */
 
 // POST USER REGISTRATION
 usersRouter.post('/', function (req, res, next) {
@@ -11,7 +18,7 @@ usersRouter.post('/', function (req, res, next) {
 
     var promise = new Promise(function (resolve, reject) {
         // Get all users in DB
-        usersDB.wedUsers.find({}, {}, function (e, users) {
+        usersDB[collection].find({}, {}, function (e, users) {
             users.forEach(function (user) {
                 // Check if such NAME already exists
                 if (user.userName == newUser.userName) {
@@ -30,7 +37,7 @@ usersRouter.post('/', function (req, res, next) {
     promise.then(
         function () {
             // Do save New Registred User in DB (if no rejects)
-            usersDB.wedUsers.save(newUser, function (err, registredUser) {
+            usersDB[collection].save(newUser, function (err, registredUser) {
                 if (err) {
                     res.send(err);
                 }
@@ -57,7 +64,7 @@ usersRouter.post('/login', function (req, res, next) {
 
     var promise = new Promise(function (resolve, reject) {
         // Get all users in DB
-        usersDB.wedUsers.find({}, {}, function (e, users) {
+        usersDB[collection].find({}, {}, function (e, users) {
             users.forEach(function (user) {
                 // Check if such USER exists
                 if (user.userName == loginData.name && user.userPassword == loginData.password) {
@@ -73,7 +80,7 @@ usersRouter.post('/login', function (req, res, next) {
                     resolve(user);
 
                     // Do USER LOGIN STATUS update to DB
-                    usersDB.wedUsers.update({_id: mongojs.ObjectId(user._id)}, {
+                    usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
                         $set: {
                             isLogged: user.isLogged,
                             lastLogin: user.lastLogin
