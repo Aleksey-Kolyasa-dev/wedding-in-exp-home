@@ -38,20 +38,18 @@ define(['angular'], function (angular) {
             this.isOnline = true;
             this.admin = false;
             this.lastLogin = null;
-            this.alreadyExist = false;
         }
 
         User.prototype.passwordCrypt = function (user) {
             return user.name + $window.btoa(user.password);
         };
 
-
         $scope.doRegister = function (user) {
+            // Check if all required fields are fulfilled properly
             if (!user.name || !user.email || !user.password || !user.confirmPassword) {
-
                 toastr.error('ERROR: INVALID REGISTRATION DATA!');
                 throw new Error('ERROR: INVALID REGISTRATION DATA!');
-
+            // Passwords inputs must coincide
             } else if (user.password !== user.confirmPassword) {
 
                 toastr.error('ERROR: PASSWORDS NOT COINCIDE!');
@@ -59,27 +57,34 @@ define(['angular'], function (angular) {
 
             } else {
                 UsersResourceService._ajaxRequest("POST", null, new User(user), null).then(
-                    function (user) {
-                        if(user.userName){
+                    function (data) {
+                        if (data.userName) {
                             // Set newProject to Default for View
                             $scope.user = {};
-                            if(_env._dev){
-                                toastr.success("NEW USER " + user.userName + " REGISTRED!");
+                            if (_env._dev) {
+                                toastr.success("NEW USER " + data.userName + " REGISTRED!");
                             }
                         } else {
-                            toastr.error('SUCH NAME ALREADY EXIST!');
-                            $log.log(user);
+                            // Case if ERROR.property = 'NAME' returned
+                            if(data.property == 'NAME'){
+                                toastr.error('ERROR: NAME OCCUPIED');
+                                throw new Error('ERROR: NAME OCCUPIED');
+                            }
+                            // Case if ERROR.property = 'EMAIL' returned
+                            if(data.property == 'EMAIL'){
+                                toastr.error('ERROR: EMAIL OCCUPIED');
+                                throw new Error('ERROR: EMAIL OCCUPIED');
+                            }
                         }
                     },
                     function (err) {
-                            toastr.error('ERROR, try again!');
-                            $log.log(err);
+                        toastr.error('ERROR, check and try again!');
+                        $log.log(err);
                     })
                     .catch(function (err) {
                         toastr.error('ERROR: REGISTER NEW USER "POST" AJAX failed');
                         $log.warn('ERROR: REGISTER NEW USER "POST" AJAX failed', err);
                     });
-                //$log.log(new User(user));
             }
         };
 

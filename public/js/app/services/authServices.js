@@ -40,7 +40,7 @@ define(['angular'], function (angular) {
 
                         case "POST" :
                             $http({method: "POST", url: self.baseURL, data: data}).success(function (data) {
-                                deferred.resolve(data);
+                                    deferred.resolve(data);
                             }).error(function (err) {
                                 toastr.error('ERROR: POST method failed');
                                 deferred.reject('ERROR: POST method failed');
