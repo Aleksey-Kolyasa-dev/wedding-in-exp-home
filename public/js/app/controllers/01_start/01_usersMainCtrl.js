@@ -11,10 +11,7 @@ define(['angular'], function (angular) {
      * USERS MAIN CTRL
      * */
     function wedUsersMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
-        $scope.currentUser = {};
-        $scope.$on('LoggedIn', function (e, data) {
-            $scope.currentUser = data;
-        });
+
 
     }// Ctrl end
 

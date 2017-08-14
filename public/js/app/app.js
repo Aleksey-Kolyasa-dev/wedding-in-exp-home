@@ -48,13 +48,18 @@ define([
 	]);
 
 	wedInApp.config(['$routeProvider',function ($routeProvider) {
-
+$routeProvider.isAuth = false;
 		$routeProvider.when('/start', {
             templateUrl : '/views/start_page/00_home_page.html',
             controller : 'wedUsersMainCtrl'
         }).when('/index', {
 			templateUrl : '/views/home_page/00_home_page.html',
-			controller : 'wedProjectsMainCtrl'
+			controller : 'wedProjectsMainCtrl',
+			/*access: {
+                pass : true
+			}*/
+
+
 		}).when('/project', {
             templateUrl : '/views/projects/00_projects_main.html',
             controller : 'wedProjectsMainCtrl'

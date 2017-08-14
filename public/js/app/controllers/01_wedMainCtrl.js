@@ -11,12 +11,14 @@ define(['angular'], function (angular) {
      * */
     function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, ResourceService, AppService) {
         // Default Values
+        $scope.currentUser = {};
         $scope.currentProject = {};
         $scope.projects = [];
         $scope.currentProjectView = {};
         $scope.toDay = new Date;
         $location.path('/start');
         $scope.dynamicBackground = "start_main";
+
 
         // Projects list update fn
         function updateProjectsList() {
@@ -28,6 +30,18 @@ define(['angular'], function (angular) {
             });
         }
         updateProjectsList();
+
+
+        $scope.$on('LoggedIn', function (e, data) {
+            $scope.currentUser = data;
+            if($scope.currentUser.isLogged){
+                $timeout(function () {
+                    $location.path('/index');
+                    $scope.dynamicBackground = 'projects_main';
+                }, 300);
+
+            }
+        });
 
         // Events handler
         $scope.$on('projectsListChange', function () {
@@ -74,7 +88,7 @@ define(['angular'], function (angular) {
      * PROJECTS MAIN CTRL
      * */
     function wedProjectsMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, ResourceService, AppService) {
-
+        $scope.pass = false;
         // Filter for shift expired dated projects to Archive
         $scope.projectListDateCheck = function (project) {
             return new Date(project.weddingDate).setHours(23, 59, 0) > Date.now();

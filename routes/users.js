@@ -72,6 +72,7 @@ usersRouter.post('/login', function (req, res, next) {
                     // Update LOGIN STATUS
                     user.isLogged = true;
                     user.lastLogin = new Date();
+                    user.isAuth = true;
                     console.log('CALL POST BY: LOGIN, user: ' + user.userName);
 
                     // Send USER to Client
@@ -83,7 +84,8 @@ usersRouter.post('/login', function (req, res, next) {
                     usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
                         $set: {
                             isLogged: user.isLogged,
-                            lastLogin: user.lastLogin
+                            lastLogin: user.lastLogin,
+                            isAuth : user.isAuth
                         }
                     }, {}, function (err, data) {
                         if (err) {
