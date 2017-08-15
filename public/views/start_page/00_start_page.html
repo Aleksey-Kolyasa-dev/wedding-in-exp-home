@@ -1,6 +1,55 @@
 <div>
     <ng-include src="'/views/start_page/01_header.html'"></ng-include>
 
+    <div class="container-fluid main-page-functional-body" style="margin-top: 60px; border: 0" ng-if="currentUser.isLogged">
+        <!--MAIN BODY *START*-->
+        <div class="wed-main-body">
+            <!-- MENU LEFT *START* -->
+            <div class="wed-main-body-left"><!--col-lg-2 col-md-2 col-sm-3 col-xs-4-->
+                <div class="new-proj-main">
+                    <div>
+                        <a class="main-page-menu-btn" ng-click="goToHomePage()">
+                            <span>МОИ ПРОЕКТЫ</span>
+                        </a>
+                    </div>
+                    <!--<div>
+                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
+                            <span>АРХИВ</span>
+                        </a>
+                    </div>
+                    <hr>
+                    <div>
+                        <a class="main-page-menu-btn-exit"  ng-click="exitToStart()">
+                            <span>ВЫХОД</span>
+                        </a>
+                    </div>-->
+                </div>
+            </div>
+            <!-- MENU LEFT *END* -->
 
+            <!-- PROJECTS LIST *START* -->
+            <div class="wed-main-body-right"><!-- col-lg-10 col-md-10 col-sm-9 col-xs-8-->
+                <div class="projects-list">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                    <p>Lore
+                </div>
+            </div>
+            <!-- PROJECTS LIST *END* -->
+        </div>
+        <!--MAIN BODY *END*-->
+
+
+    </div>
 
 </div>

@@ -24,14 +24,21 @@ define(['angular'], function (angular) {
             $scope.dynamicBackground = "start_main";
         };
 
+        $scope.logOut = function () {
+            $scope.currentUser = {};
+            $scope.currentProject = {};
+            $scope.projects = [];
+            $scope.currentProjectView = {};
+        };
+
         $scope.$on('LoggedIn', function (e, data) {
             $scope.currentUser = data;
 
             // If USER is Authorized
             if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
                 $timeout(function () {
-                    $location.path('/index');
-                    $scope.dynamicBackground = 'projects_main';
+                    /*$location.path('/index');
+                    $scope.dynamicBackground = 'projects_main';*/
 
                     // Get USER Projects list
                     function updateProjectsList() {
