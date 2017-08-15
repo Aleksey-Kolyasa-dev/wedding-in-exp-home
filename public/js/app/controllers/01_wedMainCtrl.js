@@ -9,7 +9,7 @@ define(['angular'], function (angular) {
     /*
      * APP MAIN CTRL
      * */
-    function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, ResourceService, AppService) {
+    function wedMainCtrl($scope, $rootScope, $log, $window, $location, $timeout, toastr, _env, ResourceService, AppService) {
         // Default Values
         $scope.currentUser = {};
         $scope.currentProject = {};
@@ -29,6 +29,8 @@ define(['angular'], function (angular) {
             $scope.currentProject = {};
             $scope.projects = [];
             $scope.currentProjectView = {};
+            // remove token
+            $window.localStorage.removeItem("userToken");
         };
 
         $scope.$on('LoggedIn', function (e, data) {

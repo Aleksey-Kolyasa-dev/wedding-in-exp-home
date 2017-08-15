@@ -29,7 +29,7 @@ define(['angular'], function (angular) {
                 // Prepare request Obj.
                 var request = {
                     name : data.name,
-                    password : data.name + $window.btoa(data.password)
+                    password : $window.btoa(data.name + data.password)
                 };
                 // Do Login
                 UsersResourceService._ajaxRequest("POST", null, request, '/login').then(
@@ -38,13 +38,20 @@ define(['angular'], function (angular) {
                             // Do EVENT - USER IS LOGGED IN and Authorized
                             if(data.isAuth && data.isLogged){
                                 $scope.$emit('LoggedIn', data);
-                                $log.log(data);
+                                //$log.log(data);
 
                                 // Set newProject to Default for View
                                 $scope.user = {};
+                                //toastr.success("WELCOME DEAR " + data.userName + " !");
 
-                                toastr.success("WELCOME DEAR " + data.userName + " !");
-
+                                // TOKEN CASH OPS.
+                                if($window.localStorage){
+                                    $window.localStorage.userToken = angular.toJson({
+                                        name : data.userName,
+                                        pass : data.userPassword,
+                                        init : data.lastLogin
+                                    });
+                                }
                             } else {
                                 $timeout(function () {
                                     $location.path('/404');
@@ -70,7 +77,20 @@ define(['angular'], function (angular) {
 
         };
 
+        // ON-LOAD check USER TOKEN
+        if($window.localStorage.userToken) {
+            var token = angular.fromJson($window.localStorage.userToken);
 
+            // If less then 12 hrs since last login
+            if(Date.now() - new Date(token.init) < 1000*60*60*12){
+                var user = { name : token.name, password : $window.atob(token.pass).slice(token.name.length) };
+                // Do login
+                $scope.doLogin(user);
+            } else {
+                // Else - remove token
+                $window.localStorage.removeItem("userToken");
+            }
+        }
 
     }// Ctrl end
 
@@ -93,7 +113,7 @@ define(['angular'], function (angular) {
 
             } else {
                 // Modify password
-                user.password = user.name + $window.btoa(user.password);
+                user.password = $window.btoa(user.name + user.password);
 
                 UsersResourceService._ajaxRequest("POST", null, user, null).then(
                     function (data) {
