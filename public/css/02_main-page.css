@@ -60,11 +60,11 @@
 }
 .main-page-menu-btn{
     display: block;
-    border-radius: 5px;
+    border-radius: 2px;
     width: 150px;
-    padding: 10px 0px;
+    padding: 10px 0;
     text-decoration: none !important;
-    background: #0ca77e;
+    background: rgba(15, 179, 135, 0.82);
     text-align: center;
     color: #ffffff;
     font-weight: bold;
@@ -75,7 +75,7 @@
 .main-page-menu-btn-active,
 .main-page-menu-btn:hover{
     display: block;
-    border-radius: 5px;
+    border-radius: 4px;
     width: 150px;
     padding: 10px 0;
     text-decoration: none !important;
@@ -84,7 +84,34 @@
     font-size: 100%;
     cursor: pointer;
     color: #0ca77e;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.91);
+}
+.main-page-menu-btn-exit{
+    background: rgba(176, 115, 70, 0.78);
+    display: block;
+    border-radius: 2px;
+    width: 150px;
+    padding: 10px 0;
+    text-decoration: none !important;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 100%;
+    cursor: pointer;
+    transition: background, color 600ms ease;
+}
+.main-page-menu-btn-exit:hover{
+
+    border-radius: 4px;
+
+    text-decoration: none !important;
+
+    font-weight: bold;
+    font-size: 100%;
+    cursor: pointer;
+    /*color: #0ca77e;*/
+    color: rgba(176, 115, 70, 0.78);
+    background: rgba(255, 255, 255, 0.91);
 }
 .deco-farames{
     width: 100%;

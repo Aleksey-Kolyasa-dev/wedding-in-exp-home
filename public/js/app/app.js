@@ -49,7 +49,7 @@ define([
 
 	wedInApp.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider.when('/start', {
-            templateUrl : '/views/start_page/00_home_page.html',
+            templateUrl : '/views/start_page/00_start_page.html',
             controller : 'wedUsersMainCtrl'
 
         }).when('/index', {

@@ -19,6 +19,10 @@ define(['angular'], function (angular) {
         $location.path('/start');
         $scope.dynamicBackground = "start_main";
 
+        $scope.exitToStart = function () {
+            $location.path('/start');
+            $scope.dynamicBackground = "start_main";
+        };
 
         $scope.$on('LoggedIn', function (e, data) {
             $scope.currentUser = data;

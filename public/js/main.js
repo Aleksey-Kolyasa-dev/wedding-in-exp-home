@@ -6,7 +6,7 @@ require.config({
 		'projServices'        		: '../js/app/services/projectsServices',
 		'authServices'          : '../js/app/services/authServices',
 		'controllers'     		: '../js/app/controllers/01_wedMainCtrl',
-        'usersCtrlModule'    	: '../js/app/controllers/01_start/01_usersMainCtrl',
+        'usersCtrlModule'    	: '../js/app/controllers/01_users/01_usersMainCtrl',
 		'newProjectCtrlModule' 	: '../js/app/controllers/02_projects/02_wedMain_newProjectCtrl',
         'budgetCtrlModule' 		: '../js/app/controllers/02_projects/03_BudgetCtrl',
         'restaurantCtrlModule' 	: '../js/app/controllers/02_projects/04_RestaurantCtrl',
