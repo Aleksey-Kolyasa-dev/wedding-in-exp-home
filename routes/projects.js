@@ -39,7 +39,7 @@ projectsRouter.get('/api/:id', function (req, res, next) {
         //console.log(project);
     });
 });
-// POST Single Project
+// POST New Project
 projectsRouter.post('/api', function (req, res, next) {
     // New Project Constructor
     function NewProjectCtor(project) {
@@ -466,12 +466,12 @@ projectsRouter.post('/api', function (req, res, next) {
            "error" : "POST ERROR: not all required fields was filled in"
        });
    } else {
+
        db.weddings.save(new NewProjectCtor(newProject), function (err, newProject) {
            if(err){
                res.send(err);
            }
            res.json(newProject);
-           //console.log(newProject);
        });
    }
 });
