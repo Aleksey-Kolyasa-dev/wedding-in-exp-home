@@ -36,14 +36,20 @@ define(['angular'], function (angular) {
                 UsersResourceService._ajaxRequest("POST", null, request, '/login').then(
                     function (data) {
                         if (data._id && data.userName && data.userPassword) {
-                            // Do EVENT - USER IS LOGGED IN
-                            $scope.$emit('LoggedIn', data);
-                            $log.log(data);
+                            // Do EVENT - USER IS LOGGED IN and Authorized
+                            if(data.isAuth && data.isLogged){
+                                $scope.$emit('LoggedIn', data);
+                                $log.log(data);
 
-                            // Set newProject to Default for View
-                            $scope.user = {};
-                            if (_env._dev) {
+                                // Set newProject to Default for View
+                                $scope.user = {};
+
                                 toastr.success("WELCOME DEAR " + data.userName + " !");
+
+                            } else {
+                                $timeout(function () {
+                                    $location.path('/404');
+                                },300);
                             }
                         } else {
                             // Case if ERROR.property = 'USER'

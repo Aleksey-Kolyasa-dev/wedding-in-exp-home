@@ -56,7 +56,8 @@ projectsRouter.put('/api/:id', function (req, res, next) {
 
     console.log("CALL PUT BY: Default");
 
-    if(project.fianceName && project.fianceeName){
+    if(project.fianceName && project.fianceeName && project.owner){
+        updatedProject.owner = project.owner;
         updatedProject.fianceName = project.fianceName;
         updatedProject.fianceeName = project.fianceeName;
         updatedProject.weddingDate = project.weddingDate;
