@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
 
     authServices.service('UsersResourceService', ['toastr', '$http', '$q', '$log', '$location', UsersResourceService]);
-    //authServices.service('AppService', ['toastr', AppService]);
+    authServices.service('UserAuthService', ['toastr', '$window', UserAuthService]);
 
 
     function UsersResourceService(toastr, $http, $q, $log, $location, wedURL) {
@@ -115,7 +115,21 @@ define(['angular'], function (angular) {
         };
     }
 
-
+    function UserAuthService(toastr, $window) {
+        return {
+            // User Token Fn.
+            _userToken : function (data) {
+                // TOKEN CASH OPS.
+                if($window.localStorage){
+                    $window.localStorage.userToken = angular.toJson({
+                        name : data.userName,
+                        pass : data.userPassword,
+                        init : data.lastLogin
+                    });
+                }
+            }
+        };
+    }
 
     return authServices;
 });

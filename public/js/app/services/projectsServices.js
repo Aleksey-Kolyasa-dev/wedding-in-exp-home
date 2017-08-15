@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
 
     wedServices.service('_env', [_env]);
     wedServices.service('ResourceService', ['toastr', '$http', '$q', '$log', '$location', ResourceService]);
-    wedServices.service('AppService', ['toastr', AppService]);
+    wedServices.service('AppService', ['toastr','$window' ,AppService]);
 
     function _env() {
         return {
@@ -481,7 +481,7 @@ define(['angular'], function (angular) {
         };
     }
 
-    function AppService(toastr) {
+    function AppService(toastr, $window) {
         return {
             // Transform date String "dd.mm.yyyy" to Date Obj.
             _dateStringToObject: function (dateString) {
@@ -494,6 +494,7 @@ define(['angular'], function (angular) {
                     throw new Error('ERROR: Date transformation error');
                 }
             },
+            // Transform Date Obj to date String "dd.mm.yyyy".
             _objectTodateString: function (dateString) {
                 if (angular.isString(dateString)) {
                     var date = new Date(dateString);
@@ -510,7 +511,7 @@ define(['angular'], function (angular) {
                     toastr.error('ERROR: Date transformation error');
                     throw new Error('ERROR: Date transformation error');
                 }
-            }
+            },
         };
     }
 

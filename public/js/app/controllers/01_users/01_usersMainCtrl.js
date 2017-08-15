@@ -18,7 +18,7 @@ define(['angular'], function (angular) {
     /*
      * USERS LOGIN CTRL
      * */
-    function loginCtrl($scope, $window, $log, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
+    function loginCtrl($scope, $window, $log, $location, $timeout, toastr, _env, UsersResourceService, UserAuthService) {
 
         // DO LOGIN Fn
         $scope.doLogin = function(data){
@@ -38,20 +38,13 @@ define(['angular'], function (angular) {
                             // Do EVENT - USER IS LOGGED IN and Authorized
                             if(data.isAuth && data.isLogged){
                                 $scope.$emit('LoggedIn', data);
-                                //$log.log(data);
 
                                 // Set newProject to Default for View
                                 $scope.user = {};
                                 //toastr.success("WELCOME DEAR " + data.userName + " !");
 
-                                // TOKEN CASH OPS.
-                                if($window.localStorage){
-                                    $window.localStorage.userToken = angular.toJson({
-                                        name : data.userName,
-                                        pass : data.userPassword,
-                                        init : data.lastLogin
-                                    });
-                                }
+                                // Make User Token
+                                UserAuthService._userToken(data);
                             } else {
                                 $timeout(function () {
                                     $location.path('/404');
