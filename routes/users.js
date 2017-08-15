@@ -14,18 +14,6 @@ var collection = 'wedUsers';
 
 // POST NEW USER (REGISTRATION)
 usersRouter.post('/', function (req, res, next) {
-    // New User Ctor fn
-    function User(user) {
-        this.userName = user.name;
-        this.userPassword = user.password;
-        this.userEmail = user.email;
-        this.registrationDate = new Date();
-        this.isAuth = false;
-        this.isLogged = false;
-        this.admin = false;
-        this.lastLogin = null;
-    }
-
     var newUser = req.body;
 
     var promise = new Promise(function (resolve, reject) {
@@ -134,6 +122,18 @@ usersRouter.post('/login', function (req, res, next) {
 
 
 module.exports = usersRouter;
+
+// New User Ctor fn
+function User(user) {
+    this.userName = user.name;
+    this.userPassword = user.password;
+    this.userEmail = user.email;
+    this.registrationDate = new Date();
+    this.isAuth = false;
+    this.isLogged = false;
+    this.admin = false;
+    this.lastLogin = null;
+}
 
 // Occupation Error Ctor Fn
 function PropOccupiedError(property) {

@@ -12,7 +12,6 @@ define(['angular'], function (angular) {
      * */
     function wedUsersMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
 
-
     }// Ctrl end
 
 
