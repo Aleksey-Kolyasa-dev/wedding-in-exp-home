@@ -47,22 +47,19 @@ define([
 		'wedDerictives'
 	]);
 
-	wedInApp.config(['$routeProvider',function ($routeProvider) {
-$routeProvider.isAuth = false;
+	wedInApp.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider.when('/start', {
             templateUrl : '/views/start_page/00_home_page.html',
             controller : 'wedUsersMainCtrl'
+
         }).when('/index', {
 			templateUrl : '/views/home_page/00_home_page.html',
-			controller : 'wedProjectsMainCtrl',
-			/*access: {
-                pass : true
-			}*/
-
+			controller : 'wedProjectsMainCtrl'
 
 		}).when('/project', {
             templateUrl : '/views/projects/00_projects_main.html',
             controller : 'wedProjectsMainCtrl'
+
         }).otherwise({
         	template : "<h1 style='color: #ffffff;'>404 Not Found By Me!</h1>"
 		});

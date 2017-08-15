@@ -22,50 +22,49 @@ define(['angular'], function (angular) {
 
         $scope.$on('LoggedIn', function (e, data) {
             $scope.currentUser = data;
+
+            // If USER is Authorized
             if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
                 $timeout(function () {
-
                     $location.path('/index');
                     $scope.dynamicBackground = 'projects_main';
-                        // Projects list update fn
-                        function updateProjectsList() {
-                            ResourceService._ajaxRequest("GET", null, null).then(function (projects) {
-                                angular.forEach(projects, function (project) {
-                                    if (project.owner == $scope.currentUser._id){
-                                        $scope.projects.push(project);
-                                    }
-                                });
 
-                                //$scope.projects = projects;
-                            }).catch(function (err) {
-                                toastr.error("ERROR: GET init data failed");
-                                $log.warn("ERROR: GET init data failed", err);
-                            });
-                        }
-                        updateProjectsList();
+                    // Get USER Projects list
+                    function updateProjectsList() {
+                        var request = { id : $scope.currentUser._id };
 
-                        // Events handler
-                        $scope.$on('projectsListChange', function () {
-                            updateProjectsList();
+                        ResourceService._ajaxRequest("POST", null, request, '/getProjects').then(function (projects) {
+                            $scope.projects = projects;
+                        }).catch(function (err) {
+                            toastr.error("ERROR: GET init data failed");
+                            $log.warn("ERROR: GET init data failed", err);
                         });
+                    }
+                    // Get USER Projects list on-load
+                    updateProjectsList();
 
-                        // Exit to Home Page
-                        $scope.goToHomePage = function () {
-                            $location.path('/index');
-                            $scope.dynamicBackground = "projects_main";
-                            //$scope.currentProject = {};
-                            $scope.currentProjectView.mainMenu = null;
-                        };
+                    // Events handler
+                    $scope.$on('projectsListChange', function () {
+                        updateProjectsList();
+                    });
 
-                        // Edit project init
-                        $scope.editProject = function (id) {
-                            $rootScope.$broadcast('editProject', {
-                                id : id
-                            });
-                        };
+                    // Exit to Home Page
+                    $scope.goToHomePage = function () {
+                        $location.path('/index');
+                        $scope.dynamicBackground = "projects_main";
+                        //$scope.currentProject = {};
+                        $scope.currentProjectView.mainMenu = null;
+                    };
 
-                        // Go and Load selected Project
-                        $scope.goToSelectedProject = function (id, archive) {
+                    // Edit project init
+                    $scope.editProject = function (id) {
+                        $rootScope.$broadcast('editProject', {
+                            id : id
+                        });
+                    };
+
+                    // Go and Load selected Project
+                    $scope.goToSelectedProject = function (id, archive) {
                             ResourceService._ajaxRequest("GET", id, null).then(function (project) {
                                 if (archive) {
                                     $timeout(function () {
@@ -83,12 +82,9 @@ define(['angular'], function (angular) {
                             });
                         };
                 }, 300);
-
             } else
-            { $location.path('/4444');}
+            { $location.path('/404');}
         });
-
-
 
     }// Ctrl end
 
@@ -96,6 +92,7 @@ define(['angular'], function (angular) {
      * PROJECTS MAIN CTRL
      * */
     function wedProjectsMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, ResourceService, AppService) {
+        // If USER is Authorized
         if($scope.currentUser.isAuth) {
             // Filter for shift expired dated projects to Archive
             $scope.projectListDateCheck = function (project) {

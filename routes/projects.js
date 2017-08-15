@@ -9,14 +9,22 @@ projectsRouter.get('/', function (req, res) {
     res.render('../public/index', { title : 'Wedding_in'});
 });
 
-// GET All Projects
-projectsRouter.get('/api', function (req, res, next) {
-    db.weddings.find(function (err, projects) {
+// GET User Projects
+projectsRouter.post('/getProjects', function (req, res, next) {
+    var owner = req.body;
+    var projectsCollection = [];
+
+    db.weddings.find({}, {}, function (err, projects) {
         if(err){
             res.send(err);
         } else {
-            res.json(projects);
-            //console.log(projects);
+            projects.forEach(function (project) {
+                if(project.owner == owner.id){
+                    projectsCollection.push(project);
+                }
+            });
+
+            res.json(projectsCollection);
         }
     });
 });
