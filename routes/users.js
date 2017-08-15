@@ -12,8 +12,20 @@ var collection = 'wedUsers';
  * USERS ROUTER
  * */
 
-// POST USER REGISTRATION
+// POST NEW USER (REGISTRATION)
 usersRouter.post('/', function (req, res, next) {
+    // New User Ctor fn
+    function User(user) {
+        this.userName = user.name;
+        this.userPassword = user.password;
+        this.userEmail = user.email;
+        this.registrationDate = new Date();
+        this.isAuth = false;
+        this.isLogged = false;
+        this.admin = false;
+        this.lastLogin = null;
+    }
+
     var newUser = req.body;
 
     var promise = new Promise(function (resolve, reject) {
@@ -21,11 +33,11 @@ usersRouter.post('/', function (req, res, next) {
         usersDB[collection].find({}, {}, function (e, users) {
             users.forEach(function (user) {
                 // Check if such NAME already exists
-                if (user.userName == newUser.userName) {
+                if (user.userName == newUser.name) {
                     reject(new PropOccupiedError('NAME'));
                 }
                 // Check if such EMAIL already exists
-                if (user.userEmail == newUser.userEmail) {
+                if (user.userEmail == newUser.email) {
                     reject(new PropOccupiedError('EMAIL'));
                 }
             });
@@ -36,16 +48,20 @@ usersRouter.post('/', function (req, res, next) {
 
     promise.then(
         function () {
-            // Do save New Registred User in DB (if no rejects)
-            usersDB[collection].save(newUser, function (err, registredUser) {
-                if (err) {
-                    res.send(err);
-                }
-                else {
-                    console.log('CALL POST BY: NEW USER REGISTRATION');
-                    res.json(registredUser);
-                }
-            });
+            if(!newUser.name || !newUser.password || !newUser.email){
+                reject(new NewUserValidationError('VALIDATION'));
+            } else {
+                // Do save New Registred User in DB (if no rejects)
+                usersDB[collection].save(new User(newUser), function (err, registredUser) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    else {
+                        console.log('CALL POST BY: NEW USER: ' + newUser.name +' REGISTRATION');
+                        res.json(registredUser);
+                    }
+                });
+            }
         },
         // if rejected, send an error
         function (err) {
@@ -146,3 +162,17 @@ function UserNotFoundError(property) {
     }
 }
 UserNotFoundError.prototype = Object.create(Error.prototype);
+
+// USER VALIDATION FAILED Error Ctor Fn
+function NewUserValidationError(property) {
+    Error.call(this, property);
+    this.name = 'NewUserValidationError';
+    this.property = property;
+    this.message = "ERROR: NEW USER" + property + " FAILED!";
+    if (Error.captureStackTrace) {
+        Error.captureStackTrace(this, NewUserValidationError);
+    } else {
+        this.stack = (new Error()).stack;
+    }
+}
+NewUserValidationError.prototype = Object.create(Error.prototype);

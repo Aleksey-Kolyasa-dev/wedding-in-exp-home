@@ -80,34 +80,23 @@ define(['angular'], function (angular) {
      * USERS REGISTRATION CTRL
      * */
     function registrationCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, _env, UsersResourceService, AppService) {
-        function User(user) {
-            this.userName = user.name;
-            this.userPassword = this.passwordCrypt(user);
-            this.userEmail = user.email;
-            this.registrationDate = new Date();
-            this.isAuth = false;
-            this.isLogged = false;
-            this.admin = false;
-            this.lastLogin = null;
-        }
-
-        User.prototype.passwordCrypt = function (user) {
-            return user.name + $window.btoa(user.password);
-        };
 
         $scope.doRegister = function (user) {
             // Check if all required fields are fulfilled properly
             if (!user.name || !user.email || !user.password || !user.confirmPassword) {
                 toastr.error('ERROR: INVALID REGISTRATION DATA!');
                 throw new Error('ERROR: INVALID REGISTRATION DATA!');
+
             // Passwords inputs must coincide
             } else if (user.password !== user.confirmPassword) {
-
                 toastr.error('ERROR: PASSWORDS NOT COINCIDE!');
                 throw new Error('ERROR: PASSWORDS NOT COINCIDE!');
 
             } else {
-                UsersResourceService._ajaxRequest("POST", null, new User(user), null).then(
+                // Modify password
+                user.password = user.name + $window.btoa(user.password);
+
+                UsersResourceService._ajaxRequest("POST", null, user, null).then(
                     function (data) {
                         if (data.userName) {
                             // Set newProject to Default for View
@@ -123,6 +112,11 @@ define(['angular'], function (angular) {
                             }
                             // Case if ERROR.property = 'EMAIL' returned
                             if(data.property == 'EMAIL'){
+                                toastr.error(data.message);
+                                throw new Error(data.message);
+                            }
+                            // Case if ERROR.property = 'VALIDATION' returned
+                            if(data.property == 'VALIDATION'){
                                 toastr.error(data.message);
                                 throw new Error(data.message);
                             }
