@@ -8,10 +8,10 @@ define(['angular'], function (angular) {
     *  NEW PROJECT CTRL
     * */
     function newProjectCtrl($scope, $log, $window,toastr, _env, ResourceService, AppService) {
-        if($scope.currentUser.isAuth) {
+        if($scope.currentUser.isAuth/* || $scope.currentUser.visitor*/) {
             $scope.createNewProject = function (newProject) {
                 newProject.owner = $scope.currentUser._id;
-                newProject.accessKey = '#_' + $window.btoa($scope.currentUser._id + newProject.weddingDate + newProject.wedBudget);
+                newProject.accessKey = '#' + $window.btoa($scope.currentUser._id + newProject.weddingDate + newProject.wedBudget);
                 newProject.weddingDate = AppService._dateStringToObject(newProject.weddingDate);
                 $log.log(newProject.accessKey);
 
@@ -45,7 +45,7 @@ define(['angular'], function (angular) {
         }
 
 
-        if ($scope.currentUser.isAuth) {
+        if ($scope.currentUser.isAuth/* || $scope.currentUser.visitor*/) {
             // Default values
             $scope.editProject = {};
 

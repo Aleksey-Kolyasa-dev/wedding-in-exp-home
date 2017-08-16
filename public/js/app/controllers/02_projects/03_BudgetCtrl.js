@@ -188,6 +188,10 @@ define(['angular'], function (angular) {
             }
         };
 
+        //col=py
+        $scope.keyCopy = function (key) {
+            angular.copy(key);
+        };
 
     } // Ctrl End
 

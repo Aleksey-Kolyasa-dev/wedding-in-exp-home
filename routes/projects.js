@@ -39,6 +39,31 @@ projectsRouter.get('/api/:id', function (req, res, next) {
         //console.log(project);
     });
 });
+
+// GET Single Project by Key Access
+projectsRouter.post('/keyAccess', function (req, res, next) {
+    var access = req.body;
+    var accessProject = {};
+
+
+    db.weddings.find({}, {}, function (err, projects) {
+        if(err){
+            res.send(err);
+        } else {
+            projects.forEach(function (project) {
+                if(project.accessKey == access.key){
+                   accessProject = project;
+                }
+            });
+            console.log(accessProject);
+            if(!accessProject.accessKey){
+                res.send(new Error('NOT FOUND'));
+            } else {
+                res.json(accessProject);
+            }
+        }
+    });
+});
 // POST New Project
 projectsRouter.post('/api', function (req, res, next) {
     var newProject = req.body;
@@ -59,7 +84,7 @@ projectsRouter.post('/api', function (req, res, next) {
    }
 });
 // PUT Single Projects
-projectsRouter.put('/api/:id', function (req, res, next) {
+/*projectsRouter.put('/api/:id', function (req, res, next) {
     var project = req.body;
     var updatedProject = {};
 
@@ -106,7 +131,51 @@ projectsRouter.put('/api/:id', function (req, res, next) {
             res.json(project);
         });
     }
+});*/
+// PUT Single Projects
+projectsRouter.put('/api/:id', function (req, res, next) {
+    var project = req.body;
+    var updatedProject = {};
+
+    console.log("CALL PUT BY: PROJECT INIT DATA UPDATE");
+
+    if(project.fianceName && project.fianceeName && project.owner){
+
+        updatedProject.fianceName = project.fianceName;
+        updatedProject.fianceeName = project.fianceeName;
+        updatedProject.weddingDate = project.weddingDate;
+        updatedProject.email = project.email;
+        updatedProject.telephones = project.telephones;
+        updatedProject.notes = project.notes;
+
+
+    }
+    if(!updatedProject){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)},{ $set :
+            {
+                fianceName : project.fianceName,
+                fianceeName : project.fianceeName,
+                weddingDate : project.weddingDate,
+                email : project.email,
+                telephones : project.telephones,
+                notes : project.notes
+
+            }}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            //console.log(project);
+            res.json(project);
+        });
+    }
 });
+
+
 // DELETE Single Project
 projectsRouter.delete('/api/:id', function (req, res, next) {
     console.log("CALL DELETE BY: _id");
@@ -182,6 +251,25 @@ projectsRouter.put('/api/:id/budget', function (req, res, next) {
 });
 
 
+// PUT Single Project BUDGET keyURL = /projectNotes
+projectsRouter.put('/api/:id/projectNotes', function (req, res, next) {
+    var project = req.body;
+    console.log("CALL PUT BY: /projectNotes");
+
+    if(!project.notes){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: projectNotes validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { notes: project.notes}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
 // PUT Single Project BUDGET keyURL = /budgetNotes
 projectsRouter.put('/api/:id/budgetNotes', function (req, res, next) {
     var project = req.body;

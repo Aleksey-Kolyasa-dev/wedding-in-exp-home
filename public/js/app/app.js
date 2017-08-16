@@ -61,7 +61,9 @@ define([
             controller : 'wedProjectsMainCtrl'
 
         }).otherwise({
-        	template : "<h1 style='color: #ffffff;'>404 Not Found By Me!</h1>"
+        	/*template : "<h1 style='color: #ffffff;'>404 Not Found By Me!</h1>"*/
+            templateUrl : '/views/start_page/00_start_page.html',
+            controller : 'wedUsersMainCtrl'
 		});
 
 	}]);

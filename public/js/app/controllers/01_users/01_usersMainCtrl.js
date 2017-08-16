@@ -25,7 +25,7 @@ define(['angular'], function (angular) {
     /*
      * USERS LOGIN CTRL
      * */
-    function loginCtrl($scope, $window, $log, $location, $timeout, toastr, _env, UsersResourceService, UserAuthService) {
+    function loginCtrl($scope, $window, $log, $location, $timeout, toastr, _env, UsersResourceService, ResourceService ,UserAuthService) {
 
         // DO LOGIN Fn
         $scope.doLogin = function(data){
@@ -90,6 +90,19 @@ define(['angular'], function (angular) {
                 // Else - remove token
                 $window.localStorage.removeItem("userToken");
             }
+        }
+
+        $scope.accessByKey = function (key) {
+            var req = { key : key };
+            //console.log(req);
+            ResourceService._ajaxRequest("POST", null, req, "/keyAccess").then(function (data) {
+                if(!data._id){
+                    toastr.error('PROJECT NOT FOUND!');
+                    throw new Error('PROJECT NOT FOUND!');
+                } else {
+                    $scope.$emit('AccessApproved', data);
+                }
+            });
         }
 
     }// Ctrl end

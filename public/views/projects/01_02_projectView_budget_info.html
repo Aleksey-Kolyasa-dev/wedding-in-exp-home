@@ -11,7 +11,16 @@
                 <p>E-mail: <span class="rest-info-data">{{currentProject.email}}</span></p>
             </div>
             <hr>
-
+            <div>
+                <p>Бюджет свадьбы: <span class="rest-info-data">{{currentProject.budget.budgetUSD}} USD</span></p>
+            </div>
+            <hr>
+            <div>
+                <p>Ключ доступа к просмотру проекта</span></p>
+                <p><span class="rest-info-data">{{currentProject.accessKey}}</span></p>
+                <p><button class="btn btn-success" ng-click="keyCopy(currentProject.accessKey)">copy</button></p>
+            </div>
+            <hr>
 
         </div>
     </div>

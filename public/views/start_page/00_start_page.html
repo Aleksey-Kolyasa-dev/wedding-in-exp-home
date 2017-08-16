@@ -1,6 +1,22 @@
 <div>
     <ng-include src="'/views/start_page/01_header.html'"></ng-include>
 
+
+
+        <div class="new-proj-mains" style="float: right; margin-right: 15px; margin-top: 15px">
+            <div>
+                <a class="main-page-menu-btn" data-toggle="modal" data-target="#keyAccess">
+                    <span>ВВЕСТИ КЛЮЧ ПРОЕКТА</span>
+                </a>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
     <div class="container-fluid main-page-functional-body" style="margin-top: 60px; border: 0" ng-if="currentUser.isLogged">
         <!--MAIN BODY *START*-->
         <div class="wed-main-body">
@@ -53,3 +69,38 @@
     </div>
 
 </div>
+
+<!-- LOGIN NEW MODAL *START* -->
+<div id="keyAccess" class="modal fade" ng-controller="loginCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">close</button>
+                <h4 class="modal-title">KEY ACCESS</h4>
+            </div>
+            <div class="modal-body wed-modals-s">
+                <div class="add-new-proj-main">
+                    <form name="keyAccessForm" novalidate ng-submit="">
+                        <div>
+                            <div class="form-group">
+                                <label>Введите ключ доступа к проекту</label>
+                                <input name="projectKey" class="form-control" ng-model="key"
+                                       type="text" required ng-minlength='1'
+                                       ng-class="(keyAccessForm.projectKey.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+
+                            <div class="text-right">
+                            <button type="submit" class="btn btn-success btn-sm"
+                                    ng-disabled="loginForm.$invalid" data-dismiss="modal"
+                                    ng-click="accessByKey(key)">
+                                <b>ВВОД</b>
+                            </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- LOGIN NEW MODAL *END* -->
