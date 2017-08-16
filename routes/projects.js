@@ -67,6 +67,7 @@ projectsRouter.put('/api/:id', function (req, res, next) {
 
     if(project.fianceName && project.fianceeName && project.owner){
         updatedProject.owner = project.owner;
+        updatedProject.accessKey = project.accessKey;
         updatedProject.fianceName = project.fianceName;
         updatedProject.fianceeName = project.fianceeName;
         updatedProject.weddingDate = project.weddingDate;
@@ -679,6 +680,7 @@ module.exports = projectsRouter;
 function NewProjectCtor(project) {
     // INIT DATA
     this.owner = project.owner;
+    this.accessKey = project.accessKey;
     this.fianceName = project.fianceName;
     this.fianceeName = project.fianceeName;
     this.weddingDate = project.weddingDate;

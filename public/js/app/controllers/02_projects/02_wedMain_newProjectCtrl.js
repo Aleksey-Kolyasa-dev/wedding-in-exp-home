@@ -7,12 +7,13 @@ define(['angular'], function (angular) {
     /*
     *  NEW PROJECT CTRL
     * */
-    function newProjectCtrl($scope, $log, toastr, _env, ResourceService, AppService) {
+    function newProjectCtrl($scope, $log, $window,toastr, _env, ResourceService, AppService) {
         if($scope.currentUser.isAuth) {
             $scope.createNewProject = function (newProject) {
                 newProject.owner = $scope.currentUser._id;
+                newProject.accessKey = '#_' + $window.btoa($scope.currentUser._id + newProject.weddingDate + newProject.wedBudget);
                 newProject.weddingDate = AppService._dateStringToObject(newProject.weddingDate);
-                /*newProject.budget*/
+                $log.log(newProject.accessKey);
 
 
                 ResourceService._ajaxRequest("POST", null, newProject)

@@ -153,6 +153,41 @@ define(['angular'], function (angular) {
                 });
         };
 
+        // Notes Save
+        $scope.projNoteSave = function () {
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/projectNotes").then(
+                function (data) {
+                    if (_env._dev) {
+                        toastr.info('Notes are saved!');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: Notes AJAX failed');
+                    throw new Error('ERROR: Notes AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error("ERROR: Notes AJAX failed");
+                    $log.error("ERROR: Notes AJAX failed", err);
+                });
+        };
+
+        // Subview shift Fn
+        $scope.subViewShift = function (view) {
+            switch (view) {
+                case "settings" :
+                    $scope.subView = view;
+                    break;
+                case "info" :
+                    $scope.subView = view;
+                    break;
+                case "reports" :
+                    $scope.subView = view;
+                    break;
+            }
+        };
+
 
     } // Ctrl End
 

@@ -19,11 +19,13 @@ define(['angular'], function (angular) {
         $location.path('/start');
         $scope.dynamicBackground = "start_main";
 
+        // Exit to START PAGE
         $scope.exitToStart = function () {
             $location.path('/start');
             $scope.dynamicBackground = "start_main";
         };
 
+        // LOGOUT Fn
         $scope.logOut = function () {
             $scope.$broadcast('logout');
 
@@ -35,6 +37,7 @@ define(['angular'], function (angular) {
             }, 200);
         };
 
+        // EVENT 'LOGGED IN' Subscribe
         $scope.$on('LoggedIn', function (e, data) {
             $scope.currentUser = data;
 
