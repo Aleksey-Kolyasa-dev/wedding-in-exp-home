@@ -71,6 +71,7 @@ define(['angular'], function (angular) {
                         $location.path('/index');
                         $scope.dynamicBackground = "projects_main";
                         //$scope.currentProject = {};
+                        updateProjectsList();
                         $scope.currentProjectView.mainMenu = null;
                     };
 
@@ -177,8 +178,8 @@ define(['angular'], function (angular) {
                         });
                     };
                 }, 300);
-            } else
-            { $location.path('/start');}
+            } else { $location.path('/start');}
+
       /*  });*/
 
         // Project Left Menu navigation

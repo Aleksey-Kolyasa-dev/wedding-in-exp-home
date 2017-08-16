@@ -11,6 +11,7 @@ define(['angular'], function (angular) {
      * USERS MAIN CTRL
      * */
     function wedUsersMainCtrl($scope, $rootScope, $log,$window , $location, $timeout, toastr, _env, UsersResourceService, AppService) {
+        // LOG OUT EVENT Subscribe Fn
         $scope.$on('logout', function () {
             if($window.localStorage.userToken){
                 // remove token
@@ -48,7 +49,7 @@ define(['angular'], function (angular) {
 
                                 // Set newProject to Default for View
                                 $scope.user = {};
-                                //toastr.success("WELCOME DEAR " + data.userName + " !");
+                                //toastr.success("WELCOME DEAR " + data.realName + " !");
 
                                 // Make User Token
                                 UserAuthService._userToken(data);
@@ -115,7 +116,7 @@ define(['angular'], function (angular) {
 
         $scope.doRegister = function (user) {
             // Check if all required fields are fulfilled properly
-            if (!user.name || !user.email || !user.password || !user.confirmPassword) {
+            if (!user.name || !user.email || !user.password || !user.confirmPassword || !user.realName) {
                 toastr.error('ERROR: INVALID REGISTRATION DATA!');
                 throw new Error('ERROR: INVALID REGISTRATION DATA!');
 
@@ -134,7 +135,7 @@ define(['angular'], function (angular) {
                             // Set newProject to Default for View
                             $scope.user = {};
                             if (_env._dev) {
-                                toastr.success("NEW USER " + data.userName + " REGISTRED!");
+                                toastr.success("NEW USER " + data.realName + " REGISTRED!");
                             }
                         } else {
                             // Case if ERROR.property = 'NAME' returned

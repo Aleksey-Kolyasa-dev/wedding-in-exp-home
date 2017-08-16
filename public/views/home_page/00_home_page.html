@@ -1,4 +1,5 @@
 <div>
+    <ng-include src="'/views/home_page/00a_nav_menu.html'"></ng-include>
     <ng-include src="'/views/home_page/01_header.html'"></ng-include>
     <ng-include src="'/views/home_page/02_deco_top.html'"></ng-include>
 
@@ -169,11 +170,7 @@
                     <div class="modal-body wed-modals">
                         <div class="add-new-proj-main">
                             <form name="editProj" novalidate ng-submit="">
-                                <div class=""><!--well-->
-                                    <div class="form-group">
-                                        <p>Ключ просмотра проекта: </p>
-                                        <label>{{editProject.accessKey}}</label>
-                                    </div>
+                                <div>
                                     <div class="form-group">
                                         <label>Имя жениха</label>
                                         <input name="fianceName" class="form-control" ng-model="editProject.fianceName"

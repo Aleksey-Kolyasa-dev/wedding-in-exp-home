@@ -13,6 +13,7 @@ define(['angular'], function (angular) {
                 newProject.owner = $scope.currentUser._id;
                 newProject.accessKey = '#' + $window.btoa($scope.currentUser._id + newProject.weddingDate + newProject.wedBudget);
                 newProject.weddingDate = AppService._dateStringToObject(newProject.weddingDate);
+                newProject.created = new Date();
                 $log.log(newProject.accessKey);
 
 

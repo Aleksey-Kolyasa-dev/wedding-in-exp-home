@@ -41,19 +41,6 @@ define(['angular'], function (angular) {
                                     throw new Error('ERROR: GET method failed: ' + err);
                                 });
                             }
-                            if (data && keyURL) {
-                                $http({url: self.baseURL + keyURL, data : data}).success(function (response) {
-                                    if(/*response._id*/true){
-                                        deferred.resolve(response);
-                                    } else {
-                                        deferred.reject('ERROR: NOT FOUND!');
-                                    }
-                                }).error(function (err) {
-                                    toastr.error('ERROR: GET method failed');
-                                    deferred.reject('ERROR: GET method failed');
-                                    throw new Error('ERROR: GET method failed: ' + err);
-                                });
-                            }
                             break;
 
                         case "POST" :

@@ -44,7 +44,7 @@
                     <form name="loginForm" novalidate ng-submit="">
                         <div>
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>Login</label>
                                 <input name="LoginName" class="form-control" ng-model="user.name"
                                        type="text" required ng-minlength='1'
                                        ng-class="(loginForm.LoginName.$invalid)? 'invalid-input' : 'null'">
@@ -83,16 +83,10 @@
                     <form name="registrationForm" novalidate ng-submit="">
                         <div>
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>Login</label>
                                 <input name="registrationName" class="form-control" ng-model="user.name"
                                        type="text" required ng-minlength='1'
                                        ng-class="(registrationForm.registrationName.$invalid)? 'invalid-input' : 'null'">
-                            </div>
-                            <div class="form-group">
-                                <label>E-mail</label>
-                                <input name="registrationEmail" class="form-control" ng-model="user.email"
-                                       type="email" required ng-minlength='1'
-                                       ng-class="(registrationForm.registrationEmail.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
@@ -105,6 +99,25 @@
                                 <input name="confirmPassword" class="form-control" ng-model="user.confirmPassword"
                                        type="password" required ng-minlength='1'
                                        ng-class="(registrationForm.confirmPassword.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <input name="registrationEmail" class="form-control" ng-model="user.email"
+                                       type="email" required ng-minlength='1'
+                                       ng-class="(registrationForm.registrationEmail.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input name="registrationRealName" class="form-control" ng-model="user.realName"
+                                       type="text" required ng-minlength='1'
+                                       ng-class="(registrationForm.registrationRealName.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+                            <div class="form-group">
+                                <label>Nickname</label>
+                                <input name="registrationNickname" class="form-control" ng-model="user.nickname"
+                                       type="text"
+                                >
                             </div>
 
                             <button type="submit" class="btn btn-success btn-block"

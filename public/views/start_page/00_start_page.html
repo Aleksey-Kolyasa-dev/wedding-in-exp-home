@@ -1,8 +1,6 @@
 <div>
     <ng-include src="'/views/start_page/01_header.html'"></ng-include>
 
-
-
         <div class="new-proj-mains" style="float: right; margin-right: 15px; margin-top: 15px">
             <div>
                 <a class="main-page-menu-btn" data-toggle="modal" data-target="#keyAccess">
@@ -10,12 +8,7 @@
                 </a>
             </div>
         </div>
-
-
-
-
-
-    </div>
+</div>
 
     <div class="container-fluid main-page-functional-body" style="margin-top: 60px; border: 0" ng-if="currentUser.isLogged">
         <!--MAIN BODY *START*-->
@@ -70,7 +63,7 @@
 
 </div>
 
-<!-- LOGIN NEW MODAL *START* -->
+<!-- KEY ACCESS MODAL *START* -->
 <div id="keyAccess" class="modal fade" ng-controller="loginCtrl">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -103,4 +96,4 @@
         </div>
     </div>
 </div>
-<!-- LOGIN NEW MODAL *END* -->
+<!-- KEY ACCESS MODAL *END* -->

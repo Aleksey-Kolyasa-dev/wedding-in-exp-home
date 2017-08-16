@@ -23,10 +23,10 @@ projectsRouter.post('/getProjects', function (req, res, next) {
                     projectsCollection.push(project);
                 }
             });
-
             res.json(projectsCollection);
         }
     });
+    console.log('CALL POST By: /getProjects');
 });
 
 // GET Single Project
@@ -40,11 +40,11 @@ projectsRouter.get('/api/:id', function (req, res, next) {
     });
 });
 
-// GET Single Project by Key Access
+// GET Single Project by KEY ACCESS
 projectsRouter.post('/keyAccess', function (req, res, next) {
     var access = req.body;
+    //console.log(req.url);
     var accessProject = {};
-
 
     db.weddings.find({}, {}, function (err, projects) {
         if(err){
@@ -55,10 +55,10 @@ projectsRouter.post('/keyAccess', function (req, res, next) {
                    accessProject = project;
                 }
             });
-            console.log(accessProject);
             if(!accessProject.accessKey){
                 res.send(new Error('NOT FOUND'));
             } else {
+                console.log('CALL POST By: /AccessKey');
                 res.json(accessProject);
             }
         }
@@ -769,6 +769,7 @@ function NewProjectCtor(project) {
     // INIT DATA
     this.owner = project.owner;
     this.accessKey = project.accessKey;
+    this.created = project.created;
     this.fianceName = project.fianceName;
     this.fianceeName = project.fianceeName;
     this.weddingDate = project.weddingDate;

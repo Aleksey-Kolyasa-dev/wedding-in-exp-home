@@ -1,5 +1,19 @@
-.main-page-header{
+/*NAV BAR*/
+.top-nav-bar{
+    position: absolute;
+    top: -35px;
+    right: 0;
+    height: 50px;
+    background: linear-gradient(rgba(92, 65, 47, 0.74), rgba(37, 37, 37, 0.62));
+    border-bottom: 1px solid #ffffff;
+    transition: top 400ms ease;
+    z-index: 5;
 }
+.top-nav-bar:hover{
+    top: 0;
+    cursor: pointer;
+}
+/*HEADER*/
 .wed-main-header{
     height:100px;
 }

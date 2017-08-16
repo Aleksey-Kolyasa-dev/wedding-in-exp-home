@@ -45,7 +45,7 @@ usersRouter.post('/', function (req, res, next) {
                         res.send(err);
                     }
                     else {
-                        console.log('CALL POST BY: NEW USER: ' + newUser.name +' REGISTRATION');
+                        console.log('CALL POST BY: NEW USER: ' + newUser.realName +' REGISTRED');
                         res.json(registredUser);
                     }
                 });
@@ -77,7 +77,7 @@ usersRouter.post('/login', function (req, res, next) {
                     user.isLogged = true;
                     user.lastLogin = new Date();
                     user.isAuth = true;
-                    console.log('CALL POST BY: LOGIN, user: ' + user.userName);
+                    console.log('CALL POST BY: LOGIN, user: ' + user.realName);
 
                     // Send USER to Client
                     res.json(user);
@@ -123,7 +123,7 @@ usersRouter.post('/login', function (req, res, next) {
 // PUT USER LOGOUT
 usersRouter.put('/:id/logout', function (req, res, next) {
     var user = req.body;
-    console.log('CALL PUT BY: LOGOUT, user: ' + user.userName);
+    console.log('CALL PUT BY: LOGOUT, user: ' + user.realName);
 
     if(!user._id){
         res.status(400);
@@ -146,6 +146,8 @@ module.exports = usersRouter;
 // New User Ctor fn
 function User(user) {
     this.userName = user.name;
+    this.realName = user.realName;
+    this.nickname = user.nickname;
     this.userPassword = user.password;
     this.userEmail = user.email;
     this.registrationDate = new Date();
