@@ -495,7 +495,7 @@ define(['angular'], function (angular) {
                 }
             },
             // Transform Date Obj to date String "dd.mm.yyyy".
-            _objectTodateString: function (dateString) {
+            _objectToDateString: function (dateString) {
                 if (angular.isString(dateString)) {
                     var date = new Date(dateString);
                     var dateArr = [date.getDate(), date.getMonth() + 1, date.getFullYear()];

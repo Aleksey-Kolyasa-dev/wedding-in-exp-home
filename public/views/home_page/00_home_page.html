@@ -36,10 +36,10 @@
                         <li ng-if="projectListDateCheck(project)">
                             <p>
                                 <a ng-click="goToSelectedProject(project._id)">Свадьба
-                                    <b>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</b>
-                                    жених: <b>{{project.fianceName | uppercase}}</b>,
-                                    невеста: <b>{{project.fianceeName | uppercase}}</b>,
-                                    бюджет: <b>{{(project.budget.budgetUSD | number : 0 )}}</b> USD
+                                    <span>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</span>
+                                    жених: <span>{{project.fianceName | uppercase}}</span>,
+                                    невеста: <span>{{project.fianceeName | uppercase}}</span>,
+                                    бюджет: <span>{{(project.budget.budgetUSD | number : 0 )}}</span> USD
                                 </a>
                                 <a style="margin-left: 5px; color: #1eaf84" ng-click="editProject(project._id)" data-toggle="modal" data-target="#editProject"><span class="glyphicon glyphicon-cog"></span></a>
                             </p>
@@ -57,7 +57,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button class="close" type="button" data-dismiss="modal">close</button>
-                        <h4 class="modal-title"><b>НОВЫЙ ПРОЕКТ</b></h4>
+                        <h4 class="modal-title"><span>НОВЫЙ ПРОЕКТ</span></h4>
                     </div>
                     <div class="modal-body wed-modals">
                         <div class="add-new-proj-main">
@@ -106,7 +106,7 @@
                                     <button type="submit" class="btn btn-success btn-block"
                                             ng-disabled="addNewProj.$invalid" data-dismiss="modal"
                                             ng-click="createNewProject(newProject)">
-                                        <b>СОЗДАТЬ</b>
+                                        <span>СОЗДАТЬ</span>
                                     </button>
                                 </div>
                             </form>
@@ -128,7 +128,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button class="close" type="button" data-dismiss="modal">close</button>
-                        <h4 class="modal-title"><b>АРХИВ ПРОЕКТОВ</b></h4>
+                        <h4 class="modal-title"><span>АРХИВ ПРОЕКТОВ</span></h4>
                     </div>
                     <div class="modal-body wed-modals">
                         <div class="projects-list">
@@ -136,10 +136,10 @@
                                 <li ng-if="!projectListDateCheck(project)">
                                     <p>
                                         <a data-dismiss="modal" ng-click="goToSelectedProject(project._id, true)" style="font-size: 130%" >Свадьба
-                                            <b>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</b>
-                                            жених: <b>{{project.fianceName | uppercase}}</b>,
-                                            невеста: <b>{{project.fianceeName | uppercase}}</b>,
-                                            бюджет: <b>{{(project.budget.budgetUSD | number : 0 )}}</b> USD
+                                            <span>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</span>
+                                            жених: <span>{{project.fianceName | uppercase}}</span>,
+                                            невеста: <span>{{project.fianceeName | uppercase}}</span>,
+                                            бюджет: <span>{{(project.budget.budgetUSD | number : 0 )}}</span> USD
                                         </a>
                                         <a style="margin-left: 5px" ng-click="editProject(project._id)" data-toggle="modal" data-target="#editProject"><span class="glyphicon glyphicon-cog"></span></a>
                                     </p>
@@ -164,7 +164,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button class="close" type="button" data-dismiss="modal">close</button>
-                        <h4 class="modal-title"><b>РЕДАКТИРОВАТЬ ПРОЕКТ</b></h4>
+                        <h4 class="modal-title"><span>РЕДАКТИРОВАТЬ ПРОЕКТ</span></h4>
                     </div>
                     <div class="modal-body wed-modals">
                         <div class="add-new-proj-main">
@@ -222,7 +222,7 @@
                                     <button type="submit" class="btn btn-success btn-block"
                                             ng-disabled="editProj.$invalid" data-dismiss="modal"
                                             ng-click="editProjectApply(editProject)" ng-if="!deleteProjectTrigger">
-                                        <b>ПРИМЕНИТЬ</b>
+                                        <span>ПРИМЕНИТЬ</span>
                                     </button>
                                 </div>
                             </form>

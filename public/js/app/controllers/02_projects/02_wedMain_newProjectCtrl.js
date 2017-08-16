@@ -12,7 +12,7 @@ define(['angular'], function (angular) {
             $scope.createNewProject = function (newProject) {
                 newProject.owner = $scope.currentUser._id;
                 newProject.weddingDate = AppService._dateStringToObject(newProject.weddingDate);
-                newProject.budget
+                /*newProject.budget*/
 
 
                 ResourceService._ajaxRequest("POST", null, newProject)
@@ -51,7 +51,7 @@ define(['angular'], function (angular) {
             // On 'editProject' EVENT => get edited project
             $scope.$on('editProject', function (e, args) {
                 ResourceService._ajaxRequest("GET", args.id, null, null).then(function (project) {
-                    project.weddingDate = AppService._objectTodateString(project.weddingDate);
+                    project.weddingDate = AppService._objectToDateString(project.weddingDate);
                     $scope.editProject = project;
                     // Budget update
                     budgetUpdate();
