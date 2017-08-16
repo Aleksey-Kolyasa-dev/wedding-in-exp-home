@@ -139,19 +139,19 @@ projectsRouter.put('/api/:id', function (req, res, next) {
 
     console.log("CALL PUT BY: PROJECT INIT DATA UPDATE");
 
-    if(project.fianceName && project.fianceeName && project.owner){
+    /*if(project.fianceName && project.fianceeName && project.owner){
 
         updatedProject.fianceName = project.fianceName;
         updatedProject.fianceeName = project.fianceeName;
         updatedProject.weddingDate = project.weddingDate;
-        updatedProject.wedBudget = project.budget.budgetUSD;
+        updatedProject.wedBudget = project.wedBudget;
         updatedProject.email = project.email;
         updatedProject.telephones = project.telephones;
         updatedProject.notes = project.notes;
 
 
-    }
-    if(!updatedProject){
+    }*/
+    if(!project.fianceName && !project.fianceeName && !project.owner && !project.weddingDate && !project.email){
         res.status(400);
         res.json({
             "error" : "PUT ERROR: validation failed"
@@ -796,7 +796,7 @@ function NewProjectCtor(project) {
 
     // MENU DATA
     this.budget = {
-        budgetUSD: project.wedBudget,
+        /*budgetUSD: project.wedBudget,*/
         budgetNat: 0,
         nationalMoney: '',
         currency: 1,
