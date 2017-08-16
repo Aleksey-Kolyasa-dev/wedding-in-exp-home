@@ -25,7 +25,11 @@ define(['angular'], function (angular) {
 
         // MAIN BUDGET CALCULATION Fn
         function weddingBudgetTotals() {
+            /*$scope.currentProject.budget.budgetNat = $scope.currentProject.wedBudget * $scope.currentProject.budget.currency;*/
             var wed = $scope.currentProject;
+            // Define Nat Budget
+            wed.budget.budgetNat = wed.wedBudget * wed.budget.currency;
+
             // Define totals sum of planUsd/planNat
             wed.budget.total.wedPlanTotalUsd = wed.restaurant.total.planTotalUsd
                 + wed.decor.total.planUsd
@@ -91,7 +95,7 @@ define(['angular'], function (angular) {
                 $scope.currentProject.budget.nationalMoney = budget.nationalMoney;
                 $scope.currentProject.budget.currency = budget.currency;
 
-                $scope.currentProject.budget.budgetNat = $scope.currentProject.budget.budgetUSD * budget.currency;
+                $scope.currentProject.budget.budgetNat = $scope.currentProject.wedBudget * budget.currency;
 
                 $timeout(function () {
                     // MAIN BUDGET CALCULATION Fn
@@ -186,11 +190,6 @@ define(['angular'], function (angular) {
                     $scope.subView = view;
                     break;
             }
-        };
-
-        //col=py
-        $scope.keyCopy = function (key) {
-            angular.copy(key);
         };
 
     } // Ctrl End
