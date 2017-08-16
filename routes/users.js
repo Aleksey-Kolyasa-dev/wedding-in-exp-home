@@ -12,7 +12,7 @@ var collection = 'wedUsers';
  * USERS ROUTER
  * */
 
-// POST NEW USER (REGISTRATION)
+// POST USER REGISTRATION
 usersRouter.post('/', function (req, res, next) {
     var newUser = req.body;
 

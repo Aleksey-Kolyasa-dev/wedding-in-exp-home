@@ -21,13 +21,13 @@
             <ul class="visible-lg">
                 <li ng-show="!currentProject.restaurant.quickView && subView == 'guests'">
                     <a ng-click="quickView(currentProject)" style="color: rgb(119, 119, 119)">
-                        <span class="glyphicon glyphicon-pushpin" style="color: #ffffff" title="Быстрый расчет"></span>
+                        <span class="glyphicon glyphicon-calendar" style="color: #ffffff" title="Быстрый расчет"></span>
 
                     </a>
                 </li>
                 <li ng-show="currentProject.restaurant.quickView && subView == 'guests'" style="background: rgba(0, 150, 136, 0.51);">
                     <a ng-click="quickView(currentProject)">
-                        <span class="glyphicon glyphicon-pushpin" style="color: rgb(169, 241, 0);"></span>
+                        <span class="glyphicon glyphicon-calendar" style="color: rgb(169, 241, 0);"></span>
                         <strong>Быстрый расчет</strong>
                     </a>
                 </li>

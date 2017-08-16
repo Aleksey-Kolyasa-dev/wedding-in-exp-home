@@ -1,7 +1,7 @@
 <div>
     <ng-include src="'/views/start_page/01_header.html'"></ng-include>
 
-        <div class="new-proj-mains" style="float: right; margin-right: 15px; margin-top: 15px">
+        <div ng-if="!currentUser._id" class="new-proj-mains" style="float: right; margin-right: 15px; margin-top: 15px">
             <div>
                 <a class="main-page-menu-btn" data-toggle="modal" data-target="#keyAccess">
                     <span>ВВЕСТИ КЛЮЧ ПРОЕКТА</span>
