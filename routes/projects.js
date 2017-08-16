@@ -704,7 +704,7 @@ function NewProjectCtor(project) {
     this.budget = {
         budgetUSD: project.wedBudget,
         budgetNat: 0,
-        nationalMoney: 'units',
+        nationalMoney: '',
         currency: 1,
         total: {
             // TTL SUM ALL PLANS

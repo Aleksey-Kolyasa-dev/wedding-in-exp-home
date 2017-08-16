@@ -25,12 +25,14 @@ define(['angular'], function (angular) {
         };
 
         $scope.logOut = function () {
-            $scope.currentUser = {};
-            $scope.currentProject = {};
-            $scope.projects = [];
-            $scope.currentProjectView = {};
-            // remove token
-            $window.localStorage.removeItem("userToken");
+            $scope.$broadcast('logout');
+
+            $timeout(function () {
+                $scope.currentUser = {};
+                $scope.currentProject = {};
+                $scope.projects = [];
+                $scope.currentProjectView = {};
+            }, 200);
         };
 
         $scope.$on('LoggedIn', function (e, data) {

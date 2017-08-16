@@ -10,8 +10,15 @@ define(['angular'], function (angular) {
     /*
      * USERS MAIN CTRL
      * */
-    function wedUsersMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
-
+    function wedUsersMainCtrl($scope, $rootScope, $log,$window , $location, $timeout, toastr, _env, UsersResourceService, AppService) {
+        $scope.$on('logout', function () {
+            if($window.localStorage.userToken){
+                // remove token
+                $window.localStorage.removeItem("userToken");
+            }
+            var data = $scope.currentUser;
+            UsersResourceService._ajaxRequest("PUT", null, data, '/logout');
+        });
     }// Ctrl end
 
 

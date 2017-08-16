@@ -75,8 +75,8 @@ define(['angular'], function (angular) {
                             }
                             if (keyURL) {
                                 if (angular.isString(keyURL)) {
-                                    switch (keyURL) {
-                                        case "/userLoginStatus":
+                                    /*switch (keyURL) {
+                                        case "/userLoginStatus":*/
                                             $http({
                                                 method: "PUT",
                                                 url: self.baseURL + data._id + keyURL,
@@ -88,11 +88,10 @@ define(['angular'], function (angular) {
                                                 deferred.reject('ERROR: PUT method failed');
                                                 throw new Error('ERROR: PUT method failed: ' + err);
                                             });
-                                            break;
+                                           /* break;*/
 
                                     }
                                 }
-                            }
                             break;
 
                         case "DELETE" :

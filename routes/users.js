@@ -120,6 +120,26 @@ usersRouter.post('/login', function (req, res, next) {
     });
 });
 
+// PUT USER LOGOUT
+usersRouter.put('/:id/logout', function (req, res, next) {
+    var user = req.body;
+    console.log('CALL PUT BY: LOGOUT, user: ' + user.userName);
+
+    if(!user._id){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: LOGOUT validation failed"
+        });
+    } else {
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { isLogged : false, isAuth : false}}, {}, function (err, project) {
+            if(err){
+                res.send(err);
+            }
+            res.json(project);
+        });
+    }
+});
+
 
 module.exports = usersRouter;
 
