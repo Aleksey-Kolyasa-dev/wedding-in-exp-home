@@ -25,8 +25,9 @@ define(['angular'], function (angular) {
 
         // MAIN BUDGET CALCULATION Fn
         function weddingBudgetTotals() {
-            /*$scope.currentProject.budget.budgetNat = $scope.currentProject.wedBudget * $scope.currentProject.budget.currency;*/
+            //Shortcuts
             var wed = $scope.currentProject;
+
             // Define Nat Budget
             wed.budget.budgetNat = wed.wedBudget * wed.budget.currency;
 
@@ -50,6 +51,7 @@ define(['angular'], function (angular) {
                 + wed.music.total.paidTotalUsd
                 + wed.photo.total.paidTotalUsd
                 + wed.video.total.paidTotalUsd;
+
             wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd * wed.budget.currency;
 
             // Define totals sum of restUsd/restNat
