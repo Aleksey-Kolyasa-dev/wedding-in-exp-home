@@ -42,11 +42,13 @@ define(['angular'], function (angular) {
     function editProjectCtrl($scope, $log, toastr, _env, ResourceService, AppService) {
         // Budget update Fn
         function budgetUpdate() {
-            $scope.editProject.budget.budgetNat = $scope.editProject.budget.budgetUSD * $scope.editProject.budget.currency;
+
+            $scope.editProject.budget.budgetNat = $scope.currentProject.wedBudget * $scope.editProject.budget.currency;
         }
 
 
-        if ($scope.currentUser.isAuth/* || $scope.currentUser.visitor*/) {
+        if ($scope.currentUser.isAuth) {
+
             // Default values
             $scope.editProject = {};
 

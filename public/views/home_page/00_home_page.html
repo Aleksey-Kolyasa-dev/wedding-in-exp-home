@@ -40,7 +40,7 @@
                                     <span>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</span>
                                     жених: <span>{{project.fianceName | uppercase}}</span>,
                                     невеста: <span>{{project.fianceeName | uppercase}}</span>,
-                                    бюджет: <span>{{(project.budget.budgetUSD | number : 0 )}}</span> USD
+                                    бюджет: <span>{{(project.wedBudget | number : 0 )}}</span> USD
                                 </a>
                                 <a style="margin-left: 5px; color: #1eaf84" ng-click="editProject(project._id)" data-toggle="modal" data-target="#editProject"><span class="glyphicon glyphicon-cog"></span></a>
                             </p>
@@ -191,7 +191,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Запланированный бюджет USD</label>
-                                        <input name="wedBudget" class="form-control" ng-model="editProject.budget.budgetUSD"
+                                        <input name="wedBudget" class="form-control" ng-model="editProject.wedBudget"
                                                type="number" required ng-minlength='2'
                                                ng-class="(editProj.wedBudget.$invalid)? 'invalid-input' : 'null'">
                                     </div>

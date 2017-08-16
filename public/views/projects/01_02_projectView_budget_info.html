@@ -12,12 +12,13 @@
             </div>
             <hr>
             <div>
-                <p>Бюджет свадьбы: <span class="rest-info-data">{{currentProject.budget.budgetUSD}} USD</span></p>
+                <p>Бюджет свадьбы: <span class="rest-info-data">{{currentProject.wedBudget}} USD</span></p>
             </div>
             <hr>
             <div>
                 <p><span class="glyphicon glyphicon-qrcode"></span> Ключ доступа к просмотру проекта  </span></p>
-                <p><span class="rest-info-data" style="font-size: 80%">{{currentProject.accessKey}}</span></p>
+                <p class="visible-lg visible-md"><span class="rest-info-data" style="font-size: 80%">{{currentProject.accessKey}}</span></p>
+                <p class="visible-xs visible-sm"><span class="rest-info-data" style="font-size: 40%">{{currentProject.accessKey}}</span></p>
             </div>
             <hr>
 

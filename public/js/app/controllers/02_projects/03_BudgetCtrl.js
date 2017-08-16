@@ -53,11 +53,11 @@ define(['angular'], function (angular) {
             wed.budget.total.wedRestTotalNat =  wed.budget.total.wedRestTotalUsd * wed.budget.currency;
 
             // DEFINE WED BUDGET REST by PLAN
-            wed.budget.total.wedBudgetRestPlanUsd = wed.budget.budgetUSD - wed.budget.total.wedPlanTotalUsd;
+            wed.budget.total.wedBudgetRestPlanUsd = wed.wedBudget - wed.budget.total.wedPlanTotalUsd;
             wed.budget.total.wedBudgetRestPlanNat = wed.budget.total.wedBudgetRestPlanUsd * wed.budget.currency;
 
             // DEFINE WED BUDGET FACT by PLAN
-            wed.budget.total.wedBudgetRestFactUsd = wed.budget.budgetUSD - wed.budget.total.wedPaidTotalUsd;
+            wed.budget.total.wedBudgetRestFactUsd = wed.wedBudget - wed.budget.total.wedPaidTotalUsd;
             wed.budget.total.wedBudgetRestFactNat = wed.budget.total.wedBudgetRestFactUsd * wed.budget.currency;
 
             // COPY Obj back

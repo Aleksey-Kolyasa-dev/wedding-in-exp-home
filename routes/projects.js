@@ -144,6 +144,7 @@ projectsRouter.put('/api/:id', function (req, res, next) {
         updatedProject.fianceName = project.fianceName;
         updatedProject.fianceeName = project.fianceeName;
         updatedProject.weddingDate = project.weddingDate;
+        updatedProject.wedBudget = project.budget.budgetUSD;
         updatedProject.email = project.email;
         updatedProject.telephones = project.telephones;
         updatedProject.notes = project.notes;
@@ -161,6 +162,7 @@ projectsRouter.put('/api/:id', function (req, res, next) {
                 fianceName : project.fianceName,
                 fianceeName : project.fianceeName,
                 weddingDate : project.weddingDate,
+                wedBudget : project.wedBudget,
                 email : project.email,
                 telephones : project.telephones,
                 notes : project.notes
@@ -773,6 +775,7 @@ function NewProjectCtor(project) {
     this.fianceName = project.fianceName;
     this.fianceeName = project.fianceeName;
     this.weddingDate = project.weddingDate;
+    this.wedBudget = project.wedBudget;
     this.email = project.email;
     this.telephones = project.telephones;
     this.notes = project.notes;

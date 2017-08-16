@@ -44,3 +44,16 @@
     font-size: 115%;
     font-style: italic;
 }
+.betta-proj-sm{
+    position: relative;
+    top: -30px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.betta-proj-sm span,
+.betta-sm span{
+    color: #feffef;
+    text-shadow: 2px 2px 10px #f8b152;
+    font-size: 115%;
+    font-style: italic;
+}

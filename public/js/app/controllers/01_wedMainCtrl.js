@@ -70,7 +70,7 @@ define(['angular'], function (angular) {
                     $scope.goToHomePage = function () {
                         $location.path('/index');
                         $scope.dynamicBackground = "projects_main";
-                        //$scope.currentProject = {};
+                        $scope.decorNames = false;
                         updateProjectsList();
                         $scope.currentProjectView.mainMenu = null;
                     };
@@ -89,12 +89,14 @@ define(['angular'], function (angular) {
                                     $timeout(function () {
                                         $scope.currentProject = project;
                                         $location.path('/project');
+                                        $scope.decorNames = true;
                                         //** $scope.currentProjectView.mainMenu = "budget";
                                         $scope.currentProjectView.mainMenu = "budget";
                                     }, 500);
                                 } else {
                                     $scope.currentProject = project;
                                     $location.path('/project');
+                                    $scope.decorNames = true;
                                     //** $scope.currentProjectView.mainMenu = "budget";
                                     $scope.currentProjectView.mainMenu = "budget";
                                 }
@@ -109,9 +111,7 @@ define(['angular'], function (angular) {
         $scope.$on('AccessApproved', function (e, data) {
             $timeout(function () {
                 $scope.currentUser.visitor = true;
-                //$scope.currentUser.isLogged = true;
-                //$scope.currentUser.isAuth = true;
-
+                $scope.decorNames = true;
                 $scope.currentProject = data;
                 $location.path('/project');
                 $scope.dynamicBackground = "projects_main";
