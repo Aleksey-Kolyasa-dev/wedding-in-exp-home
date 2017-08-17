@@ -148,6 +148,7 @@ function User(user) {
     this.userName = user.name;
     this.realName = user.realName;
     this.nickname = user.nickname;
+    this.orgnization = null;
     this.userPassword = user.password;
     this.userEmail = user.email;
     this.registrationDate = new Date();
@@ -155,6 +156,10 @@ function User(user) {
     this.isLogged = false;
     this.admin = false;
     this.lastLogin = null;
+    this.smsQty = {
+        projectId : null,
+        qty : 0
+    }
 }
 
 // Occupation Error Ctor Fn

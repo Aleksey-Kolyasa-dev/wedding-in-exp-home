@@ -3,7 +3,11 @@ define(['angular'], function (angular) {
     var budgetCtrlModule = angular.module('budgetCtrlModule', ['wedServices']);
 
     budgetCtrlModule.controller('budgetMainCtrl', budgetMainCtrl);
+    budgetCtrlModule.controller('smsMainCtrl', smsMainCtrl);
 
+    /*
+     * BUDGET MAIN CTRL
+     * */
     function budgetMainCtrl($scope, $log, toastr, $timeout ,_env, ResourceService) {
         // Default subView
         $scope.subView = "settings";
@@ -191,10 +195,40 @@ define(['angular'], function (angular) {
                 case "reports" :
                     $scope.subView = view;
                     break;
+                case "sms" :
+                    $scope.subView = view;
+                    break;
             }
         };
 
     } // Ctrl End
+
+
+    /*
+     * SMS MAIN CTRL
+     * */
+    function smsMainCtrl($scope, $log, toastr, $timeout ,_env, ResourceService){
+       $scope.sendSms = function (msg) {
+           if(msg.text){
+               msg.author = "ALEX";
+               msg.date = Date.now();
+
+               $scope.currentProject.smsCollection.push(msg);
+
+               var request = {
+                   _id : $scope.currentProject._id,
+                   data : $scope.currentProject.smsCollection
+               };
+
+               ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms').then(function (smsCollection) {
+                    $scope.sms = {};
+                    $log.log(smsCollection);
+               });
+           }
+       }
+    }
+
+
 
     return budgetCtrlModule;
 });

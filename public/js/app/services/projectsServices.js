@@ -93,6 +93,22 @@ define(['angular'], function (angular) {
                                         });
                                     }
                                 }
+                            if (keyURL && url) {
+                                if (angular.isString(keyURL) && angular.isString(url)) {
+                                    console.log(self.baseURL + url + keyURL);
+                                    $http({
+                                        method: "PUT",
+                                        url: self.baseURL + url + keyURL,
+                                        data: data
+                                    }).success(function (data) {
+                                        deferred.resolve(data);
+                                    }).error(function (err) {
+                                        toastr.error('ERROR: PUT method failed');
+                                        deferred.reject('ERROR: PUT method failed');
+                                        throw new Error('ERROR: PUT method failed: ' + err);
+                                    });
+                                }
+                            }
                             break;
 
                         case "DELETE" :

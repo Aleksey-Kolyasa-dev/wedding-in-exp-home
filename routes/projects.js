@@ -762,6 +762,25 @@ projectsRouter.put('/api/:id/videoDataSave', function (req, res, next) {
 });
 
 
+// PUT Single Project SMS keyURL = /sms
+projectsRouter.put('/api/:id/sms', function (req, res, next) {
+    var request = req.body;
+    console.log("CALL PUT BY: /sms");
+
+    if(!request.data){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: SMS validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsCollection : request.data}}, {}, function (err, sms) {
+            if(err){
+                res.send(err);
+            }
+            res.json(sms);
+        });
+    }
+});
 
 
 module.exports = projectsRouter;
@@ -779,6 +798,13 @@ function NewProjectCtor(project) {
     this.email = project.email;
     this.telephones = project.telephones;
     this.notes = project.notes;
+    this.smsCollection = [
+        /*{
+            date : null,
+            author : null,
+            msg : null,
+        }*/
+    ];
     this.fianceSideGuests = [];
     this.fianceeSideGuests = [];
 
