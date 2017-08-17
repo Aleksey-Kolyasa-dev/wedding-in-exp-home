@@ -97,6 +97,14 @@ define(['angular'], function (angular) {
             };
 
             $scope.deleteProject = function (id) {
+
+                var sms = {
+                    projectId : id,
+                    qty : 'remove'
+                };
+                // Emit 'smsQty' event (for User)
+                $scope.$emit('smsQty', sms);
+
                 ResourceService._ajaxRequest("DELETE", id, null, null).then(function (data) {
                     if (_env._dev) {
                         toastr.warning('PROJECT WAS DELETED');
@@ -110,5 +118,7 @@ define(['angular'], function (angular) {
             };
         }
     }
+
+
     return newProjectCtrlModule;
 });

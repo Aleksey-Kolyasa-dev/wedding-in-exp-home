@@ -121,12 +121,26 @@ define(['angular'], function (angular) {
 
         // SMS QTY EVENT
         $scope.$on('smsQty', function (e, data) {
-            $scope.currentUser.smsQty.push(data);
-            var req = {
-               _id : $scope.currentUser._id,
-               arr : $scope.currentUser.smsQty
-           };
-            UsersResourceService._ajaxRequest("PUT", null, req, '/smsQty');
+            if(angular.isNumber(data.qty)){
+                $scope.currentUser.smsQty.push(data);
+                var requestAdd = {
+                    _id : $scope.currentUser._id,
+                    arr : $scope.currentUser.smsQty
+                };
+                UsersResourceService._ajaxRequest("PUT", null, requestAdd, '/smsQty');
+            }
+            if(data.qty == 'remove'){
+                angular.forEach($scope.currentUser.smsQty, function (project, index, parentArr) {
+                    if(project.projectId == data.projectId){
+                        parentArr.splice(index, 1);
+                    }
+                });
+            }
+            var requestDel= {
+                _id : $scope.currentUser._id,
+                arr : $scope.currentUser.smsQty
+            };
+            UsersResourceService._ajaxRequest("PUT", null, requestDel, '/smsQty');
         });
 
             // If USER is Authorized
