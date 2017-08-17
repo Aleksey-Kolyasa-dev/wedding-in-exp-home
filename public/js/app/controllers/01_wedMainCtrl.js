@@ -61,7 +61,7 @@ define(['angular'], function (angular) {
                     /*$location.path('/index');
                     $scope.dynamicBackground = 'projects_main';*/
 
-                    // Get USER Projects list
+                    // Get USER Projects list*
                     function updateProjectsList() {
                         var request = { id : $scope.currentUser._id };
                         //newSmsCheck();
@@ -212,7 +212,7 @@ define(['angular'], function (angular) {
                             $scope.projects = projects;
                         }).catch(function (err) {
                             toastr.error("ERROR: GET init data failed");
-                            $log.warn("ERROR: GET init data failed", err);
+                            $log.error("ERROR: GET init data failed", err);
                         });
                     }
                     // Get USER Projects list on-load
@@ -310,8 +310,6 @@ define(['angular'], function (angular) {
             $scope.projectListDateCheck = function (project) {
                 return new Date(project.weddingDate).setHours(23, 59, 0) > Date.now();
             };
-
-
         }
     }// Ctrl end
 

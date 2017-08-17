@@ -211,7 +211,10 @@ define(['angular'], function (angular) {
                         _id : $scope.currentUser._id,
                         arr : $scope.currentUser.smsQty
                     };
-                    UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty');
+                    UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty').catch(function (err) {
+                        toastr.error("ERROR: AJAX ERROR");
+                        $log.error("ERROR: AJAX ERROR", err);
+                    });
                     //$scope.$emit('smsCheckedByUser');
 
                     break;
@@ -239,7 +242,9 @@ define(['angular'], function (angular) {
 
                ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms').then(function (smsCollection) {
                     $scope.sms = {};
-                    $log.log(smsCollection);
+               }).catch(function (err) {
+                   toastr.error("ERROR: AJAX ERROR");
+                   $log.error("ERROR: AJAX ERROR", err);
                });
            }
        }
