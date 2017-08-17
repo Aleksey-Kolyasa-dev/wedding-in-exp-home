@@ -20,14 +20,6 @@ define(['angular'], function (angular) {
         $scope.dynamicBackground = "start_main";
         $scope.newSMS = 0;
 
-       /* function newSmsCheck() {
-            if($window.localStorage && $window.localStorage.newSMS || $window.localStorage.newSMS === 0){
-                $scope.newSMS = $window.localStorage.newSMS;
-                $log.log($scope.newSMS);
-            }
-        }*/
-
-
         // Exit to START PAGE
         $scope.exitToStart = function () {
             $location.path('/start');
@@ -46,21 +38,13 @@ define(['angular'], function (angular) {
             }, 200);
         };
 
-
-        /*$scope.$on('smsCheckedByUser', function () {
-            newSmsCheck();
-        });*/
-
         // EVENT 'LOGGED IN' Subscribe
         $scope.$on('LoggedIn', function (e, data) {
             $scope.currentUser = data;
 
             // If USER is Authorized
-            if($scope.currentUser.isLogged && $scope.currentUser.isAuth /*|| $scope.currentUser.visitor*/){
+            if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
                 $timeout(function () {
-                    /*$location.path('/index');
-                    $scope.dynamicBackground = 'projects_main';*/
-
                     // Get USER Projects list*
                     function updateProjectsList() {
                         var request = { id : $scope.currentUser._id };
@@ -74,18 +58,17 @@ define(['angular'], function (angular) {
 
                                 angular.forEach($scope.currentUser.smsQty, function (userProjectSMS) {
 
-                                    if(userProjectSMS.projectId == project._id/* && $window.localStorage*/){
+                                    if(userProjectSMS.projectId == project._id){
                                         var start = userProjectSMS.qty;
                                         var end = project.smsCollection.length;
 
                                         if(start < end){
                                              $scope.newSMS = end - start;
-                                             //$window.localStorage.newSMS = end - start;
                                          }
                                          if(start > end){
                                              $scope.newSMS = 0;
-                                             //$window.localStorage.newSMS = 0;
                                              userProjectSMS.qty = end;
+
                                              var smsUpdate = {
                                                  _id : $scope.currentUser._id,
                                                  arr : $scope.currentUser.smsQty
@@ -94,15 +77,10 @@ define(['angular'], function (angular) {
                                          }
                                         if(start == end){
                                             $scope.newSMS = 0;
-                                            //$window.localStorage.newSMS = 0;
                                         }
                                     }
                                 });
                             });
-
-                            /*function doUserSmsQtyUpdate() {
-
-                            }*/
 
                         }).catch(function (err) {
                             toastr.error("ERROR: PRO LIST LOAD AJAX failed");
@@ -124,7 +102,7 @@ define(['angular'], function (angular) {
                         $scope.dynamicBackground = "projects_main";
                         $scope.decorNames = false;
                         updateProjectsList();
-                        $scope.currentProjectView.mainMenu = null;
+                        $scope.currentProjectView.mainMenu = null; //????
                     };
 
                     // Edit project init
@@ -143,14 +121,12 @@ define(['angular'], function (angular) {
 
                                         $location.path('/project');
                                         $scope.decorNames = true;
-                                        //** $scope.currentProjectView.mainMenu = "budget";
                                         $scope.currentProjectView.mainMenu = "budget";
                                     }, 500);
                                 } else {
                                     $scope.currentProject = project;
                                     $location.path('/project');
                                     $scope.decorNames = true;
-                                    //** $scope.currentProjectView.mainMenu = "budget";
                                     $scope.currentProjectView.mainMenu = "budget";
                                 }
                             });
@@ -197,12 +173,13 @@ define(['angular'], function (angular) {
             };
             UsersResourceService._ajaxRequest("PUT", null, requestDel, '/smsQty');
         });
+///////////////////
 
-            // If USER is Authorized
-            if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
+        /*// If USER is Authorized
+        if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
                 $timeout(function () {
-                    /*$location.path('/index');
-                     $scope.dynamicBackground = 'projects_main';*/
+                    /!*$location.path('/index');
+                     $scope.dynamicBackground = 'projects_main';*!/
 
                     // Get USER Projects list
                     function updateProjectsList() {
@@ -245,21 +222,21 @@ define(['angular'], function (angular) {
                                 $timeout(function () {
                                     $scope.currentProject = project;
                                     $location.path('/project');
-                                    //** $scope.currentProjectView.mainMenu = "budget";
+                                    //!** $scope.currentProjectView.mainMenu = "budget";
                                     $scope.currentProjectView.mainMenu = "budget";
                                 }, 500);
                             } else {
                                 $scope.currentProject = project;
                                 $location.path('/project');
-                                //** $scope.currentProjectView.mainMenu = "budget";
+                                //!** $scope.currentProjectView.mainMenu = "budget";
                                 $scope.currentProjectView.mainMenu = "budget";
                             }
                         });
                     };
                 }, 300);
-            } else { $location.path('/start');}
+            } else { $location.path('/start');}*/
 
-      /*  });*/
+ ////////////////////////
 
         // Project Left Menu navigation
         $scope.projectView = function (view) {
