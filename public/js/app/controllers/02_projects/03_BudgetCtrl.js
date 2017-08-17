@@ -200,11 +200,10 @@ define(['angular'], function (angular) {
                     angular.forEach($scope.currentUser.smsQty, function (userProjectSMS) {
                         if(userProjectSMS.projectId == $scope.currentProject._id){
                             userProjectSMS.qty = $scope.currentProject.smsCollection.length;
-
-                            if($window.localStorage && $window.localStorage.newSMS || $window.localStorage.newSMS === 0){
-                                $window.localStorage.newSMS = 0;
+                            //if($window.localStorage && $window.localStorage.newSMS || $window.localStorage.newSMS === 0){
+                                //$window.localStorage.newSMS = 0;
                                 $scope.newSMS = 0;
-                            }
+                            //}
                         }
                     });
 

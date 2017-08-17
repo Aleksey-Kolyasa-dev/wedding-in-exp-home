@@ -164,7 +164,7 @@ usersRouter.put('/:id/smsQty', function (req, res, next) {
 // PUT USER smsQTY
 usersRouter.put('/:id/smsQty', function (req, res, next) {
     var user = req.body;
-    console.log("PUT USER PUT BY: /smsQty");
+    console.log("CALL PUT BY: /smsQty - USER");
 
     if(!user.arr){
         res.status(400);

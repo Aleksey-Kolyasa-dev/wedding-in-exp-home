@@ -20,12 +20,12 @@ define(['angular'], function (angular) {
         $scope.dynamicBackground = "start_main";
         $scope.newSMS = 0;
 
-        function newSmsCheck() {
+       /* function newSmsCheck() {
             if($window.localStorage && $window.localStorage.newSMS || $window.localStorage.newSMS === 0){
                 $scope.newSMS = $window.localStorage.newSMS;
                 $log.log($scope.newSMS);
             }
-        }
+        }*/
 
 
         // Exit to START PAGE
@@ -64,43 +64,45 @@ define(['angular'], function (angular) {
                     // Get USER Projects list
                     function updateProjectsList() {
                         var request = { id : $scope.currentUser._id };
-                        newSmsCheck();
+                        //newSmsCheck();
                         ResourceService._ajaxRequest("POST", null, request, '/getProjects').then(function (projects) {
+                           // Define USER PROJECTS COLLECTION
                             $scope.projects = projects;
 
+                            // NEXT - Define IF NEW SMS
                             angular.forEach($scope.projects, function (project) {
 
                                 angular.forEach($scope.currentUser.smsQty, function (userProjectSMS) {
-                                    if(userProjectSMS.projectId == project._id && $window.localStorage){
+
+                                    if(userProjectSMS.projectId == project._id/* && $window.localStorage*/){
                                         var start = userProjectSMS.qty;
                                         var end = project.smsCollection.length;
-                                         if(start < end){
-                                             $window.localStorage.newSMS = end - start;
+
+                                        if(start < end){
+                                             $scope.newSMS = end - start;
+                                             //$window.localStorage.newSMS = end - start;
                                          }
                                          if(start > end){
-                                             $window.localStorage.newSMS = 0;
+                                             $scope.newSMS = 0;
+                                             //$window.localStorage.newSMS = 0;
                                              userProjectSMS.qty = end;
-                                             doUserSmsQtyUpdate();
+                                             var smsUpdate = {
+                                                 _id : $scope.currentUser._id,
+                                                 arr : $scope.currentUser.smsQty
+                                             };
+                                             UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty');
                                          }
                                         if(start == end){
-                                            $window.localStorage.newSMS = 0;
+                                            $scope.newSMS = 0;
+                                            //$window.localStorage.newSMS = 0;
                                         }
                                     }
                                 });
                             });
 
-                            function doUserSmsQtyUpdate() {
-                                var smsUpdate = {
-                                    _id : $scope.currentUser._id,
-                                    arr : $scope.currentUser.smsQty
-                                };
-                                UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty');
-                            }
+                            /*function doUserSmsQtyUpdate() {
 
-
-
-
-
+                            }*/
 
                         }).catch(function (err) {
                             toastr.error("ERROR: PRO LIST LOAD AJAX failed");
@@ -153,9 +155,11 @@ define(['angular'], function (angular) {
                                 }
                             });
                         };
+
                 }, 300);
-            } else
-            { $location.path('/404');}
+            } else {
+             $location.path('/start');
+            }
         });
 
         // EVENT 'ACCESS APPROVED' Subscribe
