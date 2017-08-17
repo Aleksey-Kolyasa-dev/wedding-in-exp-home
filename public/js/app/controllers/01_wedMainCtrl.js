@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     "use strict";
-    var wedControllers = angular.module('wedControllers', ['wedServices']);
+    var wedControllers = angular.module('wedControllers', ['wedServices', 'authServices']);
 
     wedControllers.controller('wedMainCtrl', wedMainCtrl);
     wedControllers.controller('wedProjectsMainCtrl', wedProjectsMainCtrl);
@@ -9,7 +9,7 @@ define(['angular'], function (angular) {
     /*
      * APP MAIN CTRL
      * */
-    function wedMainCtrl($scope, $rootScope, $log, $window, $location, $timeout, toastr, _env, ResourceService, AppService) {
+    function wedMainCtrl($scope, $rootScope, $log, $window, $location, $timeout, toastr, _env, ResourceService, AppService, UsersResourceService) {
         // Default Values
         $scope.currentUser = {};
         $scope.currentProject = {};
@@ -119,8 +119,18 @@ define(['angular'], function (angular) {
 
         });
 
+        // SMS QTY EVENT
+        $scope.$on('smsQty', function (e, data) {
+            $scope.currentUser.smsQty.push(data);
+            var req = {
+               _id : $scope.currentUser._id,
+               arr : $scope.currentUser.smsQty
+           };
+            UsersResourceService._ajaxRequest("PUT", null, req, '/smsQty');
+        });
+
             // If USER is Authorized
-            if($scope.currentUser.isLogged && $scope.currentUser.isAuth/* || $scope.currentUser.visitor*/){
+            if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
                 $timeout(function () {
                     /*$location.path('/index');
                      $scope.dynamicBackground = 'projects_main';*/

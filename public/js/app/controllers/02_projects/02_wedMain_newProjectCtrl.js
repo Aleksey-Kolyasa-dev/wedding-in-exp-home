@@ -8,14 +8,12 @@ define(['angular'], function (angular) {
     *  NEW PROJECT CTRL
     * */
     function newProjectCtrl($scope, $log, $window,toastr, _env, ResourceService, AppService) {
-        if($scope.currentUser.isAuth/* || $scope.currentUser.visitor*/) {
+        if($scope.currentUser.isAuth) {
             $scope.createNewProject = function (newProject) {
                 newProject.owner = $scope.currentUser._id;
                 newProject.accessKey = '#' + $window.btoa($scope.currentUser._id + newProject.weddingDate + newProject.wedBudget);
                 newProject.weddingDate = AppService._dateStringToObject(newProject.weddingDate);
                 newProject.created = new Date();
-                $log.log(newProject.accessKey);
-
 
                 ResourceService._ajaxRequest("POST", null, newProject)
                     .then(function (project) {
@@ -23,6 +21,15 @@ define(['angular'], function (angular) {
                         $scope.newProject = {};
                         // Emit 'newProject' event
                         $scope.$emit('projectsListChange');
+
+                        var sms = {
+                            projectId : project._id,
+                            qty : project.smsCollection.length
+                        };
+                        console.log('SMS',sms);
+                        // Emit 'smsQty' event (for User)
+                        $scope.$emit('smsQty', sms);
+
                         if (_env._dev) {
                             toastr.success("НОВЫЙ ПРОЕКТ СВАДЬБЫ " + project.fianceName + " и " + project.fianceeName + " СОЗДАН УСПЕШНО!");
                         }
