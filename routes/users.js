@@ -140,7 +140,7 @@ usersRouter.put('/:id/logout', function (req, res, next) {
     }
 });
 
-// PUT USER smsQTY
+/*// PUT USER smsQTY
 usersRouter.put('/:id/smsQty', function (req, res, next) {
     var user = req.body;
     console.log("PUT PUT BY: /smsQty", user);
@@ -156,6 +156,26 @@ usersRouter.put('/:id/smsQty', function (req, res, next) {
                 res.send(err);
             }
             console.log(smsQty);
+            res.json(smsQty);
+        });
+    }
+});*/
+
+// PUT USER smsQTY
+usersRouter.put('/:id/smsQty', function (req, res, next) {
+    var user = req.body;
+    console.log("PUT USER PUT BY: /smsQty");
+
+    if(!user.arr){
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: SMS QTY validation failed"
+        });
+    } else {
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsQty : user.arr}}, {}, function (err, smsQty) {
+            if(err){
+                res.send(err);
+            }
             res.json(smsQty);
         });
     }

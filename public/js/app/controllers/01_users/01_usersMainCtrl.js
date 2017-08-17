@@ -61,7 +61,6 @@ define(['angular'], function (angular) {
 
                                 // Set newProject to Default for View
                                 $scope.user = {};
-                                //toastr.success("WELCOME DEAR " + data.realName + " !");
 
                                 // Make User Token
                                 UserAuthService._userToken(data);

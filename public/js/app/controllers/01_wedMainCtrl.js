@@ -18,6 +18,15 @@ define(['angular'], function (angular) {
         $scope.toDay = new Date;
         $location.path('/start');
         $scope.dynamicBackground = "start_main";
+        $scope.newSMS = 0;
+
+        function newSmsCheck() {
+            if($window.localStorage && $window.localStorage.newSMS || $window.localStorage.newSMS === 0){
+                $scope.newSMS = $window.localStorage.newSMS;
+                $log.log($scope.newSMS);
+            }
+        }
+
 
         // Exit to START PAGE
         $scope.exitToStart = function () {
@@ -37,6 +46,11 @@ define(['angular'], function (angular) {
             }, 200);
         };
 
+
+        /*$scope.$on('smsCheckedByUser', function () {
+            newSmsCheck();
+        });*/
+
         // EVENT 'LOGGED IN' Subscribe
         $scope.$on('LoggedIn', function (e, data) {
             $scope.currentUser = data;
@@ -50,14 +64,50 @@ define(['angular'], function (angular) {
                     // Get USER Projects list
                     function updateProjectsList() {
                         var request = { id : $scope.currentUser._id };
-
+                        newSmsCheck();
                         ResourceService._ajaxRequest("POST", null, request, '/getProjects').then(function (projects) {
                             $scope.projects = projects;
+
+                            angular.forEach($scope.projects, function (project) {
+
+                                angular.forEach($scope.currentUser.smsQty, function (userProjectSMS) {
+                                    if(userProjectSMS.projectId == project._id && $window.localStorage){
+                                        var start = userProjectSMS.qty;
+                                        var end = project.smsCollection.length;
+                                         if(start < end){
+                                             $window.localStorage.newSMS = end - start;
+                                         }
+                                         if(start > end){
+                                             $window.localStorage.newSMS = 0;
+                                             userProjectSMS.qty = end;
+                                             doUserSmsQtyUpdate();
+                                         }
+                                        if(start == end){
+                                            $window.localStorage.newSMS = 0;
+                                        }
+                                    }
+                                });
+                            });
+
+                            function doUserSmsQtyUpdate() {
+                                var smsUpdate = {
+                                    _id : $scope.currentUser._id,
+                                    arr : $scope.currentUser.smsQty
+                                };
+                                UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty');
+                            }
+
+
+
+
+
+
                         }).catch(function (err) {
-                            toastr.error("ERROR: GET init data failed");
-                            $log.warn("ERROR: GET init data failed", err);
+                            toastr.error("ERROR: PRO LIST LOAD AJAX failed");
+                            $log.warn("ERROR: PRO LIST LOAD AJAX failed", err);
                         });
                     }
+
                     // Get USER Projects list on-load
                     updateProjectsList();
 
@@ -88,6 +138,7 @@ define(['angular'], function (angular) {
                                 if (archive) {
                                     $timeout(function () {
                                         $scope.currentProject = project;
+
                                         $location.path('/project');
                                         $scope.decorNames = true;
                                         //** $scope.currentProjectView.mainMenu = "budget";

@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     "use strict";
-    var budgetCtrlModule = angular.module('budgetCtrlModule', ['wedServices']);
+    var budgetCtrlModule = angular.module('budgetCtrlModule', ['wedServices', 'authServices']);
 
     budgetCtrlModule.controller('budgetMainCtrl', budgetMainCtrl);
     budgetCtrlModule.controller('smsMainCtrl', smsMainCtrl);
@@ -8,7 +8,7 @@ define(['angular'], function (angular) {
     /*
      * BUDGET MAIN CTRL
      * */
-    function budgetMainCtrl($scope, $log, toastr, $timeout ,_env, ResourceService) {
+    function budgetMainCtrl($scope, $log, toastr,$window ,$timeout ,_env, ResourceService, UsersResourceService) {
         // Default subView
         $scope.subView = "settings";
         $scope.budget = {};
@@ -197,6 +197,24 @@ define(['angular'], function (angular) {
                     break;
                 case "sms" :
                     $scope.subView = view;
+                    angular.forEach($scope.currentUser.smsQty, function (userProjectSMS) {
+                        if(userProjectSMS.projectId == $scope.currentProject._id){
+                            userProjectSMS.qty = $scope.currentProject.smsCollection.length;
+
+                            if($window.localStorage && $window.localStorage.newSMS || $window.localStorage.newSMS === 0){
+                                $window.localStorage.newSMS = 0;
+                                $scope.newSMS = 0;
+                            }
+                        }
+                    });
+
+                    var smsUpdate = {
+                        _id : $scope.currentUser._id,
+                        arr : $scope.currentUser.smsQty
+                    };
+                    UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty');
+                    //$scope.$emit('smsCheckedByUser');
+
                     break;
             }
         };
