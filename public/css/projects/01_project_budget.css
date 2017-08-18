@@ -27,8 +27,6 @@
    padding-top: 4px;
 }
 .report-panel table{
-    /*border-top: 1px solid #ffffff;
-    border-bottom: 1px solid #ffffff;*/
     margin-top: 2px !important;
 }
 .budget-table-list-link{
@@ -41,4 +39,21 @@
 .budget-table-list-link:hover{
     text-decoration: none;
     color: #f9cb73;
+}
+/*SMS*/
+.sms-author{
+    color: #f0ad4e;
+    font-size: 100%;
+}
+.sms-time{
+    color: #5cb85c;
+    font-size: 68%;
+}
+.sms-text{
+    color: #ffffff;
+    font-size: 100%;
+}
+.sms-empty{
+    color: #919191;
+    font-size: 100%;
 }

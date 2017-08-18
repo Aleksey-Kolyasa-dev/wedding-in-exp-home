@@ -5,10 +5,12 @@
 
 }
 .log-reg-btn-main{
-
+    position: absolute;
+    top:50px;
+    right: -5px;
 }
 .log-reg-btn-main div{
-
+    display: inline-block;
 }
 .main-page-menu-btn-start{
     display: block;
