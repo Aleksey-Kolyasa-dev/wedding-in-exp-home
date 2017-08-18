@@ -26,7 +26,7 @@ define(['angular'], function (angular) {
                             projectId : project._id,
                             qty : project.smsCollection.length
                         };
-                        console.log('SMS',sms);
+
                         // Emit 'smsQty' event (for User)
                         $scope.$emit('smsQty', sms);
 

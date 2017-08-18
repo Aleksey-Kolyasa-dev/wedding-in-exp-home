@@ -4,7 +4,9 @@ var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
 // var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
 
-// Routes
+/*
+ * PROJECTS CONTROL ROUTER
+ * */
 projectsRouter.get('/', function (req, res) {
     res.render('../public/index', { title : 'Wedding_in'});
 });
@@ -43,7 +45,6 @@ projectsRouter.get('/api/:id', function (req, res, next) {
 // GET Single Project by KEY ACCESS
 projectsRouter.post('/keyAccess', function (req, res, next) {
     var access = req.body;
-    //console.log(req.url);
     var accessProject = {};
 
     db.weddings.find({}, {}, function (err, projects) {
