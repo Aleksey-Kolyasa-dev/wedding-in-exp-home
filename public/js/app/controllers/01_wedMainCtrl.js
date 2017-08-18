@@ -32,7 +32,8 @@ define(['angular'], function (angular) {
                 $location.path('/index');
                 $scope.dynamicBackground = "projects_main";
                 $scope.decorNames = false;
-                updateProjectsList();
+                $scope.$emit('projectsListChange');
+                //updateProjectsList();
                 $scope.currentProjectView.mainMenu = null; //????
             } else {
                 $scope.exitToStart();
