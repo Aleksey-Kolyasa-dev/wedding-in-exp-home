@@ -228,10 +228,18 @@ define(['angular'], function (angular) {
      * SMS MAIN CTRL
      * */
     function smsMainCtrl($scope, $log, toastr, $timeout ,_env, ResourceService){
-       $scope.sendSms = function (msg) {
+       function smsUpdate() {
+           ResourceService._ajaxRequest("GET", $scope.currentProject._id, null, null).then(function (project) {
+               //$log.log(project);
+               $scope.currentProject = project;
+           }); // CATCH
+       }
+        $scope.sendSms = function (msg) {
+            smsUpdate();
            if(msg.text){
                msg.author = "ALEX";
                msg.date = Date.now();
+
 
                $scope.currentProject.smsCollection.push(msg);
 
@@ -242,17 +250,30 @@ define(['angular'], function (angular) {
 
                ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms').then(function (smsCollection) {
                     $scope.sms = {};
-                  ResourceService._ajaxRequest("GET", $scope.currentProject._id, null, null).then(function (project) {
-                     //$log.log(project);
-                      $scope.currentProject.smsCollection = project.smsCollection;
-                  });
                }).catch(function (err) {
                    toastr.error("ERROR: AJAX ERROR");
                    $log.error("ERROR: AJAX ERROR", err);
                });
            }
-       }
-    }
+       };
+
+        $scope.clearAllSms = function () {
+            $scope.currentProject.smsCollection.length = 0;
+
+            var request = {
+                _id : $scope.currentProject._id,
+                data : $scope.currentProject.smsCollection
+            };
+
+            ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms').then(function () {
+               toastr.info('SMS LIST CLEARED!');
+            }).catch(function (err) {
+                toastr.error("ERROR: AJAX ERROR");
+                $log.error("ERROR: AJAX ERROR", err);
+            });
+        }
+
+    }// Ctrl End
 
 
 
