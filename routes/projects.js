@@ -53,6 +53,16 @@ projectsRouter.post('/keyAccess', function (req, res, next) {
             projects.forEach(function (project) {
                 if(project.accessKey == access.key){
                    accessProject = project;
+                   delete accessProject.smsCollection;
+                   delete accessProject.owner;
+                    delete accessProject.notes;
+                    delete accessProject.budgetNotes;
+                    delete accessProject.restNotes;
+                    delete accessProject.guestsNotes;
+                    delete accessProject.menuNotes;
+                    delete accessProject.cakesNotes;
+                    delete accessProject.plusNotes;
+                    delete accessProject.decorNotes;
                 }
             });
             if(!accessProject.accessKey){
@@ -762,7 +772,7 @@ projectsRouter.put('/api/:id/videoDataSave', function (req, res, next) {
 });
 
 
-// PUT Single Project SMS keyURL = /sms
+// PUT USER SMS (clear list) keyURL = /sms
 projectsRouter.put('/api/:id/sms', function (req, res, next) {
     var request = req.body;
     console.log("CALL PUT BY: /sms");
@@ -781,7 +791,6 @@ projectsRouter.put('/api/:id/sms', function (req, res, next) {
         });
     }
 });
-
 // POST VISITOR SMS
 projectsRouter.post('/api/:id', function (req, res, next) {
     var visitorMsg = req.body;
@@ -789,7 +798,6 @@ projectsRouter.post('/api/:id', function (req, res, next) {
 
 
     var promise = new Promise(function (resolve, reject) {
-
         db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
             if (err) {
                 res.send(err);
@@ -800,35 +808,27 @@ projectsRouter.post('/api/:id', function (req, res, next) {
         });
     });
 
-        promise.then(function (project) {
-            var arr;
-            arr = project.smsCollection;
+    promise.then(function (project) {
+        var arr;
+        arr = project.smsCollection;
 
-            if(arr.join){
-                arr.push(visitorMsg);
-                db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsCollection: arr}}, {}, function (err, project) {
-                    if(err){
-                        res.send(err);
-                    }
-                    console.log('CALL POST by: VISITOR NEW SMS - ok');
-                    res.end();
-                });
-            } else {
-                res.send(new Error('NOT AN ARRAY'));
-                throw new Error('NOT AN ARRAY');
-            }
+        if(arr.join){
+            arr.push(visitorMsg);
+            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsCollection: arr}}, {}, function (err, project) {
+                if(err){
+                    res.send(err);
+                }
+                console.log('CALL POST by: VISITOR NEW SMS - ok');
+                res.end();
+            });
+        } else {
+            res.send(new Error('NOT AN ARRAY'));
+            throw new Error('NOT AN ARRAY');
+        }
 
-        }).catch(function (err) {
-            console.log('ERROR: VISITOR NEW SMS FAILED', err);
-        });
-
-
-
-
-        //res.json(project);
-        //console.log(project);
-
-
+    }).catch(function (err) {
+        console.log('ERROR: VISITOR NEW SMS FAILED', err);
+    });
 });
 
 module.exports = projectsRouter;
@@ -864,6 +864,14 @@ function NewProjectCtor(project) {
     this.cakesNotes = null;
     this.plusNotes = null;
     this.decorNotes = null;
+    this.flowerNotes = null;
+    this.leaderNotes = null;
+    this.musicNotes = null;
+    this.photoNotes = null;
+    this.videoNotes = null;
+    this.zagsNotes = null;
+    this.transportNotes = null;
+
 
     //INTERMEDIATE DATA
     this.useMenuCheck = false;

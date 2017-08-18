@@ -40,6 +40,7 @@
     text-decoration: none;
     color: #f9cb73;
 }
+
 /*SMS*/
 .sms-author{
     color: #f0ad4e;
@@ -56,4 +57,8 @@
 .sms-empty{
     color: #919191;
     font-size: 100%;
+}
+.sms-panel{
+    max-height: 450px;
+    overflow-y: scroll;
 }

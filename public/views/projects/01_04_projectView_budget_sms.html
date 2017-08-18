@@ -1,13 +1,17 @@
 <div class="rest-general-page" ng-controller="smsMainCtrl">
-    <!--SMS PANEL-->
+    <!--USER SMS PANEL *START*-->
     <div class="rest-general-list col-xs-12">
+
+        <!--clear button-->
         <div style="float: left; font-style: normal" ng-if="currentProject.smsCollection.length">
             <button class="btn btn-primary btn-sm" ng-click="clearAllSms()">CLEAR ALL</button>
         </div>
+        <!--clear button-->
 
+        <!--sms panel-->
         <div class="info-glass-panel">
             <hr>
-            <div>
+            <div class="sms-panel">
                 <ul ng-repeat="msg in currentProject.smsCollection">
                     <li>
                         <span class="sms-author">{{msg.author}}</span>
@@ -23,8 +27,8 @@
             </div>
             <hr>
         </div>
+        <!--sms panel-->
+
     </div>
-    <!--SMS PANEL-->
+    <!--USER SMS PANEL *END*-->
 </div>
-
-

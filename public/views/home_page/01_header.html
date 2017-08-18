@@ -33,7 +33,7 @@
 <!--HEADER *END*-->
 
 <!--visitor btn's-->
-<div class="log-reg-btn-main" style="" ng-if="currentUser.isLogged || currentUser.visitor">
+<div class="log-reg-btn-main" ng-if="currentUser.visitor">
     <div style="margin-right: 20px">
         <a class="main-page-menu-btn-start" data-toggle="modal" data-target="#sms"><span>SEND <span class="glyphicon glyphicon-envelope"></span></span></a>
     </div>
@@ -43,8 +43,9 @@
 </div>
 <!--visitor btn's-->
 
+
+<!-- SMS MODAL *START* -->
 <div ng-controller="smsMainCtrl">
-    <!-- SMS MODAL *START* -->
     <div id="sms" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -64,18 +65,17 @@
                                 </div>
                                 <hr>
                                 <div class="form-group" style="margin-top: 10px">
-                                    <label></label>
+                                    <label>Текст сообщения:</label>
                                     <textarea class="form-control" required ng-model="sms.text"
                                               name="smsText" style='height: 200px; font-size: 150%;{{(visitorSmsForm.smsText.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}'>
-
                                     </textarea>
                                 </div>
                                 <hr>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success"
+                                    <button type="submit" class="btn btn-success btn-md"
                                             data-dismiss="modal" ng-disabled="visitorSmsForm.$invalid"
                                             ng-click="sendSms(sms)">
-                                        <b>SEND <span class="glyphicon glyphicon-send"></span></b>
+                                        <b style="padding: 3px 50px">SEND <span class="glyphicon glyphicon-send"></span></b>
                                     </button>
                                 </div>
 
@@ -91,5 +91,5 @@
             </div>
         </div>
     </div>
-    <!-- SMS MODAL *END* -->
 </div>
+<!-- SMS MODAL *END* -->

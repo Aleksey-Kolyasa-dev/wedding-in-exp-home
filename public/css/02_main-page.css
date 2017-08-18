@@ -160,15 +160,11 @@
     transition: background, color 600ms ease;
 }
 .main-page-menu-btn-exit:hover{
-
     border-radius: 4px;
-
     text-decoration: none !important;
-
     font-weight: bold;
     font-size: 100%;
     cursor: pointer;
-    /*color: #0ca77e;*/
     color: rgba(176, 115, 70, 0.78);
     background: rgba(255, 255, 255, 0.91);
 }
@@ -187,7 +183,6 @@
 .fiances-in-head{
     color: #ffffff;
     font-size: 500%;
-    /*font-family: "Rage Italic";*/
     font-family: bickhamscr2;
     color: #ffffff;
     text-shadow: 2px 2px 5px #f8b152;
@@ -225,4 +220,36 @@
 .form-group input{
     color: #160051;
     font-size: 120%;
+}
+
+
+/*SMS SIGNS*/
+.msgSign{
+    color: #ffea20;
+    margin: 0 0 0 3px;
+    position: relative;
+    left: 10px;
+}
+.smsCounter{
+    position: relative;
+    right: -2px;
+    top: 5px;
+    color: #ffffff !important;
+    font-weight: bold;
+    border-radius: 100%;
+    padding: 2px 0;
+    background: rgba(32, 111, 18, 0.86);
+    font-size: 110% !important;
+}
+.msgSign-s{
+    color: #ffea20;
+    margin: 0 0 0 3px;
+    position: relative;
+    left: -2px;
+}
+.smsCounter-s{
+    position: relative;
+    right: 6px;
+    padding: 2px 0 0 -2px;
+
 }

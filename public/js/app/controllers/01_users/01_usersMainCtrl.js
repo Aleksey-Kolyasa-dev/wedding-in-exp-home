@@ -21,17 +21,6 @@ define(['angular'], function (angular) {
             UsersResourceService._ajaxRequest("PUT", null, data, '/logout');
         });
 
-       /* // SMS QTY EVENT
-        $scope.$on('smsQty', function (event, data) {
-            $log.log(data);
-
-            var request = {
-                _id : $scope.currentUser._id,
-                data : $scope.currentUser.smsQty.push(data)
-            };
-
-            UsersResourceService._ajaxRequest("PUT", null, request, '/smsQty');
-        });*/
     }// Ctrl end
 
 
