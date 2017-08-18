@@ -28,13 +28,13 @@ define(['angular'], function (angular) {
 
         // Exit to Home Page
         $scope.goToHomePage = function () {
-            if($scope.currentUser.isAuth){
+            if ($scope.currentUser.isAuth) {
                 $location.path('/index');
                 $scope.dynamicBackground = "projects_main";
                 $scope.decorNames = false;
                 $scope.$emit('projectsListChange');
                 //updateProjectsList();
-                $scope.currentProjectView.mainMenu = null; //????
+                $scope.currentProjectView.mainMenu = null;
             } else {
                 $scope.exitToStart();
             }
@@ -42,7 +42,8 @@ define(['angular'], function (angular) {
 
         // LOGOUT Fn
         $scope.logOut = function () {
-            $scope.$broadcast('logout');
+
+            $scope.$broadcast('logout');// subscriber -> wedUsersMainCtrl
 
             $timeout(function () {
                 $scope.currentUser = {};
@@ -52,19 +53,20 @@ define(['angular'], function (angular) {
             }, 200);
         };
 
-        // EVENT 'LOGGED IN' Subscribe
-        $scope.$on('LoggedIn', function (e, data) {
+        // ON-EVENT: 'LOGGED IN' Subscribe - *MAIN INIT DATA EVENT*
+        $scope.$on('LoggedIn', function (event, data) {
             $scope.currentUser = data;
 
             // If USER is Authorized
-            if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
+            if ($scope.currentUser.isLogged && $scope.currentUser.isAuth) {
                 $timeout(function () {
-                    // Get USER Projects list*
+
+                    // Get USER Projects list Fn*
                     function updateProjectsList() {
-                        var request = { id : $scope.currentUser._id };
+                        var request = {id: $scope.currentUser._id};
 
                         ResourceService._ajaxRequest("POST", null, request, '/getProjects').then(function (projects) {
-                           // Define USER PROJECTS COLLECTION
+                            // Define USER PROJECTS COLLECTION
                             $scope.projects = projects;
 
                             // NEXT - Define IF NEW SMS
@@ -72,27 +74,27 @@ define(['angular'], function (angular) {
 
                                 angular.forEach($scope.currentUser.smsQty, function (userProjectSMS) {
 
-                                    if(userProjectSMS.projectId == project._id){
+                                    if (userProjectSMS.projectId == project._id) {
                                         var start = userProjectSMS.qty;
                                         var end = project.smsCollection.length;
 
-                                        if(start < end){
-                                             $scope.newSMS[project._id] = end - start;
-                                         }
-                                         if(start > end){
-                                             $scope.newSMS[project._id] = 0;
-                                             userProjectSMS.qty = end;
+                                        if (start < end) {
+                                            $scope.newSMS[project._id] = end - start;
+                                        }
+                                        if (start > end) {
+                                            $scope.newSMS[project._id] = 0;
+                                            userProjectSMS.qty = end;
 
-                                             var smsUpdate = {
-                                                 _id : $scope.currentUser._id,
-                                                 arr : $scope.currentUser.smsQty
-                                             };
-                                             UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty').catch(function (err) {
-                                                 toastr.error('USER SMS QTY AJAX FAILED!');
-                                                 $log.error('USER SMS QTY AJAX FAILED!');
-                                             });
-                                         }
-                                        if(start == end){
+                                            var smsUpdate = {
+                                                _id: $scope.currentUser._id,
+                                                arr: $scope.currentUser.smsQty
+                                            };
+                                            UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty').catch(function (err) {
+                                                toastr.error('USER SMS QTY AJAX FAILED!');
+                                                $log.error('USER SMS QTY AJAX FAILED!', err);
+                                            });
+                                        }
+                                        if (start == end) {
                                             $scope.newSMS[project._id] = 0;
                                         }
                                     }
@@ -116,167 +118,192 @@ define(['angular'], function (angular) {
                     // Edit project init
                     $scope.editProject = function (id) {
                         $rootScope.$broadcast('editProject', {
-                            id : id
+                            id: id
                         });
                     };
 
                     // Go and Load selected Project
                     $scope.goToSelectedProject = function (id, archive) {
-                            ResourceService._ajaxRequest("GET", id, null).then(function (project) {
-                                if (archive) {
-                                    $timeout(function () {
-                                        $scope.currentProject = project;
-
-                                        $location.path('/project');
-                                        $scope.decorNames = true;
-                                        $scope.currentProjectView.mainMenu = "budget";
-                                    }, 500);
-                                } else {
+                        ResourceService._ajaxRequest("GET", id, null, null).then(function (project) {
+                            if (archive) {
+                                $timeout(function () {
                                     $scope.currentProject = project;
                                     $location.path('/project');
                                     $scope.decorNames = true;
                                     $scope.currentProjectView.mainMenu = "budget";
-                                }
-                            });
-                        };
+                                }, 500);
+                            } else {
+                                $scope.currentProject = project;
+                                $location.path('/project');
+                                $scope.decorNames = true;
+                                $scope.currentProjectView.mainMenu = "budget";
+                            }
+                        });
+                    };
 
                 }, 300);
             } else {
-             $location.path('/start');
+                $location.path('/start');
             }
         });
 
-        // EVENT 'ACCESS APPROVED' Subscribe
-        $scope.$on('AccessApproved', function (e, data) {
+        // ON-EVENT: 'ACCESS APPROVED'
+        $scope.$on('AccessApproved', function (event, data) {
             $timeout(function () {
                 $scope.currentUser.visitor = true;
                 $scope.decorNames = true;
                 $scope.currentProject = data;
                 $location.path('/project');
                 $scope.dynamicBackground = "projects_main";
-            },200);
+            }, 200);
 
         });
 
-        // SMS QTY EVENT
+        // ON-EVENT: 'SMS QTY'
         $scope.$on('smsQty', function (e, data) {
-            if(angular.isNumber(data.qty)){
+            // IF ADD New sms
+            if (angular.isNumber(data.qty)) {
+
                 $scope.currentUser.smsQty.push(data);
+
                 var requestAdd = {
-                    _id : $scope.currentUser._id,
-                    arr : $scope.currentUser.smsQty
+                    _id: $scope.currentUser._id,
+                    arr: $scope.currentUser.smsQty
                 };
-                UsersResourceService._ajaxRequest("PUT", null, requestAdd, '/smsQty');
+
+                UsersResourceService._ajaxRequest("PUT", null, requestAdd, '/smsQty').catch(function (err) {
+                    toastr.error('USER SMS QTY AJAX FAILED!');
+                    $log.error('USER SMS QTY AJAX FAILED!', err);
+                });
             }
-            if(data.qty == 'remove'){
+
+            // IF DELETE sms
+            if (data.qty == 'remove') {
+
                 angular.forEach($scope.currentUser.smsQty, function (project, index, parentArr) {
-                    if(project.projectId == data.projectId){
+                    if (project.projectId == data.projectId) {
                         parentArr.splice(index, 1);
                     }
                 });
+
+                var requestDel = {
+                    _id: $scope.currentUser._id,
+                    arr: $scope.currentUser.smsQty
+                };
+
+                UsersResourceService._ajaxRequest("PUT", null, requestDel, '/smsQty').catch(function (err) {
+                    toastr.error('USER SMS QTY AJAX FAILED!');
+                    $log.error('USER SMS QTY AJAX FAILED!', err);
+                });
             }
-            var requestDel= {
-                _id : $scope.currentUser._id,
-                arr : $scope.currentUser.smsQty
-            };
-            UsersResourceService._ajaxRequest("PUT", null, requestDel, '/smsQty');
+
         });
 ///////////////////
 
         /*// If USER is Authorized
-        if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
-                $timeout(function () {
-                    /!*$location.path('/index');
-                     $scope.dynamicBackground = 'projects_main';*!/
+         if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
+         $timeout(function () {
+         /!*$location.path('/index');
+         $scope.dynamicBackground = 'projects_main';*!/
 
-                    // Get USER Projects list
-                    function updateProjectsList() {
-                        var request = { id : $scope.currentUser._id };
+         // Get USER Projects list
+         function updateProjectsList() {
+         var request = { id : $scope.currentUser._id };
 
-                        ResourceService._ajaxRequest("POST", null, request, '/getProjects').then(function (projects) {
-                            $scope.projects = projects;
-                        }).catch(function (err) {
-                            toastr.error("ERROR: GET init data failed");
-                            $log.error("ERROR: GET init data failed", err);
-                        });
-                    }
-                    // Get USER Projects list on-load
-                    updateProjectsList();
+         ResourceService._ajaxRequest("POST", null, request, '/getProjects').then(function (projects) {
+         $scope.projects = projects;
+         }).catch(function (err) {
+         toastr.error("ERROR: GET init data failed");
+         $log.error("ERROR: GET init data failed", err);
+         });
+         }
+         // Get USER Projects list on-load
+         updateProjectsList();
 
-                    // Events handler
-                    $scope.$on('projectsListChange', function () {
-                        updateProjectsList();
-                    });
+         // Events handler
+         $scope.$on('projectsListChange', function () {
+         updateProjectsList();
+         });
 
-                    // Exit to Home Page
-                    $scope.goToHomePage = function () {
-                        $location.path('/index');
-                        $scope.dynamicBackground = "projects_main";
-                        //$scope.currentProject = {};
-                        $scope.currentProjectView.mainMenu = null;
-                    };
+         // Exit to Home Page
+         $scope.goToHomePage = function () {
+         $location.path('/index');
+         $scope.dynamicBackground = "projects_main";
+         //$scope.currentProject = {};
+         $scope.currentProjectView.mainMenu = null;
+         };
 
-                    // Edit project init
-                    $scope.editProject = function (id) {
-                        $rootScope.$broadcast('editProject', {
-                            id : id
-                        });
-                    };
+         // Edit project init
+         $scope.editProject = function (id) {
+         $rootScope.$broadcast('editProject', {
+         id : id
+         });
+         };
 
-                    // Go and Load selected Project
-                    $scope.goToSelectedProject = function (id, archive) {
-                        ResourceService._ajaxRequest("GET", id, null).then(function (project) {
-                            if (archive) {
-                                $timeout(function () {
-                                    $scope.currentProject = project;
-                                    $location.path('/project');
-                                    //!** $scope.currentProjectView.mainMenu = "budget";
-                                    $scope.currentProjectView.mainMenu = "budget";
-                                }, 500);
-                            } else {
-                                $scope.currentProject = project;
-                                $location.path('/project');
-                                //!** $scope.currentProjectView.mainMenu = "budget";
-                                $scope.currentProjectView.mainMenu = "budget";
-                            }
-                        });
-                    };
-                }, 300);
-            } else { $location.path('/start');}*/
+         // Go and Load selected Project
+         $scope.goToSelectedProject = function (id, archive) {
+         ResourceService._ajaxRequest("GET", id, null).then(function (project) {
+         if (archive) {
+         $timeout(function () {
+         $scope.currentProject = project;
+         $location.path('/project');
+         //!** $scope.currentProjectView.mainMenu = "budget";
+         $scope.currentProjectView.mainMenu = "budget";
+         }, 500);
+         } else {
+         $scope.currentProject = project;
+         $location.path('/project');
+         //!** $scope.currentProjectView.mainMenu = "budget";
+         $scope.currentProjectView.mainMenu = "budget";
+         }
+         });
+         };
+         }, 300);
+         } else { $location.path('/start');}*/
 
- ////////////////////////
+        ////////////////////////
 
-        // Project Left Menu navigation
+        // Project LEFT MENU navigation
         $scope.projectView = function (view) {
             switch (view) {
+
                 case "budget" :
                     $scope.currentProjectView.mainMenu = view;
                     $scope.$broadcast('doBudgetReCalculation');
                     break;
+
                 case "restaurant" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
                 case "decor" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
                 case "flower" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
                 case "leader" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
                 case "music" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
                 case "photo" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
                 case "video" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
                 case "zags" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
                 case "transport" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
@@ -285,12 +312,13 @@ define(['angular'], function (angular) {
 
     }// Ctrl end
 
+
     /*
      * PROJECTS MAIN CTRL
      * */
     function wedProjectsMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, _env, ResourceService, AppService) {
         // If USER is Authorized
-        if($scope.currentUser.isAuth) {
+        if ($scope.currentUser.isAuth) {
             // Filter for shift expired dated projects to Archive
             $scope.projectListDateCheck = function (project) {
                 return new Date(project.weddingDate).setHours(23, 59, 0) > Date.now();

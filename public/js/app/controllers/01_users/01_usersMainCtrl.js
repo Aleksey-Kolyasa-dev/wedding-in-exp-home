@@ -11,14 +11,26 @@ define(['angular'], function (angular) {
      * USERS MAIN CTRL
      * */
     function wedUsersMainCtrl($scope, $rootScope, $log,$window , $location, $timeout, toastr, _env, UsersResourceService, AppService) {
-        // LOG OUT EVENT Subscribe Fn
+
+        // ON-EVENT: USER LOG OUT
         $scope.$on('logout', function () {
+
             if($window.localStorage.userToken){
                 // remove token
                 $window.localStorage.removeItem("userToken");
             }
-            var data = $scope.currentUser;
-            UsersResourceService._ajaxRequest("PUT", null, data, '/logout');
+
+            var request = {
+                _id : $scope.currentUser._id,
+                realName : $scope.currentUser.realName,
+                isLogged : false,
+                isAuth : false
+            };
+
+            UsersResourceService._ajaxRequest("PUT", null, request, '/logout').catch(function (err) {
+                toastr.error('USER LOGOUT AJAX FAILED!');
+                $log.error('USER LOGOUT AJAX FAILED!', err);
+            });
         });
 
     }// Ctrl end
@@ -31,24 +43,28 @@ define(['angular'], function (angular) {
 
         // DO LOGIN Fn
         $scope.doLogin = function(data){
+
             if(!data.name || !data.password){
                 toastr.error('ERROR: INVALID LOGIN INPUT!');
                 throw new Error('ERROR: INVALID LOGIN INPUT!');
             } else {
-                // Prepare request Obj.
+
                 var request = {
                     name : data.name,
                     password : $window.btoa(data.name + data.password)
                 };
+
                 // Do Login
                 UsersResourceService._ajaxRequest("POST", null, request, '/login').then(
                     function (data) {
                         if (data._id && data.userName && data.userPassword) {
-                            // Do EVENT - USER IS LOGGED IN and Authorized
+
+
                             if(data.isAuth && data.isLogged){
+                                // EVENT: USER LOGGED IN -> wedMainCtrl
                                 $scope.$emit('LoggedIn', data);
 
-                                // Set newProject to Default for View
+                                // Reset View model
                                 $scope.user = {};
 
                                 // Make User Token
