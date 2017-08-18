@@ -782,20 +782,20 @@ projectsRouter.put('/api/:id/sms', function (req, res, next) {
     }
 });
 
-/// test
-// GET Single Project by KEY ACCESS
+// POST VISITOR SMS
 projectsRouter.post('/api/:id', function (req, res, next) {
-    var access = req.body;
+    var visitorMsg = req.body;
     //console.log(req.url);
-    var accessProject = [];
+    var arr = [];
     db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
         if(err){
             res.send(err);
         } else {
-            accessProject = project.smsCollection;
-            accessProject.push(access);
-            console.log(accessProject);
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsCollection: accessProject}}, {}, function (err, project) {
+            delete visitorMsg._id;
+            arr = project.smsCollection;
+            arr.push(visitorMsg);
+            //console.log(accessProject);
+            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsCollection: arr}}, {}, function (err, project) {
                 if(err){
                     res.send(err);
                 }

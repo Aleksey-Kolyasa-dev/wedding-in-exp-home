@@ -228,21 +228,14 @@ define(['angular'], function (angular) {
      * SMS MAIN CTRL
      * */
     function smsMainCtrl($scope, $log, toastr, $http, $timeout ,_env, ResourceService){
-       function smsUpdate() {
-           ResourceService._ajaxRequest("GET", $scope.currentProject._id, null, null).then(function (project) {
-               //$log.log(project);
-               $scope.currentProject = project;
-           }); // CATCH
-       }
+
+        // VISITOR SMS SEND Fn
         $scope.sendSms = function (msg) {
-            //smsUpdate();
+
            if(msg.text){
                msg.author = "ALEX";
                msg.date = Date.now();
                msg._id = $scope.currentProject._id;
-
-
-               //$scope.currentProject.smsCollection.push(msg);
 
                var request = {
                    method : "POST",
@@ -250,8 +243,8 @@ define(['angular'], function (angular) {
                    data : msg
                };
 
-               /*ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms')*/
-               $http(request).then(function (smsCollection) {
+
+               $http(request).then(function () {
                     $scope.sms = {};
                }).catch(function (err) {
                    toastr.error("ERROR: AJAX ERROR");
