@@ -231,9 +231,8 @@ define(['angular'], function (angular) {
 
         // VISITOR SMS SEND Fn
         $scope.sendSms = function (msg) {
-
-           if(msg.text){
-               msg.author = "ALEX";
+            var buffer = msg.author;
+           if(msg.text &&  msg.author){
                msg.date = Date.now();
                msg._id = $scope.currentProject._id;
 
@@ -246,6 +245,7 @@ define(['angular'], function (angular) {
 
                $http(request).then(function () {
                     $scope.sms = {};
+                   $scope.sms.author = buffer;
                }).catch(function (err) {
                    toastr.error("ERROR: AJAX ERROR");
                    $log.error("ERROR: AJAX ERROR", err);
