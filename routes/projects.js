@@ -785,30 +785,49 @@ projectsRouter.put('/api/:id/sms', function (req, res, next) {
 // POST VISITOR SMS
 projectsRouter.post('/api/:id', function (req, res, next) {
     var visitorMsg = req.body;
-    //console.log(req.url);
-    var arr = [];
-    db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)},function (err, project) {
-        if(err){
-            res.send(err);
-        } else {
-            delete visitorMsg._id;
+    delete visitorMsg._id;
+
+
+    var promise = new Promise(function (resolve, reject) {
+
+        db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            if (err) {
+                res.send(err);
+                reject(err);
+            } else {
+                resolve(project);
+            }
+        });
+    });
+
+        promise.then(function (project) {
+            var arr;
             arr = project.smsCollection;
-            arr.push(visitorMsg);
-            //console.log(accessProject);
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsCollection: arr}}, {}, function (err, project) {
-                if(err){
-                    res.send(err);
-                }
-                res.end();
-            });
-            res.end();
-        }
+
+            if(arr.join){
+                arr.push(visitorMsg);
+                db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsCollection: arr}}, {}, function (err, project) {
+                    if(err){
+                        res.send(err);
+                    }
+                    console.log('CALL POST by: VISITOR NEW SMS - ok');
+                    res.end();
+                });
+            } else {
+                res.send(new Error('NOT AN ARRAY'));
+                throw new Error('NOT AN ARRAY');
+            }
+
+        }).catch(function (err) {
+            console.log('ERROR: VISITOR NEW SMS FAILED', err);
+        });
+
 
 
 
         //res.json(project);
         //console.log(project);
-    });
+
 
 });
 
