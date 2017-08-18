@@ -3,7 +3,7 @@ require.config({
 	paths : 
 	{
 		'app'             		: '../js/app/app',
-		'projServices'        		: '../js/app/services/projectsServices',
+		'projServices'        		: '../js/app/services/projectServices',
 		'authServices'          : '../js/app/services/userServices',
 		'controllers'     		: '../js/app/controllers/01_wedMainCtrl',
         'usersCtrlModule'    	: '../js/app/controllers/01_users/01_usersMainCtrl',

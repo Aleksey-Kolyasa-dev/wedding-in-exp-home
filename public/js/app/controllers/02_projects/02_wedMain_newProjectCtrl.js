@@ -4,22 +4,27 @@ define(['angular'], function (angular) {
 
     newProjectCtrlModule.controller('newProjectCtrl', newProjectCtrl);
     newProjectCtrlModule.controller('editProjectCtrl', editProjectCtrl);
+
     /*
     *  NEW PROJECT CTRL
     * */
-    function newProjectCtrl($scope, $log, $window,toastr, _env, ResourceService, AppService) {
+    function newProjectCtrl($scope, $log, $window, toastr, _env, ResourceService, AppService) {
+
         if($scope.currentUser.isAuth) {
+
+            // CREATE NEW PROJECT Fn
             $scope.createNewProject = function (newProject) {
                 newProject.owner = $scope.currentUser._id;
                 newProject.accessKey = '#' + $window.btoa($scope.currentUser._id + newProject.weddingDate + newProject.wedBudget);
                 newProject.weddingDate = AppService._dateStringToObject(newProject.weddingDate);
                 newProject.created = new Date();
 
-                ResourceService._ajaxRequest("POST", null, newProject)
+                ResourceService._ajaxRequest("POST", null, newProject, null)
                     .then(function (project) {
-                        // Set newProject to Default for View
+                        // RESET View model
                         $scope.newProject = {};
-                        // Emit 'newProject' event
+
+                        //EVENT: 'NEW PROJECT CREATED'
                         $scope.$emit('projectsListChange');
 
                         var sms = {
@@ -27,7 +32,7 @@ define(['angular'], function (angular) {
                             qty : project.smsCollection.length
                         };
 
-                        // Emit 'smsQty' event (for User)
+                        // EVENT: 'SMS QTY' -> wedMainCtrl
                         $scope.$emit('smsQty', sms);
 
                         if (_env._dev) {
@@ -40,6 +45,7 @@ define(['angular'], function (angular) {
                     });
             };
         }
+
     } // End of newProjectCtrl
 
 
@@ -47,19 +53,16 @@ define(['angular'], function (angular) {
     * EDIT PROJECT CTRL
     * */
     function editProjectCtrl($scope, $log, toastr, _env, ResourceService, AppService) {
-        // Budget update Fn
+        // Budget Update Fn
         function budgetUpdate() {
-
             $scope.editProject.budget.budgetNat = $scope.currentProject.wedBudget * $scope.editProject.budget.currency;
         }
 
-
         if ($scope.currentUser.isAuth) {
-
             // Default values
             $scope.editProject = {};
 
-            // On 'editProject' EVENT => get edited project
+            // ON-EVENT: 'editProject'
             $scope.$on('editProject', function (e, args) {
                 ResourceService._ajaxRequest("GET", args.id, null, null).then(function (project) {
                     project.weddingDate = AppService._objectToDateString(project.weddingDate);
@@ -72,22 +75,25 @@ define(['angular'], function (angular) {
                 });
             });
 
-            // Apply changes
+            // APPLY CHANGES Fn
             $scope.editProjectApply = function (editedProject) {
                 $scope.deleteProjectTrigger = false;
+
                 if (editedProject.weddingDate.length < 12) {
                     editedProject.weddingDate = AppService._dateStringToObject(editedProject.weddingDate);
                 }
+
                 // Budget update
                 budgetUpdate();
 
                 // Save to DB
                 ResourceService._ajaxRequest("PUT", null, editedProject, null).then(
                     function (project) {
-                        $log.log(project);
                         if (_env._dev) {
                             toastr.info('PROJECT EDITED WITH SUCCESS');
                         }
+
+                        // EVENT: PROJECT INIT DATA CHANGED -> wedMainCtrl
                         $scope.$emit('projectsListChange');
                     },
                     function (err) {
@@ -96,21 +102,27 @@ define(['angular'], function (angular) {
                     });
             };
 
+            // DELETE PROJECT Fn
             $scope.deleteProject = function (id) {
-
                 var sms = {
                     projectId : id,
                     qty : 'remove'
                 };
-                // Emit 'smsQty' event (for User)
+
+                // EVENT: 'SMS QTY' -> wedMainCtrl
                 $scope.$emit('smsQty', sms);
 
                 ResourceService._ajaxRequest("DELETE", id, null, null).then(function (data) {
                     if (_env._dev) {
                         toastr.warning('PROJECT WAS DELETED');
                     }
+
+                    //EVENT: PROJECT INIT DATA CHANGED -> wedMainCtrl
                     $scope.$emit('projectsListChange');
+
+                    // RESET View Trigger
                     $scope.deleteProjectTrigger = false;
+
                 }).catch(function (err) {
                     toastr.error("ERROR: DELETE PROJECT AJAX failed");
                     $log.warn("ERROR: DELETE PROJECT AJAX failed", err);

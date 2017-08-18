@@ -110,7 +110,7 @@ define(['angular'], function (angular) {
                     // Get USER Projects list on-load
                     updateProjectsList();
 
-                    // Events handler
+                    // ON-EVENT: PROJECT INIT DATA CHANGED <- editProjectCtrl <- editProjectApply()
                     $scope.$on('projectsListChange', function () {
                         updateProjectsList();
                     });
@@ -159,7 +159,7 @@ define(['angular'], function (angular) {
 
         });
 
-        // ON-EVENT: 'SMS QTY'
+        // ON-EVENT: 'SMS QTY' <- editProjectCtrl / deleteProject
         $scope.$on('smsQty', function (e, data) {
             // IF ADD New sms
             if (angular.isNumber(data.qty)) {

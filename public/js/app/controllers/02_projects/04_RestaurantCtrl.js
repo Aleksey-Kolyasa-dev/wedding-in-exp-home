@@ -20,33 +20,35 @@ define(['angular'], function (angular) {
         $scope.currentProject.restaurant.quickView = false;
         $scope.checkboxDisabled = !_env._dev;
 
-
-        // EVENT SUBSCRIBE do recalculations if event
+        // ON-EVENT 'TOTAL VALUES CHANGED' <- many..
         $scope.$on('totalValuesChanged', function () {
+            // Do restaurant TOTAL Recalculations
             restaurantTotal();
-            if (_env._dev){
-                //$log.log('UPDATE: reason - totalValuesChanged EVENT', $scope.count);
-            }
         });
 
         // Subview shift Fn
         $scope.subViewShift = function (view) {
             switch (view) {
+
                 case "guests" :
                     $scope.subView = view;
                     break;
-            case "restaurantMenu" :
-                $scope.subView = view;
-                break;
-            case "restaurantCakes" :
-                $scope.subView = view;
-                break;
-            case "restaurant" :
-                $scope.subView = view;
-                break;
-            case "restaurantPlus" :
-                $scope.subView = view;
-                break;
+
+                case "restaurantMenu" :
+                    $scope.subView = view;
+                    break;
+
+                case "restaurantCakes" :
+                    $scope.subView = view;
+                    break;
+
+                case "restaurant" :
+                    $scope.subView = view;
+                    break;
+
+                case "restaurantPlus" :
+                    $scope.subView = view;
+                    break;
             }
         };
 
@@ -55,7 +57,6 @@ define(['angular'], function (angular) {
         $scope.menuCheck = function () {
             if($scope.currentProject.useMenuCheck){
                 $scope.currentProject.restaurant.generalData.generalCheck = $scope.currentProject.restaurantMenu.total.calculatedCheck;
-                //$log.log($scope.currentProject.restaurantMenu.total.calculatedCheck);
             } else {
                 $scope.currentProject.restaurant.generalData.generalCheck = buffer;
             }
@@ -79,12 +80,13 @@ define(['angular'], function (angular) {
 
         // TOTAL RESTAURANT CALCULATION Fn
         function restaurantTotal() {
-            // RESTAURANT Expenses calculations
+            /* RESTAURANT Expenses calculations */
+
                 // GuestQty*Check
                 $scope.currentProject.restaurant.generalData.sumCheckNat = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalCheck;
                 // Define percentage
                 $scope.currentProject.restaurant.generalData.sumPercentNat = ($scope.currentProject.restaurant.generalData.sumCheckNat / 100)*$scope.currentProject.restaurant.generalData.generalPercent;
-                // Define plugs summ
+                // Define plugs sum
                 $scope.currentProject.restaurant.generalData.sumPlugsNat = $scope.currentProject.restaurant.guestsQty * $scope.currentProject.restaurant.generalData.generalPlugs;
 
                 // Define restaurant plan nat/usd
@@ -101,7 +103,8 @@ define(['angular'], function (angular) {
                 $scope.currentProject.restaurant.total.restNat = $scope.currentProject.restaurant.total.planNat - $scope.currentProject.restaurant.total.paidNat;
                 $scope.currentProject.restaurant.total.restUsd = $scope.currentProject.restaurant.total.restNat / $scope.currentProject.budget.currency;
 
-            // FULL RESTAURANT EXPENSES
+            /* FULL RESTAURANT EXPENSES */
+
                 $scope.currentProject.restaurant.total.planTotalNat = $scope.currentProject.restaurant.total.planNat + $scope.currentProject.restaurantPlus.total.planNat + $scope.currentProject.restaurantCakes.total.planNat;
                 $scope.currentProject.restaurant.total.planTotalUsd = $scope.currentProject.restaurant.total.planUsd + $scope.currentProject.restaurantPlus.total.planUsd + $scope.currentProject.restaurantCakes.total.planUsd;
 
@@ -112,23 +115,9 @@ define(['angular'], function (angular) {
                 $scope.currentProject.restaurant.total.restTotalUsd = $scope.currentProject.restaurant.total.planTotalUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
 
             if (_env._dev) {
-                if ($scope.currentProject.restaurant.total.restTotalNat / $scope.currentProject.budget.currency != $scope.currentProject.restaurant.total.restTotalUsd) {
-                    //toastr.warning('CHECK FAILED: ResrMain: 56');
-                }
                 $scope.count++;
-                /*if (_env._dev){
-                    $log.log('UPDATE: EVENT', $scope.count);
-
-                }*/
             }
 
-           /* ResourceService._ajaxRequest("GET", $scope.currentProject._id, null).then(function (project) {
-
-                    $scope.currentProject = project;
-                   // $location.path('/project');
-                    //!** $scope.currentProjectView.mainMenu = "budget";
-                    $log.log('currentProject AJAX UPDATE');
-            });*/
         }
 
         // GUESTS OPS. Fn
@@ -181,6 +170,7 @@ define(['angular'], function (angular) {
                                     throw new Error('ERROR: Guest_M add AJAX failed' + err);
                                 });
                             break;
+
                         // Fiancee Side Guest
                         case "W":
                             $scope.currentProject.fianceeSideGuests.push(this.guestData);
@@ -315,7 +305,7 @@ define(['angular'], function (angular) {
             }
         };
 
-        // Quick View ops.
+        // Quick View ON/OFF
         $scope.quickView = function (project) {
             project.restaurant.quickView = !project.restaurant.quickView;
         };
@@ -324,9 +314,9 @@ define(['angular'], function (angular) {
         $scope.restDataSave = function (data) {
             // Case for GENERAL DATA AJAX SAVE
             if (!arguments.length) {
-
                 // Do total calculations
                 restaurantTotal();
+
                 if (_env._dev){
                     $log.log('UPDATE: reason - RESTAURANT DATA SAVE EVENT', $scope.count);
                 }
@@ -348,6 +338,7 @@ define(['angular'], function (angular) {
                     $log.error("ERROR: generalData edit AJAX failed", err);
                 });
             }
+
             // Case for QUICK RESTAURANT DATA AJAX SAVE
             else if (angular.isNumber(data.quickGuestsQty) && angular.isNumber(data.quickCheck) && angular.isNumber(data.quickPercent)) {
 
@@ -359,8 +350,8 @@ define(['angular'], function (angular) {
                         }
                     },
                     function (err) {
-                            toastr.error('ERROR: quickData edit AJAX failed');
-                            throw new Error('ERROR: quickData edit AJAX failed' + err);
+                        toastr.error('ERROR: quickData edit AJAX failed');
+                        throw new Error('ERROR: quickData edit AJAX failed' + err);
                 });
             }
             else {
@@ -369,7 +360,7 @@ define(['angular'], function (angular) {
             }
         };
 
-        // Trigger for "SAVE" btn behavior in quickView
+        // RESET Trigger
         $scope.saveHideTrigger = function () {
             $scope.saveHide = false;
         };
@@ -406,7 +397,7 @@ define(['angular'], function (angular) {
             }
         };
 
-        // Notes Save
+        // guestsNotes Save
         $scope.noteSave = function () {
 
             // SAVE CHANGES in DB
@@ -426,7 +417,7 @@ define(['angular'], function (angular) {
                 });
         };
 
-        // Notes Save
+        // restNotes Save
         $scope.noteRestSave = function () {
 
             // SAVE CHANGES in DB
@@ -466,6 +457,7 @@ define(['angular'], function (angular) {
         // Category Header Display Filter
         function categoryHeaderFilter() {
            $scope.dispalyCategotries = {};
+
            angular.forEach($scope.currentProject.restaurantMenu.expCollection, function(item) {
                if(item.category == 'Холодные закуски'){
                     $scope.dispalyCategotries.coldDishes = true;
@@ -500,23 +492,23 @@ define(['angular'], function (angular) {
         // Category Header Update
         categoryHeaderFilter();
 
-        // GUEST CHANGE EVENT WATCHER
+        // WATCHER: GUEST CHANGE EVENT
         $scope.$watch('currentProject.restaurant.guestsQty', function () {
             // Update total values
             updateTotalValues();
-            //console.clear();
+
             if (_env._dev){
                 $log.log('update by MENU: reason - GUEST QTY EVENT ', $scope.count)
             }
         });
 
-        // USE MENU CHECK CHANGE EVENT WATCHER
+        // WATCHER: USE MENU CHECK CHANGE EVENT
         $scope.$watch('currentProject.restaurantMenu.total.calculatedCheck', function () {
             // if use menu check choice 'true'
             if($scope.currentProject.useMenuCheck){
                 $scope.currentProject.restaurant.generalData.generalCheck = $scope.currentProject.restaurantMenu.total.calculatedCheck;
 
-                // Emit Total Value Changes EVENT
+                // EVENT: 'TOTAL VALUES CHANGED'
                 $scope.$emit('totalValuesChanged');
 
                 if (_env._dev){
@@ -583,6 +575,7 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+
                 if (_env._dev){
                     $log.log('update by MENU: reason - ADD MENU ITEM EVENT ', $scope.count)
                 }
@@ -647,6 +640,7 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+
                 if (_env._dev){
                     $log.log('update by MENU: reason - EDIT MENU EVENT ', $scope.count)
                 }
@@ -760,7 +754,7 @@ define(['angular'], function (angular) {
         $scope.items = $scope.currentProject.restaurantCakes.expCollection;
         $scope.total = $scope.currentProject.restaurantCakes.total;
 
-        // GUEST CHANGE EVENT WATCHER
+        // WATCHER: GUEST CHANGE EVENT
         $scope.$watch('currentProject.restaurant.guestsQty', function () {
             angular.forEach($scope.currentProject.restaurantCakes.expCollection, function (item) {
                 // Intermediate calculations
@@ -771,12 +765,13 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
+
             if (_env._dev){
                 $log.log('update by CAKE: reason - GUEST QTY EVENT ', $scope.count)
             }
         });
 
-        // WATCH CURRENCY VALUE and do recalculations if changed
+        // WATCHER: CURRENCY VALUE and do recalculations if changed
         $scope.$watch("currentProject.budget.currency", function () {
             if($scope.currentProject.restaurantCakes.expCollection.length){
                 updateTotalValues();
@@ -831,9 +826,6 @@ define(['angular'], function (angular) {
 
         }
 
-        // Update total values immediate evoke
-       // updateTotalValues();
-
         // Add New Expense Item Fn
         $scope.addNewExpenseItem = function (item) {
             if(item.name != '' && angular.isNumber(item.grPerGuest) && angular.isNumber(item.kgPrice) && angular.isNumber(item.paid)){
@@ -866,6 +858,7 @@ define(['angular'], function (angular) {
 
                // Update total values
                 updateTotalValues();
+
                 if (_env._dev){
                     $log.log('update by CAKE: reason - ADD CAKE EVENT ', $scope.count)
                 }
@@ -928,6 +921,7 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+
                 if (_env._dev){
                     $log.log('update by CAKE: reason - EDIT CAKE EVENT ', $scope.count)
                 }
@@ -963,6 +957,7 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
+
             if (_env._dev){
                 $log.log('update by CAKE: reason - REMOVE CAKE EVENT ', $scope.count)
             }
@@ -1031,10 +1026,11 @@ define(['angular'], function (angular) {
         $scope.itemToEdit = {};
         $scope.newItem = {};
 
-        // WATCH CURRENCY VALUE and do recalculations if changed
+        // WATCHER: CURRENCY VALUE and do recalculations if changed
         $scope.$watch("currentProject.budget.currency", function () {
             if($scope.currentProject.restaurantPlus.expCollection.length){
                 updateTotalValues();
+
                 if (_env._dev){
                     $log.log('update by PLUS: reason - CURRENCY change EVENT', $scope.count);
                 }
@@ -1111,9 +1107,11 @@ define(['angular'], function (angular) {
               if(item.paid < 0){
                   item.paid *= -1;
               }
+
               // Intermediate calculations
               item.toPai = item.tariff * item.multiplier;
               item.rest = item.toPai - item.paid;
+
               // Money type check
               if(!item.usd){
                   item.money = $scope.currentProject.budget.nationalMoney;
@@ -1126,6 +1124,7 @@ define(['angular'], function (angular) {
 
               // Update total values
               updateTotalValues();
+
               if (_env._dev){
                   $log.log('update by PLUS: reason - ADD PLUS EXP EVENT ', $scope.count);
               }
@@ -1195,6 +1194,7 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+
                 if (_env._dev){
                     $log.log('update by PLUS: reason - EDIT PLUS EXP EVENT ', $scope.count);
                 }
@@ -1287,9 +1287,6 @@ define(['angular'], function (angular) {
         };
 
     } // *END* RESTAURANT PLUS CTRL
-
-
-
 
 
     return restaurantCtrlModule;
