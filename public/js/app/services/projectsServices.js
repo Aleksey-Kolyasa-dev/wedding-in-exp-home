@@ -96,7 +96,6 @@ define(['angular'], function (angular) {
                             // *** ??? (for sms from visitor)
                             if (keyURL && url) {
                                 if (angular.isString(keyURL) && angular.isString(url)) {
-                                    console.log(self.baseURL + url + keyURL);
                                     $http({
                                         method: "PUT",
                                         url: self.baseURL + url + keyURL,

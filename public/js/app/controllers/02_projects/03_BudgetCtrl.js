@@ -231,29 +231,27 @@ define(['angular'], function (angular) {
 
         // VISITOR SMS SEND Fn
         $scope.sendSms = function (msg) {
+            // SAVE visitor name
             var buffer = msg.author;
-           if(msg.text &&  msg.author){
+
+            if(msg.text &&  msg.author){
                msg.date = Date.now();
                msg._id = $scope.currentProject._id;
 
-               var request = {
-                   method : "POST",
-                   url : 'http://localhost:5000/api/' + $scope.currentProject._id,
-                   data : msg
-               };
-
-
-               $http(request).then(function () {
+                ResourceService._ajaxRequest("POST", null, msg, msg._id).then(function () {
+                    toastr.success('ОТПРАВЛЕНО!');
                     $scope.sms = {};
-                   $scope.sms.author = buffer;
-               }).catch(function (err) {
-                   toastr.error("ERROR: AJAX ERROR");
-                   $log.error("ERROR: AJAX ERROR", err);
-               });
+                    $scope.sms.author = buffer;
+                }).catch(function (err) {
+                    toastr.error("ERROR: AJAX ERROR");
+                    $log.error("ERROR: AJAX ERROR", err);
+                });
            }
        };
 
+        // USER SMS LIST CLEAR Fn
         $scope.clearAllSms = function () {
+            // Clear an smsCollection Arr
             $scope.currentProject.smsCollection.length = 0;
 
             var request = {
