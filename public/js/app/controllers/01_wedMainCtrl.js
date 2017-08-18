@@ -18,12 +18,25 @@ define(['angular'], function (angular) {
         $scope.toDay = new Date;
         $location.path('/start');
         $scope.dynamicBackground = "start_main";
-        $scope.newSMS = 0;
+        $scope.newSMS = {};
 
         // Exit to START PAGE
         $scope.exitToStart = function () {
             $location.path('/start');
             $scope.dynamicBackground = "start_main";
+        };
+
+        // Exit to Home Page
+        $scope.goToHomePage = function () {
+            if($scope.currentUser.isAuth){
+                $location.path('/index');
+                $scope.dynamicBackground = "projects_main";
+                $scope.decorNames = false;
+                updateProjectsList();
+                $scope.currentProjectView.mainMenu = null; //????
+            } else {
+                $scope.exitToStart();
+            }
         };
 
         // LOGOUT Fn
@@ -48,7 +61,7 @@ define(['angular'], function (angular) {
                     // Get USER Projects list*
                     function updateProjectsList() {
                         var request = { id : $scope.currentUser._id };
-                        //newSmsCheck();
+
                         ResourceService._ajaxRequest("POST", null, request, '/getProjects').then(function (projects) {
                            // Define USER PROJECTS COLLECTION
                             $scope.projects = projects;
@@ -63,20 +76,23 @@ define(['angular'], function (angular) {
                                         var end = project.smsCollection.length;
 
                                         if(start < end){
-                                             $scope.newSMS = end - start;
+                                             $scope.newSMS[project._id] = end - start;
                                          }
                                          if(start > end){
-                                             $scope.newSMS = 0;
+                                             $scope.newSMS[project._id] = 0;
                                              userProjectSMS.qty = end;
 
                                              var smsUpdate = {
                                                  _id : $scope.currentUser._id,
                                                  arr : $scope.currentUser.smsQty
                                              };
-                                             UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty');
+                                             UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty').catch(function (err) {
+                                                 toastr.error('USER SMS QTY AJAX FAILED!');
+                                                 $log.error('USER SMS QTY AJAX FAILED!');
+                                             });
                                          }
                                         if(start == end){
-                                            $scope.newSMS = 0;
+                                            $scope.newSMS[project._id] = 0;
                                         }
                                     }
                                 });
@@ -95,15 +111,6 @@ define(['angular'], function (angular) {
                     $scope.$on('projectsListChange', function () {
                         updateProjectsList();
                     });
-
-                    // Exit to Home Page
-                    $scope.goToHomePage = function () {
-                        $location.path('/index');
-                        $scope.dynamicBackground = "projects_main";
-                        $scope.decorNames = false;
-                        updateProjectsList();
-                        $scope.currentProjectView.mainMenu = null; //????
-                    };
 
                     // Edit project init
                     $scope.editProject = function (id) {

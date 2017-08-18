@@ -41,9 +41,9 @@
                                     жених: <span>{{project.fianceName | uppercase}}</span>,
                                     невеста: <span>{{project.fianceeName | uppercase}}</span>,
                                     бюджет: <span>{{(project.wedBudget | number : 0 )}}</span> USD
-                                    <span class="glyphicon glyphicon-envelope msgSign" ng-if="newSMS">
-                                        <a class="smsCounter" ng-if="newSMS">
-                                            <span>{{newSMS}}</span>
+                                    <span class="glyphicon glyphicon-envelope msgSign" ng-if="newSMS[project._id]">
+                                        <a class="smsCounter" ng-if="newSMS[project._id]">
+                                            <span>{{newSMS[project._id]}}</span>
                                         </a>
                                     </span>
                                 </a>

@@ -5,9 +5,9 @@
                 <li style="{{subView == 'settings'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('settings')">Бюджет</a></li>
                 <li style="{{subView == 'info'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('info')">Проект</a></li>
                 <li style="{{subView == 'reports'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('reports')">Отчеты</a></li>
-                <li style="{{subView == 'sms'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('sms')">SMS <span class="glyphicon glyphicon-envelope msgSign-s" ng-if="newSMS">
-                                        <a class="smsCounter-s" ng-if="newSMS">
-                                            <span>{{newSMS}}</span>
+                <li style="{{subView == 'sms'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('sms')">SMS <span class="glyphicon glyphicon-envelope msgSign-s" ng-if="newSMS[currentProject._id]">
+                                        <a class="smsCounter-s" ng-if="newSMS[currentProject._id]">
+                                            <span>{{newSMS[currentProject._id]}}</span>
                                         </a>
                                     </span></a></li>
             </ul>
