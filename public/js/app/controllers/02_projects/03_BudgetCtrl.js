@@ -242,6 +242,10 @@ define(['angular'], function (angular) {
 
                ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms').then(function (smsCollection) {
                     $scope.sms = {};
+                  ResourceService._ajaxRequest("GET", $scope.currentProject._id, null, null).then(function (project) {
+                     //$log.log(project);
+                      $scope.currentProject.smsCollection = project.smsCollection;
+                  });
                }).catch(function (err) {
                    toastr.error("ERROR: AJAX ERROR");
                    $log.error("ERROR: AJAX ERROR", err);
