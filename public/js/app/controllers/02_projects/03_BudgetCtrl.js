@@ -227,7 +227,7 @@ define(['angular'], function (angular) {
     /*
      * SMS MAIN CTRL
      * */
-    function smsMainCtrl($scope, $log, toastr, $timeout ,_env, ResourceService){
+    function smsMainCtrl($scope, $log, toastr, $http, $timeout ,_env, ResourceService){
        function smsUpdate() {
            ResourceService._ajaxRequest("GET", $scope.currentProject._id, null, null).then(function (project) {
                //$log.log(project);
@@ -235,20 +235,23 @@ define(['angular'], function (angular) {
            }); // CATCH
        }
         $scope.sendSms = function (msg) {
-            smsUpdate();
+            //smsUpdate();
            if(msg.text){
                msg.author = "ALEX";
                msg.date = Date.now();
+               msg._id = $scope.currentProject._id;
 
 
-               $scope.currentProject.smsCollection.push(msg);
+               //$scope.currentProject.smsCollection.push(msg);
 
                var request = {
-                   _id : $scope.currentProject._id,
-                   data : $scope.currentProject.smsCollection
+                   method : "POST",
+                   url : 'http://localhost:5000/api/' + $scope.currentProject._id,
+                   data : msg
                };
 
-               ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms').then(function (smsCollection) {
+               /*ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms')*/
+               $http(request).then(function (smsCollection) {
                     $scope.sms = {};
                }).catch(function (err) {
                    toastr.error("ERROR: AJAX ERROR");
