@@ -116,6 +116,7 @@
     cursor: pointer;
     color: rgb(81, 81, 162);
     background: rgba(255, 255, 255, 0.91);
+    text-shadow: 6px 4px 7px #8c8b8b;
 }
 .main-page-menu-btn{
     display: block;
@@ -144,6 +145,7 @@
     cursor: pointer;
     color: #0ca77e;
     background: rgba(255, 255, 255, 0.91);
+    text-shadow: 6px 4px 7px #8c8b8b;
 }
 .main-page-menu-btn-exit{
     background: rgba(176, 115, 70, 0.78);
@@ -167,6 +169,7 @@
     cursor: pointer;
     color: rgba(176, 115, 70, 0.78);
     background: rgba(255, 255, 255, 0.91);
+    text-shadow: 6px 4px 7px #8c8b8b;
 }
 .deco-farames{
     width: 100%;
