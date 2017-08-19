@@ -43,7 +43,6 @@ projectsRouter.get('/api/:id', function (req, res, next) {
         //console.log(project);
     });
 });
-
 // GET Single Project by KEY ACCESS
 projectsRouter.post('/keyAccess', function (req, res, next) {
     var access = req.body;
@@ -97,72 +96,11 @@ projectsRouter.post('/api', function (req, res, next) {
     }
 });
 // PUT Single Projects
-/*projectsRouter.put('/api/:id', function (req, res, next) {
- var project = req.body;
- var updatedProject = {};
-
- console.log("CALL PUT BY: Default");
-
- if(project.fianceName && project.fianceeName && project.owner){
- updatedProject.owner = project.owner;
- updatedProject.accessKey = project.accessKey;
- updatedProject.fianceName = project.fianceName;
- updatedProject.fianceeName = project.fianceeName;
- updatedProject.weddingDate = project.weddingDate;
- updatedProject.email = project.email;
- updatedProject.telephones = project.telephones;
- updatedProject.notes = project.notes;
- updatedProject.fianceSideGuests = project.fianceSideGuests;
- updatedProject.fianceeSideGuests = project.fianceeSideGuests;
- updatedProject.useMenuCheck = project.useMenuCheck;
- updatedProject.budget = project.budget;
- updatedProject.restaurant = project.restaurant;
- updatedProject.restaurantMenu = project.restaurantMenu;
- updatedProject.restaurantCakes = project.restaurantCakes;
- updatedProject.restaurantPlus = project.restaurantPlus;
- updatedProject.decor = project.decor;
- updatedProject.flower = project.flower;
- updatedProject.leader = project.leader;
- updatedProject.music = project.music;
- updatedProject.photo = project.photo;
- updatedProject.video = project.video;
- updatedProject.zags = project.zags;
- updatedProject.transport = project.transport;
-
- }
- if(!updatedProject){
- res.status(400);
- res.json({
- "error" : "PUT ERROR: validation failed"
- });
- } else {
- db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, updatedProject, {}, function (err, project) {
- if(err){
- res.send(err);
- }
- //console.log(project);
- res.json(project);
- });
- }
- });*/
-// PUT Single Projects
 projectsRouter.put('/api/:id', function (req, res, next) {
     var project = req.body;
 
     console.log("CALL PUT BY: PROJECT INIT DATA UPDATE");
 
-    /*if(project.fianceName && project.fianceeName && project.owner){
-
-     updatedProject.fianceName = project.fianceName;
-     updatedProject.fianceeName = project.fianceeName;
-     updatedProject.weddingDate = project.weddingDate;
-     updatedProject.wedBudget = project.wedBudget;
-     updatedProject.email = project.email;
-     updatedProject.telephones = project.telephones;
-     updatedProject.notes = project.notes;
-
-
-     }*/
     if (!project.fianceName && !project.fianceeName && !project.owner && !project.weddingDate && !project.email) {
         res.status(400);
         res.json({
@@ -189,8 +127,6 @@ projectsRouter.put('/api/:id', function (req, res, next) {
             });
     }
 });
-
-
 // DELETE Single Project
 projectsRouter.delete('/api/:id', function (req, res, next) {
     console.log("CALL DELETE BY: _id");

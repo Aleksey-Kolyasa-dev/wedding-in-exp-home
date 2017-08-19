@@ -1,6 +1,7 @@
 var express = require('express');
 var usersRouter = express.Router();
 var mongojs = require('mongojs');
+var moment = require('moment');
 var usersDB = mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
 // var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
 
@@ -75,6 +76,7 @@ usersRouter.post('/login', function (req, res, next) {
 
                     // Update LOGIN STATUS
                     user.isLogged = true;
+                    //user.lastLogin = moment().utc();
                     user.lastLogin = new Date();
                     user.isAuth = true;
                     console.log('CALL POST BY: LOGIN, user: ' + user.name);
@@ -187,16 +189,16 @@ module.exports = usersRouter;
 // New User Ctor fn
 function User(user) {
     this.login = user.login;
-    this.name = user.name;
-    this.nickname = user.nickname;
-    this.orgnization = null;
     this.password = user.password;
+    this.name = user.name;
     this.email = user.email;
+    this.nickname = user.nickname;
     this.registrationDate = new Date();
+    this.lastLogin = null;
     this.isAuth = false;
     this.isLogged = false;
-    this.admin = false;
-    this.lastLogin = null;
+    this.isAdmin = false;
+    this.organization = null;
     this.smsQty = [];
 }
 

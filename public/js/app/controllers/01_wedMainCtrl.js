@@ -107,9 +107,6 @@ define(['angular'], function (angular) {
                         });
                     }
 
-                    // Get USER Projects list on-load
-                    //updateProjectsList();
-
                     // ON-EVENT: PROJECT INIT DATA CHANGED <- editProjectCtrl <- [editProjectApply(), deleteProject()]
                     $scope.$on('projectsListChange', function (e) {
                         updateProjectsList();
@@ -198,70 +195,6 @@ define(['angular'], function (angular) {
             }
 
         });
-///////////////////
-
-        /*// If USER is Authorized
-         if($scope.currentUser.isLogged && $scope.currentUser.isAuth){
-         $timeout(function () {
-         /!*$location.path('/index');
-         $scope.dynamicBackground = 'projects_main';*!/
-
-         // Get USER Projects list
-         function updateProjectsList() {
-         var request = { id : $scope.currentUser._id };
-
-         ResourceService._ajaxRequest("POST", null, request, '/getProjects').then(function (projects) {
-         $scope.projects = projects;
-         }).catch(function (err) {
-         toastr.error("ERROR: GET init data failed");
-         $log.error("ERROR: GET init data failed", err);
-         });
-         }
-         // Get USER Projects list on-load
-         updateProjectsList();
-
-         // Events handler
-         $scope.$on('projectsListChange', function () {
-         updateProjectsList();
-         });
-
-         // Exit to Home Page
-         $scope.goToHomePage = function () {
-         $location.path('/index');
-         $scope.dynamicBackground = "projects_main";
-         //$scope.currentProject = {};
-         $scope.currentProjectView.mainMenu = null;
-         };
-
-         // Edit project init
-         $scope.editProject = function (id) {
-         $rootScope.$broadcast('editProject', {
-         id : id
-         });
-         };
-
-         // Go and Load selected Project
-         $scope.goToSelectedProject = function (id, archive) {
-         ResourceService._ajaxRequest("GET", id, null).then(function (project) {
-         if (archive) {
-         $timeout(function () {
-         $scope.currentProject = project;
-         $location.path('/project');
-         //!** $scope.currentProjectView.mainMenu = "budget";
-         $scope.currentProjectView.mainMenu = "budget";
-         }, 500);
-         } else {
-         $scope.currentProject = project;
-         $location.path('/project');
-         //!** $scope.currentProjectView.mainMenu = "budget";
-         $scope.currentProjectView.mainMenu = "budget";
-         }
-         });
-         };
-         }, 300);
-         } else { $location.path('/start');}*/
-
-        ////////////////////////
 
         // Project LEFT MENU navigation
         $scope.projectView = function (view) {
