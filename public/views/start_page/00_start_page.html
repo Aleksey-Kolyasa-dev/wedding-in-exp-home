@@ -1,67 +1,98 @@
+<!-- HEADER *START*-->
 <div>
+    <!--header-->
     <ng-include src="'/views/start_page/01_header.html'"></ng-include>
+    <!--header-->
 
-        <div ng-if="!currentUser._id" class="new-proj-mains" style="float: right; margin-right: 15px; margin-top: 15px">
-            <div>
-                <a class="main-page-menu-btn" data-toggle="modal" data-target="#keyAccess">
-                    <span>ВВЕСТИ КЛЮЧ ПРОЕКТА</span>
-                </a>
-            </div>
+    <!--key access btn-->
+    <div ng-if="!currentUser._id" class="new-proj-mains" style="float: right; margin-right: 15px; margin-top: 15px">
+        <div>
+            <a class="main-page-menu-btn" data-toggle="modal" data-target="#keyAccess">
+                <span>ВВЕСТИ КЛЮЧ ПРОЕКТА</span>
+            </a>
         </div>
+    </div>
+    <!--key access btn-->
 </div>
+<!-- HEADER *END*-->
 
-    <div class="container-fluid main-page-functional-body" style="margin-top: 60px; border: 0" ng-if="currentUser.isLogged">
-        <!--MAIN BODY *START*-->
-        <div class="wed-main-body">
-            <!-- MENU LEFT *START* -->
-            <div class="wed-main-body-left"><!--col-lg-2 col-md-2 col-sm-3 col-xs-4-->
-                <div class="new-proj-main">
-                    <div>
-                        <a class="main-page-menu-btn" ng-click="goToHomePage()">
-                            <span>МОИ ПРОЕКТЫ</span>
-                        </a>
-                    </div>
-                    <!--<div>
-                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
-                            <span>АРХИВ</span>
-                        </a>
-                    </div>
-                    <hr>
-                    <div>
-                        <a class="main-page-menu-btn-exit"  ng-click="exitToStart()">
-                            <span>ВЫХОД</span>
-                        </a>
-                    </div>-->
+<!-- BODY  *START*-->
+<div class="container-fluid main-page-functional-body" style="margin-top: 60px; border: 0" ng-if="currentUser.isLogged">
+
+    <!--MAIN BODY *START*-->
+    <div class="wed-main-body">
+
+        <!-- MENU LEFT *START* -->
+        <div class="wed-main-body-left"><!--col-lg-2 col-md-2 col-sm-3 col-xs-4-->
+            <div class="new-proj-main">
+                <div>
+                    <a class="main-page-menu-btn" ng-click="goToHomePage()">
+                        <span>МОИ ПРОЕКТЫ</span>
+                    </a>
                 </div>
-            </div>
-            <!-- MENU LEFT *END* -->
-
-            <!-- PROJECTS LIST *START* -->
-            <div class="wed-main-body-right"><!-- col-lg-10 col-md-10 col-sm-9 col-xs-8-->
-                <div class="projects-list">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
-                    <p>Lore
+                <!--<div>
+                    <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
+                        <span>АРХИВ</span>
+                    </a>
                 </div>
+                <hr>
+                <div>
+                    <a class="main-page-menu-btn-exit"  ng-click="exitToStart()">
+                        <span>ВЫХОД</span>
+                    </a>
+                </div>-->
             </div>
-            <!-- PROJECTS LIST *END* -->
         </div>
-        <!--MAIN BODY *END*-->
+        <!-- MENU LEFT *END* -->
 
+        <!-- PROJECTS LIST *START* -->
+        <div class="wed-main-body-right"><!-- col-lg-10 col-md-10 col-sm-9 col-xs-8-->
+            <div class="projects-list">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!</p>
+                <p>Lore
+            </div>
+        </div>
+        <!-- PROJECTS LIST *END* -->
 
     </div>
+    <!--MAIN BODY *END*-->
 
 </div>
+<!-- BODY *END*-->
+
 
 <!-- KEY ACCESS MODAL *START* -->
 <div id="keyAccess" class="modal fade" ng-controller="loginCtrl">
@@ -71,6 +102,7 @@
                 <button class="close" type="button" data-dismiss="modal">close</button>
                 <h4 class="modal-title">KEY ACCESS</h4>
             </div>
+
             <div class="modal-body wed-modals-s">
                 <div class="add-new-proj-main">
                     <form name="keyAccessForm" novalidate ng-submit="">
@@ -83,11 +115,11 @@
                             </div>
 
                             <div class="text-right">
-                            <button type="submit" class="btn btn-success btn-sm"
-                                    ng-disabled="loginForm.$invalid" data-dismiss="modal"
-                                    ng-click="accessByKey(key)">
-                                <b>ВВОД</b>
-                            </button>
+                                <button type="submit" class="btn btn-success btn-sm"
+                                        ng-disabled="loginForm.$invalid" data-dismiss="modal"
+                                        ng-click="accessByKey(key)">
+                                    <b>ВВОД</b>
+                                </button>
                             </div>
                         </div>
                     </form>

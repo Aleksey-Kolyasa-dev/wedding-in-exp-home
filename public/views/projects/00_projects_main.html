@@ -4,6 +4,7 @@
     <ng-include src="'/views/home_page/02_deco_top.html'"></ng-include>
 
     <div class="container-fluid main-page-functional-body">
+
         <!--MAIN BODY *START*-->
         <div class="wed-main-body">
 
@@ -118,8 +119,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button class="close" type="button" data-dismiss="modal">close</button>
-                        <h4 class="modal-title"><b>НОВЫЙ ПРОЕКТ</b></h4>
+                        <h4 class="modal-title">НОВЫЙ ПРОЕКТ</h4>
                     </div>
+
                     <div class="modal-body wed-modals">
                         <div class="add-new-proj-main">
                             <form name="addNewProj" novalidate ng-submit="">
@@ -184,8 +186,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button class="close" type="button" data-dismiss="modal">close</button>
-                        <h4 class="modal-title"><b>АРХИВ ПРОЕКТОВ</b></h4>
+                        <h4 class="modal-title">АРХИВ ПРОЕКТОВ</h4>
                     </div>
+
                     <div class="modal-body wed-modals">
                         <div class="projects-list">
                             <ul ng-repeat="project in projects | orderBy : '-weddingDate'" >

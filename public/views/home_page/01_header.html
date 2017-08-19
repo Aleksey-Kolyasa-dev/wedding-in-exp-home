@@ -32,7 +32,7 @@
 </header>
 <!--HEADER *END*-->
 
-<!--visitor btn's-->
+<!--visitor top menu-->
 <div class="log-reg-btn-main" ng-if="currentUser.visitor">
     <div style="margin-right: 20px">
         <a class="main-page-menu-btn-start" data-toggle="modal" data-target="#sms"><span>SEND <span class="glyphicon glyphicon-envelope"></span></span></a>
@@ -41,8 +41,7 @@
         <a class="main-page-menu-btn-logout" ng-click="exitToStart()"><span>ВЫХОД</span></a>
     </div>
 </div>
-<!--visitor btn's-->
-
+<!--visitor top menu-->
 
 <!-- SMS MODAL *START* -->
 <div ng-controller="smsMainCtrl">
@@ -53,6 +52,7 @@
                     <button class="close" type="button" data-dismiss="modal">close</button>
                     <h4 class="modal-title">НАПИСАТЬ СООБЩЕНИЕ АВТОРУ ПРОЕКТА</h4>
                 </div>
+
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
                         <form  novalidate name="visitorSmsForm">

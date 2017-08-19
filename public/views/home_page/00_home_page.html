@@ -31,7 +31,7 @@
             <!-- MENU LEFT *END* -->
 
             <!-- PROJECTS LIST *START* -->
-            <div class="wed-main-body-right"><!-- col-lg-10 col-md-10 col-sm-9 col-xs-8-->
+            <div class="wed-main-body-right">
                 <div class="projects-list">
                     <ul ng-repeat="project in projects | orderBy : 'weddingDate'" >
                         <li ng-if="projectListDateCheck(project)">
@@ -65,10 +65,11 @@
                         <button class="close" type="button" data-dismiss="modal">close</button>
                         <h4 class="modal-title"><span>НОВЫЙ ПРОЕКТ</span></h4>
                     </div>
+
                     <div class="modal-body wed-modals">
                         <div class="add-new-proj-main">
                             <form name="addNewProj" novalidate ng-submit="">
-                                <div class=""><!--well-->
+                                <div class="">
                                     <div class="form-group">
                                         <label>Имя жениха</label>
                                         <input name="fianceName" class="form-control" ng-model="newProject.fianceName"
@@ -136,6 +137,7 @@
                         <button class="close" type="button" data-dismiss="modal">close</button>
                         <h4 class="modal-title"><span>АРХИВ ПРОЕКТОВ</span></h4>
                     </div>
+
                     <div class="modal-body wed-modals">
                         <div class="projects-list">
                             <ul ng-repeat="project in projects | orderBy : '-weddingDate'" >
@@ -172,6 +174,7 @@
                         <button class="close" type="button" data-dismiss="modal">close</button>
                         <h4 class="modal-title"><span>РЕДАКТИРОВАТЬ ПРОЕКТ</span></h4>
                     </div>
+
                     <div class="modal-body wed-modals">
                         <div class="add-new-proj-main">
                             <form name="editProj" novalidate ng-submit="">
