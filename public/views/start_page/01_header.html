@@ -52,7 +52,7 @@
                         <div>
                             <div class="form-group">
                                 <label>Login</label>
-                                <input name="LoginName" class="form-control" ng-model="user.name"
+                                <input name="LoginName" class="form-control" ng-model="user.login"
                                        type="text" required ng-minlength='1'
                                        ng-class="(loginForm.LoginName.$invalid)? 'invalid-input' : 'null'">
                             </div>
@@ -91,7 +91,7 @@
                         <div>
                             <div class="form-group">
                                 <label>Login</label>
-                                <input name="registrationName" class="form-control" ng-model="user.name"
+                                <input name="registrationName" class="form-control" ng-model="user.login"
                                        type="text" required ng-minlength='1'
                                        ng-class="(registrationForm.registrationName.$invalid)? 'invalid-input' : 'null'">
                             </div>
@@ -116,7 +116,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Name</label>
-                                <input name="registrationRealName" class="form-control" ng-model="user.realName"
+                                <input name="registrationRealName" class="form-control" ng-model="user.name"
                                        type="text" required ng-minlength='1'
                                        ng-class="(registrationForm.registrationRealName.$invalid)? 'invalid-input' : 'null'">
                             </div>

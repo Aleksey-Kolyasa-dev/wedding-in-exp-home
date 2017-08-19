@@ -121,8 +121,8 @@ define(['angular'], function (angular) {
                 // TOKEN CASH OPS.
                 if($window.localStorage){
                     $window.localStorage.userToken = angular.toJson({
-                        name : data.userName,
-                        pass : data.userPassword,
+                        login : data.login,
+                        pass : data.password,
                         init : data.lastLogin
                     });
                 }

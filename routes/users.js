@@ -21,11 +21,11 @@ usersRouter.post('/', function (req, res, next) {
         usersDB[collection].find({}, {}, function (e, users) {
             users.forEach(function (user) {
                 // Check if such NAME already exists
-                if (user.userName == newUser.name) {
-                    reject(new PropOccupiedError('NAME'));
+                if (user.login == newUser.login) {
+                    reject(new PropOccupiedError('LOGIN'));
                 }
                 // Check if such EMAIL already exists
-                if (user.userEmail == newUser.email) {
+                if (user.email == newUser.email) {
                     reject(new PropOccupiedError('EMAIL'));
                 }
             });
@@ -36,7 +36,7 @@ usersRouter.post('/', function (req, res, next) {
 
     promise.then(
         function () {
-            if(!newUser.name || !newUser.password || !newUser.email){
+            if(!newUser.login || !newUser.password || !newUser.email){
                 reject(new NewUserValidationError('VALIDATION'));
             } else {
                 // Do save New Registred User in DB (if no rejects)
@@ -45,7 +45,7 @@ usersRouter.post('/', function (req, res, next) {
                         res.send(err);
                     }
                     else {
-                        console.log('CALL POST BY: NEW USER: ' + newUser.realName +' REGISTRED');
+                        console.log('CALL POST BY: NEW USER: ' + newUser.name +' REGISTRED');
                         res.json(registredUser);
                     }
                 });
@@ -71,19 +71,20 @@ usersRouter.post('/login', function (req, res, next) {
         usersDB[collection].find({}, {}, function (e, users) {
             users.forEach(function (user) {
                 // Check if such USER exists
-                if (user.userName == loginData.name && user.userPassword == loginData.password) {
+                if (user.login == loginData.login && user.password == loginData.password) {
 
                     // Update LOGIN STATUS
                     user.isLogged = true;
                     user.lastLogin = new Date();
                     user.isAuth = true;
-                    console.log('CALL POST BY: LOGIN, user: ' + user.realName);
-
-                    // Send USER to Client
-                    res.json(user);
+                    console.log('CALL POST BY: LOGIN, user: ' + user.name);
+                    
                     // Do current Promise chain resolved
                     resolve(user);
-
+                    
+                    // Send USER to Client
+                    res.json(user);
+                    
                     // Do USER LOGIN STATUS update to DB
                     usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
                         $set: {
@@ -123,7 +124,7 @@ usersRouter.post('/login', function (req, res, next) {
 // PUT USER LOGOUT
 usersRouter.put('/:id/logout', function (req, res, next) {
     var user = req.body;
-    console.log('CALL PUT BY: LOGOUT, user: ' + user.realName);
+    console.log('CALL PUT BY: LOGOUT, user: ' + user.name);
 
     if(!user._id){
         res.status(400);
@@ -131,7 +132,7 @@ usersRouter.put('/:id/logout', function (req, res, next) {
             "error" : "PUT ERROR: LOGOUT validation failed"
         });
     } else {
-        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { isLogged : false, isAuth : false}}, {}, function (err, project) {
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { isLogged : user.isLogged, isAuth : user.isAuth}}, {}, function (err, project) {
             if(err){
                 res.send(err);
             }
@@ -185,12 +186,12 @@ module.exports = usersRouter;
 
 // New User Ctor fn
 function User(user) {
-    this.userName = user.name;
-    this.realName = user.realName;
+    this.login = user.login;
+    this.name = user.name;
     this.nickname = user.nickname;
     this.orgnization = null;
-    this.userPassword = user.password;
-    this.userEmail = user.email;
+    this.password = user.password;
+    this.email = user.email;
     this.registrationDate = new Date();
     this.isAuth = false;
     this.isLogged = false;

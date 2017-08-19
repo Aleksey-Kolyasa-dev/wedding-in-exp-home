@@ -22,7 +22,7 @@ define(['angular'], function (angular) {
 
             var request = {
                 _id: $scope.currentUser._id,
-                realName: $scope.currentUser.realName,
+                name: $scope.currentUser.realName,
                 isLogged: false,
                 isAuth: false
             };
@@ -44,20 +44,20 @@ define(['angular'], function (angular) {
         // DO LOGIN Fn
         $scope.doLogin = function (data) {
 
-            if (!data.name || !data.password) {
+            if (!data.login || !data.password) {
                 toastr.error('ERROR: INVALID LOGIN INPUT!');
                 throw new Error('ERROR: INVALID LOGIN INPUT!');
             } else {
 
                 var request = {
-                    name: data.name,
-                    password: $window.btoa(data.name + data.password)
+                    login: data.login,
+                    password: $window.btoa(data.login + data.password)
                 };
 
                 // Do Login
                 UsersResourceService._ajaxRequest("POST", null, request, '/login').then(
                     function (data) {
-                        if (data._id && data.userName && data.userPassword) {
+                        if (data._id && data.login && data.password) {
 
                             if (data.isAuth && data.isLogged) {
                                 // EVENT: USER LOGGED IN -> wedMainCtrl
@@ -103,7 +103,7 @@ define(['angular'], function (angular) {
 
             // If less then 12 hrs since last login
             if (Date.now() - new Date(token.init) < 1000 * 60 * 60 * 12) {
-                var user = {name: token.name, password: $window.atob(token.pass).slice(token.name.length)};
+                var user = {login: token.login, password: $window.atob(token.pass).slice(token.login.length)};
                 // Do login
                 $scope.doLogin(user);
             } else {
@@ -143,7 +143,7 @@ define(['angular'], function (angular) {
         // NEW USER REGISTRATION Fn
         $scope.doRegister = function (user) {
             // Check if all required fields are fulfilled properly
-            if (!user.name || !user.email || !user.password || !user.confirmPassword || !user.realName) {
+            if (!user.login || !user.email || !user.password || !user.confirmPassword || !user.name) {
                 toastr.error('ERROR: INVALID REGISTRATION DATA!');
                 throw new Error('ERROR: INVALID REGISTRATION DATA!');
 
@@ -154,19 +154,19 @@ define(['angular'], function (angular) {
 
             } else {
                 // Modify password
-                user.password = $window.btoa(user.name + user.password);
+                user.password = $window.btoa(user.login + user.password);
 
                 UsersResourceService._ajaxRequest("POST", null, user, null).then(
                     function (data) {
-                        if (data.userName) {
+                        if (data.login) {
                             // RESET View model
                             $scope.user = {};
                             if (_env._dev) {
-                                toastr.success("NEW USER " + data.realName + " REGISTRED!");
+                                toastr.success("NEW USER " + data.name + " REGISTRED!");
                             }
                         } else {
                             // Case if ERROR.property = 'NAME'
-                            if (data.property == 'NAME') {
+                            if (data.property == 'LOGIN') {
                                 toastr.error(data.message);
                                 throw new Error(data.message);
                             }
