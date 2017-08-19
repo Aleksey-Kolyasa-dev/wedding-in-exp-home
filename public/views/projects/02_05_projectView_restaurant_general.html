@@ -23,7 +23,7 @@
             </div>
             <hr>
             <div>
-                <div style="float: right">
+                <div ng-if="currentUser.isAuth" style="float: right">
                     <button class="btn btn-default" data-target="#editRestGeneralData" data-toggle="modal">Edit <span class="glyphicon glyphicon-edit"></span></button>
                 </div>
             </div>
@@ -54,7 +54,7 @@
     <!-- statistic-->
 
     <!-- NOTES  *START*-->
-    <div class="rest-general-page" style="margin-left: 15px;">
+    <div ng-if="currentUser.isAuth" class="rest-general-page" style="margin-left: 15px;">
         <div class="rest-general-list">
             <div class="info-glass-panel">
                 <hr>
@@ -79,7 +79,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">close</button>
-                    <h4 class="modal-title"><b>ЗАМЕТКИ</b></h4>
+                    <h4 class="modal-title"><span>ЗАМЕТКИ</span></h4>
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
@@ -93,7 +93,7 @@
                                 <button type="submit" class="btn btn-success btn-block"
                                         data-dismiss="modal"
                                         ng-click="noteRestSave()">
-                                    <b>СОХРАНИТЬ</b>
+                                    <span>СОХРАНИТЬ</span>
                                 </button>
                             </div>
                         </form>
@@ -111,12 +111,12 @@
 </div>
 
 <!-- EDIT RESTAURANT GENERAL DATA MODAL *START* -->
-<div id="editRestGeneralData" class="modal fade">
+<div ng-if="currentUser.isAuth" id="editRestGeneralData" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">close</button>
-                <h4 class="modal-title"><b>РЕСТОРАН</b></h4>
+                <h4 class="modal-title"><span>РЕСТОРАН</span></h4>
             </div>
             <div class="modal-body wed-modals">
                 <div class="add-new-proj-main">
@@ -146,7 +146,7 @@
                             <div class="form-group text-center">
                                 <label>Средний чек {{currentProject.budget.nationalMoney}}
                                 <input ng-disabled="currentProject.useMenuCheck"
-                                       style="{{editRestGeneralDataForm.editRestGeneralCheck.$invalid? 'background: rgba(226, 251, 96, 0.81)': currentProject.useMenuCheck? 'background: rgba(112, 205, 88, 0.44); color: #ffffff' : 'null'}}"
+                                       style="{{(editRestGeneralDataForm.editRestGeneralCheck.$invalid)? 'background: rgba(226, 251, 96, 0.81)': currentProject.useMenuCheck? 'background: rgba(112, 205, 88, 0.44); color: #ffffff' : 'null'}}"
                                        class="form-control text-center" ng-model="currentProject.restaurant.generalData.generalCheck" type="number" required
                                        name="editRestGeneralCheck" >
                                 </label>
@@ -183,7 +183,7 @@
                             <button type="submit" class="btn btn-success btn-block"
                                     ng-disabled="editRestGeneralDataForm.$invalid" data-dismiss="modal"
                                     ng-click="restDataSave()">
-                                <b>ПРИМЕНИТЬ</b>
+                                <span>ПРИМЕНИТЬ</span>
                             </button>
                         </div>
                     </form>

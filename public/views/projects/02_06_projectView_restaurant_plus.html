@@ -3,7 +3,7 @@
     <!--EXPENSE ITEMS TABLE *START*-->
     <div class="fiance-side-main col-xs-11">
         <div style="padding: 0">
-            <div style="float: left">
+            <div ng-if="currentUser.isAuth" style="float: left">
                 <button class="btn btn-warning" data-target="#addNewExpenseItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <header class="guests-fiance-side" style="float: right">
@@ -63,7 +63,7 @@
     <!--EXPENSE ITEMS TABLE  *END*-->
 
     <!-- ADD EXPENSE ITEM MODAL *START* -->
-    <div id="addNewExpenseItem" class="modal fade">
+    <div ng-if="currentUser.isAuth" id="addNewExpenseItem" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -110,7 +110,7 @@
                                 <button type="submit" class="btn btn-success btn-block"
                                         ng-disabled="addNewExpenseItemForm.$invalid" data-dismiss="modal"
                                         ng-click="addNewExpenseItem(newItem)">
-                                    <b>ПРИМЕНИТЬ</b>
+                                    <span>ПРИМЕНИТЬ</span>
                                 </button>
                             </div>
                         </form>
@@ -127,7 +127,7 @@
     <!-- ADD EXPENSE ITEM MODAL MODAL *END* -->
 
     <!-- EDIT EXPENSE ITEM MODAL *START* -->
-    <div id="editExpenseItem" class="modal fade">
+    <div ng-if="currentUser.isAuth" id="editExpenseItem" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -182,12 +182,12 @@
                                 <button ng-if="removeTrigger" type="submit" class="btn btn-danger btn-block"
                                         data-dismiss="modal"
                                         ng-click="deleteExpenseItem(items.indexOf(itemToEdit))">
-                                    <b>ПОДТВЕРДИТЬ УДАЛЕНИЕ</b>
+                                    <span>ПОДТВЕРДИТЬ УДАЛЕНИЕ</span>
                                 </button>
                                 <button ng-if="!removeTrigger" type="submit" class="btn btn-success btn-block"
                                         ng-disabled="editExpenseItemForm.$invalid" data-dismiss="modal"
                                         ng-click="editExpenseItemSave(itemToEdit)">
-                                    <b>ПРИМЕНИТЬ</b>
+                                    <span>ПРИМЕНИТЬ</span>
                                 </button>
                             </div>
                         </form>
@@ -205,7 +205,7 @@
 
 
     <!--NOTES  *START*-->
-    <div class="rest-general-page" style="margin-left: 15px;">
+    <div ng-if="currentUser.isAuth" class="rest-general-page" style="margin-left: 15px;">
         <div class="rest-general-list">
             <div class="info-glass-panel">
                 <hr>
@@ -230,7 +230,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">close</button>
-                    <h4 class="modal-title"><b>ЗАМЕТКИ</b></h4>
+                    <h4 class="modal-title"><span>ЗАМЕТКИ</span></h4>
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
@@ -244,7 +244,7 @@
                                 <button type="submit" class="btn btn-success btn-block"
                                         data-dismiss="modal"
                                         ng-click="noteSave()">
-                                    <b>СОХРАНИТЬ</b>
+                                    <span>СОХРАНИТЬ</span>
                                 </button>
                             </div>
                         </form>

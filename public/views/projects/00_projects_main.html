@@ -1,4 +1,4 @@
-<div ng-if="currentUser._id || currentUser.visitor">
+<div ng-if="currentUser._id && currentUser.isAuth || currentUser.visitor">
     <ng-include src="'/views/home_page/00a_nav_menu.html'"></ng-include>
     <ng-include src="'/views/home_page/01_header.html'"></ng-include>
     <ng-include src="'/views/home_page/02_deco_top.html'"></ng-include>
@@ -112,109 +112,6 @@
 
         </div>
         <!--MAIN BODY *END*-->
-
-        <!-- CREATE NEW MODAL *START* -->
-        <div id="new" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">close</button>
-                        <h4 class="modal-title">НОВЫЙ ПРОЕКТ</h4>
-                    </div>
-
-                    <div class="modal-body wed-modals">
-                        <div class="add-new-proj-main">
-                            <form name="addNewProj" novalidate ng-submit="">
-                                <div class=""><!--well-->
-                                    <div class="form-group">
-                                        <label>Имя жениха</label>
-                                        <input name="fianceName" class="form-control" ng-model="newProject.fianceName"
-                                               type="text" required ng-minlength='2'>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Имя невесты</label>
-                                        <input name="fianceeName" class="form-control" ng-model="newProject.fianceeName"
-                                               type="text" required ng-minlength='2'>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Дата свадьбы</label>
-                                        <input name="weddingDate" class="form-control" ng-model="newProject.weddingDate"
-                                               type="text" directive-datepicker required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Запланированный бюджет USD</label>
-                                        <input name="wedBudget" class="form-control" ng-model="newProject.wedBudget"
-                                               type="number" required ng-minlength='3'>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>E-mail</label>
-                                        <input name="e-mail" class="form-control" ng-model="newProject.email"
-                                               type="email" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Контактный телефон</label>
-                                        <input name="telephone" class="form-control" ng-model="newProject.telephone"
-                                               type="text" required ng-minlength='8'>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Заметки</label>
-                                        <textarea name="notes" class="form-control" ng-model="newProject.notes"
-                                                  type="text"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-success btn-block"
-                                            ng-disabled="addNewProj.$invalid" data-dismiss="modal"
-                                            ng-click="createNewProject()">
-                                        <b>СОЗДАТЬ</b>
-                                    </button>
-                                </div>
-                            </form>
-                            <div class="deco-farames text-center">
-                                <div>
-                                    <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- CREATE NEW MODAL *END* -->
-
-        <!-- ARCHIVE MODAL *START* -->
-        <div id="archive" class="modal fade">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">close</button>
-                        <h4 class="modal-title">АРХИВ ПРОЕКТОВ</h4>
-                    </div>
-
-                    <div class="modal-body wed-modals">
-                        <div class="projects-list">
-                            <ul ng-repeat="project in projects | orderBy : '-weddingDate'" >
-                                <li ng-if="!projectListDateCheck(project)">
-                                    <p>
-                                        <a href="wedding/{{project.id}}" style="font-size: 130%">Свадьба
-                                            <b>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</b>
-                                            жених: <b>{{project.fianceName | uppercase}}</b>,
-                                            невеста: <b>{{project.fianceeName | uppercase}}</b>,
-                                            бюджет: <b>{{(project.wedBudget | number : 0 )}}</b> USD
-                                        </a>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="deco-farames text-center">
-                            <div>
-                                <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ARCHIVE MODAL *END* -->
     </div>
 
     <ng-include src="'/views/home_page/03_deco_bottom.html'"></ng-include>

@@ -1,4 +1,4 @@
-<div ng-if="currentUser._id">
+<div ng-if="currentUser._id && currentUser.isAuth">
     <ng-include src="'/views/home_page/00a_nav_menu.html'"></ng-include>
     <ng-include src="'/views/home_page/01_header.html'"></ng-include>
     <ng-include src="'/views/home_page/02_deco_top.html'"></ng-include>

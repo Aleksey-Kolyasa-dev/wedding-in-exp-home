@@ -8,7 +8,7 @@
                 <p>Курс: <span class="usd-use">1 USD</span> = <span class="rest-info-data">{{currentProject.budget.currency + ' ' + currentProject.budget.nationalMoney}}</span></p>
             </div>
             <hr>
-            <div>
+            <div ng-if="currentUser.isAuth">
                 <div style="float: right">
                     <button class="btn btn-default"
                             data-target="#editBudgetData"
@@ -112,7 +112,7 @@
 
 
     <!--NOTES  *START*-->
-    <div class="rest-general-page" style="margin-left: 15px;">
+    <div ng-if="currentUser.isAuth" class="rest-general-page" style="margin-left: 15px;">
         <div class="rest-general-list">
             <div class="info-glass-panel">
                 <hr>
