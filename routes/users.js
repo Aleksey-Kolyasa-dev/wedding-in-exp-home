@@ -197,10 +197,6 @@ function User(user) {
     this.admin = false;
     this.lastLogin = null;
     this.smsQty = [];
-    /*{
-     projectId : null,
-     qty : 0
-     }*/
 }
 
 // Occupation Error Ctor Fn
