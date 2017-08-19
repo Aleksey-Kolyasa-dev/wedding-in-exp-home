@@ -108,10 +108,10 @@ define(['angular'], function (angular) {
                     }
 
                     // Get USER Projects list on-load
-                    updateProjectsList();
+                    //updateProjectsList();
 
-                    // ON-EVENT: PROJECT INIT DATA CHANGED <- editProjectCtrl <- editProjectApply()
-                    $scope.$on('projectsListChange', function () {
+                    // ON-EVENT: PROJECT INIT DATA CHANGED <- editProjectCtrl <- [editProjectApply(), deleteProject()]
+                    $scope.$on('projectsListChange', function (e) {
                         updateProjectsList();
                     });
 

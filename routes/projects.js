@@ -25,10 +25,11 @@ projectsRouter.post('/getProjects', function (req, res, next) {
                     projectsCollection.push(project);
                 }
             });
+            console.log('CALL POST By: /getProjects');
             res.json(projectsCollection);
         }
     });
-    console.log('CALL POST By: /getProjects');
+
 });
 
 // GET Single Project
