@@ -238,9 +238,15 @@ define(['angular'], function (angular) {
             if (_env._dev){
                 $log.log('update by ' + $scope.conf.msgNameBg + ': reason - REMOVE DECOR EXP EVENT ');
             }
+            var request = {
+                _id: $scope.currentProject._id
+            };
+            request[$scope.conf.mainProp].expCollection = $scope.currentProject[$scope.conf.mainProp].expCollection;
+            request[$scope.conf.mainProp].total = $scope.currentProject[$scope.conf.mainProp].total;
+            $log.log(request);
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"DataSave").then(
+            ResourceService._ajaxRequest("PUT", null, request, "/" + $scope.conf.mainProp +"DataSave").then(
                 function (data) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
@@ -274,11 +280,11 @@ define(['angular'], function (angular) {
         // Notes Save
         $scope.noteSave = function () {
             var request = {
-                _id: $scope.currentProject._id
+                _id: $scope.currentProject._id,
+                key: [$scope.conf.mainProp + "Notes"]
             };
-            request[$scope.conf.mainProp +"Notes"] = $scope.currentProject[$scope.conf.mainProp +"Notes"];
+            request[$scope.conf.mainProp + "Notes"] = $scope.currentProject[$scope.conf.mainProp +"Notes"];
 
-            $log.log(request);
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, "/" + $scope.conf.mainProp +"Notes").then(
                 function (data) {
