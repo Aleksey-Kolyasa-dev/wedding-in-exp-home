@@ -7,7 +7,8 @@ var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
 /*
  * PROJECTS CONTROL ROUTER
  * */
-projectsRouter.get('/', function (req, res) {
+// GET init
+projectsRouter.get('/', function (req, res, next) {
     res.render('../public/index', {title: 'Wedding_in'});
 });
 
