@@ -273,9 +273,14 @@ define(['angular'], function (angular) {
 
         // Notes Save
         $scope.noteSave = function () {
+            var request = {
+                _id: $scope.currentProject._id
+            };
+            request[$scope.conf.mainProp +"Notes"] = $scope.currentProject[$scope.conf.mainProp +"Notes"];
 
+            $log.log(request);
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"Notes").then(
+            ResourceService._ajaxRequest("PUT", null, request, "/" + $scope.conf.mainProp +"Notes").then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');

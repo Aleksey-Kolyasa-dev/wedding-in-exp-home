@@ -65,7 +65,7 @@ define(['angular'], function (angular) {
                             break;
 
                         case "PUT" :
-                            if (!keyURL) {
+                            if (!keyURL && !url) {
                                 $http({
                                     method: "PUT",
                                     url: self.baseURL + data._id,
@@ -78,7 +78,7 @@ define(['angular'], function (angular) {
                                     throw new Error('ERROR: PUT method failed: ' + err);
                                 });
                             }
-                            if (keyURL) {
+                            if (keyURL && !url) {
                                 if (angular.isString(keyURL)) {
                                         $http({
                                             method: "PUT",
@@ -93,7 +93,7 @@ define(['angular'], function (angular) {
                                         });
                                     }
                                 }
-                            // *** ??? (for sms from visitor)
+                            // *** ??? (for "sms clear" from user)
                             if (keyURL && url) {
                                 if (angular.isString(keyURL) && angular.isString(url)) {
                                     $http({
