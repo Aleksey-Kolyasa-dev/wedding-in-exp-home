@@ -328,8 +328,15 @@ define(['angular'], function (angular) {
                     $log.log('UPDATE: reason - RESTAURANT DATA SAVE EVENT', $scope.count);
                 }
 
+                var requestG = {
+                    _id: $scope.currentProject._id,
+                    key : 'generalData',
+                    keyURL : "/generalDataSave",
+                    data : $scope.currentProject.restaurant.generalData
+                };
+
                 // SAVE RESTAURANT DATA
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/generalDataSave").then(
+                ResourceService._ajaxRequest("PUT", null, requestG, requestG.keyURL).then(
                     function (data) {
                         $scope.saveHide = true;
                         if (_env._dev) {
@@ -350,6 +357,7 @@ define(['angular'], function (angular) {
             else if (angular.isNumber(data.quickGuestsQty) && angular.isNumber(data.quickCheck) && angular.isNumber(data.quickPercent)) {
                 var request = {
                     _id: $scope.currentProject._id,
+                    key : 'quickData',
                     keyURL : "/quickDataSave",
                     data : $scope.currentProject.restaurant.quickData
                 };

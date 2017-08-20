@@ -480,22 +480,43 @@ projectsRouter.put('/api/:id/videoNotes', function (req, res) {
 });
 
 
+// PUT Single Project RESTAURANT keyURL = /useMenuCheckDataSave
+projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res) {
+    var request = req.body;
 
+    if (typeof request[request.key] != "boolean") {
+        res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {useMenuCheck: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
 // PUT Single Project RESTAURANT keyURL = /quickDataSave
 projectsRouter.put('/api/:id/quickDataSave', function (req, res) {
     var request = req.body;
 
-    if (!request[request.key] && !request.data) {
+    if (!request.key || !request.data) {
         res.status(400);
-        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
         var promise = new Promise(function (resolve, reject) {
             db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
-                    console.log("CALL PUT PROJECT BY: " + request.keyURL + " - GET ERR", err);
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
                     reject(err);
                 } else {
@@ -505,62 +526,61 @@ projectsRouter.put('/api/:id/quickDataSave', function (req, res) {
         });
 
         promise.then(function (project) {
-            project.restaurant.quickData = request.data;
+            project.restaurant[request.key] = request.data;
 
             db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
                 if (err) {
-                    console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR", err);
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
                 } else {
-                    console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
                     res.end();
                 }
             });
 
         }).catch(function (err) {
-                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR:", err);
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR:", err);
             });
-    }
-});
-// PUT Single Project RESTAURANT keyURL = /useMenuCheckDataSave
-projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res) {
-    var request = req.body;
-
-    if (typeof request[request.key] != "boolean") {
-        res.status(400);
-        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
-        res.json({
-            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
-        });
-    } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {useMenuCheck: request[request.key]}}, {}, function (err, project) {
-            if (err) {
-                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
-                res.send(err);
-            } else {
-                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
-                res.json(project);
-            }
-        });
     }
 });
 // PUT Single Project RESTAURANT keyURL = /generalDataSave
 projectsRouter.put('/api/:id/generalDataSave', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /generalDataSave");
+    var request = req.body;
 
-    if (!project.restaurant.generalData) {
+    if (!request.key || !request.data) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: generalDataSave validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
-            if (err) {
-                res.send(err);
-            }
-            //console.log(project);
-            res.json(project);
+        var promise = new Promise(function (resolve, reject) {
+            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
+                    res.send(err);
+                    reject(err);
+                } else {
+                    resolve(project);
+                }
+            });
+        });
+
+        promise.then(function (project) {
+            project.restaurant[request.key] = request.data;
+
+            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
+                    res.send(err);
+                } else {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                    res.end();
+                }
+            });
+
+        }).catch(function (err) {
+            console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR:", err);
         });
     }
 });
