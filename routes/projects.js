@@ -522,21 +522,23 @@ projectsRouter.put('/api/:id/quickDataSave', function (req, res) {
 });
 // PUT Single Project RESTAURANT keyURL = /useMenuCheckDataSave
 projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /useMenuCheckDataSave");
+    var request = req.body;
 
-    if (!project) {
+    if (typeof request[request.key]  != "boolean") {
         res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: useMenuCheckDataSave validation failed"
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {useMenuCheck: project.useMenuCheck}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {useMenuCheck: request[request.key]}}, {}, function (err, project) {
             if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
             }
-            //console.log(project);
-            res.json(project);
         });
     }
 });

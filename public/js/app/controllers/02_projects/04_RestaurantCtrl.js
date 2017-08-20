@@ -61,8 +61,15 @@ define(['angular'], function (angular) {
                 $scope.currentProject.restaurant.generalData.generalCheck = buffer;
             }
 
+            var request = {
+                _id: $scope.currentProject._id,
+                key : "useMenuCheck",
+                keyURL : "/useMenuCheckDataSave",
+                useMenuCheck : $scope.currentProject.useMenuCheck
+            };
+
             // SAVE MenuCheck SAVE DATA
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/useMenuCheckDataSave").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.success('useMenuCheck changed');
