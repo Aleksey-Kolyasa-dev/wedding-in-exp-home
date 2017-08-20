@@ -472,9 +472,15 @@ define(['angular'], function (angular) {
 
         // guestsNotes Save
         $scope.noteSave = function () {
+            var request = {
+                _id: $scope.currentProject._id,
+                key: "guestsNotes",
+                keyURL : "/guestsNotes",
+                data : $scope.currentProject.guestsNotes
+            };
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/guestsNotes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -493,8 +499,15 @@ define(['angular'], function (angular) {
         // restNotes Save
         $scope.noteRestSave = function () {
 
+            var request = {
+                _id: $scope.currentProject._id,
+                key: "restNotes",
+                keyURL : "/restNotes",
+                data : $scope.currentProject.restNotes
+            };
+
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restNotes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -656,8 +669,15 @@ define(['angular'], function (angular) {
                 // Category Header Update
                 categoryHeaderFilter();
 
-                // ADD EXPENSE ITEM to DB
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : 'restaurantMenu',
+                    keyURL : "/restaurantMenuDataSave",
+                    data : $scope.currentProject.restaurantMenu
+                };
+
+                // SAVE RESTAURANT DATA
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.newItem = {};
                         if (_env._dev) {
@@ -721,8 +741,15 @@ define(['angular'], function (angular) {
                 // Category Header Update
                 categoryHeaderFilter();
 
-                // SAVE CHANGES of EXPENSE ITEM to DB
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : 'restaurantMenu',
+                    keyURL : "/restaurantMenuDataSave",
+                    data : $scope.currentProject.restaurantMenu
+                };
+
+                // SAVE RESTAURANT DATA
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.removeTrigger = false;
                         $scope.itemToEdit = {};
@@ -759,8 +786,15 @@ define(['angular'], function (angular) {
             // Category Header Update
             categoryHeaderFilter();
 
-            // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantMenuDataSave").then(
+            var request = {
+                _id: $scope.currentProject._id,
+                key : 'restaurantMenu',
+                keyURL : "/restaurantMenuDataSave",
+                data : $scope.currentProject.restaurantMenu
+            };
+
+            // SAVE RESTAURANT DATA
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
@@ -794,8 +828,15 @@ define(['angular'], function (angular) {
         // Notes Save
         $scope.noteSave = function () {
 
+            var request = {
+                _id: $scope.currentProject._id,
+                key: "menuNotes",
+                keyURL : "/menuNotes",
+                data : $scope.currentProject.menuNotes
+            };
+
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/menuNotes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -936,8 +977,15 @@ define(['angular'], function (angular) {
                     $log.log('update by CAKE: reason - ADD CAKE EVENT ', $scope.count)
                 }
 
-                // ADD EXPENSE ITEM to DB
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : 'restaurantCakes',
+                    keyURL : "/restaurantCakesDataSave",
+                    data : $scope.currentProject.restaurantCakes
+                };
+
+                // SAVE RESTAURANT DATA
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.newItem = {};
                         if (_env._dev) {
@@ -999,8 +1047,15 @@ define(['angular'], function (angular) {
                     $log.log('update by CAKE: reason - EDIT CAKE EVENT ', $scope.count)
                 }
 
-                // SAVE CHANGES of EXPENSE ITEM to DB
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : 'restaurantCakes',
+                    keyURL : "/restaurantCakesDataSave",
+                    data : $scope.currentProject.restaurantCakes
+                };
+
+                // SAVE RESTAURANT DATA
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.removeTrigger = false;
                         $scope.itemToEdit = {};
@@ -1035,9 +1090,15 @@ define(['angular'], function (angular) {
                 $log.log('update by CAKE: reason - REMOVE CAKE EVENT ', $scope.count)
             }
 
+            var request = {
+                _id: $scope.currentProject._id,
+                key : 'restaurantCakes',
+                keyURL : "/restaurantCakesDataSave",
+                data : $scope.currentProject.restaurantCakes
+            };
 
-            // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantCakesDataSave").then(
+            // SAVE RESTAURANT DATA
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
@@ -1071,8 +1132,15 @@ define(['angular'], function (angular) {
         // Notes Save
         $scope.noteSave = function () {
 
+            var request = {
+                _id: $scope.currentProject._id,
+                key: "cakesNotes",
+                keyURL : "/cakesNotes",
+                data : $scope.currentProject.cakesNotes
+            };
+
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/cakesNotes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -1202,8 +1270,15 @@ define(['angular'], function (angular) {
                   $log.log('update by PLUS: reason - ADD PLUS EXP EVENT ', $scope.count);
               }
 
-              // ADD EXPENSE ITEM to DB
-              ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
+              var request = {
+                  _id: $scope.currentProject._id,
+                  key : 'restaurantPlus',
+                  keyURL : "/restaurantPlusDataSave",
+                  data : $scope.currentProject.restaurantPlus
+              };
+
+              // SAVE RESTAURANT DATA
+              ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                   function (data) {
                       $scope.newItem = {};
                       if (_env._dev) {
@@ -1272,8 +1347,15 @@ define(['angular'], function (angular) {
                     $log.log('update by PLUS: reason - EDIT PLUS EXP EVENT ', $scope.count);
                 }
 
-                // SAVE CHANGES of EXPENSE ITEM to DB
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : 'restaurantPlus',
+                    keyURL : "/restaurantPlusDataSave",
+                    data : $scope.currentProject.restaurantPlus
+                };
+
+                // SAVE RESTAURANT DATA
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.removeTrigger = false;
                         $scope.itemToEdit = {};
@@ -1307,8 +1389,15 @@ define(['angular'], function (angular) {
                 $log.log('update by PLUS: reason - REMOVE PLUS EXP EVENT ', $scope.count);
             }
 
-            // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/restaurantPlusNewExpItemSave").then(
+            var request = {
+                _id: $scope.currentProject._id,
+                key : 'restaurantPlus',
+                keyURL : "/restaurantPlusDataSave",
+                data : $scope.currentProject.restaurantPlus
+            };
+
+            // SAVE RESTAURANT DATA
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
@@ -1342,8 +1431,15 @@ define(['angular'], function (angular) {
         // Notes Save
         $scope.noteSave = function () {
 
+            var request = {
+                _id: $scope.currentProject._id,
+                key: "plusNotes",
+                keyURL : "/plusNotes",
+                data : $scope.currentProject.plusNotes
+            };
+
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/plusNotes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');

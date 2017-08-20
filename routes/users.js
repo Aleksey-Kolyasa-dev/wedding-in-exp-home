@@ -62,7 +62,6 @@ usersRouter.post('/', function (req, res, next) {
         res.send(err);
     });
 });
-
 // POST USER LOGIN
 usersRouter.post('/login', function (req, res, next) {
     var loginData = req.body;
@@ -122,7 +121,6 @@ usersRouter.post('/login', function (req, res, next) {
         res.send(err);
     });
 });
-
 // PUT USER LOGOUT
 usersRouter.put('/:id/logout', function (req, res, next) {
     var user = req.body;
@@ -144,21 +142,23 @@ usersRouter.put('/:id/logout', function (req, res, next) {
 });
 
 
-// PUT USER smsQTY
+//* PUT USER smsQTY
 usersRouter.put('/:id/smsQty', function (req, res, next) {
-    var user = req.body;
-    console.log("CALL PUT BY: /smsQty - USER");
+    var request = req.body;
 
-    if(!user.arr){
+    if(!request.arr){
+        console.log("CALL PUT USER BY: /smsQty - validation ERR");
         res.status(400);
         res.json({
             "error" : "PUT ERROR: SMS QTY validation failed"
         });
     } else {
-        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsQty : user.arr}}, {}, function (err, smsQty) {
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsQty : request.arr}}, {}, function (err, smsQty) {
             if(err){
+                console.log("CALL PUT USER BY: /smsQty - update ERR", err);
                 res.send(err);
             }
+            console.log("CALL PUT USER BY: /smsQty - update OK");
             res.json(smsQty);
         });
     }

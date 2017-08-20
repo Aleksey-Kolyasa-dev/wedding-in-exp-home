@@ -13,13 +13,14 @@ projectsRouter.get('/', function (req, res) {
     res.render('../public/index', {title: 'Wedding_in'});
 });
 
-// GET User Projects
+//* GET User Projects
 projectsRouter.post('/getProjects', function (req, res) {
     var owner = req.body;
     var projectsCollection = [];
 
     db.weddings.find({}, {}, function (err, projects) {
         if (err) {
+            console.log("CALL POST PROJECT BY: /getProjects - get ERR", err);
             res.send(err);
         } else {
             projects.forEach(function (project) {
@@ -27,30 +28,32 @@ projectsRouter.post('/getProjects', function (req, res) {
                     projectsCollection.push(project);
                 }
             });
-            console.log('CALL POST By: /getProjects');
+            console.log("CALL POST PROJECT BY: /getProjects - get OK");
             res.json(projectsCollection);
         }
     });
 
 });
 
-// GET Single Project
+//* GET Single Project
 projectsRouter.get('/api/:id', function (req, res) {
     db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
         if (err) {
+            console.log("CALL GET PROJECT BY: _id - get ERR", err);
             res.send(err);
         }
+        console.log("CALL GET PROJECT BY: _id - get OK");
         res.json(project);
-        //console.log(project);
     });
 });
-// GET Single Project by KEY ACCESS
-projectsRouter.post('/keyAccess', function (req, res) {
+//* GET Single Project by  ACCESS KEY
+projectsRouter.post('/AccessKey', function (req, res) {
     var access = req.body;
     var accessProject = {};
 
     db.weddings.find({}, {}, function (err, projects) {
         if (err) {
+            console.log("CALL POST PROJECT BY: /AccessKey - get ERR", err);
             res.send(err);
         } else {
             projects.forEach(function (project) {
@@ -69,19 +72,21 @@ projectsRouter.post('/keyAccess', function (req, res) {
                 }
             });
             if (!accessProject.accessKey) {
+                console.log("CALL POST PROJECT BY: /AccessKey - NOT FOUND ERR");
                 res.send(new Error('NOT FOUND'));
             } else {
-                console.log('CALL POST By: /AccessKey');
+                console.log("CALL POST PROJECT BY: /AccessKey - access OK");
                 res.json(accessProject);
             }
         }
     });
 });
-// POST New Project
+//* POST New Project
 projectsRouter.post('/api', function (req, res) {
     var newProject = req.body;
 
     if (!newProject.owner || !newProject.fianceName || !newProject.fianceeName || !newProject.weddingDate || !newProject.wedBudget || !newProject.email || !newProject.telephones) {
+        console.log("CALL POST PROJECT BY: validation ERR");
         res.status(400);
         res.json({
             "error": "POST ERROR: not all required fields was filled in"
@@ -90,19 +95,22 @@ projectsRouter.post('/api', function (req, res) {
 
         db.weddings.save(new NewProjectCtor(newProject), function (err, newProject) {
             if (err) {
+                console.log("CALL POST PROJECT BY: NEW PROJECT - post ERR");
                 res.send(err);
+            } else {
+                console.log("CALL POST PROJECT BY: NEW PROJECT - post OK");
+                res.json(newProject);
             }
-            res.json(newProject);
+
         });
     }
 });
-// PUT Single Projects
+//* PUT Single Projects
 projectsRouter.put('/api/:id', function (req, res) {
-    var project = req.body;
+    var request = req.body;
 
-    console.log("CALL PUT BY: PROJECT INIT DATA UPDATE");
-
-    if (!project.fianceName && !project.fianceeName && !project.owner && !project.weddingDate && !project.email) {
+    if (!request.fianceName && !request.fianceeName && !request.owner && !request.weddingDate && !request.email) {
+        console.log("CALL PUT PROJECT BY: PROJECT INIT DATA - validation ERR");
         res.status(400);
         res.json({
             "error": "PUT ERROR: validation failed"
@@ -110,38 +118,42 @@ projectsRouter.put('/api/:id', function (req, res) {
     } else {
         db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {
                 $set: {
-                    fianceName: project.fianceName,
-                    fianceeName: project.fianceeName,
-                    weddingDate: project.weddingDate,
-                    wedBudget: project.wedBudget,
-                    email: project.email,
-                    telephones: project.telephones,
-                    notes: project.notes
+                    fianceName: request.fianceName,
+                    fianceeName: request.fianceeName,
+                    weddingDate: request.weddingDate,
+                    wedBudget: request.wedBudget,
+                    email: request.email,
+                    telephones: request.telephones,
+                    notes: request.notes
                 }
             }, {},
             function (err, project) {
                 if (err) {
+                    console.log("CALL PUT PROJECT BY: PROJECT INIT DATA - update ERR");
                     res.send(err);
                 } else {
+                    console.log("CALL PUT PROJECT BY: PROJECT INIT DATA  - update OK");
                     res.json(project);
                 }
             });
     }
 });
-// DELETE Single Project
+//* DELETE Single Project
 projectsRouter.delete('/api/:id', function (req, res) {
-    console.log("CALL DELETE BY: _id");
+
     db.weddings.remove({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
         if (err) {
+            console.log("CALL DELETE PROJECT BY: _id - delete ERR", err);
             res.send(err);
+        } else {
+            console.log("CALL DELETE PROJECT BY: _id - delete OK");
+            res.json(project);
         }
-        res.json(project);
-        //console.log(project);
     });
 });
 
 
-// PUT Single Project keyURL = /fianceSideGuests
+//* PUT Single Project keyURL = /fianceSideGuests
 projectsRouter.put('/api/:id/fianceSideGuests', function (req, res) {
     var request = req.body;
 
@@ -182,7 +194,7 @@ projectsRouter.put('/api/:id/fianceSideGuests', function (req, res) {
         });
     }
 });
-// PUT Single Project keyURL = /fianceeSideGuests
+//* PUT Single Project keyURL = /fianceeSideGuests
 projectsRouter.put('/api/:id/fianceeSideGuests', function (req, res) {
     var request = req.body;
 
@@ -223,158 +235,200 @@ projectsRouter.put('/api/:id/fianceeSideGuests', function (req, res) {
         });
     }
 });
-// PUT Single Project BUDGET keyURL = /budget
-projectsRouter.put('/api/:id/budget', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /budget");
+//* PUT Single Project BUDGET keyURL = /budget
+projectsRouter.put('/api/:id/budgetDataSave', function (req, res) {
+    var request = req.body;
 
-    if (!project.budget) {
+    if (!request.key || !request.data) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: budget validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {budget: project.budget}}, {}, function (err, project) {
-            if (err) {
-                res.send(err);
-            }
-            //console.log(project);
-            res.json(project);
+        var promise = new Promise(function (resolve, reject){
+            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - get ERR", err);
+                    res.send(err);
+                    reject(err);
+                } else {
+                    resolve(project);
+                }
+            });
+        });
+
+        promise.then(function (project) {
+            project[request.key] = request.data;
+
+            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {budget: project[request.key]}}, {}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - update ERR", err);
+                    res.send(err);
+                } else {
+                    console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - update OK");
+                    res.end();
+                }
+            });
+
+        }).catch(function (err) {
+            console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - update ERR:", err);
         });
     }
 });
 
 
-// PUT Single Project BUDGET keyURL = /projectNotes
+//* PUT Single Project BUDGET keyURL = /projectNotes
 projectsRouter.put('/api/:id/projectNotes', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /projectNotes");
+    var request = req.body;
 
-    if (!project.notes) {
+    if (request.data === false) {
         res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: projectNotes validation failed"
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {notes: project.notes}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {notes: request.data}}, {}, function (err, response) {
             if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
             }
-            res.json(project);
         });
     }
 });
-// PUT Single Project BUDGET keyURL = /budgetNotes
+//* PUT Single Project BUDGET keyURL = /budgetNotes
 projectsRouter.put('/api/:id/budgetNotes', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /budgetNotes");
+    var request = req.body;
 
-    if (!project.budgetNotes) {
+    if (request.data === false) {
         res.status(400);
+        console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: budgetNotes validation failed"
+            "error": "PUT PROJECT.budget ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {budgetNotes: project.budgetNotes}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {budgetNotes: request.data}}, {}, function (err, response) {
             if (err) {
+                console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - update ERR");
                 res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - update OK");
+                res.json(response);
             }
-            res.json(project);
         });
     }
 });
-// PUT Single Project RESTAURANT keyURL = /restNotes
+//* PUT Single Project RESTAURANT keyURL = /restNotes
 projectsRouter.put('/api/:id/restNotes', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /restNotes");
+    var request = req.body;
 
-    if (!project.restNotes) {
+    if (request.data === false) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: restNotes validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restNotes: project.restNotes}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restNotes: request.data}}, {}, function (err, response) {
             if (err) {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                res.json(response);
             }
-            res.json(project);
         });
     }
 });
-// PUT Single Project RESTAURANT keyURL = /guestsNotes
+//* PUT Single Project RESTAURANT keyURL = /guestsNotes
 projectsRouter.put('/api/:id/guestsNotes', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /guestsNotes");
+    var request = req.body;
 
-    if (!project.guestsNotes) {
+    if (request.data === false) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: guestsNotes validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {guestsNotes: project.guestsNotes}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {guestsNotes: request.data}}, {}, function (err, response) {
             if (err) {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                res.json(response);
             }
-            res.json(project);
         });
     }
 });
-// PUT Single Project RESTAURANT keyURL = /menuNotes
+//* PUT Single Project RESTAURANT keyURL = /menuNotes
 projectsRouter.put('/api/:id/menuNotes', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /menuNotes");
+    var request = req.body;
 
-    if (!project.menuNotes) {
+    if (request.data === false) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: menuNotes validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {menuNotes: project.menuNotes}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {menuNotes: request.data}}, {}, function (err, response) {
             if (err) {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                res.json(response);
             }
-            res.json(project);
         });
     }
 });
-// PUT Single Project RESTAURANT keyURL = /cakesNotes
+//* PUT Single Project RESTAURANT keyURL = /cakesNotes
 projectsRouter.put('/api/:id/cakesNotes', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /cakesNotes");
+    var request = req.body;
 
-    if (!project.cakesNotes) {
+    if (request.data === false) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: cakesNotes validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {cakesNotes: project.cakesNotes}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {cakesNotes: request.data}}, {}, function (err, response) {
             if (err) {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                res.json(response);
             }
-            res.json(project);
         });
     }
 });
-// PUT Single Project RESTAURANT keyURL = /plusNotes
+//* PUT Single Project RESTAURANT keyURL = /plusNotes
 projectsRouter.put('/api/:id/plusNotes', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /plusNotes");
+    var request = req.body;
 
-    if (!project.plusNotes) {
+    if (request.data === false) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: plusNotes validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {plusNotes: project.plusNotes}}, {}, function (err, project) {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {plusNotes: request.data}}, {}, function (err, response) {
             if (err) {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                res.json(response);
             }
-            res.json(project);
         });
     }
 });
@@ -401,7 +455,7 @@ projectsRouter.put('/api/:id/decorNotes', function (req, res) {
         });
     }
 });
-// PUT Single Project FLOWER keyURL = /flowerNotes
+//* PUT Single Project FLOWER keyURL = /flowerNotes
 projectsRouter.put('/api/:id/flowerNotes', function (req, res) {
     var request = req.body;
 
@@ -423,7 +477,7 @@ projectsRouter.put('/api/:id/flowerNotes', function (req, res) {
         });
     }
 });
-// PUT Single Project LEADER keyURL = /leaderNotes
+//* PUT Single Project LEADER keyURL = /leaderNotes
 projectsRouter.put('/api/:id/leaderNotes', function (req, res) {
     var request = req.body;
 
@@ -445,7 +499,7 @@ projectsRouter.put('/api/:id/leaderNotes', function (req, res) {
         });
     }
 });
-// PUT Single Project MUSIC keyURL = /musicNotes
+//* PUT Single Project MUSIC keyURL = /musicNotes
 projectsRouter.put('/api/:id/musicNotes', function (req, res) {
     var request = req.body;
 
@@ -467,7 +521,7 @@ projectsRouter.put('/api/:id/musicNotes', function (req, res) {
         });
     }
 });
-// PUT Single Project PHOTO keyURL = /photoNotes
+//* PUT Single Project PHOTO keyURL = /photoNotes
 projectsRouter.put('/api/:id/photoNotes', function (req, res) {
     var request = req.body;
 
@@ -489,7 +543,7 @@ projectsRouter.put('/api/:id/photoNotes', function (req, res) {
         });
     }
 });
-// PUT Single Project VIDEO keyURL = /videoNotes
+//* PUT Single Project VIDEO keyURL = /videoNotes
 projectsRouter.put('/api/:id/videoNotes', function (req, res) {
     var request = req.body;
 
@@ -513,7 +567,7 @@ projectsRouter.put('/api/:id/videoNotes', function (req, res) {
 });
 
 
-// PUT Single Project RESTAURANT keyURL = /useMenuCheckDataSave
+//* PUT Single Project RESTAURANT MENU CHECK keyURL = /useMenuCheckDataSave
 projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res) {
     var request = req.body;
 
@@ -535,7 +589,7 @@ projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res) {
         });
     }
 });
-// PUT Single Project RESTAURANT keyURL = /quickDataSave
+//* PUT Single Project RESTAURANT QUICK keyURL = /quickDataSave
 projectsRouter.put('/api/:id/quickDataSave', function (req, res) {
     var request = req.body;
 
@@ -576,7 +630,7 @@ projectsRouter.put('/api/:id/quickDataSave', function (req, res) {
             });
     }
 });
-// PUT Single Project RESTAURANT keyURL = /generalDataSave
+//* PUT Single Project RESTAURANT GENERAL keyURL = /generalDataSave
 projectsRouter.put('/api/:id/generalDataSave', function (req, res) {
     var request = req.body;
 
@@ -617,69 +671,132 @@ projectsRouter.put('/api/:id/generalDataSave', function (req, res) {
         });
     }
 });
-// PUT Single Project RESTAURANT PLUS keyURL = /restaurantMenuDataSave
+//* PUT Single Project RESTAURANT MENU keyURL = /restaurantMenuDataSave
 projectsRouter.put('/api/:id/restaurantMenuDataSave', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /restaurantMenuDataSave");
+    var request = req.body;
 
-    if (!project.restaurantMenu.expCollection) {
+    if (!request.key || !request.data) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: New Expense Item validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantMenu: project.restaurantMenu}}, {}, function (err, project) {
-            if (err) {
-                res.send(err);
-            }
-            //console.log(project);
-            res.json(project);
+        var promise = new Promise(function (resolve, reject) {
+            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
+                    res.send(err);
+                    reject(err);
+                } else {
+                    resolve(project);
+                }
+            });
+        });
+
+        promise.then(function (project) {
+            project[request.key] = request.data;
+
+            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantMenu: project[request.key]}}, {}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
+                    res.send(err);
+                } else {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                    res.end();
+                }
+            });
+
+        }).catch(function (err) {
+            console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR:", err);
         });
     }
 });
-// PUT Single Project RESTAURANT PLUS keyURL = /restaurantCakesDataSave
+//* PUT Single Project RESTAURANT CAKES keyURL = /restaurantCakesDataSave
 projectsRouter.put('/api/:id/restaurantCakesDataSave', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /restaurantCakesDataSave");
+    var request = req.body;
 
-    if (!project.restaurantCakes.expCollection) {
+    if (!request.key || !request.data) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: New Expense Item validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantCakes: project.restaurantCakes}}, {}, function (err, project) {
-            if (err) {
-                res.send(err);
-            }
-            //console.log(project);
-            res.json(project);
+        var promise = new Promise(function (resolve, reject) {
+            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
+                    res.send(err);
+                    reject(err);
+                } else {
+                    resolve(project);
+                }
+            });
+        });
+
+        promise.then(function (project) {
+            project[request.key] = request.data;
+
+            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantCakes: project[request.key]}}, {}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
+                    res.send(err);
+                } else {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                    res.end();
+                }
+            });
+
+        }).catch(function (err) {
+            console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR:", err);
         });
     }
 });
-// PUT Single Project RESTAURANT PLUS keyURL = /restaurantPlusNewExpItemSave
-projectsRouter.put('/api/:id/restaurantPlusNewExpItemSave', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /restaurantPlusNewExpItemSave");
+//* PUT Single Project RESTAURANT PLUS keyURL = /restaurantPlusNewExpItemSave
+projectsRouter.put('/api/:id/restaurantPlusDataSave', function (req, res) {
+    var request = req.body;
 
-    if (!project.restaurantPlus.expCollection) {
+    if (!request.key || !request.data) {
         res.status(400);
+        console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: New Expense Item validation failed"
+            "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantPlus: project.restaurantPlus}}, {}, function (err, project) {
-            if (err) {
-                res.send(err);
-            }
-            //console.log(project);
-            res.json(project);
+        var promise = new Promise(function (resolve, reject) {
+            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
+                    res.send(err);
+                    reject(err);
+                } else {
+                    resolve(project);
+                }
+            });
+        });
+
+        promise.then(function (project) {
+            project[request.key] = request.data;
+
+            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantPlus: project[request.key]}}, {}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
+                    res.send(err);
+                } else {
+                    console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update OK");
+                    res.end();
+                }
+            });
+
+        }).catch(function (err) {
+            console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR:", err);
         });
     }
 });
 
 
-//** PUT Single Project DECOR keyURL = /decorDataSave
+//* PUT Single Project DECOR keyURL = /decorDataSave
 projectsRouter.put('/api/:id/decorDataSave', function (req, res) {
     var request = req.body;
 
@@ -701,7 +818,7 @@ projectsRouter.put('/api/:id/decorDataSave', function (req, res) {
         });
     }
 });
-// PUT Single Project FLOWER keyURL = /flowerDataSave
+//* PUT Single Project FLOWER keyURL = /flowerDataSave
 projectsRouter.put('/api/:id/flowerDataSave', function (req, res) {
     var request = req.body;
 
@@ -723,7 +840,7 @@ projectsRouter.put('/api/:id/flowerDataSave', function (req, res) {
         });
     }
 });
-// PUT Single Project LEADER keyURL = /leaderDataSave
+//* PUT Single Project LEADER keyURL = /leaderDataSave
 projectsRouter.put('/api/:id/leaderDataSave', function (req, res) {
     var request = req.body;
 
@@ -745,7 +862,7 @@ projectsRouter.put('/api/:id/leaderDataSave', function (req, res) {
         });
     }
 });
-// PUT Single Project MUSIC keyURL = /musicDataSave
+//* PUT Single Project MUSIC keyURL = /musicDataSave
 projectsRouter.put('/api/:id/musicDataSave', function (req, res) {
     var request = req.body;
 
@@ -767,7 +884,7 @@ projectsRouter.put('/api/:id/musicDataSave', function (req, res) {
         });
     }
 });
-// PUT Single Project PHOTO keyURL = /photoDataSave
+//* PUT Single Project PHOTO keyURL = /photoDataSave
 projectsRouter.put('/api/:id/photoDataSave', function (req, res) {
     var request = req.body;
 
@@ -789,7 +906,7 @@ projectsRouter.put('/api/:id/photoDataSave', function (req, res) {
         });
     }
 });
-// PUT Single Project VIDEO keyURL = /videoDataSave
+//* PUT Single Project VIDEO keyURL = /videoDataSave
 projectsRouter.put('/api/:id/videoDataSave', function (req, res) {
     var request = req.body;
 
@@ -813,34 +930,42 @@ projectsRouter.put('/api/:id/videoDataSave', function (req, res) {
 });
 
 
-// PUT USER SMS (clear list) keyURL = /sms
+//* PUT PROJECT SMS (clear list) keyURL = /sms
 projectsRouter.put('/api/:id/sms', function (req, res) {
     var request = req.body;
-    console.log("CALL PUT BY: /sms");
 
-    if (!request.data) {
+    if (!request.data || !request.data.join) {
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
         res.status(400);
         res.json({
-            "error": "PUT ERROR: SMS validation failed"
+            "error": "PUT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
         db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {smsCollection: request.data}}, {}, function (err, sms) {
             if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
             }
+            console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
             res.json(sms);
         });
     }
 });
-// POST VISITOR SMS
-projectsRouter.post('/api/:id', function (req, res) {
-    var visitorMsg = req.body;
-    delete visitorMsg._id;
+//* POST VISITOR SMS
+projectsRouter.post('/api/:id/visitorNewSMS', function (req, res) {
+    var request = req.body;
 
-
+    if(!request.data){
+        console.log("CALL POST PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.status(400);
+        res.json({
+            "error": "CALL POST PROJECT BY: " + request.keyURL + " - validation ERR"
+        });
+    }
     var promise = new Promise(function (resolve, reject) {
         db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
             if (err) {
+                console.log("CALL POST PROJECT BY: " + request.keyURL + " - get ERR", err);
                 res.send(err);
                 reject(err);
             } else {
@@ -854,13 +979,16 @@ projectsRouter.post('/api/:id', function (req, res) {
         arr = project.smsCollection;
 
         if (arr.join) {
-            arr.push(visitorMsg);
+            arr.push(request.data);
+
             db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {smsCollection: arr}}, {}, function (err, project) {
-                if (err) {
+                if (err){
+                    console.log("CALL POST PROJECT BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
+                } else {
+                    console.log("CALL POST PROJECT BY: " + request.keyURL + " - update OK");
+                    res.end();
                 }
-                console.log('CALL POST by: VISITOR NEW SMS - ok');
-                res.end();
             });
         } else {
             res.send(new Error('NOT AN ARRAY'));
@@ -868,7 +996,7 @@ projectsRouter.post('/api/:id', function (req, res) {
         }
 
     }).catch(function (err) {
-        console.log('ERROR: VISITOR NEW SMS FAILED', err);
+        console.log("ERROR: POST" + request.keyURL + " FAILED", err);
     });
 });
 

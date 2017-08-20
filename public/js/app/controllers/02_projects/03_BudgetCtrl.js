@@ -106,28 +106,37 @@ define(['angular'], function (angular) {
                 $timeout(function () {
                     // MAIN BUDGET CALCULATION Fn
                     weddingBudgetTotals();
+
+                    var request = {
+                        _id: $scope.currentProject._id,
+                        key : 'budget',
+                        keyURL : "/budgetDataSave",
+                        data : $scope.currentProject.budget
+                    };
+
+                    // SAVE RESTAURANT DATA
+                    ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                        function (data) {
+                            if (_env._dev) {
+                                toastr.success('budget changed');
+                                $scope.budget = {};
+                            }
+                        },
+                        function (err) {
+                            toastr.error('ERROR: budget input AJAX failed');
+                            throw new Error('ERROR: budget input AJAX failed' + err);
+                        })
+                        .catch(function (err) {
+                            toastr.error("ERROR: budget input AJAX failed");
+                            $log.error("ERROR: budget input AJAX failed", err);
+                        });
                 },200);
 
-
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/budget").then(
-                    function (data) {
-                        if (_env._dev) {
-                            toastr.success('budget changed');
-                            $scope.budget = {};
-                        }
-                    },
-                    function (err) {
-                        toastr.error('ERROR: budget input AJAX failed');
-                        throw new Error('ERROR: budget input AJAX failed' + err);
-                })
-                .catch(function (err) {
-                    toastr.error("ERROR: budget input AJAX failed");
-                    $log.error("ERROR: budget input AJAX failed", err);
-                });
             } else {
                 toastr.error('ERROR: budget input data failed');
                 throw new Error('ERROR: budget input data failed' + err);
             }
+
         };
 
         // Notes Display Filter
@@ -146,8 +155,15 @@ define(['angular'], function (angular) {
         // Notes Save
         $scope.noteSave = function () {
 
+            var request = {
+                _id: $scope.currentProject._id,
+                key: "budgetNotes",
+                keyURL : "/budgetNotes",
+                data : $scope.currentProject.budgetNotes
+            };
+
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/budgetNotes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -166,8 +182,15 @@ define(['angular'], function (angular) {
         // Notes Save
         $scope.projNoteSave = function () {
 
+            var request = {
+                _id: $scope.currentProject._id,
+                key: "projectNotes",
+                keyURL : "/projectNotes",
+                data : $scope.currentProject.notes
+            };
+
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/projectNotes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -197,25 +220,25 @@ define(['angular'], function (angular) {
                     break;
                 case "sms" :
                     $scope.subView = view;
+
                     angular.forEach($scope.currentUser.smsQty, function (userProjectSMS) {
+
                         if(userProjectSMS.projectId == $scope.currentProject._id){
+
                             userProjectSMS.qty = $scope.currentProject.smsCollection.length;
-                            //if($window.localStorage && $window.localStorage.newSMS || $window.localStorage.newSMS === 0){
-                                //$window.localStorage.newSMS = 0;
-                                $scope.newSMS = 0;
-                            //}
+
+                            $scope.newSMS[$scope.currentProject._id] = 0;
                         }
                     });
 
-                    var smsUpdate = {
+                    var request = {
                         _id : $scope.currentUser._id,
                         arr : $scope.currentUser.smsQty
                     };
-                    UsersResourceService._ajaxRequest("PUT", null, smsUpdate, '/smsQty').catch(function (err) {
+                    UsersResourceService._ajaxRequest("PUT", null, request, '/smsQty').catch(function (err) {
                         toastr.error("ERROR: AJAX ERROR");
                         $log.error("ERROR: AJAX ERROR", err);
                     });
-                    //$scope.$emit('smsCheckedByUser');
 
                     break;
             }
@@ -236,9 +259,15 @@ define(['angular'], function (angular) {
 
             if(msg.text &&  msg.author){
                msg.date = Date.now();
-               msg._id = $scope.currentProject._id;
 
-                ResourceService._ajaxRequest("POST", null, msg, msg._id).then(function () {
+               var request = {
+                   _id: $scope.currentProject._id,
+                   keyFullURL: $scope.currentProject._id  + '/visitorNewSMS',
+                   keyURL: '/visitorNewSMS',
+                   data: msg
+               };
+
+                ResourceService._ajaxRequest("POST", null, request, request.keyFullURL).then(function () {
                     toastr.success('ОТПРАВЛЕНО!');
                     $scope.sms = {};
                     $scope.sms.author = buffer;
@@ -256,10 +285,11 @@ define(['angular'], function (angular) {
 
             var request = {
                 _id : $scope.currentProject._id,
+                keyURL : '/sms',
                 data : $scope.currentProject.smsCollection
             };
 
-            ResourceService._ajaxRequest("PUT", $scope.currentProject._id, request, '/sms').then(function () {
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(function () {
                toastr.info('SMS LIST CLEARED!');
             }).catch(function (err) {
                 toastr.error("ERROR: AJAX ERROR");

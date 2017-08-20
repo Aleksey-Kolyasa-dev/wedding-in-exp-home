@@ -114,9 +114,9 @@ define(['angular'], function (angular) {
 
         // VISITOR ACCESS By KEY Fn
         $scope.accessByKey = function (key) {
-            var req = {key: key};
+            var request = { key: key };
 
-            ResourceService._ajaxRequest("POST", null, req, "/keyAccess")
+            ResourceService._ajaxRequest("POST", null, request, "/AccessKey")
                 .then(function (data) {
                     if (!data._id) {
                         toastr.error('PROJECT NOT FOUND!');

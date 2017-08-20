@@ -94,7 +94,7 @@ define(['angular'], function (angular) {
                                     }
                                 }
                             // *** ??? (for "sms clear" from user)
-                            if (keyURL && url) {
+                            /*if (keyURL && url) {
                                 if (angular.isString(keyURL) && angular.isString(url)) {
                                     $http({
                                         method: "PUT",
@@ -108,7 +108,7 @@ define(['angular'], function (angular) {
                                         throw new Error('ERROR: PUT method failed: ' + err);
                                     });
                                 }
-                            }
+                            }*/
                             break;
 
                         case "DELETE" :

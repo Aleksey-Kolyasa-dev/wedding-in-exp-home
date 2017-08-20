@@ -29,7 +29,8 @@
 .main-page-menu-btn-start:hover{
     text-decoration: none !important;
     cursor: pointer;
-    color: rgba(120, 180, 0, 1);
+    color: rgb(81, 81, 162);
+    /*color: rgba(120, 180, 0, 1);*/
     background: #ffffff;
     text-shadow: 6px 4px 7px #8c8b8b;
 }
