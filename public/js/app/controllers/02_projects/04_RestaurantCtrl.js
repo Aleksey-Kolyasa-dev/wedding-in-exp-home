@@ -348,8 +348,15 @@ define(['angular'], function (angular) {
 
             // Case for QUICK RESTAURANT DATA AJAX SAVE
             else if (angular.isNumber(data.quickGuestsQty) && angular.isNumber(data.quickCheck) && angular.isNumber(data.quickPercent)) {
+                var request = {
+                    _id: $scope.currentProject._id,
+                    keyURL : "/quickDataSave",
+                    restaurant : {
+                        quickData : $scope.currentProject.restaurant.quickData
+                    }
+                };
 
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/quickDataSave").then(
+                    ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.saveHide = true;
                         if (_env._dev) {
