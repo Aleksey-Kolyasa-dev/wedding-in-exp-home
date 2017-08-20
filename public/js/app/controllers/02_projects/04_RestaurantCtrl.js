@@ -351,9 +351,7 @@ define(['angular'], function (angular) {
                 var request = {
                     _id: $scope.currentProject._id,
                     keyURL : "/quickDataSave",
-                    restaurant : {
-                        quickData : $scope.currentProject.restaurant.quickData
-                    }
+                    data : $scope.currentProject.restaurant.quickData
                 };
 
                     ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(

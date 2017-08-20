@@ -480,51 +480,53 @@ projectsRouter.put('/api/:id/videoNotes', function (req, res) {
 });
 
 
-// PUT Single Project keyURL = /quickView
-projectsRouter.put('/api/:id/quickView', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /quickView");
 
-    if (!project.restaurant) {
-        res.status(400);
-        res.json({
-            "error": "PUT ERROR: validation failed"
-        });
-    } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
-            if (err) {
-                res.send(err);
-            }
-            //console.log(project);
-            res.json(project);
-        });
-    }
-});
 // PUT Single Project RESTAURANT keyURL = /quickDataSave
 projectsRouter.put('/api/:id/quickDataSave', function (req, res) {
-    var project = req.body;
-    console.log("CALL PUT BY: /quickDataSave");
+    var request = req.body;
 
-    if (!project.restaurant.quickData) {
+    if (!request[request.key] && !request.data) {
         res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
         res.json({
-            "error": "PUT ERROR: quickDataSave validation failed"
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
-            if (err) {
-                res.send(err);
-            }
-            //console.log(project);
-            res.json(project);
+        var promise = new Promise(function (resolve, reject) {
+            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT BY: " + request.keyURL + " - GET ERR", err);
+                    res.send(err);
+                    reject(err);
+                } else {
+                    resolve(project);
+                }
+            });
         });
+
+        promise.then(function (project) {
+            project.restaurant.quickData = request.data;
+
+            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
+                if (err) {
+                    console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR", err);
+                    res.send(err);
+                } else {
+                    console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                    res.end();
+                }
+            });
+
+        }).catch(function (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR:", err);
+            });
     }
 });
 // PUT Single Project RESTAURANT keyURL = /useMenuCheckDataSave
 projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res) {
     var request = req.body;
 
-    if (typeof request[request.key]  != "boolean") {
+    if (typeof request[request.key] != "boolean") {
         res.status(400);
         console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
         res.json({
