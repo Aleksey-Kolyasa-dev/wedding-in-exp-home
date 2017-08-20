@@ -165,7 +165,16 @@ define(['angular'], function (angular) {
                         // Fiance Side Guest
                         case "M":
                             $scope.currentProject.fianceSideGuests.push(this.guestData);
-                            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
+
+                            var requestM = {
+                                _id: $scope.currentProject._id,
+                                key : "fianceSideGuests",
+                                keyURL : "/fianceSideGuests",
+                                data : $scope.currentProject.fianceSideGuests
+                            };
+
+                            // SAVE DATA
+                            ResourceService._ajaxRequest("PUT", null, requestM, requestM.keyURL).then(
                                 function (data) {
                                     self._clear();
                                     if (_env._dev) {
@@ -181,7 +190,16 @@ define(['angular'], function (angular) {
                         // Fiancee Side Guest
                         case "W":
                             $scope.currentProject.fianceeSideGuests.push(this.guestData);
-                            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
+
+                            var requestW = {
+                                _id: $scope.currentProject._id,
+                                key : "fianceeSideGuests",
+                                keyURL : "/fianceeSideGuests",
+                                data : $scope.currentProject.fianceeSideGuests
+                            };
+
+                            // SAVE DATA
+                            ResourceService._ajaxRequest("PUT", null, requestW, requestW.keyURL).then(
                                 function (data) {
                                     self._clear();
                                     if (_env._dev) {
@@ -220,7 +238,15 @@ define(['angular'], function (angular) {
 
                 switch (side) {
                     case "M":
-                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
+                        var requestM = {
+                            _id: $scope.currentProject._id,
+                            key : "fianceSideGuests",
+                            keyURL : "/fianceSideGuests",
+                            data : $scope.currentProject.fianceSideGuests
+                        };
+
+                        // SAVE DATA
+                        ResourceService._ajaxRequest("PUT", null, requestM, requestM.keyURL).then(
                             function (data) {
                                 self._clear();
                                 if (_env._dev) {
@@ -234,7 +260,16 @@ define(['angular'], function (angular) {
                         break;
 
                     case "W":
-                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
+
+                        var requestW = {
+                            _id: $scope.currentProject._id,
+                            key : "fianceeSideGuests",
+                            keyURL : "/fianceeSideGuests",
+                            data : $scope.currentProject.fianceeSideGuests
+                        };
+
+                        // SAVE DATA
+                        ResourceService._ajaxRequest("PUT", null, requestW, requestW.keyURL).then(
                             function (data) {
                                 self._clear();
                                 if (_env._dev) {
@@ -254,7 +289,16 @@ define(['angular'], function (angular) {
                 switch (guest.side) {
                     case "M" :
                         $scope.currentProject.fianceSideGuests.splice($scope.currentProject.fianceSideGuests.indexOf(guest), 1);
-                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceSideGuests").then(
+
+                        var requestM = {
+                            _id: $scope.currentProject._id,
+                            key : "fianceSideGuests",
+                            keyURL : "/fianceSideGuests",
+                            data : $scope.currentProject.fianceSideGuests
+                        };
+
+                        // SAVE DATA
+                        ResourceService._ajaxRequest("PUT", null, requestM, requestM.keyURL).then(
                             function (data) {
                                 self._clear();
                                 if (_env._dev) {
@@ -269,7 +313,16 @@ define(['angular'], function (angular) {
 
                     case "W" :
                         $scope.currentProject.fianceeSideGuests.splice($scope.currentProject.fianceeSideGuests.indexOf(guest), 1);
-                        ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/fianceeSideGuests").then(
+
+                        var requestW = {
+                            _id: $scope.currentProject._id,
+                            key : "fianceeSideGuests",
+                            keyURL : "/fianceeSideGuests",
+                            data : $scope.currentProject.fianceeSideGuests
+                        };
+
+                        // SAVE DATA
+                        ResourceService._ajaxRequest("PUT", null, requestW, requestW.keyURL).then(
                             function (data) {
                                 self._clear();
                                 if (_env._dev) {
