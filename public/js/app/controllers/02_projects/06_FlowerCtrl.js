@@ -39,7 +39,7 @@ define(['angular'], function (angular) {
             if($scope.currentProject[$scope.conf.mainProp].expCollection.length){
                 updateTotalValues();
                 if (_env._dev){
-                    $log.log('update by ' + $scope.conf.msgNameBg + ': reason - CURRENCY change EVENT');
+                    $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - CURRENCY change EVENT');
                 }
             }
         });
@@ -48,7 +48,7 @@ define(['angular'], function (angular) {
         $scope.items = $scope.currentProject[$scope.conf.mainProp].expCollection;
         $scope.total = $scope.currentProject[$scope.conf.mainProp].total;
         $scope.notes = $scope.currentProject[$scope.conf.mainProp + 'Notes'];
-        
+
         // Update total values Fn
         function updateTotalValues() {
             $scope.total = {
@@ -94,73 +94,81 @@ define(['angular'], function (angular) {
 
         // Add New Expense Item Fn
         $scope.addNewExpenseItem = function (item) {
-          if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
-              // If 'unit' is not defined
-              if(item.unit == '' || item.unit == null){
-                  item.unit = 'не указан';
-              }
-              // multiplier correction
-              if(item.multiplier < 0 ){
-                  item.multiplier = 1;
-              }
-              // multiplier correction
-              if(item.multiplier == 0 ){
-                  item.multiplier = 1;
-              }
-              // tariff correction
-              if(item.tariff < 0){
-                  item.tariff *=-1;
-              }
-              // paid correction
-              if(item.paid < 0){
-                  item.paid *= -1;
-              }
-              // Intermediate calculations
-              item.toPay = item.tariff * item.multiplier;
-              item.rest = item.toPay - item.paid;
+            if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
+                // If 'unit' is not defined
+                if(item.unit == '' || item.unit == null){
+                    item.unit = 'не указан';
+                }
+                // multiplier correction
+                if(item.multiplier < 0 ){
+                    item.multiplier = 1;
+                }
+                // multiplier correction
+                if(item.multiplier == 0 ){
+                    item.multiplier = 1;
+                }
+                // tariff correction
+                if(item.tariff < 0){
+                    item.tariff *=-1;
+                }
+                // paid correction
+                if(item.paid < 0){
+                    item.paid *= -1;
+                }
+                // Intermediate calculations
+                item.toPay = item.tariff * item.multiplier;
+                item.rest = item.toPay - item.paid;
 
-              // Money type check
-              if(!item.usd){
-                  item.money = $scope.currentProject.budget.nationalMoney;
-              } else {
-                  item.money = 'USD';
-              }
+                // Money type check
+                if(!item.usd){
+                    item.money = $scope.currentProject.budget.nationalMoney;
+                } else {
+                    item.money = 'USD';
+                }
 
-              // Add expense item to expCollection
-              $scope.currentProject[$scope.conf.mainProp].expCollection.push(item);
+                // Add expense item to expCollection
+                $scope.currentProject[$scope.conf.mainProp].expCollection.push(item);
 
-              // Update total values
-              updateTotalValues();
-              if (_env._dev){
-                  $log.log('update by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +' EXP EVENT ');
-              }
+                // Update total values
+                updateTotalValues();
 
-              // ADD EXPENSE ITEM to DB
-              ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp + "DataSave").then(
-                  function (data) {
-                      $scope.newItem = {};
-                      if (_env._dev) {
-                          toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
-                      }
-                  },
-                  function (err) {
-                      toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
-                      throw new Error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed' + err);
-                  })
-                  .catch(function (err) {
-                      toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
-                      $log.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed', err);
-                  });
-          }
-          else {
-              toastr.error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed');
-              throw new Error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed' + err);
-          }
+                if (_env._dev){
+                    $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +' EXP EVENT ');
+                }
+
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : $scope.conf.mainProp,
+                    keyURL : "/" + $scope.conf.mainProp + "DataSave"
+                };
+                request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
+                // ADD EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                    function (data) {
+                        $scope.newItem = {};
+                        if (_env._dev) {
+                            toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                        throw new Error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed' + err);
+                    })
+                    .catch(function (err) {
+                        toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                        $log.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed', err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed');
+                throw new Error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed' + err);
+            }
         };
 
         // Edit Expense Item Fn
         $scope.editExpenseItem = function (index) {
-           $scope.itemToEdit = $scope.items[index];
+            $scope.itemToEdit = $scope.items[index];
             $scope.removeTrigger = false;
         };
 
@@ -201,11 +209,18 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
                 if (_env._dev){
-                    $log.log('update by ' + $scope.conf.msgNameBg + ': reason - EDIT ' + $scope.conf.msgNameBg + ' EXP EVENT ');
+                    $log.log('update PROJECT by ' + $scope.conf.msgNameBg + ': reason - EDIT ' + $scope.conf.msgNameBg + ' EXP EVENT ');
                 }
 
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : $scope.conf.mainProp,
+                    keyURL : "/" + $scope.conf.mainProp + "DataSave"
+                };
+                request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
                 // SAVE CHANGES of EXPENSE ITEM to DB
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"DataSave").then(
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.removeTrigger = false;
                         $scope.itemToEdit = {};
@@ -236,11 +251,17 @@ define(['angular'], function (angular) {
             // Update total values
             updateTotalValues();
             if (_env._dev){
-                $log.log('update by ' + $scope.conf.msgNameBg + ': reason - REMOVE DECOR EXP EVENT ');
+                $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - REMOVE DECOR EXP EVENT ');
             }
+            var request = {
+                _id: $scope.currentProject._id,
+                key : $scope.conf.mainProp,
+                keyURL : "/" + $scope.conf.mainProp + "DataSave"
+            };
+            request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"DataSave").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
@@ -273,9 +294,15 @@ define(['angular'], function (angular) {
 
         // Notes Save
         $scope.noteSave = function () {
+            var request = {
+                _id: $scope.currentProject._id,
+                key: $scope.conf.mainProp + "Notes",
+                keyURL : "/" + $scope.conf.mainProp +"Notes"
+            };
+            request[$scope.conf.mainProp + "Notes"] = $scope.currentProject[$scope.conf.mainProp + "Notes"];
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"Notes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
@@ -292,7 +319,7 @@ define(['angular'], function (angular) {
         };
 
     } // *END* DECOR MAIN CTRL
-//
+
 
     return flowerCtrlModule;
 });

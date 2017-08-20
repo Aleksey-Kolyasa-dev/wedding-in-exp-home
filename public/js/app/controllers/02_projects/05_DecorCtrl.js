@@ -39,7 +39,7 @@ define(['angular'], function (angular) {
             if($scope.currentProject[$scope.conf.mainProp].expCollection.length){
                 updateTotalValues();
                 if (_env._dev){
-                    $log.log('update by ' + $scope.conf.msgNameBg + ': reason - CURRENCY change EVENT');
+                    $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - CURRENCY change EVENT');
                 }
             }
         });
@@ -131,12 +131,20 @@ define(['angular'], function (angular) {
 
               // Update total values
               updateTotalValues();
+
               if (_env._dev){
-                  $log.log('update by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +' EXP EVENT ');
+                  $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +' EXP EVENT ');
               }
 
+              var request = {
+                  _id: $scope.currentProject._id,
+                  key : $scope.conf.mainProp,
+                  keyURL : "/" + $scope.conf.mainProp + "DataSave"
+              };
+              request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
               // ADD EXPENSE ITEM to DB
-              ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp + "DataSave").then(
+              ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                   function (data) {
                       $scope.newItem = {};
                       if (_env._dev) {
@@ -201,11 +209,18 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
                 if (_env._dev){
-                    $log.log('update by ' + $scope.conf.msgNameBg + ': reason - EDIT ' + $scope.conf.msgNameBg + ' EXP EVENT ');
+                    $log.log('update PROJECT by ' + $scope.conf.msgNameBg + ': reason - EDIT ' + $scope.conf.msgNameBg + ' EXP EVENT ');
                 }
 
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : $scope.conf.mainProp,
+                    keyURL : "/" + $scope.conf.mainProp + "DataSave"
+                };
+                request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
                 // SAVE CHANGES of EXPENSE ITEM to DB
-                ResourceService._ajaxRequest("PUT", null, $scope.currentProject, "/" + $scope.conf.mainProp +"DataSave").then(
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.removeTrigger = false;
                         $scope.itemToEdit = {};
@@ -236,17 +251,17 @@ define(['angular'], function (angular) {
             // Update total values
             updateTotalValues();
             if (_env._dev){
-                $log.log('update by ' + $scope.conf.msgNameBg + ': reason - REMOVE DECOR EXP EVENT ');
+                $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - REMOVE DECOR EXP EVENT ');
             }
             var request = {
-                _id: $scope.currentProject._id
+                _id: $scope.currentProject._id,
+                key : $scope.conf.mainProp,
+                keyURL : "/" + $scope.conf.mainProp + "DataSave"
             };
-            request[$scope.conf.mainProp].expCollection = $scope.currentProject[$scope.conf.mainProp].expCollection;
-            request[$scope.conf.mainProp].total = $scope.currentProject[$scope.conf.mainProp].total;
-            $log.log(request);
+            request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, request, "/" + $scope.conf.mainProp +"DataSave").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     $scope.removeTrigger = false;
                     $scope.itemToEdit = {};
@@ -281,12 +296,13 @@ define(['angular'], function (angular) {
         $scope.noteSave = function () {
             var request = {
                 _id: $scope.currentProject._id,
-                key: [$scope.conf.mainProp + "Notes"]
+                key: $scope.conf.mainProp + "Notes",
+                keyURL : "/" + $scope.conf.mainProp +"Notes"
             };
-            request[$scope.conf.mainProp + "Notes"] = $scope.currentProject[$scope.conf.mainProp +"Notes"];
+            request[$scope.conf.mainProp + "Notes"] = $scope.currentProject[$scope.conf.mainProp + "Notes"];
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, request, "/" + $scope.conf.mainProp +"Notes").then(
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
                         toastr.info('Notes are saved!');
