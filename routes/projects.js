@@ -276,6 +276,28 @@ projectsRouter.put('/api/:id/budgetDataSave', function (req, res) {
         });
     }
 });
+//* PUT Single Project BUDGET keyURL = /tasksDataSave
+projectsRouter.put('/api/:id/tasksDataSave', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {tasks: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
 
 
 //* PUT Single Project BUDGET keyURL = /projectNotes
@@ -1072,6 +1094,12 @@ function NewProjectCtor(project) {
             wedBudgetRestFactUsd: 0,
             wedBudgetRestFactNat: 0
         }
+    };
+    this.tasks = {
+        expCollection: [/*{
+         name : 'ТОРТ',
+         status : false
+         }*/]
     };
     this.restaurant = {
         name: null,

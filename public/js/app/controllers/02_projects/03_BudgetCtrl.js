@@ -3,6 +3,7 @@ define(['angular'], function (angular) {
     var budgetCtrlModule = angular.module('budgetCtrlModule', ['wedServices', 'authServices']);
 
     budgetCtrlModule.controller('budgetMainCtrl', budgetMainCtrl);
+    budgetCtrlModule.controller('tasksMainCtrl', tasksMainCtrl);
     budgetCtrlModule.controller('smsMainCtrl', smsMainCtrl);
 
     /*
@@ -218,6 +219,9 @@ define(['angular'], function (angular) {
                 case "reports" :
                     $scope.subView = view;
                     break;
+                case "tasks" :
+                    $scope.subView = view;
+                    break;
                 case "sms" :
                     $scope.subView = view;
 
@@ -245,6 +249,166 @@ define(['angular'], function (angular) {
         };
 
     } // Ctrl End
+
+
+    /*
+     * tasks MAIN CTRL
+     * */
+    function tasksMainCtrl($scope, $log, toastr, _env, ResourceService) {
+        // INPUT DATA CONFIG
+        $scope.conf = {
+            // Main setup
+            mainProp : 'tasks',
+
+            // MSGs setup
+            msgNameBg : 'TASKS',
+            msgNameSm : 'tasks',
+
+            //Views setup
+            title : 'СПИСОК ЗАДАЧ',
+            ttlBy : 'ЗАДАЧАМ',
+
+            // Forms setup (auto)
+            get addForm(){
+                return 'addNew' +  this.msgNameSm +'ExpenseForm';
+            },
+            get editForm(){
+                return 'edit' + this.msgNameSm +'ExpenseForm';
+            }
+        };
+
+        // Default data
+        $scope.itemToEdit = {};
+        $scope.newItem = {};
+        $scope.removeTrigger = {};
+        $scope.removeTrigger.status = false;
+
+        // Shortcuts
+        $scope.items = $scope.currentProject[$scope.conf.mainProp].expCollection;
+
+
+
+        // Add New TASK Item Fn
+        $scope.addNewExpenseItem = function (item) {
+            if(item.name != ''){
+
+                // Add expense item to expCollection
+                $scope.currentProject[$scope.conf.mainProp].expCollection.push(item);
+
+                if (_env._dev){
+                    $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +'  EVENT ');
+                }
+
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : $scope.conf.mainProp,
+                    keyURL : "/" + $scope.conf.mainProp + "DataSave"
+                };
+                request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
+                // ADD EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                    function (data) {
+                        $scope.newItem = {};
+                        if (_env._dev) {
+                            toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                        throw new Error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed' + err);
+                    })
+                    .catch(function (err) {
+                        toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                        $log.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed', err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: ' + $scope.conf.msgNameSm + '  input check failed');
+                throw new Error('ERROR: ' + $scope.conf.msgNameSm + '  input check failed');
+            }
+        };
+
+        // Edit TASK Item Fn
+        $scope.editExpenseItem = function (index) {
+            $scope.itemToEdit = $scope.items[index];
+            $scope.removeTrigger.status = false;
+        };
+
+        // SAVE EDITED ITEM in DB
+        $scope.editExpenseItemSave = function (item) {
+            if(item.name != ''){
+
+                if (_env._dev){
+                    $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - EDIT ' + $scope.conf.msgNameBg +' EVENT ');
+                }
+
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : $scope.conf.mainProp,
+                    keyURL : "/" + $scope.conf.mainProp + "DataSave"
+                };
+                request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
+                // ADD EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                    function (data) {
+                        $scope.itemToEdit = {};
+                        if (_env._dev) {
+                            toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed');
+                        throw new Error('ERROR: ' + $scope.conf.msgNameBg + 'Expense Item AJAX failed' + err);
+                    })
+                    .catch(function (err) {
+                        toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
+                        $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed', err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed');
+                throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed');
+            }
+        };
+
+        // DELETE TASK ITEM
+        $scope.deleteExpenseItem = function (index) {
+            // Remove from model
+            $scope.currentProject[$scope.conf.mainProp].expCollection.splice(index, 1);
+            //$scope.removeTrigger = false;
+            if (_env._dev){
+                $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - REMOVE ' + $scope.conf.msgNameBg +' EVENT ');
+            }
+            var request = {
+                _id: $scope.currentProject._id,
+                key : $scope.conf.mainProp,
+                keyURL : "/" + $scope.conf.mainProp + "DataSave"
+            };
+            request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                function (data) {
+
+                    $scope.itemToEdit = {};
+                    if (_env._dev) {
+                        toastr.info($scope.conf.msgNameBg + ' Item removed');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + '  Item AJAX failed');
+                    throw new Error('ERROR: ' + $scope.conf.msgNameBg + '  Item AJAX failed' + err);
+                })
+                .catch(function (err) {
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + '  Item Edit AJAX failed');
+                    $log.error('ERROR: ' + $scope.conf.msgNameBg + '  Item Edit AJAX failed', err);
+                });
+        };
+
+    } // *END* tasks MAIN CTRL
+
 
 
     /*

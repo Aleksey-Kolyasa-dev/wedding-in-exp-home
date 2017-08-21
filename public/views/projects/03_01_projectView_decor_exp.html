@@ -179,17 +179,17 @@
                                 <div class="text-center">
                                     <div class="form-group" style="width: 100%">
                                         <label style="cursor: pointer; font-size: 90%; color: silver">
-                                            <input style="width: 16px; display: none; height: 16px; cursor: pointer" ng-model="removeTrigger"
+                                            <input style="width: 16px; display: none; height: 16px; cursor: pointer" ng-model="removeTrigger.status"
                                                    type="checkbox">Удалить запись</label>
                                     </div>
                                 </div>
                                 <hr>
-                                <button ng-if="removeTrigger" type="submit" class="btn btn-danger btn-block"
+                                <button ng-if="removeTrigger.status" type="submit" class="btn btn-danger btn-block"
                                         data-dismiss="modal"
                                         ng-click="deleteExpenseItem(items.indexOf(itemToEdit))">
                                     <span>ПОДТВЕРДИТЬ УДАЛЕНИЕ</span>
                                 </button>
-                                <button ng-if="!removeTrigger" type="submit" class="btn btn-success btn-block"
+                                <button ng-if="!removeTrigger.status" type="submit" class="btn btn-success btn-block"
                                         ng-disabled="($eval(conf.editForm).$invalid)" data-dismiss="modal"
                                         ng-click="editExpenseItemSave(itemToEdit)">
                                     <span>ПРИМЕНИТЬ</span>

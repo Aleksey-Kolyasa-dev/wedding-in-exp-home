@@ -33,6 +33,8 @@ define(['angular'], function (angular) {
         // Default data
         $scope.itemToEdit = {};
         $scope.newItem = {};
+        $scope.removeTrigger = {};
+        $scope.removeTrigger.status = false;
 
         // WATCH CURRENCY VALUE and do recalculations if changed
         $scope.$watch("currentProject.budget.currency", function () {
@@ -51,6 +53,7 @@ define(['angular'], function (angular) {
         
         // Update total values Fn
         function updateTotalValues() {
+            // Shortcuts
             $scope.total = {
                 planUsd : 0,
                 planNat : 0,
@@ -61,8 +64,9 @@ define(['angular'], function (angular) {
                 restTotalUsd : 0,
                 restTotalNat : 0
             };
+
+            // USD and Nat plans separation
             angular.forEach($scope.items, function (item) {
-                // USD and Nat plans separation
                 if(item.usd){
                     $scope.total.planUsd += item.toPay;
                     $scope.total.planNat = $scope.total.planUsd * $scope.currentProject.budget.currency;
@@ -89,7 +93,6 @@ define(['angular'], function (angular) {
 
             // in the end copy obj back
             $scope.currentProject[$scope.conf.mainProp].total = $scope.total;
-
         }
 
         // Add New Expense Item Fn
@@ -153,7 +156,7 @@ define(['angular'], function (angular) {
                   },
                   function (err) {
                       toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
-                      throw new Error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed' + err);
+                      throw new Error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
                   })
                   .catch(function (err) {
                       toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
@@ -162,14 +165,14 @@ define(['angular'], function (angular) {
           }
           else {
               toastr.error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed');
-              throw new Error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed' + err);
+              throw new Error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed');
           }
         };
 
         // Edit Expense Item Fn
         $scope.editExpenseItem = function (index) {
-           $scope.itemToEdit = $scope.items[index];
-            $scope.removeTrigger = false;
+            $scope.itemToEdit = $scope.items[index];
+            $scope.removeTrigger.status = false;
         };
 
         // SAVE EDITED ITEM in DB
@@ -208,6 +211,7 @@ define(['angular'], function (angular) {
 
                 // Update total values
                 updateTotalValues();
+
                 if (_env._dev){
                     $log.log('update PROJECT by ' + $scope.conf.msgNameBg + ': reason - EDIT ' + $scope.conf.msgNameBg + ' EXP EVENT ');
                 }
@@ -222,24 +226,23 @@ define(['angular'], function (angular) {
                 // SAVE CHANGES of EXPENSE ITEM to DB
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
-                        $scope.removeTrigger = false;
                         $scope.itemToEdit = {};
                         if (_env._dev) {
                             toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
                         }
                     },
                     function (err) {
-                        toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed');
-                        throw new Error('ERROR: ' + $scope.conf.msgNameBg + 'Expense Item AJAX failed' + err);
+                        toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item EditAJAX failed');
+                        throw new Error('ERROR: ' + $scope.conf.msgNameBg + 'Expense Item Edit AJAX failed');
                     })
                     .catch(function (err) {
                         toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
-                        $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed', err);
+                        $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
                     });
             }
             else {
                 toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed');
-                throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed' + err);
+                throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed');
             }
         };
 
@@ -251,7 +254,7 @@ define(['angular'], function (angular) {
             // Update total values
             updateTotalValues();
             if (_env._dev){
-                $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - REMOVE DECOR EXP EVENT ');
+                $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - REMOVE ' + $scope.conf.msgNameBg + ' EXP EVENT ');
             }
             var request = {
                 _id: $scope.currentProject._id,
@@ -263,15 +266,13 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    $scope.removeTrigger = false;
-                    $scope.itemToEdit = {};
                     if (_env._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Expense Item removed');
                     }
                 },
                 function (err) {
                     toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed');
-                    throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed' + err);
+                    throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed');
                 })
                 .catch(function (err) {
                     toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
@@ -305,16 +306,16 @@ define(['angular'], function (angular) {
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     if (_env._dev) {
-                        toastr.info('Notes are saved!');
+                        toastr.info($scope.conf.msgNameBg + ' Notes are saved!');
                     }
                 },
                 function (err) {
-                    toastr.error('ERROR: Notes AJAX failed');
-                    throw new Error('ERROR: Notes AJAX failed' + err);
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
+                    throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
                 })
                 .catch(function (err) {
-                    toastr.error("ERROR: Notes AJAX failed");
-                    $log.error("ERROR: Notes AJAX failed", err);
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
+                    $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed', err);
                 });
         };
 
