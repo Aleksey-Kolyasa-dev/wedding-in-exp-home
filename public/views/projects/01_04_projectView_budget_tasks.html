@@ -15,9 +15,9 @@
             <table class="table table-responsive info-glass-panel">
                 <thead class="guest-side-table-head">
                 <tr style="color: white">
-                    <th class="text-center hidden-md hidden-sm hidden-xs col-xs-1">№</th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs col-xs-1"><span class="glyphicon glyphicon-check"></span></th>
 
-                    <th class="text-left  col-xs-7">ЗАДАЧА</th>
+                    <th class="text-center  col-xs-7">ЗАДАЧИ</th>
                     <th class="text-center col-xs-2">СТАТУС</th>
                     <th class="text-center col-xs-1"><span class="glyphicon glyphicon-edit"></span></th>
                 </tr>
@@ -26,9 +26,11 @@
                 <tbody>
                 <!--BODY-->
                 <tr class="guest" ng-repeat="item in items">
-                    <td class="text-center hidden-md hidden-sm hidden-xs" ng-class="item.status? 'usd-use':'nat-use'">{{$index + 1}}</td>
+                    <td class="text-center hidden-md hidden-sm hidden-xs usd-use" ng-if="item.status" ><span class="glyphicon glyphicon-check"></span></td>
+                    <td class="text-center hidden-md hidden-sm hidden-xs nat-use" ng-if="!item.status" ><span class="glyphicon glyphicon-unchecked"></span></td>
+
                     <td class="text-left" ng-class="item.status? 'usd-use':'nat-use'">{{item.name}}</td>
-                    <td class="text-center" ng-class="item.status? 'usd-use':'nat-use'">{{item.status? 'завершена':'не завершена'}} {{item.money}}</td>
+                    <td class="text-center" ng-class="item.status? 'usd-use':'nat-use'">{{item.status? 'выполнена':'не выполнена'}} {{item.money}}</td>
                     <td class="text-center">
                         <div>
                             <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#{{'edit' + conf.msgNameSm +'ExpenseItem'}}" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
@@ -42,11 +44,6 @@
                 <tr class="guest total-footer-data" ng-if="currentProject[conf.mainProp].expCollection.length">
                     <td class="hidden-md hidden-sm hidden-xs"></td>
                     <td class="text-left" colspan="1" style="font-style: italic; font-weight: inherit"></td>
-                    <!--<td class="visible-md" colspan="3"></td>
-                    <td class="visible-sm"></td>
-                    <td class="visible-xs"></td>
-                    <td class="text-center"><span class="nat-use">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.planUsd  | number : 1}} USD</span></td>
-                    <td class="text-center"><span class="nat-use">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.paidTotalUsd  | number : 1}} USD</span></td>-->
                     <td class="text-center"><span class="usd-use">{{(currentProject[conf.mainProp].expCollection | filter : { status : 'true'}).length}}</span> / <span class="nat-use">{{currentProject[conf.mainProp].expCollection.length}}</span></td>
                     <td class="text-center"></td>
                 </tr>
@@ -78,7 +75,7 @@
                                 </div>
                                 <hr>
                                 <div class="form-group text-center" style="width: 100%">
-                                    <label style="cursor: pointer;" ng-class="newItem.status? 'usd-use' : 'nat-use'">Статус: {{newItem.status? 'завершена' : 'не завершена'}}
+                                    <label style="cursor: pointer;" ng-class="newItem.status? 'usd-use' : 'nat-use'">Статус: {{newItem.status? 'выполнена' : 'не выполнена'}}
                                         <input style="width: 16px; height: 16px; cursor: pointer; display: none" ng-value="false" ng-model="newItem.status"
                                                type="checkbox"></label>
                                 </div>
@@ -103,7 +100,7 @@
 
     <!-- EDIT EXPENSE ITEM MODAL *START* -->
     <div ng-if="currentUser.isAuth" id="{{'edit' + conf.msgNameSm +'ExpenseItem'}}" class="modal fade">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">close</button>
@@ -121,7 +118,7 @@
                                 </div>
                                 <hr>
                                 <div class="form-group text-center" style="width: 100%">
-                                    <label style="cursor: pointer;" ng-class="itemToEdit.status? 'usd-use' : 'nat-use'">Статус: {{itemToEdit.status? 'завершена' : 'не завершена'}}
+                                    <label style="cursor: pointer;" ng-class="itemToEdit.status? 'usd-use' : 'nat-use'">Статус: {{itemToEdit.status? 'выполнена' : 'не выполнена'}}
                                         <input style="width: 16px; height: 16px; cursor: pointer; display: none" ng-value="false" ng-model="itemToEdit.status"
                                                type="checkbox"></label>
                                 </div>
