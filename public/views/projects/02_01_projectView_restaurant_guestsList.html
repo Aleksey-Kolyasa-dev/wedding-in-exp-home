@@ -2,6 +2,9 @@
 
     <!--FIANCE SIDE *START*-->
     <div class="fiance-side-main ">
+        <div ng-if="currentUser.isAuth" style="float: left">
+            <button class="btn btn-warning" data-target="#guest-add" data-toggle="modal" ng-click="guests.guestSide('M')"> <span class="glyphicon glyphicon-plus"></span></button>
+        </div>
         <header class="guests-fiance-side text-center">
             <h4 class="guests-side-head">СТОРОНА ЖЕНИХА</h4>
         </header>
@@ -13,6 +16,7 @@
                         <th >Имя</th>
                         <th class="text-center">Отношение</th>
                         <th class="text-center">№ группы</th>
+                        <th class="text-center">№ стола</th>
                         <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
                     </tr>
                 </thead>
@@ -24,31 +28,34 @@
                         <td>{{currentProject.fianceName | uppercase}}</td>
                         <td class="text-center">жених</td>
                         <td class="text-center">0</td>
+                        <td class="text-center">1</td>
                         <td class="text-center">
-                            <input type="checkbox" ng-checked="true" ng-disabled="true">
+                            <span class="glyphicon glyphicon-check"></span>
                         </td>
                     </tr>
 
                     <!--body-->
-                    <tr ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'" ng-repeat="guest in currentProject.fianceSideGuests | orderBy : 'guestGroup'">
+                    <tr ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'" ng-repeat="guest in currentProject.fianceSideGuests | orderBy : 'group'">
                         <td class="text-center">{{$index+2}}</td>
                         <td>
                             <a class="guest-link"
                                ng-class="guest.guestWillBe ? 'guest' : 'guest-abs'"
                                data-toggle="modal" data-target="#guest-edit"
-                               ng-click="addNewGuests.guestEdit(currentProject.fianceSideGuests.indexOf(guest), 'M')">
-                                {{guest.guestName | uppercase}}
+                               ng-click="guests.guestEdit(currentProject.fianceSideGuests.indexOf(guest), 'M')">
+                                {{guest.name | uppercase}}
                             </a>
                         </td>
-                        <td class="text-center">{{guest.guestRelation  | lowercase}}</td>
-                        <td class="text-center">{{guest.guestGroup}}</td>
+                        <td class="text-center">{{guest.relation  | lowercase}}</td>
+                        <td class="text-center">{{guest.group}}</td>
+                        <td class="text-center">{{guest.table}}</td>
                         <td class="text-center">
-                            <input type="checkbox" ng-model="guest.guestWillBe" ng-disabled="checkboxDisabled" ng-change="addNewGuests.guestEditDone('M')">
+                            <span ng-if="guest.guestWillBe" class="glyphicon glyphicon-check"></span>
+                            <span ng-if="!guest.guestWillBe" class="glyphicon glyphicon-unchecked"></span>
                         </td>
                     </tr>
 
                     <!--footer-->
-                    <tr ng-if="currentUser.isAuth">
+                    <!--<tr ng-if="currentUser.isAuth">
                     <td colspan="2" style="width:200px">
                         <input type="text" ng-model="addNewGuests.newMguestName" class="new-guest-input" placeholder="Имя">
                     </td>
@@ -67,7 +74,7 @@
                                 class="btn btn-success btn-xs"
                                 ><span class="glyphicon glyphicon-plus"></span></button>
                     </td>
-                </tr>
+                </tr>-->
                 </tbody>
             </table>
         </div>
@@ -76,6 +83,9 @@
 
     <!--FIANCEE SIDE *START*-->
     <div class="fiancee-side-main ">
+        <div ng-if="currentUser.isAuth" style="float: left">
+            <button class="btn btn-warning" data-target="#guest-add" data-toggle="modal" ng-click="guests.guestSide('W')"> <span class="glyphicon glyphicon-plus"></span></button>
+        </div>
         <header class="guests-fiancee-side text-center">
             <h4 class="guests-side-head">СТОРОНА НЕВЕСТЫ</h4>
         </header>
@@ -151,7 +161,73 @@
 
 </div>
 
-<!-- MODAL GUEST EDIT *START* -->
+
+<!-- ADD  GUEST MODAL *START* -->
+<div ng-if="currentUser.isAuth" id="guest-add" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">close</button>
+                <h4 class="modal-title">ДОБАВИТЬ</h4>
+            </div>
+
+            <div class="modal-body wed-modals">
+                <div class="add-new-proj-main">
+                    <form name="addGuestForm" novalidate ng-submit="">
+                        <div>
+                            <div class="form-group">
+                                <label>Имя</label>
+                                <input class="form-control" ng-model="guest.name"
+                                       type="text" required ng-minlength='1'
+                                       name="guestEditName" ng-class="(addGuestForm.guestEditName.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+                            <div class="form-group">
+                                <label>Отношение</label>
+                                <input class="form-control" ng-model="guest.relation"
+                                       type="text" required ng-minlength='1' list="guestRelationList"
+                                       name="guestEditRelation" ng-class="(addGuestForm.guestEditRelation.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+                            <div class="form-group">
+                                <label>№ Группы</label>
+                                <input class="form-control" ng-model="guest.group" type="number" required
+                                       name="guestEditGroup" ng-class="(addGuestForm.guestEditGroup.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+                            <div class="form-group">
+                                <label>№ Стола</label>
+                                <input class="form-control" ng-model="guest.table" type="number" required
+                                       name="guestEditTable" ng-class="(addGuestForm.guestEditTable.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label>Спиртное</label>
+                                <input class="form-control" ng-model="guest.drinks"
+                                       type="text"
+                                       name="guestEditDrink" >
+                            </div>
+                            <div class="form-group">
+                                <label>Заметки</label>
+                                <input class="form-control" ng-model="guest.notes"
+                                       type="text"
+                                       name="guestEditNotes" >
+                            </div>
+                            <hr>
+
+                            <button type="submit" class="btn btn-success btn-block"
+                                    ng-disabled="addGuestForm.$invalid" data-dismiss="modal"
+                                    ng-click="guests.addNewGuest(guest)">
+                                <b>ПРИНЯТЬ</b>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ADD GUEST MODAL *END* -->
+
+<!-- EDIT  GUEST MODAL *START* -->
 <div ng-if="currentUser.isAuth" id="guest-edit" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -166,42 +242,61 @@
                         <div>
                             <div class="form-group">
                                 <label>Имя</label>
-                                <input class="form-control" ng-model="addNewGuests.guestUnderEdit.guestName"
+                                <input class="form-control" ng-model="guests.guestUnderEdit.name"
                                        type="text" required ng-minlength='1'
                                        name="guestEditName" ng-class="(guestDataEdit.guestEditName.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
                                 <label>Отношение</label>
-                                <input class="form-control" ng-model="addNewGuests.guestUnderEdit.guestRelation"
+                                <input class="form-control" ng-model="guests.guestUnderEdit.relation"
                                        type="text" required ng-minlength='1' list="guestRelationList"
                                        name="guestEditRelation" ng-class="(guestDataEdit.guestEditRelation.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
                                 <label>№ Группы</label>
-                                <input class="form-control" ng-model="addNewGuests.guestUnderEdit.guestGroup" type="number" required
+                                <input class="form-control" ng-model="guests.guestUnderEdit.group" type="number" required
                                        name="guestEditGroup" ng-class="(guestDataEdit.guestEditGroup.$invalid)? 'invalid-input' : 'null'">
                             </div>
+                            <div class="form-group">
+                                <label>№ Стола</label>
+                                <input class="form-control" ng-model="guests.guestUnderEdit.table" type="number" required
+                                       name="guestEditTable" ng-class="(addGuestForm.guestEditTable.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label>Спиртное</label>
+                                <input class="form-control" ng-model="guests.guestUnderEdit.drinks"
+                                       type="text"
+                                       name="guestEditDrink" >
+                            </div>
+                            <div class="form-group">
+                                <label>Заметки</label>
+                                <input class="form-control" ng-model="guests.guestUnderEdit.notes"
+                                       type="text"
+                                       name="guestEditNotes" >
+                            </div>
+                            <hr>
                             <div class="form-group">
                                 <label>
                                     <input type="checkbox"
                                            name="guestEditWillBe"
                                            class="ch-box"
                                            style="margin-right: 5px; margin-left: 3px"
-                                           ng-model="addNewGuests.guestUnderEdit.guestWillBe"
+                                           ng-model="guests.guestUnderEdit.guestWillBe"
                                     >Будет в ресторане</label>
                             </div>
                             <div class="form-groupS">
                                 <input type="button"
                                        class="btn btn-xs btn-danger guest-del-btn"
-                                       ng-click="addNewGuests.guestDelete(addNewGuests.guestUnderEdit)"
+                                       ng-click="guests.guestDelete(guests.guestUnderEdit)"
                                        value="удалить"
                                        data-dismiss="modal"
-                                       ng-disabled="addNewGuests.guestUnderEdit.guestWillBe">
+                                       ng-disabled="guests.guestUnderEdit.guestWillBe">
                             </div>
 
                             <button type="submit" class="btn btn-success btn-block"
                                     ng-disabled="guestDataEdit.$invalid" data-dismiss="modal"
-                                    ng-click="addNewGuests.guestEditDone(addNewGuests.guestUnderEdit.side)">
+                                    ng-click="guests.guestEditDone(guests.guestUnderEdit.side)">
                                 <b>ПРИНЯТЬ</b>
                             </button>
                         </div>
@@ -212,7 +307,7 @@
         </div>
     </div>
 </div>
-<!-- MODAL GUEST EDIT *END* -->
+<!-- EDIT GUEST MODAL *END* -->
 
 <datalist id="guestRelationList">
     <option value="отец">отец</option>

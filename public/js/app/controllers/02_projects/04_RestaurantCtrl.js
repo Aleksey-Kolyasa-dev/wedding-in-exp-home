@@ -127,44 +127,34 @@ define(['angular'], function (angular) {
 
         }
 
-        // GUESTS OPS. Fn
-        $scope.addNewGuests = {
-            newMguestName: null,
-            newMguestRelation: null,
-            newMguestGroup: null,
+        // GUESTS OPS. Fn addNewGuests
+        $scope.guests = {
 
-            newWguestName: null,
-            newWguestRelation: null,
-            newWguestGroup: null,
+            side: null,
+            guestSide: function (side) {
+                this.side = side;
+            },
 
             guestData: {},
             guestUnderEdit: {},
 
             _clear: function () {
-                this.newMguestName = null;
-                this.newMguestRelation = null;
-                this.newMguestGroup = null;
-
-                this.newWguestName = null;
-                this.newWguestRelation = null;
-                this.newWguestGroup = null;
 
                 this.guestData = {};
                 this.guestUnderEdit = {};
             },
 
-            addNewGuest: function (side, name, relation, group) {
+            addNewGuest: function (guest) {
                 var self = this;
-                if (name && relation && group && angular.isNumber(+group)) {
-                    this.guestData.guestName = name;
-                    this.guestData.guestRelation = relation;
-                    this.guestData.guestGroup = group;
-                    this.guestData.guestWillBe = true;
+                if (guest.name && guest.relation && guest.group && angular.isNumber(+guest.group) && angular.isNumber(+guest.table)) {
 
-                    switch (side) {
+                    guest.guestWillBe = true;
+                    //guest.side = this.side;
+
+                    switch (this.side) {
                         // Fiance Side Guest
                         case "M":
-                            $scope.currentProject.fianceSideGuests.push(this.guestData);
+                            $scope.currentProject.fianceSideGuests.push(guest);
 
                             var requestM = {
                                 _id: $scope.currentProject._id,
@@ -189,7 +179,7 @@ define(['angular'], function (angular) {
 
                         // Fiancee Side Guest
                         case "W":
-                            $scope.currentProject.fianceeSideGuests.push(this.guestData);
+                            $scope.currentProject.fianceeSideGuests.push(guest);
 
                             var requestW = {
                                 _id: $scope.currentProject._id,
@@ -215,7 +205,8 @@ define(['angular'], function (angular) {
 
                 } else {
                     self._clear();
-                    $log.log('err');
+                    $log.log('ERROR: Guest side ' + this.side + ' VALIDATION Failed!');
+                    toastr.error('ERROR: Guest side ' + this.side + ' VALIDATION Failed!');
                 }
             },
 
