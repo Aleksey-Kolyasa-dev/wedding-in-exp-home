@@ -1,6 +1,6 @@
 <div class="budget-main" ng-controller="budgetMainCtrl">
     <header class="proj-view-header text-right">
-        <div class="top-sub-menu" ng-if="currentUser.isAuth">
+        <nav class="top-sub-menu no-print" ng-if="currentUser.isAuth">
             <ul>
                 <li style="{{subView == 'settings'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('settings')">Бюджет</a></li>
 
@@ -17,13 +17,13 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </nav>
         <h2>
             БЮДЖЕТ<span class="hidden-xs hidden-sm">: <span class="hidden-md">{{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.wedBudget | number}} USD</span></span>
         </h2>
     </header>
 
-    <div class="info-panel text-center">
+    <section class="info-panel text-center">
         <div>
             <div style="margin-top: 5px; margin-right: 30px">
                 <span class="info-plan">
@@ -36,7 +36,7 @@
                 </span>
             </div>
         </div>
-    </div>
+    </section>
 
     <div ng-show="subView == 'settings'">
         <ng-include src="'/views/projects/01_01_projectView_budget_settings.html'"></ng-include>

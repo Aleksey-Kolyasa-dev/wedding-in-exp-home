@@ -78,7 +78,7 @@
 }
 .fiance-side-main-g,
 .fiancee-side-main-g{
-    margin-top: 15px;
+    margin-top: 30px;
     margin-left : 60px;
 }
 .guests-side-head{
@@ -115,14 +115,10 @@
     cursor: pointer;
 }
 .guest-link{
-    /*text-decoration: none !important;*/
 }
 .guest-link:hover{
     cursor : pointer;
     color : #89ff7f;
-    /*border : 1px solid #ffffff;
-    border-radius: 3px;
-    padding : 3px;*/
 }
 
 /*EDIT MODAL*/
@@ -135,7 +131,6 @@
     background: rgba(226, 251, 96, 0.81);
 }
 .usd-use{
-    /*color: rgb(179, 247, 179)!important;*/
     color: #78e278!important;
 }
 .nat-use{
@@ -204,4 +199,7 @@
     font-size: 99%;
     font-weight: bold;
     padding: 3px 20px !important;
+}
+.sort-mark{
+    color : rgb(241, 204, 62);
 }

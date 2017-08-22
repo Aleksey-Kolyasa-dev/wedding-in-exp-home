@@ -9,7 +9,7 @@
         <div class="wed-main-body">
 
             <!-- MENU LEFT *START* -->
-            <div class="wed-main-body-left"><!--col-lg-2 col-md-2 col-sm-3 col-xs-4-->
+            <nav class="wed-main-body-left">
                 <div class="new-proj-main">
                     <div>
                         <a ng-class="currentProjectView.mainMenu == 'budget'? 'main-page-menu-btn-main-active' : 'main-page-menu-btn-main'" ng-click="projectView('budget')">
@@ -72,11 +72,11 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </nav>
             <!-- MENU LEFT *END* -->
 
             <!-- PROJECT'S VIEWS *START* -->
-            <div class="wed-project-body-right">
+            <section class="wed-project-body-right">
                 <div ng-show="currentProjectView.mainMenu == 'budget'">
                     <ng-include src="'/views/projects/01_00_projectView_budget.html'"></ng-include>
                 </div>
@@ -107,7 +107,7 @@
                 <div ng-show="currentProjectView.mainMenu == 'transport'">
                     <ng-include src="'/views/projects/10_00_projectView_transport.html'"></ng-include>
                 </div>-->
-            </div>
+            </section>
             <!-- PROJECT'S VIEWS *END* -->
 
         </div>

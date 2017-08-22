@@ -10,6 +10,11 @@
     font-family: bickhamscr2;
     src: url('../img/fonts/AdineKirnberg.ttf');
 }
+@media print {
+    .no-print {
+        display: none;
+    }
+}
 .wed-app-main{
     font-family: ArialRounded, Arial;
     margin: 10px;

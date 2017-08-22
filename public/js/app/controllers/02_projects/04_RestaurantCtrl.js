@@ -16,7 +16,7 @@ define(['angular'], function (angular) {
         }
 
         // Default values
-        $scope.subView = "restaurant";
+        $scope.subView = "guests"; // restaurant
         $scope.currentProject.restaurant.quickView = false;
         $scope.checkboxDisabled = !_env._dev;
         $scope.guest = {};
@@ -130,8 +130,14 @@ define(['angular'], function (angular) {
 
         // GUESTS OPS. Fn
         $scope.guests = {
-
             side: null,
+            sortByTable_M : false,
+            sortByTable_W : false,
+            drinks_M : false,
+            notes_M : false,
+            rinks_W : false,
+            notes_W : false,
+
             guestSide: function (side) {
                 this.side = side;
             },
@@ -141,6 +147,14 @@ define(['angular'], function (angular) {
             _clear: function () {
                 $scope.guest = {};
                 this.guestUnderEdit = {};
+                if(arguments[0] == 'M'){
+                    this.drinks_M = false;
+                    this.notes_M = false;
+                }
+                if(arguments[0] == 'W'){
+                    this.drinks_W = false;
+                    this.notes_W = false;
+                }
             },
 
             addNewGuest: function (guest) {
