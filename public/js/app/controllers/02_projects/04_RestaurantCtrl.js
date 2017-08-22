@@ -19,6 +19,7 @@ define(['angular'], function (angular) {
         $scope.subView = "restaurant";
         $scope.currentProject.restaurant.quickView = false;
         $scope.checkboxDisabled = !_env._dev;
+        $scope.guest = {};
 
         // ON-EVENT 'TOTAL VALUES CHANGED' <- many..
         $scope.$on('totalValuesChanged', function () {
@@ -127,7 +128,7 @@ define(['angular'], function (angular) {
 
         }
 
-        // GUESTS OPS. Fn addNewGuests
+        // GUESTS OPS. Fn
         $scope.guests = {
 
             side: null,
@@ -135,21 +136,18 @@ define(['angular'], function (angular) {
                 this.side = side;
             },
 
-            guestData: {},
             guestUnderEdit: {},
 
             _clear: function () {
-
-                this.guestData = {};
+                $scope.guest = {};
                 this.guestUnderEdit = {};
             },
 
             addNewGuest: function (guest) {
                 var self = this;
-                if (guest.name && guest.relation && guest.group && angular.isNumber(+guest.group) && angular.isNumber(+guest.table)) {
+                if (guest.name && guest.relation && angular.isNumber(guest.group) && angular.isNumber(guest.table)) {
 
                     guest.guestWillBe = true;
-                    //guest.side = this.side;
 
                     switch (this.side) {
                         // Fiance Side Guest

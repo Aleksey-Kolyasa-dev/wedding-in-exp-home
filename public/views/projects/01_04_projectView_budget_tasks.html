@@ -65,22 +65,17 @@
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
-                        <form name="{{conf.addForm}}" novalidate>
+                        <form name="taskFom" novalidate>
                             <div>
                                 <div class="form-group">
-                                    <label ng-class="newItem.status? 'usd-use' : 'nat-use'">Задача</label>
-                                    <input class="form-control" ng-model="newItem.name"
-                                           type="text" required ng-minlength='1'
-                                           name="expItemNewName" style='{{($eval(conf.addForm).expItemNewName.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}'>
+                                    <label ng-class="newItem.status? 'usd-use' : 'nat-use'">Задача:</label>
+                                    <textarea class="form-control" ng-model="newItem.name" required ng-minlength='1'
+                                           name="expItemNewName" style='{{(taskFom.expItemNewName.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}'>
+                                    </textarea>
                                 </div>
                                 <hr>
-                                <div class="form-group text-center" style="width: 100%">
-                                    <label style="cursor: pointer;" ng-class="newItem.status? 'usd-use' : 'nat-use'">Статус: {{newItem.status? 'выполнена' : 'не выполнена'}}
-                                        <input style="width: 16px; height: 16px; cursor: pointer; display: none" ng-value="false" ng-model="newItem.status"
-                                               type="checkbox"></label>
-                                </div>
                                 <button type="submit" class="btn btn-success btn-block"
-                                        ng-disabled="($eval(conf.addForm).$invalid)" data-dismiss="modal"
+                                        ng-disabled="(taskFom.$invalid)" data-dismiss="modal"
                                         ng-click="addNewExpenseItem(newItem)">
                                     <span>ПРИМЕНИТЬ</span>
                                 </button>
@@ -108,13 +103,13 @@
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
-                        <form name="{{conf.editForm}}" novalidate>
+                        <form name="taskEditForm" novalidate>
                             <div>
                                 <div class="form-group">
                                     <label ng-class="itemToEdit.status? 'usd-use' : 'nat-use'">Задача:</label>
-                                    <input class="form-control" ng-model="itemToEdit.name"
-                                           type="text" required ng-minlength='1'
-                                           name="expItemNewName" style='{{($eval(conf.addForm).expItemNewName.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}'>
+                                    <textarea class="form-control" ng-model="itemToEdit.name" required ng-minlength='1'
+                                              name="expItemNewName" style='{{(taskEditForm.expItemNewName.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}'>
+                                    </textarea>
                                 </div>
                                 <hr>
                                 <div class="form-group text-center" style="width: 100%">
@@ -123,7 +118,7 @@
                                                type="checkbox"></label>
                                 </div>
                                 <hr>
-                                <div class="text-center">
+                                <div class="text-right">
                                     <div class="form-group" style="width: 100%">
                                         <label style="cursor: pointer; font-size: 90%; color: silver">
                                             <input style="width: 16px; display: none; height: 16px; cursor: pointer" ng-model="removeTrigger.status"
@@ -137,7 +132,7 @@
                                     <span>ПОДТВЕРДИТЬ УДАЛЕНИЕ</span>
                                 </button>
                                 <button ng-if="!removeTrigger.status" type="submit" class="btn btn-success btn-block"
-                                        ng-disabled="($eval(conf.editForm).$invalid)" data-dismiss="modal"
+                                        ng-disabled="(taskEditForm.$invalid)" data-dismiss="modal"
                                         ng-click="editExpenseItemSave(itemToEdit)">
                                     <span>ПРИМЕНИТЬ</span>
                                 </button>

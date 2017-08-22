@@ -76,8 +76,14 @@
     margin-top: 15px;
     margin-left : 30px;
 }
+.fiance-side-main-g,
+.fiancee-side-main-g{
+    margin-top: 15px;
+    margin-left : 60px;
+}
 .guests-side-head{
-    color: #ffffff;
+    font-style: italic;
+    color: rgb(233, 241, 179)
 }
 .guest-side-table-head{
     color: #ffffff;
@@ -85,7 +91,7 @@
 }
 .guest-side-table-head2{
     color: #ffffff;
-    background: rgba(241, 109, 255, 0.51);
+    background: rgba(200, 109, 255, 0.51);
 }
 .new-guest-input{
     background: rgba(2, 12, 12, 0.36);
@@ -109,14 +115,14 @@
     cursor: pointer;
 }
 .guest-link{
-    text-decoration: none !important;
+    /*text-decoration: none !important;*/
 }
 .guest-link:hover{
     cursor : pointer;
-    color : #ffffff;
-    border : 1px solid #ffffff;
+    color : #89ff7f;
+    /*border : 1px solid #ffffff;
     border-radius: 3px;
-    padding : 3px;
+    padding : 3px;*/
 }
 
 /*EDIT MODAL*/
