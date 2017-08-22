@@ -16,7 +16,7 @@ define(['angular'], function (angular) {
         }
 
         // Default values
-        $scope.subView = "guests"; // restaurant
+        $scope.subView = "restaurant";
         $scope.currentProject.restaurant.quickView = false;
         $scope.checkboxDisabled = !_env._dev;
         $scope.guest = {};

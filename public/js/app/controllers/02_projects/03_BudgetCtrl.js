@@ -290,7 +290,7 @@ define(['angular'], function (angular) {
 
         // Add New TASK Item Fn
         $scope.addNewExpenseItem = function (item) {
-            if(item.name != ''){
+            if(item.name != '' && angular.isNumber(item.priority)){
 
                 // Add expense item to expCollection
                 $scope.currentProject[$scope.conf.mainProp].expCollection.push(item);
@@ -337,7 +337,7 @@ define(['angular'], function (angular) {
 
         // SAVE EDITED ITEM in DB
         $scope.editExpenseItemSave = function (item) {
-            if(item.name != ''){
+            if(item.name != '' && angular.isNumber(item.priority)){
 
                 if (_env._dev){
                     $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - EDIT ' + $scope.conf.msgNameBg +' EVENT ');
