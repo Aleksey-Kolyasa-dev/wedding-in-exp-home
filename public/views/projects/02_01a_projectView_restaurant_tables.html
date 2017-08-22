@@ -1,0 +1,62 @@
+<div class="guests-list-main">
+<ul ng-repeat="table in arr">
+    <li>
+        <!--FIANCE SIDE *START*-->
+        <div class="fiance-side-main-g" style="float: left">
+
+
+            <!--header-->
+            <header class="guests-fiance-side text-center">
+                <h4 class="guests-side-head text-right" style="font-size: 200%;">СТОЛ №{{$index + 1}}</h4>
+            </header>
+            <!--header-->
+
+            <!--guests table-->
+            <section>
+                <table class="table info-glass-panel table-responsive" style="min-width: 500px">
+                    <thead class="guest-side-table-head-t">
+                    <tr style="color: white">
+                        <th class="text-center">№</th>
+                        <th >Имя</th>
+                        <th class="text-center">Отношение</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <!-- fiance -->
+                    <tr ng-if="$first" class="guest">
+                        <td class="text-center">1</td>
+                        <td>{{currentProject.fianceName | uppercase}}</td>
+                        <td class="text-center">жених</td>
+                    </tr>
+                    <tr ng-if="$first" class="guest">
+                        <td class="text-center">2</td>
+                        <td>{{currentProject.fianceeName | uppercase}}</td>
+                        <td class="text-center">жених</td>
+                    </tr>
+
+
+
+                    <!--body by Table -->
+                    <tr ng-repeat="guest in table"  ng-class="guest.side == 'M' ? 'sideM' : 'sideW'" >
+                        <td class="text-center">{{$parent.$first ? ($index + 3) : ($index + 1)}}</td>
+                        <td>{{guest.name | uppercase}}</td>
+                        <td class="text-center">{{guest.relation  | lowercase}}</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </section>
+            <!--guests table-->
+        </div>
+        <!--FIANCE SIDE *END*-->
+    </li>
+</ul>
+
+
+
+
+</div>

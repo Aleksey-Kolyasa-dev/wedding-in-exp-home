@@ -20,6 +20,7 @@ define(['angular'], function (angular) {
         $scope.currentProject.restaurant.quickView = false;
         $scope.checkboxDisabled = !_env._dev;
         $scope.guest = {};
+        $scope.tablesQty =[],
 
         // ON-EVENT 'TOTAL VALUES CHANGED' <- many..
         $scope.$on('totalValuesChanged', function () {
@@ -32,6 +33,10 @@ define(['angular'], function (angular) {
             switch (view) {
 
                 case "guests" :
+                    $scope.subView = view;
+                    break;
+
+                case "tables" :
                     $scope.subView = view;
                     break;
 
@@ -162,6 +167,7 @@ define(['angular'], function (angular) {
                 if (guest.name && guest.relation && angular.isNumber(guest.group) && angular.isNumber(guest.table)) {
 
                     guest.guestWillBe = true;
+                    guest.table = Math.floor(guest.table);
 
                     switch (this.side) {
                         // Fiance Side Guest
@@ -241,6 +247,9 @@ define(['angular'], function (angular) {
 
                 switch (side) {
                     case "M":
+                        $scope.currentProject.fianceSideGuests.map(function (guest) {
+                            guest.table = Math.floor(guest.table);
+                        });
                         var requestM = {
                             _id: $scope.currentProject._id,
                             key : "fianceSideGuests",
@@ -264,6 +273,10 @@ define(['angular'], function (angular) {
 
                     case "W":
 
+                        $scope.currentProject.fianceeSideGuests.map(function (guest) {
+                            guest.table = Math.floor(guest.table);
+                        });
+
                         var requestW = {
                             _id: $scope.currentProject._id,
                             key : "fianceeSideGuests",
@@ -285,6 +298,9 @@ define(['angular'], function (angular) {
                             });
                         break;
                 }
+
+                tables();
+
             },
 
             guestDelete: function (guest) {
@@ -341,6 +357,49 @@ define(['angular'], function (angular) {
 
             }
         };
+/////////////
+        function tables() {
+            var buffer = 0;
+            angular.forEach($scope.currentProject.fianceSideGuests, function (guest) {
+                if(buffer < guest.table){
+                    buffer = guest.table;
+                }
+            });
+            angular.forEach($scope.currentProject.fianceeSideGuests, function (guest) {
+                if(buffer < guest.table){
+                    buffer = guest.table;
+                }
+            });
+            var count = 0;
+            var arr = new Array(buffer);
+
+            for(var i = 0; i < buffer; i++){
+                arr[i] = i;
+            }
+
+            //$scope.arr = arr;
+            var result = [];
+            $scope.arr = [];
+            $scope.tablesQty = $scope.currentProject.fianceSideGuests.concat($scope.currentProject.fianceeSideGuests);
+
+           angular.forEach(arr, function (item, index, array) {
+               var inter = [];
+                angular.forEach($scope.tablesQty, function (guest, guestIndex) {
+                   if(guest.table == index + 1 && guest.guestWillBe){
+                       inter.push(guest);
+                   }
+                });
+               $scope.arr[index] = inter;
+            });
+
+
+           // $scope.tablesQty.push(arr);
+            $log.log($scope.arr);
+        }
+
+        tables();
+/////////////
+
 
         // Guests Qty Fn
         $scope.guestsQty = function (project) {

@@ -89,6 +89,9 @@
     color: #ffffff;
     background: rgba(112, 117, 255, 0.50);
 }
+.guest-side-table-head-t{
+    background: rgba(29, 101, 68, 0.5);
+}
 .guest-side-table-head2{
     color: #ffffff;
     background: rgba(200, 109, 255, 0.51);
@@ -201,5 +204,5 @@
     padding: 3px 20px !important;
 }
 .sort-mark{
-    color : rgb(241, 204, 62);
+    color : hsl(59, 100%, 62%);
 }

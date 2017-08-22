@@ -5,6 +5,7 @@
             <ul>
                 <li style="{{subView == 'restaurant'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurant')">Ресторан</a></li>
                 <li style="{{subView == 'guests'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('guests')">Гости</a></li>
+                <li style="{{subView == 'tables'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('tables')">Столы</a></li>
                 <li style="{{subView == 'restaurantMenu'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurantMenu')">Меню</a></li>
                 <li style="{{subView == 'restaurantCakes'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurantCakes')">Кондитер</a></li>
                 <li style="{{subView == 'restaurantPlus'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurantPlus')">Ресторан +</a></li>
@@ -35,7 +36,7 @@
         </div>
 
         <div style="font-size: 95%">
-            <div ng-if="subView == 'guests'">
+            <div>
                 <span style="font-style: italic">
                     Гостей:  {{guestsQty(currentProject)}} чел.
                 </span>
@@ -76,11 +77,14 @@
     <!--Info-panel-->
 
     <!--Views-->
+    <div ng-show="currentProject.restaurant.quickView  && subView == 'guests'">
+        <ng-include src="'/views/projects/02_02_projectView_restaurant_quick.html'"></ng-include>
+    </div>
     <div ng-show="!currentProject.restaurant.quickView && subView == 'guests'">
         <ng-include src="'/views/projects/02_01_projectView_restaurant_guestsList.html'"></ng-include>
     </div>
-    <div ng-show="currentProject.restaurant.quickView  && subView == 'guests'">
-        <ng-include src="'/views/projects/02_02_projectView_restaurant_quick.html'"></ng-include>
+    <div ng-show="!currentProject.restaurant.quickView && subView == 'tables'">
+        <ng-include src="'/views/projects/02_01a_projectView_restaurant_tables.html'"></ng-include>
     </div>
     <div ng-show="subView == 'restaurantMenu'">
         <ng-include src="'/views/projects/02_03_projectView_restaurant_menu.html'"></ng-include>
