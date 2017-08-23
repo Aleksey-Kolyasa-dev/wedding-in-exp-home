@@ -9,8 +9,8 @@ define(['angular'], function (angular) {
 
     function UsersResourceService(toastr, $http, $q, $log, $location, wedURL) {
         return {
-            //baseURL: 'http://localhost:5000/users/',
-            baseURL: 'https://wedding-in.herokuapp.com/users/',
+            baseURL: 'http://localhost:5000/users/',
+            //baseURL: 'https://wedding-in.herokuapp.com/users/',
             _ajaxRequest: function (method, url, data, keyURL) {
                 var self = this;
                 var deferred = $q.defer();
