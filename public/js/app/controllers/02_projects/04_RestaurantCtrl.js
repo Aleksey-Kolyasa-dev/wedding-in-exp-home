@@ -20,7 +20,7 @@ define(['angular'], function (angular) {
         $scope.currentProject.restaurant.quickView = false;
         $scope.checkboxDisabled = !_env._dev;
         $scope.guest = {};
-        $scope.tablesCollection = [];
+        $scope.tablesCollection = [[]];
 
         // ON-EVENT 'TOTAL VALUES CHANGED' <- many..
         $scope.$on('totalValuesChanged', function () {
