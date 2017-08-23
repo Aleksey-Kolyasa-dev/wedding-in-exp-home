@@ -161,7 +161,7 @@ define(['angular'], function (angular) {
                         if (data.login) {
                             // RESET View model
                             $scope.user = {};
-                            if (_env._dev) {
+                            if (_env()._dev) {
                                 toastr.success("NEW USER " + data.name + " REGISTRED!");
                             }
                         } else {

@@ -74,7 +74,7 @@ define(['angular'], function (angular) {
             // COPY Obj back
            $scope.currentProject.budget.total = wed.budget.total;
 
-            if (_env._dev){
+            if (_env()._dev){
                 $log.log('BUDGET CALCULATION UPDATE');
             }
         }
@@ -118,7 +118,7 @@ define(['angular'], function (angular) {
                     // SAVE RESTAURANT DATA
                     ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                         function (data) {
-                            if (_env._dev) {
+                            if (_env()._dev) {
                                 toastr.success('budget changed');
                                 $scope.budget = {};
                             }
@@ -166,7 +166,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('Notes are saved!');
                     }
                 },
@@ -193,7 +193,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('Notes are saved!');
                     }
                 },
@@ -295,7 +295,7 @@ define(['angular'], function (angular) {
                 // Add expense item to expCollection
                 $scope.currentProject[$scope.conf.mainProp].expCollection.push(item);
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +'  EVENT ');
                 }
 
@@ -310,7 +310,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.newItem = {};
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
                         }
                     },
@@ -339,7 +339,7 @@ define(['angular'], function (angular) {
         $scope.editExpenseItemSave = function (item) {
             if(item.name != '' && angular.isNumber(item.priority)){
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - EDIT ' + $scope.conf.msgNameBg +' EVENT ');
                 }
 
@@ -354,7 +354,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.itemToEdit = {};
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
                         }
                     },
@@ -378,7 +378,7 @@ define(['angular'], function (angular) {
             // Remove from model
             $scope.currentProject[$scope.conf.mainProp].expCollection.splice(index, 1);
             //$scope.removeTrigger = false;
-            if (_env._dev){
+            if (_env()._dev){
                 $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - REMOVE ' + $scope.conf.msgNameBg +' EVENT ');
             }
             var request = {
@@ -393,7 +393,7 @@ define(['angular'], function (angular) {
                 function (data) {
 
                     $scope.itemToEdit = {};
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Item removed');
                     }
                 },

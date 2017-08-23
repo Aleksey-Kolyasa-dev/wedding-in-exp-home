@@ -40,7 +40,7 @@ define(['angular'], function (angular) {
         $scope.$watch("currentProject.budget.currency", function () {
             if($scope.currentProject[$scope.conf.mainProp].expCollection.length){
                 updateTotalValues();
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - CURRENCY change EVENT');
                 }
             }
@@ -135,7 +135,7 @@ define(['angular'], function (angular) {
               // Update total values
               updateTotalValues();
 
-              if (_env._dev){
+              if (_env()._dev){
                   $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +' EXP EVENT ');
               }
 
@@ -150,7 +150,7 @@ define(['angular'], function (angular) {
               ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                   function (data) {
                       $scope.newItem = {};
-                      if (_env._dev) {
+                      if (_env()._dev) {
                           toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
                       }
                   },
@@ -212,7 +212,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update PROJECT by ' + $scope.conf.msgNameBg + ': reason - EDIT ' + $scope.conf.msgNameBg + ' EXP EVENT ');
                 }
 
@@ -227,7 +227,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.itemToEdit = {};
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
                         }
                     },
@@ -253,7 +253,7 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
-            if (_env._dev){
+            if (_env()._dev){
                 $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - REMOVE ' + $scope.conf.msgNameBg + ' EXP EVENT ');
             }
             var request = {
@@ -266,7 +266,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Expense Item removed');
                     }
                 },
@@ -305,7 +305,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Notes are saved!');
                     }
                 },

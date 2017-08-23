@@ -11,14 +11,14 @@ define(['angular'], function (angular) {
      * RESTAURANT MAIN CTRL
      * */
     function restaurantMainCtrl($scope, $log, toastr, ResourceService) {
-        if(_env._dev){
+        if(_env()._dev){
             $scope.count = 0;
         }
 
         // Default values
         $scope.subView = "restaurant";
         $scope.currentProject.restaurant.quickView = false;
-        $scope.checkboxDisabled = !_env._dev;
+        $scope.checkboxDisabled = !_env()._dev;
         $scope.guest = {};
         $scope.tablesCollection = [[]];
 
@@ -77,7 +77,7 @@ define(['angular'], function (angular) {
             // SAVE MenuCheck SAVE DATA
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.success('useMenuCheck changed');
                     }
                 },
@@ -127,7 +127,7 @@ define(['angular'], function (angular) {
                 $scope.currentProject.restaurant.total.restTotalNat = $scope.currentProject.restaurant.total.planTotalNat - $scope.currentProject.restaurant.total.paidTotalNat;
                 $scope.currentProject.restaurant.total.restTotalUsd = $scope.currentProject.restaurant.total.planTotalUsd - $scope.currentProject.restaurant.total.paidTotalUsd;
 
-            if (_env._dev) {
+            if (_env()._dev) {
                 $scope.count++;
             }
 
@@ -244,7 +244,7 @@ define(['angular'], function (angular) {
                             ResourceService._ajaxRequest("PUT", null, requestM, requestM.keyURL).then(
                                 function (data) {
                                     self._clear();
-                                    if (_env._dev) {
+                                    if (_env()._dev) {
                                         toastr.success('GUEST ADD SUCCESS');
                                     }
                                 },
@@ -270,7 +270,7 @@ define(['angular'], function (angular) {
                             ResourceService._ajaxRequest("PUT", null, requestW, requestW.keyURL).then(
                                 function (data) {
                                     self._clear();
-                                    if (_env._dev) {
+                                    if (_env()._dev) {
                                         toastr.success('GUEST ADD SUCCESS');
                                     }
                                 },
@@ -323,7 +323,7 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, requestM, requestM.keyURL).then(
                             function (data) {
                                 self._clear();
-                                if (_env._dev) {
+                                if (_env()._dev) {
                                     toastr.success('GUEST EDIT SUCCESS');
                                 }
                             },
@@ -350,7 +350,7 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, requestW, requestW.keyURL).then(
                             function (data) {
                                 self._clear();
-                                if (_env._dev) {
+                                if (_env()._dev) {
                                     toastr.success('GUEST EDIT SUCCESS');
                                 }
                             },
@@ -381,7 +381,7 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, requestM, requestM.keyURL).then(
                             function (data) {
                                 self._clear();
-                                if (_env._dev) {
+                                if (_env()._dev) {
                                     toastr.success('GUEST DELETED SUCCESS');
                                 }
                             },
@@ -405,7 +405,7 @@ define(['angular'], function (angular) {
                         ResourceService._ajaxRequest("PUT", null, requestW, requestW.keyURL).then(
                             function (data) {
                                 self._clear();
-                                if (_env._dev) {
+                                if (_env()._dev) {
                                     toastr.success('GUEST DELETED SUCCESS');
                                 }
                             },
@@ -460,7 +460,7 @@ define(['angular'], function (angular) {
                 // Do total calculations
                 restaurantTotal();
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('UPDATE: reason - RESTAURANT DATA SAVE EVENT', $scope.count);
                 }
 
@@ -475,7 +475,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, requestG, requestG.keyURL).then(
                     function (data) {
                         $scope.saveHide = true;
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success('generalData changed');
                         }
                     },
@@ -501,7 +501,7 @@ define(['angular'], function (angular) {
                     ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.saveHide = true;
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success('quickData changed');
                         }
                     },
@@ -565,7 +565,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('Notes are saved!');
                     }
                 },
@@ -592,7 +592,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('Notes are saved!');
                     }
                 },
@@ -668,7 +668,7 @@ define(['angular'], function (angular) {
             // Update total values
             updateTotalValues();
 
-            if (_env._dev){
+            if (_env()._dev){
                 $log.log('update by MENU: reason - GUEST QTY EVENT ', $scope.count)
             }
         });
@@ -682,7 +682,7 @@ define(['angular'], function (angular) {
                 // EVENT: 'TOTAL VALUES CHANGED'
                 $scope.$emit('totalValuesChanged');
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update by MENU: reason - MENU CHECK CHANGED', $scope.count)
                 }
             }
@@ -747,7 +747,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update by MENU: reason - ADD MENU ITEM EVENT ', $scope.count)
                 }
 
@@ -765,7 +765,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.newItem = {};
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success('Menu Item created!');
                         }
                     },
@@ -819,7 +819,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update by MENU: reason - EDIT MENU EVENT ', $scope.count)
                 }
 
@@ -837,7 +837,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.itemToEdit = {};
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success('Menu Item Edited!');
                         }
                     },
@@ -863,7 +863,7 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
-            if (_env._dev){
+            if (_env()._dev){
                 $log.log('update by MENU: reason - REMOVE MENU ITEM EVENT ', $scope.count)
             }
 
@@ -881,7 +881,7 @@ define(['angular'], function (angular) {
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     $scope.itemToEdit = {};
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.warning('Menu Item removed');
                     }
                 },
@@ -921,7 +921,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('MENU Notes are saved!');
                     }
                 },
@@ -965,7 +965,7 @@ define(['angular'], function (angular) {
             // Update total values
             updateTotalValues();
 
-            if (_env._dev){
+            if (_env()._dev){
                 $log.log('update by CAKE: reason - GUEST QTY EVENT ', $scope.count)
             }
         });
@@ -974,7 +974,7 @@ define(['angular'], function (angular) {
         $scope.$watch("currentProject.budget.currency", function () {
             if($scope.currentProject.restaurantCakes.expCollection.length){
                 updateTotalValues();
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update by CAKE: reason - CURRENCY change EVENT', $scope.count);
                 }
             }
@@ -1058,7 +1058,7 @@ define(['angular'], function (angular) {
                // Update total values
                 updateTotalValues();
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update by CAKE: reason - ADD CAKE EVENT ', $scope.count)
                 }
 
@@ -1073,7 +1073,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.newItem = {};
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success('CAKES Item created!');
                         }
                     },
@@ -1128,7 +1128,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update by CAKES: reason - EDIT CAKES EVENT ', $scope.count)
                 }
 
@@ -1143,7 +1143,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.itemToEdit = {};
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success('CAKE Expense Item Edited!');
                         }
                     },
@@ -1170,7 +1170,7 @@ define(['angular'], function (angular) {
             // Update total values
             updateTotalValues();
 
-            if (_env._dev){
+            if (_env()._dev){
                 $log.log('update by CAKES: reason - REMOVE CAKES EVENT ', $scope.count)
             }
 
@@ -1185,7 +1185,7 @@ define(['angular'], function (angular) {
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     $scope.itemToEdit = {};
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('CAKES Item removed');
                     }
                 },
@@ -1225,7 +1225,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('CAKES Notes are saved!');
                     }
                 },
@@ -1257,7 +1257,7 @@ define(['angular'], function (angular) {
             if($scope.currentProject.restaurantPlus.expCollection.length){
                 updateTotalValues();
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update by PLUS: reason - CURRENCY change EVENT', $scope.count);
                 }
             }
@@ -1351,7 +1351,7 @@ define(['angular'], function (angular) {
               // Update total values
               updateTotalValues();
 
-              if (_env._dev){
+              if (_env()._dev){
                   $log.log('update by PLUS: reason - ADD PLUS EXP EVENT ', $scope.count);
               }
 
@@ -1366,7 +1366,7 @@ define(['angular'], function (angular) {
               ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                   function (data) {
                       $scope.newItem = {};
-                      if (_env._dev) {
+                      if (_env()._dev) {
                           toastr.success('PLUS Expense Item created!');
                       }
                   },
@@ -1428,7 +1428,7 @@ define(['angular'], function (angular) {
                 // Update total values
                 updateTotalValues();
 
-                if (_env._dev){
+                if (_env()._dev){
                     $log.log('update by PLUS: reason - EDIT PLUS EXP EVENT ', $scope.count);
                 }
 
@@ -1443,7 +1443,7 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                     function (data) {
                         $scope.itemToEdit = {};
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success('PLUS Expense Item Edited!');
                         }
                     },
@@ -1469,7 +1469,7 @@ define(['angular'], function (angular) {
 
             // Update total values
             updateTotalValues();
-            if (_env._dev){
+            if (_env()._dev){
                 $log.log('update by PLUS: reason - REMOVE PLUS EXP EVENT ', $scope.count);
             }
 
@@ -1484,7 +1484,7 @@ define(['angular'], function (angular) {
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
                     $scope.itemToEdit = {};
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('PLUS Expense Item removed');
                     }
                 },
@@ -1524,7 +1524,7 @@ define(['angular'], function (angular) {
             // SAVE CHANGES in DB
             ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
                 function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.info('PLUS Notes are saved!');
                     }
                 },

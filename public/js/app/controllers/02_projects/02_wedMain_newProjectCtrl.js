@@ -35,7 +35,7 @@ define(['angular'], function (angular) {
                         // EVENT: 'SMS QTY' -> wedMainCtrl
                         $scope.$emit('smsQty', sms);
 
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.success("НОВЫЙ ПРОЕКТ СВАДЬБЫ " + project.fianceName + " и " + project.fianceeName + " СОЗДАН УСПЕШНО!");
                         }
                     })
@@ -89,7 +89,7 @@ define(['angular'], function (angular) {
                 // Save to DB
                 ResourceService._ajaxRequest("PUT", null, editedProject, null).then(
                     function (project) {
-                        if (_env._dev) {
+                        if (_env()._dev) {
                             toastr.info('PROJECT EDITED WITH SUCCESS');
                         }
 
@@ -113,7 +113,7 @@ define(['angular'], function (angular) {
                 $scope.$emit('smsQty', sms);
 
                 ResourceService._ajaxRequest("DELETE", id, null, null).then(function (data) {
-                    if (_env._dev) {
+                    if (_env()._dev) {
                         toastr.warning('PROJECT WAS DELETED');
                     }
 

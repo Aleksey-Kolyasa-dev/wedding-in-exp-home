@@ -184,7 +184,7 @@
                             <div class="form-group">
                                 <label>Национальная валюта</label>
                                 <input class="form-control" ng-model="budget.nationalMoney"
-                                       type="text" required ng-minlength='1' placeholder="UAH, RUB, BLR ..."
+                                       type="text" required ng-minlength='1' list="moneyList" placeholder="UAH, RUB, BLR ..."
                                        name="editBudgetNatName" ng-class="(editBudgetGeneralDataForm.editBudgetNatName.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
@@ -211,3 +211,9 @@
     </div>
 </div>
 <!-- EDIT BUDGET DATA MODAL *END* -->
+
+<datalist id="moneyList">
+    <option value="UAH">UAH</option>
+    <option value="RUB">RUB</option>
+    <option value="BLR">BLR</option>
+</datalist>
