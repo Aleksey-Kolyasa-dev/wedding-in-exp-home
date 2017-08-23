@@ -10,7 +10,7 @@ define(['angular'], function (angular) {
     /*
      * USERS MAIN CTRL
      * */
-    function wedUsersMainCtrl($scope, $rootScope, $log, $window, $location, $timeout, toastr, _env, UsersResourceService, AppService) {
+    function wedUsersMainCtrl($scope, $rootScope, $log, $window, $location, $timeout, toastr, UsersResourceService, AppService) {
 
         // ON-EVENT: USER LOG OUT
         $scope.$on('logout', function () {
@@ -39,7 +39,7 @@ define(['angular'], function (angular) {
     /*
      * USERS LOGIN CTRL
      * */
-    function loginCtrl($scope, $window, $log, $location, $timeout, toastr, _env, UsersResourceService, ResourceService, UserAuthService) {
+    function loginCtrl($scope, $window, $log, $location, $timeout, toastr, UsersResourceService, ResourceService, UserAuthService) {
 
         // DO LOGIN Fn
         $scope.doLogin = function (data) {
@@ -138,7 +138,7 @@ define(['angular'], function (angular) {
     /*
      * USERS REGISTRATION CTRL
      * */
-    function registrationCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, _env, UsersResourceService, AppService) {
+    function registrationCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, UsersResourceService, AppService) {
 
         // NEW USER REGISTRATION Fn
         $scope.doRegister = function (user) {

@@ -10,7 +10,7 @@ define(['angular'], function (angular) {
     /*
      * RESTAURANT MAIN CTRL
      * */
-    function restaurantMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function restaurantMainCtrl($scope, $log, toastr, ResourceService) {
         if(_env._dev){
             $scope.count = 0;
         }
@@ -612,7 +612,7 @@ define(['angular'], function (angular) {
     /*
      * RESTAURANT MENU CTRL
      * */
-    function restaurantMenuMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function restaurantMenuMainCtrl($scope, $log, toastr, ResourceService) {
         // Default data
         $scope.itemToEdit = {};
         $scope.newItem = {};
@@ -942,7 +942,7 @@ define(['angular'], function (angular) {
     /*
      * RESTAURANT CAKES CTRL
      * */
-    function restaurantCakesMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function restaurantCakesMainCtrl($scope, $log, toastr, ResourceService) {
         // Default data
         $scope.itemToEdit = {};
         $scope.newItem = {};
@@ -1245,7 +1245,7 @@ define(['angular'], function (angular) {
     /*
     * RESTAURANT PLUS CTRL
     * */
-    function restaurantPlusMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function restaurantPlusMainCtrl($scope, $log, toastr, ResourceService) {
         // Default data
         $scope.itemToEdit = {};
         $scope.newItem = {};

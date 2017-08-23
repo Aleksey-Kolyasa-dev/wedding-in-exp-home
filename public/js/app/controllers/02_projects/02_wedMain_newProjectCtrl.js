@@ -8,7 +8,7 @@ define(['angular'], function (angular) {
     /*
     *  NEW PROJECT CTRL
     * */
-    function newProjectCtrl($scope, $log, $window, toastr, _env, ResourceService, AppService) {
+    function newProjectCtrl($scope, $log, $window, toastr, ResourceService, AppService) {
 
         if($scope.currentUser.isAuth) {
 
@@ -52,7 +52,7 @@ define(['angular'], function (angular) {
     /*
     * EDIT PROJECT CTRL
     * */
-    function editProjectCtrl($scope, $log, toastr, _env, ResourceService, AppService) {
+    function editProjectCtrl($scope, $log, toastr, ResourceService, AppService) {
         // Budget Update Fn
         function budgetUpdate() {
             $scope.editProject.budget.budgetNat = $scope.currentProject.wedBudget * $scope.editProject.budget.currency;

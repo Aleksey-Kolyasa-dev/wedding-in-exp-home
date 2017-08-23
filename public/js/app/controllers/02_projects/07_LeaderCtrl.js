@@ -7,7 +7,7 @@ define(['angular'], function (angular) {
     /*
     * DECOR MAIN CTRL
     * */
-    function leaderMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function leaderMainCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup

@@ -1,18 +1,25 @@
-var _test = 'http://localhost:5000/api/';
+//var _test = 'http://localhost:5000/api/';
 function _env() {
-	var dev = true;
+	// MAIN SET
+	var devEnvironment = true;
 
-	function projectURL(arg) {
-        if(arg){
-           return 'http://localhost:5000/api/';
-        } else {
-            return 'https://wedding-in.herokuapp.com/api/';
-        }
-    }
-
+	// Auto
     return {
-        _dev : dev,
-		_apiURL : projectURL(dev)
+        _dev : devEnvironment,
+		get _apiURL(){
+            if(devEnvironment){
+                return 'http://localhost:5000/api/';
+            } else {
+                return 'https://wedding-in.herokuapp.com/api/';
+            }
+		},
+		get _usersURL(){
+            if(devEnvironment){
+                return 'http://localhost:5000/users/';
+            } else {
+                return 'https://wedding-in.herokuapp.com/users/';
+            }
+		}
     };
 }
 require.config({

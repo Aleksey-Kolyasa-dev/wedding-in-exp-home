@@ -7,7 +7,7 @@ define(['angular'], function (angular) {
     /*
     * DECOR MAIN CTRL
     * */
-    function videoMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function videoMainCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup

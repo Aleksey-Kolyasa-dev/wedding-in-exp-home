@@ -7,7 +7,7 @@ define(['angular'], function (angular) {
     /*
     * DECOR MAIN CTRL
     * */
-    function photoMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function photoMainCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup

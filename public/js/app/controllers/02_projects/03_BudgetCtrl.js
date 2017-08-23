@@ -9,7 +9,7 @@ define(['angular'], function (angular) {
     /*
      * BUDGET MAIN CTRL
      * */
-    function budgetMainCtrl($scope, $log, toastr,$window ,$timeout ,_env, ResourceService, UsersResourceService) {
+    function budgetMainCtrl($scope, $log, toastr,$window ,$timeout, ResourceService, UsersResourceService) {
         // Default subView
         $scope.subView = "settings";
         $scope.budget = {};
@@ -254,7 +254,7 @@ define(['angular'], function (angular) {
     /*
      * tasks MAIN CTRL
      * */
-    function tasksMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function tasksMainCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
@@ -414,7 +414,7 @@ define(['angular'], function (angular) {
     /*
      * SMS MAIN CTRL
      * */
-    function smsMainCtrl($scope, $log, toastr, $http, $timeout ,_env, ResourceService){
+    function smsMainCtrl($scope, $log, toastr, $http, $timeout, ResourceService){
 
         // VISITOR SMS SEND Fn
         $scope.sendSms = function (msg) {

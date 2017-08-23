@@ -7,7 +7,7 @@ define(['angular'], function (angular) {
     /*
     * DECOR MAIN CTRL
     * */
-    function musicMainCtrl($scope, $log, toastr, _env, ResourceService) {
+    function musicMainCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
