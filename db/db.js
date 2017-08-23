@@ -14,3 +14,29 @@ db.once("open", function () {
 });
 
 module.exports = db;*/
+"use strict";
+
+// ENVIRONMENT SWITCH Fn
+function _envAPI() {
+    // MAIN SET
+    var apiDevEnvironment = true;
+
+    // Auto
+    return {
+        _dev : apiDevEnvironment,
+        get _projectsDB_URL(){
+            if(apiDevEnvironment){
+                return 'http://localhost:5000/api/';
+            } else {
+                return 'https://wedding-in.herokuapp.com/api/';
+            }
+        },
+        get _usersDB_URL(){
+            if(apiDevEnvironment){
+                return 'http://localhost:5000/users/';
+            } else {
+                return 'https://wedding-in.herokuapp.com/users/';
+            }
+        }
+    };
+}

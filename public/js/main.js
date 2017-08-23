@@ -1,4 +1,4 @@
-//var _test = 'http://localhost:5000/api/';
+// ENVIRONMENT SWITCH Fn
 function _env() {
 	// MAIN SET
 	var devEnvironment = true;
@@ -22,6 +22,8 @@ function _env() {
 		}
     };
 }
+
+// Require.js main settings
 require.config({
 	baseUrl : '',
 	paths : 
