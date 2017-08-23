@@ -1,9 +1,11 @@
 var express = require('express');
 var usersRouter = express.Router();
 var mongojs = require('mongojs');
+var db = require('../db/db');
 //var moment = require('moment');
-var usersDB = mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
+//var usersDB = mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
 //var usersDB = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['wedUsers']);
+var usersDB = db()._usersDB_URL;
 
 // CONFIG
 var collection = 'wedUsers';

@@ -1,20 +1,5 @@
-/*
-var mongoose = require('mongoose');
-
-// MongoDB
-//'mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db'
-//'mongodb://localhost:27017/weddings'
-
-var db = mongoose.createConnection('mongodb://localhost:27017/weddings');
-
-// DB handlers
-db.on("error", console.log.bind(console, "connection to DB error"));
-db.once("open", function () {
-    console.log("DB connected");
-});
-
-module.exports = db;*/
 "use strict";
+var mongojs = require('mongojs');
 
 // ENVIRONMENT SWITCH Fn
 function _envAPI() {
@@ -33,10 +18,12 @@ function _envAPI() {
         },
         get _usersDB_URL(){
             if(apiDevEnvironment){
-                return 'http://localhost:5000/users/';
+                return mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
             } else {
-                return 'https://wedding-in.herokuapp.com/users/';
+                return mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['wedUsers']);
             }
         }
     };
 }
+
+module.exports = _envAPI;
