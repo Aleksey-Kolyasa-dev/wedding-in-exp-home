@@ -15,7 +15,7 @@ define(['angular'], function (angular) {
     function ResourceService(toastr, $http, $q, $log, $location, wedURL) {
         return {
             //baseURL: 'http://localhost:5000/api/',
-            baseURL: 'http://wedding-in.herokuapp.com/api/',
+            baseURL: 'https://wedding-in.herokuapp.com/api/',
             _ajaxRequest: function (method, url, data, keyURL) {
                 var self = this;
                 var deferred = $q.defer();
