@@ -137,6 +137,8 @@ define(['angular'], function (angular) {
         function tables() {
             // Reset array
             $scope.tablesCollection.length = 0;
+            $scope.tablesCollection = [[]];
+
             var buffer = 0;
 
             // Define tables MAX qty
