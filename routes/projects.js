@@ -2,12 +2,15 @@
 var express = require('express');
 var projectsRouter = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
+var db = require('../db/db');
+//var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
 //var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
+var projectsDB = db()._projectsDB_URL;
 
 /*
  * PROJECTS CONTROL ROUTER
  * */
+
 // GET init
 projectsRouter.get('/', function (req, res) {
     res.render('../public/index', {title: 'Wedding_in'});
@@ -18,7 +21,7 @@ projectsRouter.post('/getProjects', function (req, res) {
     var owner = req.body;
     var projectsCollection = [];
 
-    db.weddings.find({}, {}, function (err, projects) {
+    projectsDB.weddings.find({}, {}, function (err, projects) {
         if (err) {
             console.log("CALL POST PROJECT BY: /getProjects - get ERR", err);
             res.send(err);
@@ -37,7 +40,7 @@ projectsRouter.post('/getProjects', function (req, res) {
 
 //* GET Single Project
 projectsRouter.get('/api/:id', function (req, res) {
-    db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+    projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
         if (err) {
             console.log("CALL GET PROJECT BY: _id - get ERR", err);
             res.send(err);
@@ -51,7 +54,7 @@ projectsRouter.post('/AccessKey', function (req, res) {
     var access = req.body;
     var accessProject = {};
 
-    db.weddings.find({}, {}, function (err, projects) {
+    projectsDB.weddings.find({}, {}, function (err, projects) {
         if (err) {
             console.log("CALL POST PROJECT BY: /AccessKey - get ERR", err);
             res.send(err);
@@ -85,7 +88,7 @@ projectsRouter.post('/AccessKey', function (req, res) {
 projectsRouter.post('/api', function (req, res) {
     var newProject = req.body;
 
-    if (!newProject.owner || !newProject.fianceName || !newProject.fianceeName || !newProject.weddingDate || !newProject.wedBudget || !newProject.email || !newProject.telephones) {
+    if (!newProject.owner || !newProject.fianceName || !newProject.fianceeName || !newProject.weddingDate || !newProject.weprojectsDBudget || !newProject.email || !newProject.telephones) {
         console.log("CALL POST PROJECT BY: validation ERR");
         res.status(400);
         res.json({
@@ -93,7 +96,7 @@ projectsRouter.post('/api', function (req, res) {
         });
     } else {
 
-        db.weddings.save(new NewProjectCtor(newProject), function (err, newProject) {
+        projectsDB.weddings.save(new NewProjectCtor(newProject), function (err, newProject) {
             if (err) {
                 console.log("CALL POST PROJECT BY: NEW PROJECT - post ERR");
                 res.send(err);
@@ -116,12 +119,12 @@ projectsRouter.put('/api/:id', function (req, res) {
             "error": "PUT ERROR: validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {
                 $set: {
                     fianceName: request.fianceName,
                     fianceeName: request.fianceeName,
                     weddingDate: request.weddingDate,
-                    wedBudget: request.wedBudget,
+                    weprojectsDBudget: request.weprojectsDBudget,
                     email: request.email,
                     telephones: request.telephones,
                     notes: request.notes
@@ -141,7 +144,7 @@ projectsRouter.put('/api/:id', function (req, res) {
 //* DELETE Single Project
 projectsRouter.delete('/api/:id', function (req, res) {
 
-    db.weddings.remove({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+    projectsDB.weddings.remove({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
         if (err) {
             console.log("CALL DELETE PROJECT BY: _id - delete ERR", err);
             res.send(err);
@@ -165,7 +168,7 @@ projectsRouter.put('/api/:id/fianceSideGuests', function (req, res) {
         });
     } else {
         var promise = new Promise(function (resolve, reject) {
-            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
@@ -179,7 +182,7 @@ projectsRouter.put('/api/:id/fianceSideGuests', function (req, res) {
         promise.then(function (project) {
             project[request.key] = request.data;
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {fianceSideGuests: project[request.key]}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {fianceSideGuests: project[request.key]}}, {}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
@@ -206,7 +209,7 @@ projectsRouter.put('/api/:id/fianceeSideGuests', function (req, res) {
         });
     } else {
         var promise = new Promise(function (resolve, reject) {
-            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
@@ -220,7 +223,7 @@ projectsRouter.put('/api/:id/fianceeSideGuests', function (req, res) {
         promise.then(function (project) {
             project[request.key] = request.data;
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {fianceeSideGuests: project[request.key]}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {fianceeSideGuests: project[request.key]}}, {}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
@@ -247,7 +250,7 @@ projectsRouter.put('/api/:id/budgetDataSave', function (req, res) {
         });
     } else {
         var promise = new Promise(function (resolve, reject){
-            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
@@ -261,7 +264,7 @@ projectsRouter.put('/api/:id/budgetDataSave', function (req, res) {
         promise.then(function (project) {
             project[request.key] = request.data;
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {budget: project[request.key]}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {budget: project[request.key]}}, {}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
@@ -287,7 +290,7 @@ projectsRouter.put('/api/:id/tasksDataSave', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {tasks: request[request.key]}}, {}, function (err, project) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {tasks: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -311,7 +314,7 @@ projectsRouter.put('/api/:id/projectNotes', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {notes: request.data}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {notes: request.data}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -333,7 +336,7 @@ projectsRouter.put('/api/:id/budgetNotes', function (req, res) {
             "error": "PUT PROJECT.budget ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {budgetNotes: request.data}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {budgetNotes: request.data}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT.budget BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -355,7 +358,7 @@ projectsRouter.put('/api/:id/restNotes', function (req, res) {
             "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restNotes: request.data}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restNotes: request.data}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -377,7 +380,7 @@ projectsRouter.put('/api/:id/guestsNotes', function (req, res) {
             "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {guestsNotes: request.data}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {guestsNotes: request.data}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -399,7 +402,7 @@ projectsRouter.put('/api/:id/menuNotes', function (req, res) {
             "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {menuNotes: request.data}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {menuNotes: request.data}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -421,7 +424,7 @@ projectsRouter.put('/api/:id/cakesNotes', function (req, res) {
             "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {cakesNotes: request.data}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {cakesNotes: request.data}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -443,7 +446,7 @@ projectsRouter.put('/api/:id/plusNotes', function (req, res) {
             "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {plusNotes: request.data}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {plusNotes: request.data}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -466,7 +469,7 @@ projectsRouter.put('/api/:id/decorNotes', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {decorNotes: request[request.key]}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {decorNotes: request[request.key]}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -488,7 +491,7 @@ projectsRouter.put('/api/:id/flowerNotes', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {flowerNotes: request[request.key]}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {flowerNotes: request[request.key]}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -510,7 +513,7 @@ projectsRouter.put('/api/:id/leaderNotes', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {leaderNotes: request[request.key]}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {leaderNotes: request[request.key]}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -532,7 +535,7 @@ projectsRouter.put('/api/:id/musicNotes', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {musicNotes: request[request.key]}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {musicNotes: request[request.key]}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -554,7 +557,7 @@ projectsRouter.put('/api/:id/photoNotes', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {photoNotes: request[request.key]}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {photoNotes: request[request.key]}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -576,7 +579,7 @@ projectsRouter.put('/api/:id/videoNotes', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {videoNotes: request[request.key]}}, {}, function (err, response) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {videoNotes: request[request.key]}}, {}, function (err, response) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -600,7 +603,7 @@ projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res) {
             "error": "PUT PROJECT.restaurant ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {useMenuCheck: request[request.key]}}, {}, function (err, project) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {useMenuCheck: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -623,7 +626,7 @@ projectsRouter.put('/api/:id/quickDataSave', function (req, res) {
         });
     } else {
         var promise = new Promise(function (resolve, reject) {
-            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
@@ -637,7 +640,7 @@ projectsRouter.put('/api/:id/quickDataSave', function (req, res) {
         promise.then(function (project) {
             project.restaurant[request.key] = request.data;
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
@@ -664,7 +667,7 @@ projectsRouter.put('/api/:id/generalDataSave', function (req, res) {
         });
     } else {
         var promise = new Promise(function (resolve, reject) {
-            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
@@ -678,7 +681,7 @@ projectsRouter.put('/api/:id/generalDataSave', function (req, res) {
         promise.then(function (project) {
             project.restaurant[request.key] = request.data;
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
@@ -705,7 +708,7 @@ projectsRouter.put('/api/:id/restaurantMenuDataSave', function (req, res) {
         });
     } else {
         var promise = new Promise(function (resolve, reject) {
-            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
@@ -719,7 +722,7 @@ projectsRouter.put('/api/:id/restaurantMenuDataSave', function (req, res) {
         promise.then(function (project) {
             project[request.key] = request.data;
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantMenu: project[request.key]}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantMenu: project[request.key]}}, {}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
@@ -746,7 +749,7 @@ projectsRouter.put('/api/:id/restaurantCakesDataSave', function (req, res) {
         });
     } else {
         var promise = new Promise(function (resolve, reject) {
-            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
@@ -760,7 +763,7 @@ projectsRouter.put('/api/:id/restaurantCakesDataSave', function (req, res) {
         promise.then(function (project) {
             project[request.key] = request.data;
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantCakes: project[request.key]}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantCakes: project[request.key]}}, {}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
@@ -787,7 +790,7 @@ projectsRouter.put('/api/:id/restaurantPlusDataSave', function (req, res) {
         });
     } else {
         var promise = new Promise(function (resolve, reject) {
-            db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+            projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - get ERR", err);
                     res.send(err);
@@ -801,7 +804,7 @@ projectsRouter.put('/api/:id/restaurantPlusDataSave', function (req, res) {
         promise.then(function (project) {
             project[request.key] = request.data;
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantPlus: project[request.key]}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurantPlus: project[request.key]}}, {}, function (err, project) {
                 if (err) {
                     console.log("CALL PUT PROJECT.restaurant BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);
@@ -829,7 +832,7 @@ projectsRouter.put('/api/:id/decorDataSave', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {decor: request[request.key]}}, {}, function (err, project) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {decor: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -851,7 +854,7 @@ projectsRouter.put('/api/:id/flowerDataSave', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {flower: request[request.key]}}, {}, function (err, project) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {flower: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -873,7 +876,7 @@ projectsRouter.put('/api/:id/leaderDataSave', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {leader: request[request.key]}}, {}, function (err, project) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {leader: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -895,7 +898,7 @@ projectsRouter.put('/api/:id/musicDataSave', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {music: request[request.key]}}, {}, function (err, project) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {music: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -917,7 +920,7 @@ projectsRouter.put('/api/:id/photoDataSave', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {photo: request[request.key]}}, {}, function (err, project) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {photo: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -939,7 +942,7 @@ projectsRouter.put('/api/:id/videoDataSave', function (req, res) {
             "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {video: request[request.key]}}, {}, function (err, project) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {video: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -963,7 +966,7 @@ projectsRouter.put('/api/:id/sms', function (req, res) {
             "error": "PUT ERROR: " + request.keyURL + " validation failed"
         });
     } else {
-        db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {smsCollection: request.data}}, {}, function (err, sms) {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {smsCollection: request.data}}, {}, function (err, sms) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -985,7 +988,7 @@ projectsRouter.post('/api/:id/visitorNewSMS', function (req, res) {
         });
     }
     var promise = new Promise(function (resolve, reject) {
-        db.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
+        projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
             if (err) {
                 console.log("CALL POST PROJECT BY: " + request.keyURL + " - get ERR", err);
                 res.send(err);
@@ -1003,7 +1006,7 @@ projectsRouter.post('/api/:id/visitorNewSMS', function (req, res) {
         if (arr.join) {
             arr.push(request.data);
 
-            db.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {smsCollection: arr}}, {}, function (err, project) {
+            projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {smsCollection: arr}}, {}, function (err, project) {
                 if (err){
                     console.log("CALL POST PROJECT BY: " + request.keyURL + " - update ERR", err);
                     res.send(err);

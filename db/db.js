@@ -11,9 +11,9 @@ function _envAPI() {
         _dev : apiDevEnvironment,
         get _projectsDB_URL(){
             if(apiDevEnvironment){
-                return 'http://localhost:5000/api/';
+                return mongojs('mongodb://localhost:27017/weddings', ['weddings']);
             } else {
-                return 'https://wedding-in.herokuapp.com/api/';
+                return mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
             }
         },
         get _usersDB_URL(){
