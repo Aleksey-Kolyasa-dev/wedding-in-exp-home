@@ -43,6 +43,8 @@ require.config({
         'photoCtrlModule' 		: '../js/app/controllers/02_projects/09_PhotoCtrl',
         'videoCtrlModule' 		: '../js/app/controllers/02_projects/10_VideoCtrl',
 
+        'dressCtrlModule' 		: '../js/app/controllers/02_projects/13_DressCtrl',
+
 		'directives'     		: '../js/app/directives/directives',
 		'jQuery'		  		: '../libs/js/jquery.min',
 		'jQueryUI'        		: '../libs/js/jquery-ui.min',
@@ -109,6 +111,10 @@ require.config({
         },
 
 
+        'dressCtrlModule' : {
+            deps : ['controllers']
+        },
+
 		'twitterBootstrap' : ['jQuery'],
 		'app' : {
 			deps : [
@@ -128,6 +134,8 @@ require.config({
                 'photoCtrlModule',
                 'videoCtrlModule',
 
+
+				'dressCtrlModule',
 
 				'directives'
 			]

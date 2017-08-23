@@ -240,6 +240,10 @@ define(['angular'], function (angular) {
                 case "transport" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+
+                case "dress" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
             }
         };
 

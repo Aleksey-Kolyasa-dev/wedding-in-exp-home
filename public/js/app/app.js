@@ -20,6 +20,7 @@ define([
     'photoCtrlModule',
     'videoCtrlModule',
 
+    'dressCtrlModule',
 
 	'directives',
 	'angularRuLocale'
@@ -41,6 +42,8 @@ define([
 		'musicCtrlModule',
         'photoCtrlModule',
         'videoCtrlModule',
+
+		'dressCtrlModule',
 
 		'authServices',
 		'wedServices',

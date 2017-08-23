@@ -62,8 +62,8 @@
                         </a>
                     </div>
                     <div>
-                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
-                            <span>ДРЕСКОТ</span>
+                        <a ng-class="currentProjectView.mainMenu == 'dress'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('dress')">
+                            <span>ДРЕСС-КОД</span>
                         </a>
                     </div>
                     <div>
@@ -107,6 +107,9 @@
                 <div ng-show="currentProjectView.mainMenu == 'transport'">
                     <ng-include src="'/views/projects/10_00_projectView_transport.html'"></ng-include>
                 </div>-->
+                <div ng-show="currentProjectView.mainMenu == 'dress'">
+                    <ng-include src="'/views/projects/11_00_projectView_dress.html'"></ng-include>
+                </div>
             </section>
             <!-- PROJECT'S VIEWS *END* -->
 
