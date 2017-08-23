@@ -20,7 +20,7 @@ define(['angular'], function (angular) {
         $scope.currentProject.restaurant.quickView = false;
         $scope.checkboxDisabled = !_env._dev;
         $scope.guest = {};
-        $scope.tablesQty =[],
+        $scope.tablesCollection = [];
 
         // ON-EVENT 'TOTAL VALUES CHANGED' <- many..
         $scope.$on('totalValuesChanged', function () {
@@ -133,6 +133,62 @@ define(['angular'], function (angular) {
 
         }
 
+        // GUESTS TABLES DISPLAY Fn
+        function tables() {
+            // Reset array
+            $scope.tablesCollection.length = 0;
+            var buffer = 0;
+
+            // Define tables MAX qty
+            angular.forEach($scope.currentProject.fianceSideGuests, function (guest) {
+                if(buffer < guest.table){
+                    buffer = guest.table;
+                }
+            });
+            angular.forEach($scope.currentProject.fianceeSideGuests, function (guest) {
+                if(buffer < guest.table){
+                    buffer = guest.table;
+                }
+            });
+
+            // Create empty Array with 'hols' num = buffer
+            var arr = new Array(buffer);
+
+            // Name some how the arrays elements
+            for(var i = 0; i < buffer; i++){
+                arr[i] = i;
+            }
+
+            // Join all guests in one array
+            var guestsArr = $scope.currentProject.fianceSideGuests.concat($scope.currentProject.fianceeSideGuests);
+
+            // Define collection of guests, separated by Table num
+            angular.forEach(arr, function (item, index) {
+                var interArr = [];
+                angular.forEach(guestsArr, function (guest) {
+                    if( (guest.table == index + 1) && guest.guestWillBe){
+                        interArr.push(guest);
+                    }
+                });
+                $scope.tablesCollection[index] = interArr;
+            });
+
+            // Add Fiances to table #1
+            $scope.tablesCollection[0].unshift({
+                name : $scope.currentProject.fianceeName,
+                relation : 'невеста',
+                side : 'W'
+            });
+            $scope.tablesCollection[0].unshift({
+                name : $scope.currentProject.fianceName,
+                relation : 'жених',
+                side : 'M'
+            });
+            //$log.log($scope.tablesCollection);
+        }
+        // EVOKE ON-LOAD
+        tables();
+
         // GUESTS OPS. Fn
         $scope.guests = {
             side: null,
@@ -172,6 +228,7 @@ define(['angular'], function (angular) {
                     switch (this.side) {
                         // Fiance Side Guest
                         case "M":
+                            guest.side = "M";
                             $scope.currentProject.fianceSideGuests.push(guest);
 
                             var requestM = {
@@ -197,6 +254,7 @@ define(['angular'], function (angular) {
 
                         // Fiancee Side Guest
                         case "W":
+                            guest.side = "W";
                             $scope.currentProject.fianceeSideGuests.push(guest);
 
                             var requestW = {
@@ -220,6 +278,8 @@ define(['angular'], function (angular) {
                                 });
                             break;
                     }
+                    // GUESTS TABLES DISPLAY Fn
+                    tables();
 
                 } else {
                     self._clear();
@@ -298,9 +358,8 @@ define(['angular'], function (angular) {
                             });
                         break;
                 }
-
+                // GUESTS TABLES DISPLAY Fn
                 tables();
-
             },
 
             guestDelete: function (guest) {
@@ -355,51 +414,11 @@ define(['angular'], function (angular) {
                         break;
                 }
 
+                // GUESTS TABLES DISPLAY Fn
+                tables();
+
             }
         };
-/////////////
-        function tables() {
-            var buffer = 0;
-            angular.forEach($scope.currentProject.fianceSideGuests, function (guest) {
-                if(buffer < guest.table){
-                    buffer = guest.table;
-                }
-            });
-            angular.forEach($scope.currentProject.fianceeSideGuests, function (guest) {
-                if(buffer < guest.table){
-                    buffer = guest.table;
-                }
-            });
-            var count = 0;
-            var arr = new Array(buffer);
-
-            for(var i = 0; i < buffer; i++){
-                arr[i] = i;
-            }
-
-            //$scope.arr = arr;
-            var result = [];
-            $scope.arr = [];
-            $scope.tablesQty = $scope.currentProject.fianceSideGuests.concat($scope.currentProject.fianceeSideGuests);
-
-           angular.forEach(arr, function (item, index, array) {
-               var inter = [];
-                angular.forEach($scope.tablesQty, function (guest, guestIndex) {
-                   if(guest.table == index + 1 && guest.guestWillBe){
-                       inter.push(guest);
-                   }
-                });
-               $scope.arr[index] = inter;
-            });
-
-
-           // $scope.tablesQty.push(arr);
-            $log.log($scope.arr);
-        }
-
-        tables();
-/////////////
-
 
         // Guests Qty Fn
         $scope.guestsQty = function (project) {

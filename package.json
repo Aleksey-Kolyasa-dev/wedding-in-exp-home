@@ -1,10 +1,10 @@
 {
   "name": "wedding_in",
-  "version": "2.0.0",
-  "description": "wedding event management app",
+  "version": "1.0.0",
+  "description": "wedding events management app",
   "main": "server.js",
   "scripts": {
-    "test": "node index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +30,8 @@
   },
   "devDependencies": {
 
+  },
+  "engines": {
+    "node" : "6.9.4"
   }
 }
