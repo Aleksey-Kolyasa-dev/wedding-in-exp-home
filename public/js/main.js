@@ -1,3 +1,20 @@
+var _test = 'http://localhost:5000/api/';
+function _env() {
+	var dev = true;
+
+	function projectURL(arg) {
+        if(arg){
+           return 'http://localhost:5000/api/';
+        } else {
+            return 'https://wedding-in.herokuapp.com/api/';
+        }
+    }
+
+    return {
+        _dev : dev,
+		_apiURL : projectURL(dev)
+    };
+}
 require.config({
 	baseUrl : '',
 	paths : 

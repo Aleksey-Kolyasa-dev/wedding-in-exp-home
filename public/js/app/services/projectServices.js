@@ -6,15 +6,17 @@ define(['angular'], function (angular) {
     wedServices.service('ResourceService', ['toastr', '$http', '$q', '$log', '$location', ResourceService]);
     wedServices.service('AppService', ['toastr','$window' ,AppService]);
 
-    function _env() {
+    /*function _env() {
         return {
             _dev : true
             };
-    }
+    }*/
 
     function ResourceService(toastr, $http, $q, $log, $location, wedURL) {
         return {
-            baseURL: 'http://localhost:5000/api/',
+            baseURL: _env()._apiURL,
+
+            //baseURL: 'http://localhost:5000/api/',
             //baseURL: 'https://wedding-in.herokuapp.com/api/',
             _ajaxRequest: function (method, url, data, keyURL) {
                 var self = this;
