@@ -1,6 +1,13 @@
-<div class="projects-list" ng-controller="videoMainCtrl">
+<div class="projects-list" ng-controller="dressMainCtrl">
     <!--Header-->
     <header class="proj-view-header text-right">
+        <nav class="top-sub-menu no-print" ng-if="currentUser.isAuth">
+            <ul>
+                <li style="{{subView == 'fiance'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('fiance')">Жених</a></li>
+
+                <li  style="{{subView == 'fiancee'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('fiancee')">Невеста</a></li>
+            </ul>
+        </nav>
         <h2>{{conf.title}}</h2>
     </header>
     <!--Header-->
@@ -39,8 +46,11 @@
     <!--Info-panel-->
 
     <!--Views-->
-    <div>
-        <ng-include src="'/views/projects/08_01_projectView_video_exp.html'"></ng-include>
+    <div ng-show="subView == 'fiance'">
+        <ng-include src="'/views/projects/11_01_projectView_dress_exp_M.html'"></ng-include>
+    </div>
+    <div ng-show="subView == 'fiancee'">
+        <ng-include src="'/views/projects/11_02_projectView_dress_exp_W.html'"></ng-include>
     </div>
     <!--Views-->
 
