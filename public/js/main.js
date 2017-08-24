@@ -36,12 +36,10 @@ require.config({
 		'newProjectCtrlModule' 	: '../js/app/controllers/02_projects/02_wedMain_newProjectCtrl',
         'budgetCtrlModule' 		: '../js/app/controllers/02_projects/03_BudgetCtrl',
         'restaurantCtrlModule' 	: '../js/app/controllers/02_projects/04_RestaurantCtrl',
-        'decorCtrlModule' 		: '../js/app/controllers/02_projects/05_DecorCtrl',
-        'flowerCtrlModule' 		: '../js/app/controllers/02_projects/06_FlowerCtrl',
-        'leaderCtrlModule' 		: '../js/app/controllers/02_projects/07_LeaderCtrl',
-        'musicCtrlModule' 		: '../js/app/controllers/02_projects/08_MusicCtrl',
-        'photoCtrlModule' 		: '../js/app/controllers/02_projects/09_PhotoCtrl',
-        'videoCtrlModule' 		: '../js/app/controllers/02_projects/10_VideoCtrl',
+        'arrangementCtrlModule' : '../js/app/controllers/02_projects/05_ArrangementCtrl',
+        'programCtrlModule'     : '../js/app/controllers/02_projects/06_ProgramCtrl',
+        'filmingCtrlModule'     : '../js/app/controllers/02_projects/07_FilmingCtrl',
+
 
         'dressCtrlModule' 		: '../js/app/controllers/02_projects/13_DressCtrl',
 
@@ -91,25 +89,12 @@ require.config({
         'restaurantCtrlModule' : {
             deps : ['controllers']
         },
-        'decorCtrlModule' : {
+        'arrangementCtrlModule' : {
             deps : ['controllers']
         },
-        'flowerCtrlModule' : {
+        'filmingCtrlModule' : {
             deps : ['controllers']
         },
-        'leaderCtrlModule' : {
-            deps : ['controllers']
-        },
-		'musicCtrlModule' : {
-       		 deps : ['controllers']
-    	},
-        'photoCtrlModule' : {
-            deps : ['controllers']
-        },
-        'videoCtrlModule' : {
-            deps : ['controllers']
-        },
-
 
         'dressCtrlModule' : {
             deps : ['controllers']
@@ -127,13 +112,9 @@ require.config({
 				'newProjectCtrlModule',
 				'budgetCtrlModule',
 				'restaurantCtrlModule',
-				'decorCtrlModule',
-				'flowerCtrlModule',
-				'leaderCtrlModule',
-				'musicCtrlModule',
-                'photoCtrlModule',
-                'videoCtrlModule',
-
+				'arrangementCtrlModule',
+                'programCtrlModule',
+                'filmingCtrlModule',
 
 				'dressCtrlModule',
 

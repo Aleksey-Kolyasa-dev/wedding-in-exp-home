@@ -546,6 +546,28 @@ projectsRouter.put('/api/:id/musicNotes', function (req, res) {
         });
     }
 });
+//* PUT Single Project SHOW keyURL = /showNotes
+projectsRouter.put('/api/:id/showNotes', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {showNotes: request[request.key]}}, {}, function (err, response) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
+            }
+        });
+    }
+});
 //* PUT Single Project PHOTO keyURL = /photoNotes
 projectsRouter.put('/api/:id/photoNotes', function (req, res) {
     var request = req.body;
@@ -955,6 +977,28 @@ projectsRouter.put('/api/:id/musicDataSave', function (req, res) {
         });
     }
 });
+//* PUT Single Project SHOW keyURL = /showDataSave
+projectsRouter.put('/api/:id/showDataSave', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {show: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
 //* PUT Single Project PHOTO keyURL = /photoDataSave
 projectsRouter.put('/api/:id/photoDataSave', function (req, res) {
     var request = req.body;
@@ -1153,6 +1197,7 @@ function NewProjectCtor(project) {
     this.flowerNotes = null;
     this.leaderNotes = null;
     this.musicNotes = null;
+    this.showNotes = null;
     this.photoNotes = null;
     this.videoNotes = null;
     this.zagsNotes = null;
@@ -1307,6 +1352,18 @@ function NewProjectCtor(project) {
             restTotalNat: 0
         }
     };
+
+    this.arrangement = {
+        total: {
+            planUsd: 0,
+            planNat: 0,
+
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
     this.decor = {
         expCollection: [/*{
          name : 'ТОРТ',
@@ -1347,6 +1404,18 @@ function NewProjectCtor(project) {
             planNat: 0,
             paidUsd: 0,
             paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+
+    this.program = {
+        total: {
+            planUsd: 0,
+            planNat: 0,
+
             paidTotalUsd: 0,
             paidTotalNat: 0,
             restTotalUsd: 0,
@@ -1399,6 +1468,41 @@ function NewProjectCtor(project) {
             restTotalNat: 0
         }
     };
+    this.show = {
+        expCollection: [/*{
+         name : 'ТОРТ',
+         tariff : 200,
+         multiplier : 5,
+         unit : 'kg',
+         toPai : 0,
+         paid : 0,
+         rest : 0,
+         usd : false,
+         money : null
+         }*/],
+        total: {
+            planUsd: 0,
+            planNat: 0,
+            paidUsd: 0,
+            paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+
+    this.filming = {
+        total: {
+            planUsd: 0,
+            planNat: 0,
+
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
     this.photo = {
         expCollection: [/*{
          name : 'ТОРТ',
@@ -1445,7 +1549,147 @@ function NewProjectCtor(project) {
             restTotalNat: 0
         }
     };
-    this.zags = {
+
+    this.party = {
+        total: {
+            planUsd: 0,
+            planNat: 0,
+
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+    this.partyM = {
+        expCollection: [/*{
+         name : 'ТОРТ',
+         tariff : 200,
+         multiplier : 5,
+         unit : 'kg',
+         toPai : 0,
+         paid : 0,
+         rest : 0,
+         usd : false,
+         money : null
+         }*/],
+        total: {
+            planUsd: 0,
+            planNat: 0,
+            paidUsd: 0,
+            paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+    this.partyW = {
+        expCollection: [/*{
+         name : 'ТОРТ',
+         tariff : 200,
+         multiplier : 5,
+         unit : 'kg',
+         toPai : 0,
+         paid : 0,
+         rest : 0,
+         usd : false,
+         money : null
+         }*/],
+        total: {
+            planUsd: 0,
+            planNat: 0,
+            paidUsd: 0,
+            paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+
+    this.dress = {
+        total: {
+            planUsd: 0,
+            planNat: 0,
+
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+    this.dressM = {
+        expCollection: [/*{
+         name : 'ТОРТ',
+         tariff : 200,
+         multiplier : 5,
+         unit : 'kg',
+         toPai : 0,
+         paid : 0,
+         rest : 0,
+         usd : false,
+         money : null
+         }*/],
+        total: {
+            planUsd: 0,
+            planNat: 0,
+            paidUsd: 0,
+            paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+    this.dressW = {
+        expCollection: [/*{
+         name : 'ТОРТ',
+         tariff : 200,
+         multiplier : 5,
+         unit : 'kg',
+         toPai : 0,
+         paid : 0,
+         rest : 0,
+         usd : false,
+         money : null
+         }*/],
+        total: {
+            planUsd: 0,
+            planNat: 0,
+            paidUsd: 0,
+            paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+
+    this.registration = {
+        expCollection: [/*{
+         name : 'ТОРТ',
+         tariff : 200,
+         multiplier : 5,
+         unit : 'kg',
+         toPai : 0,
+         paid : 0,
+         rest : 0,
+         usd : false,
+         money : null
+         }*/],
+        total: {
+            planUsd: 0,
+            planNat: 0,
+            paidUsd: 0,
+            paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+    this.marriage = {
         expCollection: [/*{
          name : 'ТОРТ',
          tariff : 200,
@@ -1514,62 +1758,6 @@ function NewProjectCtor(project) {
             restTotalNat: 0
         }
     };
-    this.dress = {
-        total: {
-            planUsd: 0,
-            planNat: 0,
-            paidUsd: 0,
-            paidNat: 0,
-            paidTotalUsd: 0,
-            paidTotalNat: 0,
-            restTotalUsd: 0,
-            restTotalNat: 0
-        }
-    };
-    this.dressM = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
-        total: {
-            planUsd: 0,
-            planNat: 0,
-            paidUsd: 0,
-            paidNat: 0,
-            paidTotalUsd: 0,
-            paidTotalNat: 0,
-            restTotalUsd: 0,
-            restTotalNat: 0
-        }
-    };
-    this.dressW = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
-        total: {
-            planUsd: 0,
-            planNat: 0,
-            paidUsd: 0,
-            paidNat: 0,
-            paidTotalUsd: 0,
-            paidTotalNat: 0,
-            restTotalUsd: 0,
-            restTotalNat: 0
-        }
-    };
+
+
 }

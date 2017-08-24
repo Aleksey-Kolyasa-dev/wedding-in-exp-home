@@ -22,38 +22,28 @@
                         </a>
                     </div>
                     <div>
-                        <a ng-class="currentProjectView.mainMenu == 'decor'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('decor')">
-                            <span>ДЕКОР</span>
+                        <a ng-class="currentProjectView.mainMenu == 'arrangement'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('arrangement')">
+                            <span>ОФОРМЛЕНИЕ</span>
                         </a>
                     </div>
                     <div>
-                        <a ng-class="currentProjectView.mainMenu == 'flower'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('flower')">
-                            <span>ФЛОРИСТ</span>
+                        <a ng-class="currentProjectView.mainMenu == 'program'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('program')">
+                            <span>ПРОГРАММА</span>
                         </a>
                     </div>
                     <div>
-                        <a ng-class="currentProjectView.mainMenu == 'leader'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('leader')">
-                            <span>ВЕДУЩИЙ</span>
+                        <a ng-class="currentProjectView.mainMenu == 'filming'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('filming')">
+                            <span>СЪЁМКА</span>
                         </a>
                     </div>
                     <div>
-                        <a ng-class="currentProjectView.mainMenu == 'music'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('music')">
-                            <span>МУЗЫКА</span>
+                        <a ng-class="currentProjectView.mainMenu == 'registration'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('registration')">
+                            <span>РЕГИСТРАЦИЯ</span>
                         </a>
                     </div>
                     <div>
-                        <a ng-class="currentProjectView.mainMenu == 'photo'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('photo')">
-                            <span>ФОТО</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'video'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('video')">
-                            <span>ВИДЕО</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'zags'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('zags')">
-                            <span>ЗАГС</span>
+                        <a ng-class="currentProjectView.mainMenu == 'marriage'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('marriage')">
+                            <span>ВЕНЧАНИЕ</span>
                         </a>
                     </div>
                     <div>
@@ -67,7 +57,12 @@
                         </a>
                     </div>
                     <div>
-                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
+                        <a ng-class="currentProjectView.mainMenu == 'party'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('party')">
+                            <span>ВЕЧЕРИНКИ</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a ng-class="currentProjectView.mainMenu == 'other'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('other')">
                             <span>ИННОЕ</span>
                         </a>
                     </div>
@@ -83,33 +78,41 @@
                 <div ng-show="currentProjectView.mainMenu == 'restaurant'">
                     <ng-include src="'/views/projects/02_00_projectView_restaurant.html'"></ng-include>
                 </div>
-                <div ng-show="currentProjectView.mainMenu == 'decor'">
-                    <ng-include src="'/views/projects/03_00_projectView_decor.html'"></ng-include>
+                <div ng-show="currentProjectView.mainMenu == 'arrangement'">
+                    <ng-include src="'/views/projects/03_00_projectView_arrangement.html'"></ng-include>
                 </div>
-                <div ng-show="currentProjectView.mainMenu == 'flower'">
-                    <ng-include src="'/views/projects/04_00_projectView_flower.html'"></ng-include>
+                <div ng-show="currentProjectView.mainMenu == 'program'">
+                    <ng-include src="'/views/projects/04_00_projectView_program.html'"></ng-include>
                 </div>
-                <div ng-show="currentProjectView.mainMenu == 'leader'">
-                    <ng-include src="'/views/projects/05_00_projectView_leader.html'"></ng-include>
+                <div ng-show="currentProjectView.mainMenu == 'filming'">
+                    <ng-include src="'/views/projects/05_00_projectView_filming.html'"></ng-include>
                 </div>
-                <div ng-show="currentProjectView.mainMenu == 'music'">
-                    <ng-include src="'/views/projects/06_00_projectView_music.html'"></ng-include>
+                <div ng-show="currentProjectView.mainMenu == 'registration'">
+                    <ng-include src="'/views/projects/06_00_projectView_registration.html'"></ng-include>
                 </div>
-                <div ng-show="currentProjectView.mainMenu == 'photo'">
-                    <ng-include src="'/views/projects/07_00_projectView_photo.html'"></ng-include>
+                <div ng-show="currentProjectView.mainMenu == 'marriage'">
+                    <ng-include src="'/views/projects/07_00_projectView_marriage.html'"></ng-include>
                 </div>
-                <div ng-show="currentProjectView.mainMenu == 'video'">
-                    <ng-include src="'/views/projects/08_00_projectView_video.html'"></ng-include>
+                <div ng-show="currentProjectView.mainMenu == 'transport'">
+                    <ng-include src="'/views/projects/08_00_projectView_transport.html'"></ng-include>
                 </div>
+                <div ng-show="currentProjectView.mainMenu == 'dress'">
+                    <ng-include src="'/views/projects/09_00_projectView_dress.html'"></ng-include>
+                </div>
+                <div ng-show="currentProjectView.mainMenu == 'party'">
+                    <ng-include src="'/views/projects/10_00_projectView_party.html'"></ng-include>
+                </div>
+                <div ng-show="currentProjectView.mainMenu == 'other'">
+                    <ng-include src="'/views/projects/11_00_projectView_other.html'"></ng-include>
+                </div>
+
                 <!--<div ng-show="currentProjectView.mainMenu == 'zags'">
                     <ng-include src="'/views/projects/09_00_projectView_zags.html'"></ng-include>
                 </div>
                 <div ng-show="currentProjectView.mainMenu == 'transport'">
                     <ng-include src="'/views/projects/10_00_projectView_transport.html'"></ng-include>
                 </div>-->
-                <div ng-show="currentProjectView.mainMenu == 'dress'">
-                    <ng-include src="'/views/projects/11_00_projectView_dress.html'"></ng-include>
-                </div>
+
             </section>
             <!-- PROJECT'S VIEWS *END* -->
 

@@ -1,39 +1,52 @@
 define(['angular'], function (angular) {
     "use strict";
-    var dressCtrlModule = angular.module('dressCtrlModule', ['wedServices']);
+    var filmingCtrlModule = angular.module('filmingCtrlModule', ['wedServices']);
 
-    dressCtrlModule.controller('dressMainCtrl', dressMainCtrl);
-    dressCtrlModule.controller('dressM_Ctrl', dressM_Ctrl);
-    dressCtrlModule.controller('dressW_Ctrl', dressW_Ctrl);
+    filmingCtrlModule.controller('filmingMainCtrl', filmingMainCtrl);
+    filmingCtrlModule.controller('photoCtrl', photoCtrl);
+    filmingCtrlModule.controller('videoCtrl', videoCtrl);
 
     /*
-    * DRESS MAIN CTRL
-    * */
-    function dressMainCtrl($scope, $log, $timeout,toastr, ResourceService) {
+     * filming MAIN CTRL
+     * */
+    function filmingMainCtrl($scope, $log, $timeout,toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'dress',
+            mainProp : 'filming',
 
-            //Views setup
-            title : 'ДРЕСС-КОД',
-            ttlBy : 'ДРЕСС-КОДУ'
+            // Titles setup
+            title : 'СЪЕМКА',
+            ttlBy : 'СЪЕМКЕ',
+
+            // Menu buttons setup
+            buttons: [
+                'Фото',
+                'Видео'
+            ],
+
+            // Views shift & children names
+            views : [
+                'photo',
+                'video'
+            ]
         };
 
         // Subview shift Fn
         $scope.subViewShift = function (view) {
             switch (view) {
-                case "fiance" :
+                case $scope.conf.views[0] :
                     $scope.subView = view;
                     break;
-                case "fiancee" :
+
+                    case $scope.conf.views[1] :
                     $scope.subView = view;
                     break;
             }
         };
 
         // Default data
-        $scope.subView = 'fiance';
+        $scope.subView = $scope.conf.views[0];
 
         // Update total values Fn
         function updateTotalValues() {
@@ -51,12 +64,12 @@ define(['angular'], function (angular) {
             var wed = $scope.currentProject;
 
             // Total Plan calculations
-            $scope.total.planUsd = wed.dressM.total.planUsd + wed.dressW.total.planUsd;
-            $scope.total.planNat = wed.dressM.total.planNat + wed.dressW.total.planNat;
+            $scope.total.planUsd = wed[$scope.conf.views[0]].total.planUsd + wed[$scope.conf.views[1]].total.planUsd;
+            $scope.total.planNat = wed[$scope.conf.views[0]].total.planNat + wed[$scope.conf.views[1]].total.planNat;
 
             // Total Paid calculations
-            $scope.total.paidTotalUsd = wed.dressM.total.paidTotalUsd + wed.dressW.total.paidTotalUsd;
-            $scope.total.paidTotalNat = wed.dressM.total.paidTotalNat + wed.dressW.total.paidTotalNat;
+            $scope.total.paidTotalUsd = wed[$scope.conf.views[0]].total.paidTotalUsd + wed[$scope.conf.views[1]].total.paidTotalUsd;
+            $scope.total.paidTotalNat = wed[$scope.conf.views[0]].total.paidTotalNat + wed[$scope.conf.views[1]].total.paidTotalNat;
 
             // Total Rest calculations
             $scope.total.restTotalUsd = $scope.total.planUsd - $scope.total.paidTotalUsd;
@@ -72,27 +85,28 @@ define(['angular'], function (angular) {
         }, 300);
 
         // ON-EVENT: Do recalculations <- dressMCtrl || dressWCtrl
-        $scope.$on('dressValuesChanged', function () {
+        $scope.$on($scope.conf.mainProp + 'ValuesChanged', function () {
             updateTotalValues();
         });
 
-    } // *END* DRESS MAIN CTRL
+    } // *END* MAIN CTRL
 
     /*
-     * DRESS_M CTRL
+     * photo CTRL
      * */
-    function dressM_Ctrl($scope, $log, toastr, ResourceService) {
+    function photoCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'dressM',
+            mainProp : 'photo',
+            parent : 'filming',
 
             // MSGs setup
-            msgNameBg : 'DRESS_M',
-            msgNameSm : 'Dress_M',
+            msgNameBg : 'PHOTO',
+            msgNameSm : 'Photo',
 
             //Views setup
-            expTableTitle : 'ЖЕНИХА',
+            expTableTitle : 'ПО ФОТОГРАФУ',
 
             // Forms setup (auto)
             get addForm(){
@@ -167,8 +181,8 @@ define(['angular'], function (angular) {
             // in the end copy obj back
             $scope.currentProject[$scope.conf.mainProp].total = $scope.total;
 
-            // EVENT - DRESS VALUES CHANGED -> dressMainCrtl
-            $scope.$emit('dressValuesChanged');
+            // EVENT - DRESS VALUES CHANGED -> MainCrtl
+            $scope.$emit($scope.conf.parent + 'ValuesChanged');
         }
 
         // Add New Expense Item Fn
@@ -395,24 +409,25 @@ define(['angular'], function (angular) {
                 });
         };
 
-    } // *END* DRESS_M CTRL
+    } // *END* CTRL
 
 
     /*
-     * DRESS_W CTRL
+     * video CTRL
      * */
-    function dressW_Ctrl($scope, $log, toastr, ResourceService) {
+    function videoCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'dressW',
+            mainProp : 'video',
+            parent   : 'filming',
 
             // MSGs setup
-            msgNameBg : 'DRESS_W',
-            msgNameSm : 'Dress_W',
+            msgNameBg : 'VIDEO',
+            msgNameSm : 'Video',
 
             //Views setup
-            expTableTitle : 'НЕВЕСТЫ',
+            expTableTitle : 'ПО ВИДЕООПЕРАТОРУ',
 
             // Forms setup (auto)
             get addForm(){
@@ -487,8 +502,8 @@ define(['angular'], function (angular) {
             // in the end copy obj back
             $scope.currentProject[$scope.conf.mainProp].total = $scope.total;
 
-            // EVENT - DRESS VALUES CHANGED -> dressMainCrtl
-            $scope.$emit('dressValuesChanged');
+            // EVENT - DRESS VALUES CHANGED -> MainCrtl
+            $scope.$emit($scope.conf.parent + 'ValuesChanged');
         }
 
         // Add New Expense Item Fn
@@ -715,8 +730,8 @@ define(['angular'], function (angular) {
                 });
         };
 
-    } // *END* DRESS_W CTRL
+    } // *END* CTRL
 
 
-    return dressCtrlModule;
+    return filmingCtrlModule;
 });

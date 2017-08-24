@@ -1,11 +1,9 @@
-<div class="projects-list" ng-controller="dressMainCtrl">
+<div class="projects-list" ng-controller="filmingMainCtrl">
     <!--Header-->
     <header class="proj-view-header text-right">
         <nav class="top-sub-menu no-print" ng-if="currentUser.isAuth">
-            <ul>
-                <li style="{{subView == 'fiance'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('fiance')">Жених</a></li>
-
-                <li  style="{{subView == 'fiancee'? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('fiancee')">Невеста</a></li>
+            <ul >
+                <li ng-repeat="view in conf.views" style="{{subView == view? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift(view)">{{conf.buttons[$index]}}</a></li>
             </ul>
         </nav>
         <h2>{{conf.title}}</h2>
@@ -46,11 +44,11 @@
     <!--Info-panel-->
 
     <!--Views-->
-    <div ng-show="subView == 'fiance'">
-        <ng-include src="'/views/projects/11_01_projectView_dress_exp_M.html'"></ng-include>
+    <div ng-show="subView == conf.views[0]">
+        <ng-include src="'/views/projects/05_01_projectView_filming_exp_photo.html'"></ng-include>
     </div>
-    <div ng-show="subView == 'fiancee'">
-        <ng-include src="'/views/projects/11_02_projectView_dress_exp_W.html'"></ng-include>
+    <div ng-show="subView == conf.views[1]">
+        <ng-include src="'/views/projects/05_02_projectView_filming_exp_video.html'"></ng-include>
     </div>
     <!--Views-->
 

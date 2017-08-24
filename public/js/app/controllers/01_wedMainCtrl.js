@@ -211,31 +211,23 @@ define(['angular'], function (angular) {
                     $scope.currentProjectView.mainMenu = view;
                     break;
 
-                case "decor" :
+                case "arrangement" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
 
-                case "flower" :
+                case "program" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
 
-                case "leader" :
+                case "filming" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
 
-                case "music" :
+                case "registration" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
 
-                case "photo" :
-                    $scope.currentProjectView.mainMenu = view;
-                    break;
-
-                case "video" :
-                    $scope.currentProjectView.mainMenu = view;
-                    break;
-
-                case "zags" :
+                case "marriage" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
 
@@ -244,6 +236,14 @@ define(['angular'], function (angular) {
                     break;
 
                 case "dress" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
+
+                case "party" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
+
+                case "other" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
             }

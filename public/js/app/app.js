@@ -13,12 +13,9 @@ define([
 	'newProjectCtrlModule',
 	'budgetCtrlModule',
 	'restaurantCtrlModule',
-	'decorCtrlModule',
-	'flowerCtrlModule',
-	'leaderCtrlModule',
-	'musicCtrlModule',
-    'photoCtrlModule',
-    'videoCtrlModule',
+	'arrangementCtrlModule',
+    'programCtrlModule',
+    'filmingCtrlModule',
 
     'dressCtrlModule',
 
@@ -36,12 +33,9 @@ define([
 		'newProjectCtrlModule',
 		'budgetCtrlModule',
 		'restaurantCtrlModule',
-		'decorCtrlModule',
-		'flowerCtrlModule',
-		'leaderCtrlModule',
-		'musicCtrlModule',
-        'photoCtrlModule',
-        'videoCtrlModule',
+		'arrangementCtrlModule',
+        'programCtrlModule',
+        'filmingCtrlModule',
 
 		'dressCtrlModule',
 

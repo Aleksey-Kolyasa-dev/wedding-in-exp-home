@@ -1,39 +1,59 @@
 define(['angular'], function (angular) {
     "use strict";
-    var dressCtrlModule = angular.module('dressCtrlModule', ['wedServices']);
+    var programCtrlModule = angular.module('programCtrlModule', ['wedServices']);
 
-    dressCtrlModule.controller('dressMainCtrl', dressMainCtrl);
-    dressCtrlModule.controller('dressM_Ctrl', dressM_Ctrl);
-    dressCtrlModule.controller('dressW_Ctrl', dressW_Ctrl);
+    programCtrlModule.controller('programMainCtrl', programMainCtrl);
+    programCtrlModule.controller('leaderCtrl', leaderCtrl);
+    programCtrlModule.controller('musicCtrl', musicCtrl);
+    programCtrlModule.controller('showCtrl', showCtrl);
 
     /*
-    * DRESS MAIN CTRL
-    * */
-    function dressMainCtrl($scope, $log, $timeout,toastr, ResourceService) {
+     * PROGRAM MAIN CTRL
+     * */
+    function programMainCtrl($scope, $log, $timeout,toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'dress',
+            mainProp : 'program',
 
-            //Views setup
-            title : 'ДРЕСС-КОД',
-            ttlBy : 'ДРЕСС-КОДУ'
+            // Titles setup
+            title : 'ПРОГРАММА',
+            ttlBy : 'ПРОГРАММЕ',
+
+            // Menu buttons setup
+            buttons: [
+                'Ведущий',
+                'Музыка',
+                'Шоу'
+            ],
+
+            // Views shift & children names
+            views : [
+                'leader',
+                'music',
+                'show'
+            ]
         };
 
         // Subview shift Fn
         $scope.subViewShift = function (view) {
             switch (view) {
-                case "fiance" :
+                case $scope.conf.views[0] :
                     $scope.subView = view;
                     break;
-                case "fiancee" :
+
+                case $scope.conf.views[1] :
+                    $scope.subView = view;
+                    break;
+
+                case $scope.conf.views[2] :
                     $scope.subView = view;
                     break;
             }
         };
 
         // Default data
-        $scope.subView = 'fiance';
+        $scope.subView = $scope.conf.views[0];
 
         // Update total values Fn
         function updateTotalValues() {
@@ -51,12 +71,12 @@ define(['angular'], function (angular) {
             var wed = $scope.currentProject;
 
             // Total Plan calculations
-            $scope.total.planUsd = wed.dressM.total.planUsd + wed.dressW.total.planUsd;
-            $scope.total.planNat = wed.dressM.total.planNat + wed.dressW.total.planNat;
+            $scope.total.planUsd = wed[$scope.conf.views[0]].total.planUsd + wed[$scope.conf.views[1]].total.planUsd + wed[$scope.conf.views[2]].total.planUsd;
+            $scope.total.planNat = wed[$scope.conf.views[0]].total.planNat + wed[$scope.conf.views[1]].total.planNat + wed[$scope.conf.views[2]].total.planNat;
 
             // Total Paid calculations
-            $scope.total.paidTotalUsd = wed.dressM.total.paidTotalUsd + wed.dressW.total.paidTotalUsd;
-            $scope.total.paidTotalNat = wed.dressM.total.paidTotalNat + wed.dressW.total.paidTotalNat;
+            $scope.total.paidTotalUsd = wed[$scope.conf.views[0]].total.paidTotalUsd + wed[$scope.conf.views[1]].total.paidTotalUsd + wed[$scope.conf.views[2]].total.paidTotalUsd;
+            $scope.total.paidTotalNat = wed[$scope.conf.views[0]].total.paidTotalNat + wed[$scope.conf.views[1]].total.paidTotalNat + wed[$scope.conf.views[2]].total.paidTotalNat;
 
             // Total Rest calculations
             $scope.total.restTotalUsd = $scope.total.planUsd - $scope.total.paidTotalUsd;
@@ -72,27 +92,28 @@ define(['angular'], function (angular) {
         }, 300);
 
         // ON-EVENT: Do recalculations <- dressMCtrl || dressWCtrl
-        $scope.$on('dressValuesChanged', function () {
+        $scope.$on($scope.conf.mainProp + 'ValuesChanged', function () {
             updateTotalValues();
         });
 
     } // *END* DRESS MAIN CTRL
 
     /*
-     * DRESS_M CTRL
+     * LEADER CTRL
      * */
-    function dressM_Ctrl($scope, $log, toastr, ResourceService) {
+    function leaderCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'dressM',
+            mainProp : 'leader',
+            parent : 'program',
 
             // MSGs setup
-            msgNameBg : 'DRESS_M',
-            msgNameSm : 'Dress_M',
+            msgNameBg : 'LEADER',
+            msgNameSm : 'Leader',
 
             //Views setup
-            expTableTitle : 'ЖЕНИХА',
+            expTableTitle : 'ПО ВЕДУЩЕМУ',
 
             // Forms setup (auto)
             get addForm(){
@@ -167,8 +188,8 @@ define(['angular'], function (angular) {
             // in the end copy obj back
             $scope.currentProject[$scope.conf.mainProp].total = $scope.total;
 
-            // EVENT - DRESS VALUES CHANGED -> dressMainCrtl
-            $scope.$emit('dressValuesChanged');
+            // EVENT - DRESS VALUES CHANGED -> MainCrtl
+            $scope.$emit($scope.conf.parent + 'ValuesChanged');
         }
 
         // Add New Expense Item Fn
@@ -395,24 +416,25 @@ define(['angular'], function (angular) {
                 });
         };
 
-    } // *END* DRESS_M CTRL
+    } // *END* CTRL
 
 
     /*
-     * DRESS_W CTRL
+     * MUSIC CTRL
      * */
-    function dressW_Ctrl($scope, $log, toastr, ResourceService) {
+    function musicCtrl($scope, $log, toastr, ResourceService) {
         // INPUT DATA CONFIG
         $scope.conf = {
             // Main setup
-            mainProp : 'dressW',
+            mainProp : 'music',
+            parent   : 'program',
 
             // MSGs setup
-            msgNameBg : 'DRESS_W',
-            msgNameSm : 'Dress_W',
+            msgNameBg : 'MUSIC',
+            msgNameSm : 'Music',
 
             //Views setup
-            expTableTitle : 'НЕВЕСТЫ',
+            expTableTitle : 'ПО МУЗЫКЕ',
 
             // Forms setup (auto)
             get addForm(){
@@ -487,8 +509,8 @@ define(['angular'], function (angular) {
             // in the end copy obj back
             $scope.currentProject[$scope.conf.mainProp].total = $scope.total;
 
-            // EVENT - DRESS VALUES CHANGED -> dressMainCrtl
-            $scope.$emit('dressValuesChanged');
+            // EVENT - DRESS VALUES CHANGED -> MainCrtl
+            $scope.$emit($scope.conf.parent + 'ValuesChanged');
         }
 
         // Add New Expense Item Fn
@@ -715,8 +737,328 @@ define(['angular'], function (angular) {
                 });
         };
 
-    } // *END* DRESS_W CTRL
+    } // *END* CTRL
+
+    /*
+     * SHOW CTRL
+     * */
+    function showCtrl($scope, $log, toastr, ResourceService) {
+        // INPUT DATA CONFIG
+        $scope.conf = {
+            // Main setup
+            mainProp : 'show',
+            parent   : 'program',
+
+            // MSGs setup
+            msgNameBg : 'SHOW',
+            msgNameSm : 'Show',
+
+            //Views setup
+            expTableTitle : 'ПО ШОУ',
+
+            // Forms setup (auto)
+            get addForm(){
+                return 'addNew' +  this.msgNameSm +'ExpenseForm';
+            },
+            get editForm(){
+                return 'edit' + this.msgNameSm +'ExpenseForm';
+            }
+        };
+
+        // Default data
+        $scope.itemToEdit = {};
+        $scope.newItem = {};
+        $scope.removeTrigger = {};
+        $scope.removeTrigger.status = false;
+
+        // WATCH CURRENCY VALUE and do recalculations if changed
+        $scope.$watch("currentProject.budget.currency", function () {
+            if($scope.currentProject[$scope.conf.mainProp].expCollection.length){
+                updateTotalValues();
+                if (_env()._dev){
+                    $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - CURRENCY change EVENT');
+                }
+            }
+        });
+
+        // Shortcuts
+        $scope.items = $scope.currentProject[$scope.conf.mainProp].expCollection;
+        $scope.total = $scope.currentProject[$scope.conf.mainProp].total;
+        $scope.notes = $scope.currentProject[$scope.conf.mainProp + 'Notes'];
+
+        // Update total values Fn
+        function updateTotalValues() {
+            // Shortcuts
+            $scope.total = {
+                planUsd : 0,
+                planNat : 0,
+                paidUsd : 0,
+                paidNat : 0,
+                paidTotalUsd : 0,
+                paidTotalNat : 0,
+                restTotalUsd : 0,
+                restTotalNat : 0
+            };
+
+            // USD and Nat plans separation
+            angular.forEach($scope.items, function (item) {
+                if(item.usd){
+                    $scope.total.planUsd += item.toPay;
+                    $scope.total.planNat = $scope.total.planUsd * $scope.currentProject.budget.currency;
+
+                    $scope.total.paidUsd += item.paid;
+                    $scope.total.paidNat = $scope.total.paidUsd * $scope.currentProject.budget.currency;
+                }
+                if(!item.usd){
+                    $scope.total.planNat += item.toPay;
+                    $scope.total.planUsd = $scope.total.planNat / $scope.currentProject.budget.currency;
+
+                    $scope.total.paidNat += item.paid;
+                    $scope.total.paidUsd = $scope.total.paidNat / $scope.currentProject.budget.currency;
+                }
+            });
+
+            // Total Paid calculations
+            $scope.total.paidTotalUsd += $scope.total.paidUsd;
+            $scope.total.paidTotalNat = $scope.total.paidTotalUsd * $scope.currentProject.budget.currency;
+
+            // Total Rest calculations
+            $scope.total.restTotalUsd = $scope.total.planUsd - $scope.total.paidTotalUsd;
+            $scope.total.restTotalNat = $scope.total.restTotalUsd * $scope.currentProject.budget.currency;
+
+            // in the end copy obj back
+            $scope.currentProject[$scope.conf.mainProp].total = $scope.total;
+
+            // EVENT - DRESS VALUES CHANGED -> MainCrtl
+            $scope.$emit($scope.conf.parent + 'ValuesChanged');
+        }
+
+        // Add New Expense Item Fn
+        $scope.addNewExpenseItem = function (item) {
+            if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
+                // If 'unit' is not defined
+                if(item.unit == '' || item.unit == null){
+                    item.unit = 'не указан';
+                }
+                // multiplier correction
+                if(item.multiplier < 0 ){
+                    item.multiplier = 1;
+                }
+                // multiplier correction
+                if(item.multiplier == 0 ){
+                    item.multiplier = 1;
+                }
+                // tariff correction
+                if(item.tariff < 0){
+                    item.tariff *=-1;
+                }
+                // paid correction
+                if(item.paid < 0){
+                    item.paid *= -1;
+                }
+                // Intermediate calculations
+                item.toPay = item.tariff * item.multiplier;
+                item.rest = item.toPay - item.paid;
+
+                // Money type check
+                if(!item.usd){
+                    item.money = $scope.currentProject.budget.nationalMoney;
+                } else {
+                    item.money = 'USD';
+                }
+
+                // Add expense item to expCollection
+                $scope.currentProject[$scope.conf.mainProp].expCollection.push(item);
+
+                // Update total values
+                updateTotalValues();
+
+                if (_env()._dev){
+                    $log.log('Update PROJECT by ' + $scope.conf.msgNameBg +': reason - ADD ' + $scope.conf.msgNameBg +' EXP EVENT ');
+                }
+
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : $scope.conf.mainProp,
+                    keyURL : "/" + $scope.conf.mainProp + "DataSave"
+                };
+                request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
+                // ADD EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                    function (data) {
+                        $scope.newItem = {};
+                        if (_env()._dev) {
+                            toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                        throw new Error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                    })
+                    .catch(function (err) {
+                        toastr.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed');
+                        $log.error('ERROR: New ' + $scope.conf.msgNameSm + ' Item AJAX failed', err);
+                    });
+            }
+            else {
+                toastr.error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed');
+                throw new Error('ERROR: ' + $scope.conf.msgNameSm + ' expense input check failed');
+            }
+        };
+
+        // Edit Expense Item Fn
+        $scope.editExpenseItem = function (index) {
+            $scope.itemToEdit = $scope.items[index];
+            $scope.removeTrigger.status = false;
+        };
+
+        // SAVE EDITED ITEM in DB
+        $scope.editExpenseItemSave = function (item) {
+            if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
+                // If 'unit' is not defined
+                if(item.unit == '' || item.unit == null){
+                    item.unit = 'не указан';
+                }
+                // multiplier correction
+                if(item.multiplier < 0 ){
+                    item.multiplier = 1;
+                }
+                // multiplier correction
+                if(item.multiplier == 0 ){
+                    item.multiplier = 1;
+                }
+                // tariff correction
+                if(item.tariff < 0){
+                    item.tariff *=-1;
+                }
+                // paid correction
+                if(item.paid < 0){
+                    item.paid *= -1;
+                }
+                // Intermediate calculations
+                item.toPay = item.tariff * item.multiplier;
+                item.rest = item.toPay - item.paid;
+
+                // Money type check
+                if(!item.usd){
+                    item.money = $scope.currentProject.budget.nationalMoney;
+                } else {
+                    item.money = 'USD';
+                }
+
+                // Update total values
+                updateTotalValues();
+
+                if (_env()._dev){
+                    $log.log('update PROJECT by ' + $scope.conf.msgNameBg + ': reason - EDIT ' + $scope.conf.msgNameBg + ' EXP EVENT ');
+                }
+
+                var request = {
+                    _id: $scope.currentProject._id,
+                    key : $scope.conf.mainProp,
+                    keyURL : "/" + $scope.conf.mainProp + "DataSave"
+                };
+                request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
+                // SAVE CHANGES of EXPENSE ITEM to DB
+                ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                    function (data) {
+                        $scope.itemToEdit = {};
+                        if (_env()._dev) {
+                            toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
+                        }
+                    },
+                    function (err) {
+                        toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item EditAJAX failed');
+                        throw new Error('ERROR: ' + $scope.conf.msgNameBg + 'Expense Item Edit AJAX failed');
+                    })
+                    .catch(function (err) {
+                        toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
+                        $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
+                    });
+            }
+            else {
+                toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed');
+                throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' expense input check failed');
+            }
+        };
+
+        // DELETE ITEM
+        $scope.deleteExpenseItem = function (index) {
+            // Remove from model
+            $scope.currentProject[$scope.conf.mainProp].expCollection.splice(index, 1);
+
+            // Update total values
+            updateTotalValues();
+            if (_env()._dev){
+                $log.log('Update PROJECT by ' + $scope.conf.msgNameBg + ': reason - REMOVE ' + $scope.conf.msgNameBg + ' EXP EVENT ');
+            }
+            var request = {
+                _id: $scope.currentProject._id,
+                key : $scope.conf.mainProp,
+                keyURL : "/" + $scope.conf.mainProp + "DataSave"
+            };
+            request[$scope.conf.mainProp] = $scope.currentProject[$scope.conf.mainProp];
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                function (data) {
+                    if (_env()._dev) {
+                        toastr.info($scope.conf.msgNameBg + ' Expense Item removed');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed');
+                    throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item AJAX failed');
+                })
+                .catch(function (err) {
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed');
+                    $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Expense Item Edit AJAX failed', err);
+                });
+        };
+
+        // Notes Display Filter
+        $scope.notesFilter = function (notes) {
+            if(notes == null){
+                return '';
+            } else {
+                var noteArr = notes.split('*');
+                if(noteArr[0] == ''){
+                    noteArr.splice(0,1);
+                }
+                return noteArr;
+            }
+        };
+
+        // Notes Save
+        $scope.noteSave = function () {
+            var request = {
+                _id: $scope.currentProject._id,
+                key: $scope.conf.mainProp + "Notes",
+                keyURL : "/" + $scope.conf.mainProp +"Notes"
+            };
+            request[$scope.conf.mainProp + "Notes"] = $scope.currentProject[$scope.conf.mainProp + "Notes"];
+
+            // SAVE CHANGES in DB
+            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+                function (data) {
+                    if (_env()._dev) {
+                        toastr.info($scope.conf.msgNameBg + ' Notes are saved!');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
+                    throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
+                })
+                .catch(function (err) {
+                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
+                    $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed', err);
+                });
+        };
+
+    } // *END* CTRL
 
 
-    return dressCtrlModule;
+    return programCtrlModule;
 });

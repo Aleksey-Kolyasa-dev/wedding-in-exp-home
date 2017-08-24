@@ -38,12 +38,10 @@ define(['angular'], function (angular) {
 
             // Define totals sum of planUsd/planNat
             wed.budget.total.wedPlanTotalUsd = wed.restaurant.total.planTotalUsd
-                + wed.decor.total.planUsd
-                + wed.flower.total.planUsd
-                + wed.leader.total.planUsd
-                + wed.music.total.planUsd
-                + wed.photo.total.planUsd
-                + wed.video.total.planUsd
+                + wed.arrangement.total.planUsd
+                + wed.program.total.planUsd
+                + wed.filming.total.planUsd
+
 
                 + wed.dress.total.planUsd;
 
@@ -52,12 +50,10 @@ define(['angular'], function (angular) {
 
             // Define totals sum of paidUsd/paidNat
             wed.budget.total.wedPaidTotalUsd = wed.restaurant.total.paidTotalUsd
-                + wed.decor.total.paidTotalUsd
-                + wed.flower.total.paidTotalUsd
-                + wed.leader.total.paidTotalUsd
-                + wed.music.total.paidTotalUsd
-                + wed.photo.total.paidTotalUsd
-                + wed.video.total.paidTotalUsd
+                + wed.arrangement.total.paidTotalUsd
+                + wed.program.total.paidTotalUsd
+                + wed.filming.total.paidTotalUsd
+
 
                 + wed.dress.total.paidTotalUsd;
 
@@ -83,11 +79,11 @@ define(['angular'], function (angular) {
             }
         }
 
-        /*// EVOKE ON-LOAD
+        // EVOKE ON-LOAD
         $timeout(function () {
             // MAIN BUDGET CALCULATION Fn
             weddingBudgetTotals();
-        },600);*/
+        },600);
 
         // SAVE CHANGES to DB
         $scope.budgetSettingsApply = function (budget) {

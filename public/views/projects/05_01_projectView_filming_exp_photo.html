@@ -1,4 +1,4 @@
-<div class="rest-plus-page">
+<div class="rest-plus-page" ng-controller="photoCtrl">
 
     <!--EXPENSE ITEMS TABLE *START*-->
     <div class="fiance-side-main col-xs-11">
@@ -7,59 +7,59 @@
                 <button class="btn btn-warning" data-target="#{{'addNew' + conf.msgNameSm +'ExpenseItem'}}" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <header class="guests-fiance-side" style="float: right">
-                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">РАСХОДЫ</h4>
+                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">РАСХОДЫ {{conf.expTableTitle}}</h4>
             </header>
         </div>
 
         <div>
             <table class="table table-responsive info-glass-panel">
                 <thead class="guest-side-table-head">
-                    <tr style="color: white">
-                        <th class="text-center hidden-md hidden-sm hidden-xs">№</th>
-                        <th>РАСХОДЫ</th>
-                        <th class="text-center hidden-sm hidden-xs">ЦЕНА</th>
-                        <th class="text-center hidden-sm hidden-xs">КОЛИЧЕСТВО</th>
-                        <th class="text-center hidden-md hidden-sm hidden-xs">ЕДИНИЦА</th>
-                        <th class="text-center">СУММА</th>
-                        <th class="text-center">ОПЛАЧЕННО</th>
-                        <th class="text-center">ДОПЛАТИТЬ</th>
-                        <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
-                    </tr>
+                <tr style="color: white">
+                    <th class="text-center hidden-md hidden-sm hidden-xs">№</th>
+                    <th>РАСХОДЫ</th>
+                    <th class="text-center hidden-sm hidden-xs">ЦЕНА</th>
+                    <th class="text-center hidden-sm hidden-xs">КОЛИЧЕСТВО</th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs">ЕДИНИЦА</th>
+                    <th class="text-center">СУММА</th>
+                    <th class="text-center">ОПЛАЧЕННО</th>
+                    <th class="text-center">ДОПЛАТИТЬ</th>
+                    <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    <!--BODY-->
-                    <tr class="guest" ng-repeat="item in items">
-                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
-                        <td>{{item.name}}</td>
-                        <td class="text-center hidden-sm hidden-xs"  ng-class="item.usd? 'usd-use':'nat-use'">{{item.tariff  | number : 1}} {{item.money}}</td>
-                        <td class="text-center hidden-sm hidden-xs">{{item.multiplier}}</td>
-                        <td class="text-center hidden-md hidden-md hidden-sm hidden-xs">{{item.unit}}</td>
-                        <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.toPay  | number : 1}} {{item.money}}</td>
-                        <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.paid  | number : 1}} {{item.money}}</td>
-                        <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.rest  | number : 1}} {{item.money}}</td>
-                        <td class="text-center">
-                            <div>
-                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#{{'edit' + conf.msgNameSm +'ExpenseItem'}}" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <!--BODY-->
+                <!--BODY-->
+                <tr class="guest" ng-repeat="item in items">
+                    <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td class="text-center hidden-sm hidden-xs"  ng-class="item.usd? 'usd-use':'nat-use'">{{item.tariff  | number : 1}} {{item.money}}</td>
+                    <td class="text-center hidden-sm hidden-xs">{{item.multiplier}}</td>
+                    <td class="text-center hidden-md hidden-md hidden-sm hidden-xs">{{item.unit}}</td>
+                    <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.toPay  | number : 1}} {{item.money}}</td>
+                    <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.paid  | number : 1}} {{item.money}}</td>
+                    <td class="text-center" ng-class="item.usd? 'usd-use':'nat-use'">{{item.rest  | number : 1}} {{item.money}}</td>
+                    <td class="text-center">
+                        <div>
+                            <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#{{'edit' + conf.msgNameSm +'ExpenseItem'}}" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                        </div>
+                    </td>
+                </tr>
+                <!--BODY-->
 
-                    <!--FOOTER-->
-                    <tr><td colspan="9" style="border-top: 0!important;"></td></tr>
-                    <tr class="guest total-footer-data" ng-if="currentProject[conf.mainProp].expCollection.length">
-                        <td class="hidden-md hidden-sm hidden-xs"></td>
-                        <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
-                        <td class="visible-md" colspan="3"></td>
-                        <td class="visible-sm"></td>
-                        <td class="visible-xs"></td>
-                        <td class="text-center"><span class="nat-use">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.planUsd  | number : 1}} USD</span></td>
-                        <td class="text-center"><span class="nat-use">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.paidTotalUsd  | number : 1}} USD</span></td>
-                        <td class="text-center"><span class="nat-use">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.restTotalUsd  | number : 1}} USD</span></td>
-                        <td class="text-center"></td>
-                    </tr>
-                    <!--FOOTER-->
+                <!--FOOTER-->
+                <tr><td colspan="9" style="border-top: 0!important;"></td></tr>
+                <tr class="guest total-footer-data" ng-if="currentProject[conf.mainProp].expCollection.length">
+                    <td class="hidden-md hidden-sm hidden-xs"></td>
+                    <td class="text-left hidden-md hidden-xs hidden-sm" colspan="4" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
+                    <td class="visible-md" colspan="3"></td>
+                    <td class="visible-sm"></td>
+                    <td class="visible-xs"></td>
+                    <td class="text-center"><span class="nat-use">{{total.planNat | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.planUsd  | number : 1}} USD</span></td>
+                    <td class="text-center"><span class="nat-use">{{total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.paidTotalUsd  | number : 1}} USD</span></td>
+                    <td class="text-center"><span class="nat-use">{{total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}}</span> / <span class="usd-use">{{total.restTotalUsd  | number : 1}} USD</span></td>
+                    <td class="text-center"></td>
+                </tr>
+                <!--FOOTER-->
                 </tbody>
             </table>
         </div>
@@ -109,8 +109,8 @@
                                 <hr>
                                 <div class="form-group text-right" style="width: 100%">
                                     <label style="cursor: pointer;" ng-class="newItem.usd? 'usd-use' : 'nat-use'">Расчет в USD
-                                    <input style="width: 16px; height: 16px; cursor: pointer" ng-model="newItem.usd"
-                                           type="checkbox"></label>
+                                        <input style="width: 16px; height: 16px; cursor: pointer" ng-model="newItem.usd"
+                                               type="checkbox"></label>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block"
                                         ng-disabled="($eval(conf.addForm).$invalid)" data-dismiss="modal"
