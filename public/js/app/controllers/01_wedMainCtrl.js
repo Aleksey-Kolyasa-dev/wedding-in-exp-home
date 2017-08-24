@@ -133,7 +133,7 @@ define(['angular'], function (angular) {
                                 $scope.currentProject = project;
                                 $location.path('/project');
                                 $scope.decorNames = true;
-                                $scope.currentProjectView.mainMenu = "budget"; // budget
+                                $scope.currentProjectView.mainMenu = "dress"; // budget
                             }
                         });
                     };
