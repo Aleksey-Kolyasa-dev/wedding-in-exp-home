@@ -93,8 +93,6 @@ define(['angular'], function (angular) {
 
             //Views setup
             expTableTitle : 'ЖЕНИХА',
-            title : 'ДРЕСС-КОД',
-            ttlBy : 'ДРЕСС-КОДУ',
 
             // Forms setup (auto)
             get addForm(){
@@ -104,8 +102,6 @@ define(['angular'], function (angular) {
                 return 'edit' + this.msgNameSm +'ExpenseForm';
             }
         };
-
-
 
         // Default data
         $scope.itemToEdit = {};
@@ -417,8 +413,6 @@ define(['angular'], function (angular) {
 
             //Views setup
             expTableTitle : 'НЕВЕСТЫ',
-            title : 'ДРЕСС-КОД',
-            ttlBy : 'ДРЕСС-КОДУ',
 
             // Forms setup (auto)
             get addForm(){
