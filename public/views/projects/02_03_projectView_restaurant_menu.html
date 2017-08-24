@@ -184,6 +184,7 @@
                         </td>
                     </tr>
 
+
                     <!--footers-->
                     <tr><td colspan="8" style="border-top: 0!important;"></td></tr>
                     <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">
@@ -193,7 +194,7 @@
                         <td class="visible-sm"></td>
                         <td class="visible-xs"></td>
                         <td class="text-center">{{total.totalMenuPriceNat | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center">{{(total.totalMenuWeight / 1000)  | number : 1}} кг еды всего</td>
+                        <td class="text-center">{{(total.totalMenuWeight / 1000)  | number : 2}} кг еды всего</td>
                         <td class="text-center"></td>
                     </tr>
                     <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">

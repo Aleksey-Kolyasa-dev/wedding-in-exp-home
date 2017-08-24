@@ -19,11 +19,14 @@ define(['angular'], function (angular) {
 
         // ON-EVENT SUBSCRIBE <- wedMainCtrl (when projectView = 'budget')
         $scope.$on('doBudgetReCalculation', function () {
-            weddingBudgetTotals();
+            if($scope.subView == 'settings'){
+                weddingBudgetTotals();
+            }
+
         });
 
         // Budged EDIT TRIGGER Fn
-        $scope.budgetChangeTriger = function (natMoney, currency) {
+        $scope.budgetChangeTrigger = function (natMoney, currency) {
             $scope.budget.nationalMoney = natMoney;
             $scope.budget.currency = currency;
         };
@@ -93,7 +96,7 @@ define(['angular'], function (angular) {
         $timeout(function () {
             // MAIN BUDGET CALCULATION Fn
             weddingBudgetTotals();
-        },1000);
+        },500);
 
         // SAVE CHANGES to DB
         $scope.budgetSettingsApply = function (budget) {
@@ -222,6 +225,8 @@ define(['angular'], function (angular) {
             switch (view) {
                 case "settings" :
                     $scope.subView = view;
+                    // MAIN BUDGET CALCULATION Fn
+                    weddingBudgetTotals();
                     break;
                 case "info" :
                     $scope.subView = view;

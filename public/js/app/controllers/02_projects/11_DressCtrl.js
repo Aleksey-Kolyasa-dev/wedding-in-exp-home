@@ -106,7 +106,7 @@ define(['angular'], function (angular) {
             msgNameSm : 'DressM',
 
             //Views setup
-            expTableTitle : 'ЖЕНИХА',
+            expTableTitle : 'НА ЖЕНИХА',
 
             // Forms setup (auto)
             get addForm(){
@@ -427,7 +427,7 @@ define(['angular'], function (angular) {
             msgNameSm : 'DressW',
 
             //Views setup
-            expTableTitle : 'НЕВЕСТЫ',
+            expTableTitle : 'НА НЕВЕСТУ',
 
             // Forms setup (auto)
             get addForm(){

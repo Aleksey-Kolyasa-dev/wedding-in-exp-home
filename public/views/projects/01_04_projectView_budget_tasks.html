@@ -77,9 +77,9 @@
                                     </textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Приоритет</label>
+                                    <label>Приоритет (число)</label>
                                     <input class="form-control" ng-model="newItem.priority" required type="number"
-                                            name="expItemNewPriority" style='{{(taskFom.expItemNewPriority.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}'>
+                                            name="expItemNewPriority" style='{{(taskFom.expItemNewPriority.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}' placeholder="1, 2, 3,...">
                                 </div>
 
                                 <hr>
@@ -121,9 +121,9 @@
                                     </textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Приоритет</label>
+                                    <label>Приоритет (число)</label>
                                     <input class="form-control" ng-model="itemToEdit.priority" required type="number"
-                                           name="expItemNewPriority" style='{{(taskEditForm.expItemNewPriority.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}'>
+                                           name="expItemNewPriority" style='{{(taskEditForm.expItemNewPriority.$invalid)? "background: rgba(226, 251, 96, 0.81)" : "null"}}' placeholder="1, 2, 5, ...">
                                 </div>
                                 <hr>
                                 <div class="form-group text-center" style="width: 100%">

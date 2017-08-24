@@ -425,7 +425,6 @@ define(['angular'], function (angular) {
         // Guests Qty Fn
         $scope.guestsQty = function (project) {
             if (!$scope.currentProject.restaurant.quickView) {
-                if ($scope.currentProjectView.mainMenu == 'restaurant') {
                     var filtArrM = project.fianceSideGuests.filter(function (guest) {
                         return guest.guestWillBe == true;
                     });
@@ -436,7 +435,6 @@ define(['angular'], function (angular) {
                     $scope.currentProject.restaurant.guestsQty = result;
 
                     return result;
-                }
             }
             else {
                 var interQuick = $scope.currentProject.restaurant.quickData.quickGuestsQty * $scope.currentProject.restaurant.quickData.quickCheck;
@@ -1024,6 +1022,9 @@ define(['angular'], function (angular) {
             $scope.$emit('totalValuesChanged');
 
         }
+
+        // EVOKE ON-LOAD
+        updateTotalValues();
 
         // Add New Expense Item Fn
         $scope.addNewExpenseItem = function (item) {

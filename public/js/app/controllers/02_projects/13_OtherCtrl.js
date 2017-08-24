@@ -22,10 +22,10 @@ define(['angular'], function (angular) {
 
             // Titles setup
             title : 'ИННОЕ',
-            ttlBy : 'ИННОМУ',
+            ttlBy : 'РАСХОДАМ',
 
             //Views setup
-            expTableTitle : 'ПО ИННОМУ',
+            expTableTitle : 'ИННЫЕ РАСХОДЫ',
 
             // Menu buttons setup
             buttons: [],
