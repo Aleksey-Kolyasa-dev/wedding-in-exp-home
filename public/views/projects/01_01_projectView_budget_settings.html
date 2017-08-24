@@ -91,6 +91,14 @@
                         <td class="text-center">{{currentProject.video.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.video.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
 
+                    <tr class="guest" ng-if="currentProject.dress.total.planUsd">
+                        <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('dress')">ДРЕСС-КОД</a></td>
+                        <td class="text-center">{{currentProject.dress.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.dress.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.dress.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.dress.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.dress.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.dress.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
+
 
 
                     <!--FOOTER-->

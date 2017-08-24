@@ -1515,17 +1515,6 @@ function NewProjectCtor(project) {
         }
     };
     this.dress = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
         total: {
             planUsd: 0,
             planNat: 0,

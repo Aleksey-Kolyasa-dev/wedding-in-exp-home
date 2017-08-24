@@ -17,7 +17,7 @@ define(['angular'], function (angular) {
         // Shortcuts
         $scope.budgetTotals = $scope.currentProject.budget.total;
 
-        // EVENT SUBSCRIBE
+        // ON-EVENT SUBSCRIBE <- wedMainCtrl (when projectView = 'budget')
         $scope.$on('doBudgetReCalculation', function () {
             weddingBudgetTotals();
         });
@@ -43,7 +43,9 @@ define(['angular'], function (angular) {
                 + wed.leader.total.planUsd
                 + wed.music.total.planUsd
                 + wed.photo.total.planUsd
-                + wed.video.total.planUsd;
+                + wed.video.total.planUsd
+
+                + wed.dress.total.planUsd;
 
 
             wed.budget.total.wedPlanTotalNat =  wed.budget.total.wedPlanTotalUsd * wed.budget.currency;
@@ -55,7 +57,9 @@ define(['angular'], function (angular) {
                 + wed.leader.total.paidTotalUsd
                 + wed.music.total.paidTotalUsd
                 + wed.photo.total.paidTotalUsd
-                + wed.video.total.paidTotalUsd;
+                + wed.video.total.paidTotalUsd
+
+                + wed.dress.total.paidTotalUsd;
 
             wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd * wed.budget.currency;
 
@@ -79,11 +83,11 @@ define(['angular'], function (angular) {
             }
         }
 
-        // EVOKE ON-LOAD
+        /*// EVOKE ON-LOAD
         $timeout(function () {
             // MAIN BUDGET CALCULATION Fn
             weddingBudgetTotals();
-        },300);
+        },600);*/
 
         // SAVE CHANGES to DB
         $scope.budgetSettingsApply = function (budget) {

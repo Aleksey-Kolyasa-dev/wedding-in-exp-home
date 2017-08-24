@@ -133,7 +133,7 @@ define(['angular'], function (angular) {
                                 $scope.currentProject = project;
                                 $location.path('/project');
                                 $scope.decorNames = true;
-                                $scope.currentProjectView.mainMenu = "dress"; // budget
+                                $scope.currentProjectView.mainMenu = "budget"; // budget
                             }
                         });
                     };
@@ -202,7 +202,9 @@ define(['angular'], function (angular) {
 
                 case "budget" :
                     $scope.currentProjectView.mainMenu = view;
-                    $scope.$broadcast('doBudgetReCalculation');
+                    $timeout(function () {
+                        $scope.$broadcast('doBudgetReCalculation');
+                    },500);
                     break;
 
                 case "restaurant" :
