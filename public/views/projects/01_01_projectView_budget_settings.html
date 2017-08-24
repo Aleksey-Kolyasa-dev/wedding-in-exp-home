@@ -41,6 +41,7 @@
                 </thead>
 
                 <tbody>
+                    <!--restaurant-->
                     <tr class="guest" ng-if="currentProject.restaurant.total.planTotalUsd">
                         <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
                         <td><a class="budget-table-list-link" ng-click="projectView('restaurant')">РЕСТОРАН</a></td>
@@ -48,6 +49,7 @@
                         <td class="text-center">{{currentProject.restaurant.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.paidTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center">{{currentProject.restaurant.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.restaurant.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
+                    <!--arrangement-->
                     <tr class="guest" ng-if="currentProject.arrangement.total.planUsd">
                         <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
                         <td><a class="budget-table-list-link" ng-click="projectView('arrangement')">ОФОРМЛЕНИЕ</a></td>
@@ -55,6 +57,7 @@
                         <td class="text-center">{{currentProject.arrangement.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.arrangement.total.paidTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center">{{currentProject.arrangement.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.arrangement.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
+                    <!--program-->
                     <tr class="guest" ng-if="currentProject.program.total.planUsd">
                         <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
                         <td><a class="budget-table-list-link" ng-click="projectView('program')">ПРОГРАММА</a></td>
@@ -62,6 +65,7 @@
                         <td class="text-center">{{currentProject.program.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.program.total.paidTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center">{{currentProject.program.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.program.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
+                    <!--filming-->
                     <tr class="guest" ng-if="currentProject.filming.total.planUsd">
                         <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
                         <td><a class="budget-table-list-link" ng-click="projectView('filming')">СЪЁМКА</a></td>
@@ -69,7 +73,31 @@
                         <td class="text-center">{{currentProject.filming.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.filming.total.paidTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center">{{currentProject.filming.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.filming.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
-                  
+                    <!--registration-->
+                    <tr class="guest" ng-if="currentProject.registration.expCollection.length">
+                        <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('registration')">РЕГИСТРАЦИЯ</a></td>
+                        <td class="text-center">{{currentProject.registration.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.registration.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.registration.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.registration.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.registration.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.registration.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
+                    <!--marriage-->
+                    <tr class="guest" ng-if="currentProject.marriage.expCollection.length">
+                        <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('marriage')">ВЕНЧАНИЕ</a></td>
+                        <td class="text-center">{{currentProject.marriage.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.marriage.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.marriage.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.marriage.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.marriage.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.marriage.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
+                    <!--transport-->
+                    <tr class="guest" ng-if="currentProject.transport.expCollection.length">
+                        <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('transport')">ТРАНСПОРТ</a></td>
+                        <td class="text-center">{{currentProject.transport.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.transport.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.transport.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.transport.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.transport.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.transport.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
+                    <!--dress-->
                     <tr class="guest" ng-if="currentProject.dress.total.planUsd">
                         <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
                         <td><a class="budget-table-list-link" ng-click="projectView('dress')">ДРЕСС-КОД</a></td>
@@ -77,7 +105,7 @@
                         <td class="text-center">{{currentProject.dress.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.dress.total.paidTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center">{{currentProject.dress.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.dress.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
-                    
+                    <!--party-->
                     <tr class="guest" ng-if="currentProject.party.total.planUsd">
                         <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
                         <td><a class="budget-table-list-link" ng-click="projectView('party')">ВЕЧЕРИНКИ</a></td>
@@ -85,7 +113,14 @@
                         <td class="text-center">{{currentProject.party.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.party.total.paidTotalUsd  | number : 1}} USD</span></td>
                         <td class="text-center">{{currentProject.party.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.party.total.restTotalUsd  | number : 1}} USD</span></td>
                     </tr>
-
+                    <!--other-->
+                    <tr class="guest" ng-if="currentProject.other.expCollection.length">
+                        <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
+                        <td><a class="budget-table-list-link" ng-click="projectView('other')">ИННОЕ</a></td>
+                        <td class="text-center">{{currentProject.other.total.planNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.other.total.planUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.other.total.paidTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.other.total.paidTotalUsd  | number : 1}} USD</span></td>
+                        <td class="text-center">{{currentProject.other.total.restTotalNat  | number : 1}} {{currentProject.budget.nationalMoney}} / <span class="usd-use">{{currentProject.other.total.restTotalUsd  | number : 1}} USD</span></td>
+                    </tr>
 
                     <!--FOOTER-->
                     <tr><td colspan="5" style="border-top: 0!important;"></td></tr>

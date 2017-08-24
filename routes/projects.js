@@ -16,6 +16,8 @@ projectsRouter.get('/', function (req, res) {
     res.render('../public/index', {title: 'Wedding_in'});
 });
 
+
+/*** PROJECT *START* */
 //* GET User Projects
 projectsRouter.post('/getProjects', function (req, res) {
     var owner = req.body;
@@ -37,7 +39,6 @@ projectsRouter.post('/getProjects', function (req, res) {
     });
 
 });
-
 //* GET Single Project
 projectsRouter.get('/api/:id', function (req, res) {
     projectsDB.weddings.findOne({_id: mongojs.ObjectId(req.params.id)}, function (err, project) {
@@ -154,8 +155,10 @@ projectsRouter.delete('/api/:id', function (req, res) {
         }
     });
 });
+/*** PROJECT *END* */
 
 
+/*** GENERAL *START* */
 //* PUT Single Project keyURL = /fianceSideGuests
 projectsRouter.put('/api/:id/fianceSideGuests', function (req, res) {
     var request = req.body;
@@ -301,8 +304,10 @@ projectsRouter.put('/api/:id/tasksDataSave', function (req, res) {
         });
     }
 });
+/*** GENERAL *END* */
 
 
+/*** NOTES *START* */
 //* PUT Single Project BUDGET keyURL = /projectNotes
 projectsRouter.put('/api/:id/projectNotes', function (req, res) {
     var request = req.body;
@@ -457,7 +462,6 @@ projectsRouter.put('/api/:id/plusNotes', function (req, res) {
         });
     }
 });
-
 //** PUT Single Project DECOR keyURL = /decorNotes
 projectsRouter.put('/api/:id/decorNotes', function (req, res) {
     var request = req.body;
@@ -612,8 +616,72 @@ projectsRouter.put('/api/:id/videoNotes', function (req, res) {
         });
     }
 });
+//* PUT Single Project REGISTRATION keyURL = /registrationNotes
+projectsRouter.put('/api/:id/registrationNotes', function (req, res) {
+    var request = req.body;
 
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {registrationNotes: request[request.key]}}, {}, function (err, response) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
+            }
+        });
+    }
+});
+//* PUT Single Project MARRIAGE keyURL = /marriageNotes
+projectsRouter.put('/api/:id/marriageNotes', function (req, res) {
+    var request = req.body;
 
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {marriageNotes: request[request.key]}}, {}, function (err, response) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
+            }
+        });
+    }
+});
+//* PUT Single Project TRANSPORT keyURL = /transportNotes
+projectsRouter.put('/api/:id/transportNotes', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {transportNotes: request[request.key]}}, {}, function (err, response) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
+            }
+        });
+    }
+});
 //* PUT Single Project DRESS_M keyURL = /dressMNotes
 projectsRouter.put('/api/:id/dressMNotes', function (req, res) {
     var request = req.body;
@@ -702,8 +770,32 @@ projectsRouter.put('/api/:id/partyWNotes', function (req, res) {
         });
     }
 });
+//* PUT Single Project OTHER keyURL = /otherNotes
+projectsRouter.put('/api/:id/otherNotes', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {otherNotes: request[request.key]}}, {}, function (err, response) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
+            }
+        });
+    }
+});
+/*** NOTES *END* */
 
 
+/*** DATA *START* */
 //* PUT Single Project RESTAURANT MENU CHECK keyURL = /useMenuCheckDataSave
 projectsRouter.put('/api/:id/useMenuCheckDataSave', function (req, res) {
     var request = req.body;
@@ -931,8 +1023,6 @@ projectsRouter.put('/api/:id/restaurantPlusDataSave', function (req, res) {
         });
     }
 });
-
-
 //* PUT Single Project DECOR keyURL = /decorDataSave
 projectsRouter.put('/api/:id/decorDataSave', function (req, res) {
     var request = req.body;
@@ -1087,8 +1177,72 @@ projectsRouter.put('/api/:id/videoDataSave', function (req, res) {
         });
     }
 });
+//* PUT Single Project REGISTRATION keyURL = /registrationDataSave
+projectsRouter.put('/api/:id/registrationDataSave', function (req, res) {
+    var request = req.body;
 
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {registration: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
+//* PUT Single Project MARRIAGE keyURL = /marriageDataSave
+projectsRouter.put('/api/:id/marriageDataSave', function (req, res) {
+    var request = req.body;
 
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {marriage: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
+//* PUT Single Project TRANSPORT keyURL = /transportDataSave
+projectsRouter.put('/api/:id/transportDataSave', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {transport: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
 //* PUT Single Project DRESS_M keyURL = /dressMDataSave
 projectsRouter.put('/api/:id/dressMDataSave', function (req, res) {
     var request = req.body;
@@ -1177,8 +1331,32 @@ projectsRouter.put('/api/:id/partyWDataSave', function (req, res) {
         });
     }
 });
+//* PUT Single Project OTHER keyURL = /otherDataSave
+projectsRouter.put('/api/:id/otherDataSave', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {other: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
+/*** DATA *END* */
 
 
+/*** SMS *START* */
 //* PUT PROJECT SMS (clear list) keyURL = /sms
 projectsRouter.put('/api/:id/sms', function (req, res) {
     var request = req.body;
@@ -1248,6 +1426,8 @@ projectsRouter.post('/api/:id/visitorNewSMS', function (req, res) {
         console.log("ERROR: POST" + request.keyURL + " FAILED", err);
     });
 });
+/*** SMS *END* */
+
 
 module.exports = projectsRouter;
 
@@ -1264,13 +1444,7 @@ function NewProjectCtor(project) {
     this.email = project.email;
     this.telephones = project.telephones;
     this.notes = project.notes;
-    this.smsCollection = [
-        /*{
-         date : null,
-         author : null,
-         msg : null,
-         }*/
-    ];
+    this.smsCollection = [];
     this.fianceSideGuests = [];
     this.fianceeSideGuests = [];
 
@@ -1301,7 +1475,6 @@ function NewProjectCtor(project) {
 
     // MENU DATA
     this.budget = {
-        /*budgetUSD: project.wedBudget,*/
         budgetNat: 0,
         nationalMoney: '',
         currency: 1,
@@ -1328,11 +1501,9 @@ function NewProjectCtor(project) {
         }
     };
     this.tasks = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         status : false
-         }*/]
+        expCollection:[]
     };
+
     this.restaurant = {
         name: null,
         address: null,
@@ -1374,17 +1545,7 @@ function NewProjectCtor(project) {
         }
     };
     this.restaurantMenu = {
-        expCollection: [
-            /* {
-             name : 'ТОРТ', // *<input S
-             portionWeight : 0, // *<input N
-             portionPrice : 0, // *<input N
-             portionQty : 0, // *<input N
-             toPay : 0, // portionPrice * portionQty
-             totalWeight: 0, // portionWeight * portionQty
-             category : null // *<input S
-             }*/
-        ],
+        expCollection:[],
         total: {
             totalMenuPriceNat: 0, // sum[toPai]
             totalMenuWeight: 0, // sum[totalWeight]
@@ -1405,19 +1566,7 @@ function NewProjectCtor(project) {
         ]
     };
     this.restaurantCakes = {
-        expCollection: [
-            /*{
-             name : 'ТОРТ', // *<input S
-             grPerGuest : 0, // *<input N
-             totalKg : 0, // guestsQ * grPerGuest
-             kgPrice : 0, // *<input N
-             toPai : 0, // totalKg * kgPrice
-             paid : 0, // *<input N
-             rest : 0, // toPai - paid
-             usd : false,
-             money : null
-             }*/
-        ],
+        expCollection:[],
         total: {
             planUsd: 0, // planNat / currency
             planNat: 0, // sum[toPai]
@@ -1455,17 +1604,7 @@ function NewProjectCtor(project) {
         }
     };
     this.decor = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1478,17 +1617,7 @@ function NewProjectCtor(project) {
         }
     };
     this.flower = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1513,17 +1642,7 @@ function NewProjectCtor(project) {
         }
     };
     this.leader = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1536,17 +1655,7 @@ function NewProjectCtor(project) {
         }
     };
     this.music = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1559,17 +1668,7 @@ function NewProjectCtor(project) {
         }
     };
     this.show = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1594,17 +1693,7 @@ function NewProjectCtor(project) {
         }
     };
     this.photo = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1617,17 +1706,7 @@ function NewProjectCtor(project) {
         }
     };
     this.video = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1640,29 +1719,8 @@ function NewProjectCtor(project) {
         }
     };
 
-    this.party = {
-        total: {
-            planUsd: 0,
-            planNat: 0,
-
-            paidTotalUsd: 0,
-            paidTotalNat: 0,
-            restTotalUsd: 0,
-            restTotalNat: 0
-        }
-    };
-    this.partyM = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+    this.registration = {
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1674,18 +1732,21 @@ function NewProjectCtor(project) {
             restTotalNat: 0
         }
     };
-    this.partyW = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+    this.marriage = {
+        expCollection:[],
+        total: {
+            planUsd: 0,
+            planNat: 0,
+            paidUsd: 0,
+            paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+    this.transport = {
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1710,17 +1771,7 @@ function NewProjectCtor(project) {
         }
     };
     this.dressM = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1733,17 +1784,7 @@ function NewProjectCtor(project) {
         }
     };
     this.dressW = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1756,18 +1797,19 @@ function NewProjectCtor(project) {
         }
     };
 
-    this.registration = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+    this.party = {
+        total: {
+            planUsd: 0,
+            planNat: 0,
+
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+    this.partyM = {
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1779,18 +1821,8 @@ function NewProjectCtor(project) {
             restTotalNat: 0
         }
     };
-    this.marriage = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+    this.partyW = {
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1802,41 +1834,9 @@ function NewProjectCtor(project) {
             restTotalNat: 0
         }
     };
-    this.transport = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
-        total: {
-            planUsd: 0,
-            planNat: 0,
-            paidUsd: 0,
-            paidNat: 0,
-            paidTotalUsd: 0,
-            paidTotalNat: 0,
-            restTotalUsd: 0,
-            restTotalNat: 0
-        }
-    };
+
     this.other = {
-        expCollection: [/*{
-         name : 'ТОРТ',
-         tariff : 200,
-         multiplier : 5,
-         unit : 'kg',
-         toPai : 0,
-         paid : 0,
-         rest : 0,
-         usd : false,
-         money : null
-         }*/],
+        expCollection:[],
         total: {
             planUsd: 0,
             planNat: 0,
@@ -1848,6 +1848,5 @@ function NewProjectCtor(project) {
             restTotalNat: 0
         }
     };
-
 
 }

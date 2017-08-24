@@ -6,19 +6,25 @@ define([
 	'angularAnimate',
 	'angularToastr',
 	'twitterBootstrap',
+
 	'projServices',
 	'authServices',
+
 	'controllers',
 	'usersCtrlModule',
 	'newProjectCtrlModule',
+
 	'budgetCtrlModule',
 	'restaurantCtrlModule',
 	'arrangementCtrlModule',
     'programCtrlModule',
     'filmingCtrlModule',
-
+    'registrationCtrlModule',
+    'marriageCtrlModule',
+    'transportCtrlModule',
     'dressCtrlModule',
     'partyCtrlModule',
+    'otherCtrlModule',
 
 	'directives',
 	'angularRuLocale'
@@ -29,20 +35,26 @@ define([
         'ngRoute',
 		'ngAnimate',
         'toastr',
-        'wedControllers',
+
+		'wedControllers',
 		'usersCtrlModule',
 		'newProjectCtrlModule',
+
 		'budgetCtrlModule',
 		'restaurantCtrlModule',
 		'arrangementCtrlModule',
         'programCtrlModule',
         'filmingCtrlModule',
-
+        'registrationCtrlModule',
+        'marriageCtrlModule',
+        'transportCtrlModule',
 		'dressCtrlModule',
         'partyCtrlModule',
+        'otherCtrlModule',
 
 		'authServices',
 		'wedServices',
+
 		'wedDerictives'
 	]);
 

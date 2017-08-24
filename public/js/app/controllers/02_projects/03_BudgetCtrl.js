@@ -37,26 +37,35 @@ define(['angular'], function (angular) {
             wed.budget.budgetNat = wed.wedBudget * wed.budget.currency;
 
             // Define totals sum of planUsd/planNat
-            wed.budget.total.wedPlanTotalUsd = wed.restaurant.total.planTotalUsd
+            wed.budget.total.wedPlanTotalUsd =
+                  wed.restaurant.total.planTotalUsd
                 + wed.arrangement.total.planUsd
                 + wed.program.total.planUsd
                 + wed.filming.total.planUsd
+                + wed.registration.total.planUsd
+                + wed.marriage.total.planUsd
+                + wed.transport.total.planUsd
+                + wed.dress.total.planUsd
                 + wed.party.total.planUsd
+                + wed.other.total.planUsd ;
 
-
-                + wed.dress.total.planUsd;
 
 
             wed.budget.total.wedPlanTotalNat =  wed.budget.total.wedPlanTotalUsd * wed.budget.currency;
 
             // Define totals sum of paidUsd/paidNat
-            wed.budget.total.wedPaidTotalUsd = wed.restaurant.total.paidTotalUsd
+            wed.budget.total.wedPaidTotalUsd =
+                  wed.restaurant.total.paidTotalUsd
                 + wed.arrangement.total.paidTotalUsd
                 + wed.program.total.paidTotalUsd
                 + wed.filming.total.paidTotalUsd
+                + wed.registration.total.paidTotalUsd
+                + wed.marriage.total.paidTotalUsd
+                + wed.transport.total.paidTotalUsd
+                + wed.dress.total.paidTotalUsd
                 + wed.party.total.paidTotalUsd
+                + wed.other.total.paidTotalUsd  ;
 
-                + wed.dress.total.paidTotalUsd;
 
             wed.budget.total.wedPaidTotalNat =  wed.budget.total.wedPaidTotalUsd * wed.budget.currency;
 
@@ -84,7 +93,7 @@ define(['angular'], function (angular) {
         $timeout(function () {
             // MAIN BUDGET CALCULATION Fn
             weddingBudgetTotals();
-        },600);
+        },1000);
 
         // SAVE CHANGES to DB
         $scope.budgetSettingsApply = function (budget) {

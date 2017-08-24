@@ -40,9 +40,15 @@ require.config({
         'programCtrlModule'     : '../js/app/controllers/02_projects/06_ProgramCtrl',
         'filmingCtrlModule'     : '../js/app/controllers/02_projects/07_FilmingCtrl',
 
+		'registrationCtrlModule'     : '../js/app/controllers/02_projects/08_RegistrationCtrl',
+        'marriageCtrlModule'     : '../js/app/controllers/02_projects/09_MarriageCtrl',
+        'transportCtrlModule'     : '../js/app/controllers/02_projects/10_TransportCtrl',
+
 
         'dressCtrlModule' 		: '../js/app/controllers/02_projects/11_DressCtrl',
         'partyCtrlModule' 		: '../js/app/controllers/02_projects/12_PartyCtrl',
+
+        'otherCtrlModule'     : '../js/app/controllers/02_projects/13_OtherCtrl',
 
 		'directives'     		: '../js/app/directives/directives',
 		'jQuery'		  		: '../libs/js/jquery.min',
@@ -96,13 +102,24 @@ require.config({
         'filmingCtrlModule' : {
             deps : ['controllers']
         },
-
+        'registrationCtrlModule' : {
+            deps : ['controllers']
+        },
+        'marriageCtrlModule' : {
+            deps : ['controllers']
+        },
+        'transportCtrlModule' : {
+            deps : ['controllers']
+        },
         'dressCtrlModule' : {
             deps : ['controllers']
         },
         'partyCtrlModule' : {
         	deps : ['controllers']
     	},
+        'otherCtrlModule' : {
+            deps : ['controllers']
+        },
 
 		'twitterBootstrap' : ['jQuery'],
 		'app' : {
@@ -110,18 +127,25 @@ require.config({
 				'angularToastr',
 				'angularRoute',
 				'twitterBootstrap',
+
 				'projServices',
 				'authServices',
+
 				'usersCtrlModule',
+
 				'newProjectCtrlModule',
+
 				'budgetCtrlModule',
 				'restaurantCtrlModule',
 				'arrangementCtrlModule',
                 'programCtrlModule',
                 'filmingCtrlModule',
-
+                'registrationCtrlModule',
+				'marriageCtrlModule',
+    			'transportCtrlModule',
 				'dressCtrlModule',
                 'partyCtrlModule',
+                'otherCtrlModule',
 
 				'directives'
 			]
