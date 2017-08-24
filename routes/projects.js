@@ -658,6 +658,50 @@ projectsRouter.put('/api/:id/dressWNotes', function (req, res) {
         });
     }
 });
+//* PUT Single Project PARTY_M keyURL = /partyMNotes
+projectsRouter.put('/api/:id/partyMNotes', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {partyMNotes: request[request.key]}}, {}, function (err, response) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
+            }
+        });
+    }
+});
+//* PUT Single Project PARTY_W keyURL = /dressWNotes
+projectsRouter.put('/api/:id/partyWNotes', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {partyWNotes: request[request.key]}}, {}, function (err, response) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
+            }
+        });
+    }
+});
 
 
 //* PUT Single Project RESTAURANT MENU CHECK keyURL = /useMenuCheckDataSave
@@ -1045,7 +1089,7 @@ projectsRouter.put('/api/:id/videoDataSave', function (req, res) {
 });
 
 
-//* PUT Single Project DRESS_M keyURL = /videoDataSave
+//* PUT Single Project DRESS_M keyURL = /dressMDataSave
 projectsRouter.put('/api/:id/dressMDataSave', function (req, res) {
     var request = req.body;
 
@@ -1067,7 +1111,7 @@ projectsRouter.put('/api/:id/dressMDataSave', function (req, res) {
         });
     }
 });
-//* PUT Single Project DRESS_W keyURL = /videoDataSave
+//* PUT Single Project DRESS_W keyURL = /dressWDataSave
 projectsRouter.put('/api/:id/dressWDataSave', function (req, res) {
     var request = req.body;
 
@@ -1079,6 +1123,50 @@ projectsRouter.put('/api/:id/dressWDataSave', function (req, res) {
         });
     } else {
         projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {dressW: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
+//* PUT Single Project PARTY_M keyURL = /partyMDataSave
+projectsRouter.put('/api/:id/partyMDataSave', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {partyM: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
+//* PUT Single Project PARTY_W keyURL = /partyWDataSave
+projectsRouter.put('/api/:id/partyWDataSave', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {partyW: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -1204,6 +1292,8 @@ function NewProjectCtor(project) {
     this.transportNotes = null;
     this.dressMNotes = null;
     this.dressWNotes = null;
+    this.partyMNotes = null;
+    this.partyWNotes = null;
 
 
     //INTERMEDIATE DATA

@@ -41,7 +41,8 @@ require.config({
         'filmingCtrlModule'     : '../js/app/controllers/02_projects/07_FilmingCtrl',
 
 
-        'dressCtrlModule' 		: '../js/app/controllers/02_projects/13_DressCtrl',
+        'dressCtrlModule' 		: '../js/app/controllers/02_projects/11_DressCtrl',
+        'partyCtrlModule' 		: '../js/app/controllers/02_projects/12_PartyCtrl',
 
 		'directives'     		: '../js/app/directives/directives',
 		'jQuery'		  		: '../libs/js/jquery.min',
@@ -99,6 +100,9 @@ require.config({
         'dressCtrlModule' : {
             deps : ['controllers']
         },
+        'partyCtrlModule' : {
+        	deps : ['controllers']
+    	},
 
 		'twitterBootstrap' : ['jQuery'],
 		'app' : {
@@ -117,6 +121,7 @@ require.config({
                 'filmingCtrlModule',
 
 				'dressCtrlModule',
+                'partyCtrlModule',
 
 				'directives'
 			]

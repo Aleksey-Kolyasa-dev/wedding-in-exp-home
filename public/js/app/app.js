@@ -18,6 +18,7 @@ define([
     'filmingCtrlModule',
 
     'dressCtrlModule',
+    'partyCtrlModule',
 
 	'directives',
 	'angularRuLocale'
@@ -38,6 +39,7 @@ define([
         'filmingCtrlModule',
 
 		'dressCtrlModule',
+        'partyCtrlModule',
 
 		'authServices',
 		'wedServices',

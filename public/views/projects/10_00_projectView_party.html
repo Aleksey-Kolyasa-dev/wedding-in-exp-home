@@ -1,4 +1,4 @@
-<div class="projects-list" ng-controller="filmingMainCtrl">
+<div class="projects-list" ng-controller="partyMainCtrl">
     <!--Header-->
     <header class="proj-view-header text-right">
         <nav class="top-sub-menu no-print" ng-if="currentUser.isAuth">
@@ -45,10 +45,10 @@
 
     <!--Views-->
     <div ng-show="subView == conf.views[0]">
-        <ng-include src="'/views/projects/05_01_projectView_filming_exp_photo.html'"></ng-include>
+        <ng-include src="'/views/projects/10_01_projectView_party_exp_M.html'"></ng-include>
     </div>
     <div ng-show="subView == conf.views[1]">
-        <ng-include src="'/views/projects/05_02_projectView_filming_exp_video.html'"></ng-include>
+        <ng-include src="'/views/projects/10_02_projectView_party_exp_W.html'"></ng-include>
     </div>
     <!--Views-->
 

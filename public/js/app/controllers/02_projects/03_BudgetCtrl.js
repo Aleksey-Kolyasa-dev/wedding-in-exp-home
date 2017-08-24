@@ -41,6 +41,7 @@ define(['angular'], function (angular) {
                 + wed.arrangement.total.planUsd
                 + wed.program.total.planUsd
                 + wed.filming.total.planUsd
+                + wed.party.total.planUsd
 
 
                 + wed.dress.total.planUsd;
@@ -53,7 +54,7 @@ define(['angular'], function (angular) {
                 + wed.arrangement.total.paidTotalUsd
                 + wed.program.total.paidTotalUsd
                 + wed.filming.total.paidTotalUsd
-
+                + wed.party.total.paidTotalUsd
 
                 + wed.dress.total.paidTotalUsd;
 
