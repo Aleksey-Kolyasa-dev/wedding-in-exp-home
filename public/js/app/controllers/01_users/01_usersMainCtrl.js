@@ -33,6 +33,11 @@ define(['angular'], function (angular) {
             });
         });
 
+        // ON-EVENT: REGISTRATION SUCCESS -> EVENT: Do LOGIN -> loginCtrl
+        $scope.$on('registrationSuccess', function (event, data) {
+            $scope.$broadcast('doLogin', data);
+        });
+
     }// Ctrl end
 
 
@@ -97,6 +102,13 @@ define(['angular'], function (angular) {
 
         };
 
+        // ON-EVENT - do login <- wedUsersMainCtrl
+        $scope.$on('doLogin', function (event, data) {
+           if (data.login && data.password) {
+               $scope.doLogin(data);
+           }
+       });
+
         // ON-LOAD check USER TOKEN
         if ($window.localStorage.userToken) {
             var token = angular.fromJson($window.localStorage.userToken);
@@ -153,6 +165,13 @@ define(['angular'], function (angular) {
                 throw new Error('ERROR: PASSWORDS NOT COINCIDE!');
 
             } else {
+
+                // InterData for AUTO-LOGIN
+                var interData = {
+                    login : user.login,
+                    password : user.password
+                };
+
                 // Modify password
                 user.password = $window.btoa(user.login + user.password);
 
@@ -161,6 +180,10 @@ define(['angular'], function (angular) {
                         if (data.login) {
                             // RESET View model
                             $scope.user = {};
+
+                            // EVENT - Do AUTO-LOGIN if registration success -> wedUsersMainCtrl -> loginCtrl
+                            $scope.$emit('registrationSuccess', interData);
+
                             if (_env()._dev) {
                                 toastr.success("NEW USER " + data.name + " REGISTRED!");
                             }
