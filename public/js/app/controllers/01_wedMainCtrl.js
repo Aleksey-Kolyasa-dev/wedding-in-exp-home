@@ -20,6 +20,10 @@ define(['angular'], function (angular) {
         $scope.dynamicBackground = "start_main";
         $scope.newSMS = {};
 
+        // Version
+        $scope.version = '0.4.0';
+        $scope.versionStatus = 'betta';
+
         // Exit to START PAGE
         $scope.exitToStart = function () {
             $location.path('/start');

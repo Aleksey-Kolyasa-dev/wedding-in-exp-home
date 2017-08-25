@@ -754,7 +754,7 @@ define(['angular'], function (angular) {
             msgNameSm : 'Show',
 
             //Views setup
-            expTableTitle : 'ПО ШОУ',
+            expTableTitle : 'НА ШОУ',
 
             // Forms setup (auto)
             get addForm(){
