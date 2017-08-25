@@ -105,7 +105,6 @@ projectsRouter.post('/api', function (req, res) {
                 console.log("CALL POST PROJECT BY: NEW PROJECT - post OK");
                 res.json(newProject);
             }
-
         });
     }
 });
@@ -113,7 +112,7 @@ projectsRouter.post('/api', function (req, res) {
 projectsRouter.put('/api/:id', function (req, res) {
     var request = req.body;
 
-    if (!request.fianceName && !request.fianceeName && !request.owner && !request.weddingDate && !request.email) {
+    if (!request.fianceName && !request.fianceeName && !request.owner && !request.weddingDate && !request.wedBudget && !request.email) {
         console.log("CALL PUT PROJECT BY: PROJECT INIT DATA - validation ERR");
         res.status(400);
         res.json({
@@ -125,7 +124,7 @@ projectsRouter.put('/api/:id', function (req, res) {
                     fianceName: request.fianceName,
                     fianceeName: request.fianceeName,
                     weddingDate: request.weddingDate,
-                    weprojectsDBudget: request.weprojectsDBudget,
+                    wedBudget: request.wedBudget,
                     email: request.email,
                     telephones: request.telephones,
                     notes: request.notes

@@ -13,6 +13,13 @@ define(['angular'], function (angular) {
         // Default subView
         $scope.subView = "settings";
         $scope.budget = {};
+        // Limits Display classes
+        $scope.limitNat = 'nat-use';
+        $scope.limitUsd = 'usd-use';
+        $scope.limitNatFact = 'nat-use';
+        $scope.limitUsdFact = 'usd-use';
+        $scope.limitNatBud = 'nat-use';
+        $scope.limitUsdBud = 'usd-use';
 
         // Shortcuts
         $scope.budgetTotals = $scope.currentProject.budget.total;
@@ -80,9 +87,48 @@ define(['angular'], function (angular) {
             wed.budget.total.wedBudgetRestPlanUsd = wed.wedBudget - wed.budget.total.wedPlanTotalUsd;
             wed.budget.total.wedBudgetRestPlanNat = wed.budget.total.wedBudgetRestPlanUsd * wed.budget.currency;
 
-            // DEFINE WED BUDGET FACT by PLAN
+            // DEFINE WED BUDGET REST by FACT
             wed.budget.total.wedBudgetRestFactUsd = wed.wedBudget - wed.budget.total.wedPaidTotalUsd;
             wed.budget.total.wedBudgetRestFactNat = wed.budget.total.wedBudgetRestFactUsd * wed.budget.currency;
+
+            // DEFINE LIMITS CONDITIONS for View display
+            if(wed.budget.total.wedBudgetRestPlanUsd >= wed.wedBudget*0.15){
+                $scope.limitNat = 'nat-use';
+                $scope.limitUsd = 'usd-use';
+
+            } else if(wed.budget.total.wedBudgetRestPlanUsd < wed.wedBudget*0.15 && wed.budget.total.wedBudgetRestPlanUsd > wed.wedBudget*0.05){
+                $scope.limitNat = 'near-limit';
+                $scope.limitUsd = 'near-limit';
+            } else {
+                $scope.limitNat = 'limit';
+                $scope.limitUsd = 'limit';
+                }
+
+            if(wed.budget.total.wedBudgetRestFactUsd >= wed.wedBudget*0.15){
+                $scope.limitNatFact = 'nat-use';
+                $scope.limitUsdFact = 'nat-use';
+            // ( 4250 - 4750)
+            } else if(wed.budget.total.wedBudgetRestFactUsd < wed.wedBudget*0.15 && wed.budget.total.wedBudgetRestFactUsd > wed.wedBudget*0.05){
+                $scope.limitNatFact = 'near-limit';
+                $scope.limitUsdFact = 'near-limit';
+            } else {
+                $scope.limitNatFact = 'limit';
+                $scope.limitUsdFact = 'limit';
+            }
+
+            if($scope.limitNat == 'nat-use' && $scope.limitNatFact == 'nat-use'){
+                $scope.limitNatBud = 'nat-use';
+                $scope.limitUsdBud = 'usd-use';
+            }
+            if($scope.limitNat == 'near-limit' || $scope.limitNatFact == 'near-limit'){
+                $scope.limitNatBud = 'near-limit';
+                $scope.limitUsdBud = 'near-limit';
+            }
+            if($scope.limitNat == 'limit' || $scope.limitUsdFact == 'limit'){
+                $scope.limitNatBud = 'limit';
+                $scope.limitUsdBud = 'limit';
+            }
+
 
             // COPY Obj back
            $scope.currentProject.budget.total = wed.budget.total;

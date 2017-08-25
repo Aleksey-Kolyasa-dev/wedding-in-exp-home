@@ -33,7 +33,7 @@ define(['angular'], function (angular) {
             });
         });
 
-        // ON-EVENT: REGISTRATION SUCCESS -> EVENT: Do LOGIN -> loginCtrl
+        // ON-EVENT: REGISTRATION SUCCESS -> EVENT: Do AUTO-LOGIN -> loginCtrl
         $scope.$on('registrationSuccess', function (event, data) {
             $scope.$broadcast('doLogin', data);
         });
@@ -102,7 +102,7 @@ define(['angular'], function (angular) {
 
         };
 
-        // ON-EVENT - do login <- wedUsersMainCtrl
+        // ON-EVENT - do AUTO-LOGIN <- wedUsersMainCtrl
         $scope.$on('doLogin', function (event, data) {
            if (data.login && data.password) {
                $scope.doLogin(data);

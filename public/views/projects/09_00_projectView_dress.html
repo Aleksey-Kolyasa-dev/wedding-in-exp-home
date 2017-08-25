@@ -3,7 +3,7 @@
     <header class="proj-view-header text-right">
         <nav class="top-sub-menu no-print" ng-if="currentUser.isAuth">
             <ul >
-                <li ng-repeat="view in conf.views" style="{{subView == view? 'background: hsla(291, 64%, 42%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift(view)">{{conf.buttons[$index]}}</a></li>
+                <li ng-repeat="view in conf.views" style="{{subView == view? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift(view)">{{conf.buttons[$index]}}</a></li>
             </ul>
         </nav>
         <h2>{{conf.title}}</h2>

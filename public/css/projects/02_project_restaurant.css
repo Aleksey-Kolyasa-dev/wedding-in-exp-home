@@ -21,15 +21,18 @@
     display: inline-block;
     padding: 5px 7px;
     background: hsla(286, 56%, 26%, 0.78);
+
     margin: 0 !important;
     letter-spacing: 2px;
     transition: background 800ms ease;
+    text-shadow: 4px 4px 10px #101010;
 }
-.top-sub-menu-active {
+.top-sub-menu-active{
     background: hsla(291, 64%, 42%, 0.78);
 }
 .top-sub-menu ul li:hover{
-    background: hsla(291, 64%, 42%, 0.78);
+    background: hsla(291, 74%, 49%, 0.78);
+    font-weight:bold;
 }
 .top-sub-menu ul li:first-child{
     border-top-left-radius: 5px;
@@ -142,6 +145,12 @@
 }
 .nat-use{
     color: #ffffff;
+}
+.near-limit{
+    color: #ffb832;;
+}
+.limit{
+    color: #fb5e5e;;
 }
 
 /*QUICK CALCULATION*/
