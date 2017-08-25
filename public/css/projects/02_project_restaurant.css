@@ -217,5 +217,13 @@
     padding: 3px 20px !important;
 }
 .sort-mark{
-    color : hsl(59, 100%, 62%);
+    /*color : hsl(59, 100%, 62%);*/
+    color: hsl(150, 100%, 92%);
+    background: rgba(27, 158, 118, 0.33);
+    text-shadow: 3px 3px 5px #4e4a4a;
+    /*border-left: 1px solid rgba(27, 158, 118, 0.33);
+    border-right: 1px solid rgba(27, 158, 118, 0.33);*/
+}
+.sort-btn{
+    text-shadow: 1px 1px 3px #000000;
 }

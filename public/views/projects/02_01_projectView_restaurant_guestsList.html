@@ -5,18 +5,18 @@
         <!--top menu-->
         <nav class="no-print">
             <div ng-if="currentUser.isAuth" style="float: left">
-                <button class="btn btn-warning" data-target="#guest-add" data-toggle="modal" ng-click="guests.guestSide('M')"> <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-warning sort-btn" data-target="#guest-add" data-toggle="modal" ng-click="guests.guestSide('M')"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <div ng-if="currentUser.isAuth" style="float: left; margin-left: 15px">
-                <button class="btn btn-primary btn-xs "  ng-if="!guests.sortByTable_M" ng-click="guests.sortByTable_M = 'true'"><span class="glyphicon glyphicon-filter"></span> по столам</button>
-                <button class="btn btn-primary btn-xs "  ng-if="guests.sortByTable_M" ng-click="guests.sortByTable_M = !guests.sortByTable_M"><span class="glyphicon glyphicon-filter"></span> по группам</button>
+                <button class="btn btn-primary btn-xs sort-btn"  ng-if="!guests.sortByTable_M" ng-click="guests.sortByTable_M = 'true'"><span class="glyphicon glyphicon-filter"></span> по столам</button>
+                <button class="btn btn-primary btn-xs sort-btn"  ng-if="guests.sortByTable_M" ng-click="guests.sortByTable_M = !guests.sortByTable_M"><span class="glyphicon glyphicon-filter"></span> по группам</button>
             </div>
             <div class="btn-group" ng-if="currentUser.isAuth" style="float: left; margin-left: 20px">
                 <button class="btn btn-default btn-xs"  ng-click="guests.drinks_M = true; guests.notes_M = false"><span class="glyphicon glyphicon-glass"></span> drinks</button>
                 <button class="btn btn-default btn-xs"  ng-click="guests.notes_M = true; guests.drinks_M = false"><span class="glyphicon glyphicon-list-alt"></span> notes</button>
             </div>
             <div class="btn-group" ng-if="currentUser.isAuth" style="float: left; margin-left: 20px">
-                <button ng-if="guests.drinks_M || guests.notes_M" class="btn btn-success btn-xs"  ng-click="guests._clear('M')"><span class="glyphicon glyphicon-refresh"></span> reset</button>
+                <button ng-if="guests.drinks_M || guests.notes_M" class="btn btn-success btn-xs sort-btn"  ng-click="guests._clear('M')"><span class="glyphicon glyphicon-refresh"></span> reset</button>
             </div>
         </nav>
         <!--top menu-->
@@ -115,18 +115,18 @@
         <!--top menu-->
         <nav class="no-print">
             <div ng-if="currentUser.isAuth" style="float: left">
-                <button class="btn btn-warning " data-target="#guest-add" data-toggle="modal" ng-click="guests.guestSide('W')"> <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-warning sort-btn" data-target="#guest-add" data-toggle="modal" ng-click="guests.guestSide('W')"> <span class="glyphicon glyphicon-plus"></span></button>
             </div>
             <div ng-if="currentUser.isAuth" style="float: left; margin-left: 30px">
-                <button class="btn btn-primary btn-xs"  ng-if="!guests.sortByTable_W" ng-click="guests.sortByTable_W = 'true'"><span class="glyphicon glyphicon-filter"></span>  по столам</button>
-                <button class="btn btn-primary btn-xs"  ng-if="guests.sortByTable_W" ng-click="guests.sortByTable_W = !guests.sortByTable_W"><span class="glyphicon glyphicon-filter"></span> по группам</button>
+                <button class="btn btn-primary btn-xs sort-btn"  ng-if="!guests.sortByTable_W" ng-click="guests.sortByTable_W = 'true'"><span class="glyphicon glyphicon-filter"></span>  по столам</button>
+                <button class="btn btn-primary btn-xs sort-btn"  ng-if="guests.sortByTable_W" ng-click="guests.sortByTable_W = !guests.sortByTable_W"><span class="glyphicon glyphicon-filter"></span> по группам</button>
             </div>
             <div class="btn-group" ng-if="currentUser.isAuth" style="float: left; margin-left: 20px">
                 <button class="btn btn-default btn-xs"  ng-click="guests.drinks_W = true; guests.notes_W = false;"><span class="glyphicon glyphicon-glass"></span> drinks</button>
                 <button class="btn btn-default btn-xs"  ng-click="guests.notes_W = true; guests.drinks_W = false;"><span class="glyphicon glyphicon-list-alt"></span> notes</button>
             </div>
             <div class="btn-group" ng-if="currentUser.isAuth" style="float: left; margin-left: 20px">
-                <button ng-if="guests.drinks_W || guests.notes_W" class="btn btn-success btn-xs"  ng-click="guests._clear('W')"><span class="glyphicon glyphicon-refresh"></span> reset</button>
+                <button ng-if="guests.drinks_W || guests.notes_W" class="btn btn-success btn-xs sort-btn"  ng-click="guests._clear('W')"><span class="glyphicon glyphicon-refresh"></span> reset</button>
             </div>
         </nav>
         <!--top menu-->
