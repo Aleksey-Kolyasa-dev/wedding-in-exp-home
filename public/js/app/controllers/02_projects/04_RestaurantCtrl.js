@@ -466,7 +466,7 @@ define(['angular'], function (angular) {
                     _id: $scope.currentProject._id,
                     key : 'generalData',
                     keyURL : "/generalDataSave",
-                    data : $scope.currentProject.restaurant.generalData
+                    data : $scope.currentProject.restaurant
                 };
 
                 // SAVE RESTAURANT DATA

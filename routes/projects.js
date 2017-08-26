@@ -549,6 +549,28 @@ projectsRouter.put('/api/:id/musicNotes', function (req, res) {
         });
     }
 });
+//* PUT Single Project ANIMATOR keyURL = /animatorNotes
+projectsRouter.put('/api/:id/animatorNotes', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {animatorNotes: request[request.key]}}, {}, function (err, response) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(response);
+            }
+        });
+    }
+});
 //* PUT Single Project SHOW keyURL = /showNotes
 projectsRouter.put('/api/:id/showNotes', function (req, res) {
     var request = req.body;
@@ -882,7 +904,7 @@ projectsRouter.put('/api/:id/generalDataSave', function (req, res) {
         });
 
         promise.then(function (project) {
-            project.restaurant[request.key] = request.data;
+            project.restaurant = request.data;
 
             projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {restaurant: project.restaurant}}, {}, function (err, project) {
                 if (err) {
@@ -1100,6 +1122,28 @@ projectsRouter.put('/api/:id/musicDataSave', function (req, res) {
         });
     } else {
         projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {music: request[request.key]}}, {}, function (err, project) {
+            if (err) {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
+                res.send(err);
+            } else {
+                console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update OK");
+                res.json(project);
+            }
+        });
+    }
+});
+//* PUT Single Project ANIMATOR keyURL = /animatorDataSave
+projectsRouter.put('/api/:id/animatorDataSave', function (req, res) {
+    var request = req.body;
+
+    if (request[request.key] === false) {
+        res.status(400);
+        console.log("CALL PUT PROJECT BY: " + request.keyURL + " - validation ERR");
+        res.json({
+            "error": "PUT PROJECT ERROR: " + request.keyURL + " validation failed"
+        });
+    } else {
+        projectsDB.weddings.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {animator: request[request.key]}}, {}, function (err, project) {
             if (err) {
                 console.log("CALL PUT PROJECT BY: " + request.keyURL + " - update ERR");
                 res.send(err);
@@ -1458,6 +1502,7 @@ function NewProjectCtor(project) {
     this.flowerNotes = null;
     this.leaderNotes = null;
     this.musicNotes = null;
+    this.animatorNotes = null;
     this.showNotes = null;
     this.photoNotes = null;
     this.videoNotes = null;
@@ -1654,6 +1699,19 @@ function NewProjectCtor(project) {
         }
     };
     this.music = {
+        expCollection:[],
+        total: {
+            planUsd: 0,
+            planNat: 0,
+            paidUsd: 0,
+            paidNat: 0,
+            paidTotalUsd: 0,
+            paidTotalNat: 0,
+            restTotalUsd: 0,
+            restTotalNat: 0
+        }
+    };
+    this.animator = {
         expCollection:[],
         total: {
             planUsd: 0,
