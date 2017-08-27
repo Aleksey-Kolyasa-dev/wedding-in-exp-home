@@ -2,12 +2,12 @@
     <header class="proj-view-header text-right">
         <nav class="top-sub-menu no-print" ng-if="currentUser.isAuth">
             <ul>
-                <li style="{{subView == 'settings'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('settings')">Бюджет</a></li>
+                <li style="{{(subView == 'settings')? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('settings')">Бюджет</a></li>
 
-                <li  style="{{subView == 'info'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('info')">Проект</a></li>
-                <li ng-if="false"  style="{{subView == 'reports'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('reports')">Отчеты</a></li>
-                <li  style="{{subView == 'tasks'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('tasks')">Задачи</a></li>
-                <li  style="{{subView == 'sms'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}">
+                <li  style="{{(subView == 'info')? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('info')">Проект</a></li>
+                <li ng-if="false"  style="{{(subView == 'reports')? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('reports')">Отчеты</a></li>
+                <li  style="{{(subView == 'tasks')? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('tasks')">Задачи</a></li>
+                <li  style="{{(subView == 'sms')? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}">
                     <a ng-click="subViewShift('sms')">
                         SMS <span class="glyphicon glyphicon-envelope msgSign-s" ng-if="newSMS[currentProject._id]">
                                 <a class="smsCounter-s" ng-if="newSMS[currentProject._id]">
@@ -18,12 +18,15 @@
                 </li>
             </ul>
         </nav>
-        <h2>
-            <span  ng-class="limitNatBud">БЮДЖЕТ</span>
-            <span class="hidden-xs hidden-sm">:
+        <h2 >
+            <span ng-if="subView == 'settings'"  ng-class="limitNatBud">БЮДЖЕТ:</span>
+            <span ng-if="subView == 'settings'" class="hidden-xs hidden-sm">
                 <span ng-class="limitNatBud" class="hidden-md">{{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}} /</span>
                 <span ng-class="limitUsdBud" class="usd-use">{{currentProject.wedBudget | number}} USD</span>
             </span>
+            <span ng-show="subView == 'info'" >ПРОЕКТ</span>
+            <span ng-show="subView == 'tasks'" >ЗАДАЧИ</span>
+            <span ng-show="subView == 'sms'" >СООБЩЕНИЯ</span>
         </h2>
     </header>
 

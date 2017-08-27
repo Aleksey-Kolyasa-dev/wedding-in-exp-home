@@ -1506,12 +1506,14 @@ function NewProjectCtor(project) {
     this.showNotes = null;
     this.photoNotes = null;
     this.videoNotes = null;
-    this.zagsNotes = null;
+    this.registrationNotes = null;
+    this.marriageNotes = null;
     this.transportNotes = null;
     this.dressMNotes = null;
     this.dressWNotes = null;
     this.partyMNotes = null;
     this.partyWNotes = null;
+    this.otherNotes = null;
 
 
     //INTERMEDIATE DATA
