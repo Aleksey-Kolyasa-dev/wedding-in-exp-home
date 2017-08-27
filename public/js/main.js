@@ -19,7 +19,14 @@ function _env() {
             } else {
                 return 'https://wedding-in.herokuapp.com/users/';
             }
-		}
+		},
+        get _angularRuLocale(){
+            if(devEnvironment){
+                return '../libs/js/misc/jquery.ui.datepicker-ru';
+            } else {
+                return 'https://code.angularjs.org/1.3.5/i18n/angular-locale_ru-by';
+            }
+        }
     };
 }
 
@@ -58,7 +65,7 @@ require.config({
 		'angularToastr'	  		: '../libs/js/angular-toastr.tpls.min',
 		'angularRoute'	  		: '../libs/js/angular_route',
 		'twitterBootstrap' 		: '../libs/js/bootstrap.min',
-		'angularRuLocale'  		: '../libs/js/misc/jquery.ui.datepicker-ru' // 'https://code.angularjs.org/1.3.5/i18n/angular-locale_ru-by'
+		'angularRuLocale'  		: _env()._angularRuLocale // 'https://code.angularjs.org/1.3.5/i18n/angular-locale_ru-by'
 	},
 
 	shim : 

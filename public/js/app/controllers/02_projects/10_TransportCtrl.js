@@ -17,8 +17,8 @@ define(['angular'], function (angular) {
             parent : 'transport',
 
             // MSGs setup
-            msgNameBg : 'transport',
-            msgNameSm : 'transport',
+            msgNameBg : 'TRANSPORT',
+            msgNameSm : 'Transport',
 
             // Titles setup
             title : 'ТРАНСПОРТ',

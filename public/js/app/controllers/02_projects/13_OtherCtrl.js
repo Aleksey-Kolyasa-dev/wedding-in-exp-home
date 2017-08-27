@@ -17,8 +17,8 @@ define(['angular'], function (angular) {
             parent : 'other',
 
             // MSGs setup
-            msgNameBg : 'other',
-            msgNameSm : 'other',
+            msgNameBg : 'OTHER',
+            msgNameSm : 'Other',
 
             // Titles setup
             title : 'ИННОЕ',

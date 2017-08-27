@@ -106,7 +106,7 @@ define(['angular'], function (angular) {
 
             if(wed.budget.total.wedBudgetRestFactUsd >= wed.wedBudget*0.15){
                 $scope.limitNatFact = 'nat-use';
-                $scope.limitUsdFact = 'nat-use';
+                $scope.limitUsdFact = 'usd-use';
             // ( 4250 - 4750)
             } else if(wed.budget.total.wedBudgetRestFactUsd < wed.wedBudget*0.15 && wed.budget.total.wedBudgetRestFactUsd > wed.wedBudget*0.05){
                 $scope.limitNatFact = 'near-limit';
