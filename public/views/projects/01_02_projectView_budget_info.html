@@ -4,7 +4,7 @@
         <div class="info-glass-panel">
             <hr>
             <div>
-                <p>Дата свадьбы: <span class="rest-info-data">{{currentProject.weddingDate | date : "dd MMMM yyyy"}}г.</span></p>
+                <p>Дата свадьбы: <span class="rest-info-data">{{currentProject.weddingDate | date : "dd MMMM yyyy"}} г.</span></p>
                 <p>Жених: <span class="rest-info-data">{{currentProject.fianceName}}</span></p>
                 <p>Невеста: <span class="rest-info-data">{{currentProject.fianceeName}}</span></p>
                 <p>Телефон(ы): <span class="rest-info-data">{{currentProject.telephones}}</span></p>
@@ -16,9 +16,13 @@
             </div>
             <hr>
             <div>
-                <p><span class="glyphicon glyphicon-qrcode"></span> Ключ доступа к просмотру проекта  </span></p>
+                <p><span class="glyphicon glyphicon-qrcode"></span> Ключ доступа к просмотру проекта</p>
                 <p class="visible-lg visible-md"><span class="rest-info-data" style="font-size: 80%">{{currentProject.accessKey}}</span></p>
                 <p class="visible-xs visible-sm"><span class="rest-info-data" style="font-size: 40%">{{currentProject.accessKey}}</span></p>
+            </div>
+            <hr>
+            <div>
+                <p>Проект создан: <span class="">{{currentProject.created  | date : "dd MMMM yyyy"}} г.</span></p>
             </div>
             <hr>
 

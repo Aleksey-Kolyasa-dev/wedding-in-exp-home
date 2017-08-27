@@ -19,7 +19,11 @@
             </ul>
         </nav>
         <h2>
-            <span ng-class="limitNatBud">БЮДЖЕТ</span><span class="hidden-xs hidden-sm">: <span ng-class="limitNatBud" class="hidden-md">{{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}} /</span> <span ng-class="limitUsdBud" class="usd-use">{{currentProject.wedBudget | number}} USD</span></span>
+            <span  ng-class="limitNatBud">БЮДЖЕТ</span>
+            <span class="hidden-xs hidden-sm">:
+                <span ng-class="limitNatBud" class="hidden-md">{{currentProject.budget.budgetNat | number}} {{currentProject.budget.nationalMoney}} /</span>
+                <span ng-class="limitUsdBud" class="usd-use">{{currentProject.wedBudget | number}} USD</span>
+            </span>
         </h2>
     </header>
 

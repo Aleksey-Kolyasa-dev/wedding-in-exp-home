@@ -222,6 +222,9 @@ define(['angular'], function (angular) {
                             if (_env()._dev) {
                                 toastr.success('budget changed');
                                 $scope.budget = {};
+                            } else {
+                                toastr.success('OK');
+                                $scope.budget = {};
                             }
                         },
                         function (err) {
@@ -269,6 +272,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info('Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -296,6 +301,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info('Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -415,6 +422,8 @@ define(['angular'], function (angular) {
                         $scope.newItem = {};
                         if (_env()._dev) {
                             toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -459,6 +468,8 @@ define(['angular'], function (angular) {
                         $scope.itemToEdit = {};
                         if (_env()._dev) {
                             toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
+                        }  else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -498,6 +509,8 @@ define(['angular'], function (angular) {
                     $scope.itemToEdit = {};
                     if (_env()._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Item removed');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -535,7 +548,7 @@ define(['angular'], function (angular) {
                };
 
                 ResourceService._ajaxRequest("POST", null, request, request.keyFullURL).then(function () {
-                    toastr.success('ОТПРАВЛЕНО!');
+                    toastr.success('OK!');
                     $scope.sms = {};
                     $scope.sms.author = buffer;
                 }).catch(function (err) {

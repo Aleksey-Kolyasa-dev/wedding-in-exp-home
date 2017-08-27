@@ -37,6 +37,8 @@ define(['angular'], function (angular) {
 
                         if (_env()._dev) {
                             toastr.success("НОВЫЙ ПРОЕКТ СВАДЬБЫ " + project.fianceName + " и " + project.fianceeName + " СОЗДАН УСПЕШНО!");
+                        } else {
+                            toastr.success('OK');
                         }
                     })
                     .catch(function (err) {
@@ -90,7 +92,9 @@ define(['angular'], function (angular) {
                 ResourceService._ajaxRequest("PUT", null, editedProject, null).then(
                     function (project) {
                         if (_env()._dev) {
-                            toastr.info('PROJECT EDITED WITH SUCCESS');
+                            toastr.success('PROJECT EDITED WITH SUCCESS');
+                        } else {
+                            toastr.success('OK');
                         }
 
                         // EVENT: PROJECT INIT DATA CHANGED -> wedMainCtrl

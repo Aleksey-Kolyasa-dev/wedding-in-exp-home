@@ -79,6 +79,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.success('useMenuCheck changed');
+                    } else {
+                        toastr.success('OK');
                     }
                 },
                 function (err) {
@@ -246,6 +248,8 @@ define(['angular'], function (angular) {
                                     self._clear();
                                     if (_env()._dev) {
                                         toastr.success('GUEST ADD SUCCESS');
+                                    } else {
+                                        toastr.success('OK');
                                     }
                                 },
                                 function (err) {
@@ -272,6 +276,8 @@ define(['angular'], function (angular) {
                                     self._clear();
                                     if (_env()._dev) {
                                         toastr.success('GUEST ADD SUCCESS');
+                                    }  else {
+                                        toastr.success('OK');
                                     }
                                 },
                                 function (err) {
@@ -325,6 +331,8 @@ define(['angular'], function (angular) {
                                 self._clear();
                                 if (_env()._dev) {
                                     toastr.success('GUEST EDIT SUCCESS');
+                                }  else {
+                                    toastr.success('OK');
                                 }
                             },
                             function (err) {
@@ -352,6 +360,8 @@ define(['angular'], function (angular) {
                                 self._clear();
                                 if (_env()._dev) {
                                     toastr.success('GUEST EDIT SUCCESS');
+                                } else {
+                                    toastr.success('OK');
                                 }
                             },
                             function (err) {
@@ -383,6 +393,8 @@ define(['angular'], function (angular) {
                                 self._clear();
                                 if (_env()._dev) {
                                     toastr.success('GUEST DELETED SUCCESS');
+                                } else {
+                                    toastr.success('OK');
                                 }
                             },
                             function (err) {
@@ -407,6 +419,8 @@ define(['angular'], function (angular) {
                                 self._clear();
                                 if (_env()._dev) {
                                     toastr.success('GUEST DELETED SUCCESS');
+                                }  else {
+                                    toastr.success('OK');
                                 }
                             },
                             function (err) {
@@ -475,6 +489,8 @@ define(['angular'], function (angular) {
                         $scope.saveHide = true;
                         if (_env()._dev) {
                             toastr.success('generalData changed');
+                        }  else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -501,6 +517,8 @@ define(['angular'], function (angular) {
                         $scope.saveHide = true;
                         if (_env()._dev) {
                             toastr.success('quickData changed');
+                        }  else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -565,6 +583,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info('Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -592,6 +612,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info('Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -765,6 +787,8 @@ define(['angular'], function (angular) {
                         $scope.newItem = {};
                         if (_env()._dev) {
                             toastr.success('Menu Item created!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -837,6 +861,8 @@ define(['angular'], function (angular) {
                         $scope.itemToEdit = {};
                         if (_env()._dev) {
                             toastr.success('Menu Item Edited!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -921,6 +947,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info('MENU Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -1076,6 +1104,8 @@ define(['angular'], function (angular) {
                         $scope.newItem = {};
                         if (_env()._dev) {
                             toastr.success('CAKES Item created!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -1146,6 +1176,8 @@ define(['angular'], function (angular) {
                         $scope.itemToEdit = {};
                         if (_env()._dev) {
                             toastr.success('CAKE Expense Item Edited!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -1188,6 +1220,8 @@ define(['angular'], function (angular) {
                     $scope.itemToEdit = {};
                     if (_env()._dev) {
                         toastr.info('CAKES Item removed');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -1228,6 +1262,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info('CAKES Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -1369,6 +1405,8 @@ define(['angular'], function (angular) {
                       $scope.newItem = {};
                       if (_env()._dev) {
                           toastr.success('PLUS Expense Item created!');
+                      } else {
+                          toastr.success('OK');
                       }
                   },
                   function (err) {
@@ -1446,6 +1484,8 @@ define(['angular'], function (angular) {
                         $scope.itemToEdit = {};
                         if (_env()._dev) {
                             toastr.success('PLUS Expense Item Edited!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -1487,6 +1527,8 @@ define(['angular'], function (angular) {
                     $scope.itemToEdit = {};
                     if (_env()._dev) {
                         toastr.info('PLUS Expense Item removed');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -1527,6 +1569,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info('PLUS Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {

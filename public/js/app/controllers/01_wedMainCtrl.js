@@ -9,7 +9,7 @@ define(['angular'], function (angular) {
     /*
      * APP MAIN CTRL
      * */
-    function wedMainCtrl($scope, $rootScope, $log, $window, $location, $timeout, toastr, ResourceService, AppService, UsersResourceService) {
+    function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, ResourceService, UsersResourceService) {
         // Default Values
         $scope.currentUser = {};
         $scope.currentProject = {};
@@ -259,7 +259,7 @@ define(['angular'], function (angular) {
     /*
      * PROJECTS MAIN CTRL
      * */
-    function wedProjectsMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, ResourceService, AppService) {
+    function wedProjectsMainCtrl($scope) {
         // If USER is Authorized
         if ($scope.currentUser.isAuth) {
             // Filter for shift expired dated projects to Archive

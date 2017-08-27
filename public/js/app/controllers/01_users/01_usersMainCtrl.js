@@ -186,6 +186,8 @@ define(['angular'], function (angular) {
 
                             if (_env()._dev) {
                                 toastr.success("NEW USER " + data.name + " REGISTRED!");
+                            } else {
+                                toastr.success('OK');
                             }
                         } else {
                             // Case if ERROR.property = 'NAME'

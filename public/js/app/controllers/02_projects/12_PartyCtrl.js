@@ -242,6 +242,8 @@ define(['angular'], function (angular) {
                         $scope.newItem = {};
                         if (_env()._dev) {
                             toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -319,6 +321,8 @@ define(['angular'], function (angular) {
                         $scope.itemToEdit = {};
                         if (_env()._dev) {
                             toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -358,6 +362,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Expense Item removed');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -397,6 +403,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -563,6 +571,8 @@ define(['angular'], function (angular) {
                         $scope.newItem = {};
                         if (_env()._dev) {
                             toastr.success('New ' + $scope.conf.msgNameSm + ' Item created!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -640,6 +650,8 @@ define(['angular'], function (angular) {
                         $scope.itemToEdit = {};
                         if (_env()._dev) {
                             toastr.success($scope.conf.msgNameBg + ' Expense Item Edited!');
+                        } else {
+                            toastr.success('OK');
                         }
                     },
                     function (err) {
@@ -679,6 +691,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Expense Item removed');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
@@ -718,6 +732,8 @@ define(['angular'], function (angular) {
                 function (data) {
                     if (_env()._dev) {
                         toastr.info($scope.conf.msgNameBg + ' Notes are saved!');
+                    } else {
+                        toastr.info('OK');
                     }
                 },
                 function (err) {
