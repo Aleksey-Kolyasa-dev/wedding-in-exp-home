@@ -13,6 +13,7 @@ define(['angular'], function (angular) {
         // Default subView
         $scope.subView = "settings";
         $scope.budget = {};
+
         // Limits Display classes
         $scope.limitNat = 'nat-use';
         $scope.limitUsd = 'usd-use';
@@ -20,6 +21,9 @@ define(['angular'], function (angular) {
         $scope.limitUsdFact = 'usd-use';
         $scope.limitNatBud = 'nat-use';
         $scope.limitUsdBud = 'usd-use';
+
+        //
+
 
         // Shortcuts
         $scope.budgetTotals = $scope.currentProject.budget.total;
@@ -130,6 +134,44 @@ define(['angular'], function (angular) {
             }
 
 
+            // Status bar display
+            $scope.budgetBar = {
+                plan : (wed.budget.total.wedBudgetRestPlanUsd / wed.wedBudget) * 100,
+                fact : (wed.budget.total.wedBudgetRestFactUsd / wed.wedBudget) * 100
+            };
+
+            if($scope.budgetBar.plan < 0){
+                $scope.budgetBar.plan = 0;
+            }
+            if($scope.budgetBar.plan > 35){
+                $scope.barStatePlan = 'bar-budget-good';
+            }
+            if($scope.budgetBar.plan <= 35 && $scope.budgetBar.plan > 20){
+                $scope.barStatePlan = 'bar-budget-half';
+            }
+            if($scope.budgetBar.plan <= 20 && $scope.budgetBar.plan > 5){
+                $scope.barStatePlan = 'bar-budget-warn';
+            }
+            if($scope.budgetBar.plan <= 5){
+                $scope.barStatePlan = 'bar-budget-danger';
+            }
+
+            if($scope.budgetBar.fact < 0){
+                $scope.budgetBar.fact = 0;
+            }
+            if($scope.budgetBar.fact > 35){
+                $scope.barStateFact = 'bar-budget-good';
+            }
+            if($scope.budgetBar.fact <= 35 && $scope.budgetBar.fact > 20){
+                $scope.barStateFact = 'bar-budget-half';
+            }
+            if($scope.budgetBar.fact <= 20 && $scope.budgetBar.fact > 5){
+                $scope.barStateFact = 'bar-budget-warn';
+            }
+            if($scope.budgetBar.fact <= 5){
+                $scope.barStateFact = 'bar-budget-danger';
+            }
+            
             // COPY Obj back
            $scope.currentProject.budget.total = wed.budget.total;
 

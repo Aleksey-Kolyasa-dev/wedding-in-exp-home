@@ -23,7 +23,7 @@
                         <th>БЛЮДО</th>
                         <th class="text-center hidden-md hidden-sm hidden-xs">ВЕС ПОРЦИИ</th>
                         <th class="text-center hidden-sm hidden-xs">ЦЕНА ПОРЦИИ</th>
-                        <th class="text-center hidden-sm hidden-xs">КОЛИЧЕСТВО</th>
+                        <th class="text-center hidden-sm hidden-xs">КОЛ. ПОРЦИЙ</th>
                         <th class="text-center">СУММА</th>
                         <th class="text-center">ОБЩИЙ ВЕС</th>
                         <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
@@ -38,7 +38,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
@@ -55,7 +55,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
@@ -72,7 +72,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
@@ -89,7 +89,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
@@ -106,7 +106,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
@@ -123,7 +123,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
@@ -140,7 +140,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
@@ -157,7 +157,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">
@@ -174,7 +174,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
                         <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
-                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "единиц(а)" : "порция(й)"}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
                         <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
                         <td class="text-center">{{item.totalWeight  | number}} гр.</td>
                         <td class="text-center">

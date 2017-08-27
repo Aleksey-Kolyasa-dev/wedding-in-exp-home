@@ -1,7 +1,7 @@
 <div class="projects-list" ng-controller="programMainCtrl">
     <!--Header-->
     <header class="proj-view-header text-right">
-        <nav class="top-sub-menu no-print" ng-if="currentUser.isAuth">
+        <nav class="top-sub-menu no-print">
             <ul >
                 <li ng-repeat="view in conf.views" style="{{subView == view? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift(view)">{{conf.buttons[$index]}}</a></li>
             </ul>

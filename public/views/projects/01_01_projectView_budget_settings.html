@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="report-body">
                     <!--restaurant-->
                     <tr class="guest" ng-if="currentProject.restaurant.total.planTotalUsd">
                         <td class="text-center hidden-sm hidden-xs"><span class="glyphicon glyphicon-ok"></span></td>
@@ -123,7 +123,7 @@
                     </tr>
 
                     <!--FOOTER-->
-                    <tr><td colspan="5" style="border-top: 0!important;"></td></tr>
+                    <tr style="height: 10px!important;"><td colspan="5" style="border-top: 0!important; "></td></tr>
                     <tr class="guest total-footer-data" ng-if="currentProject.budget.total.wedPlanTotalUsd">
                         <td class="hidden-xs hidden-sm"></td>
                         <td class="text-left" colspan="1" style="font-style: italic; font-weight: inherit">ИТОГО:</td>
