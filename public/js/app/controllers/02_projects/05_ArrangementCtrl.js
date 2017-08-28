@@ -190,7 +190,7 @@ define(['angular'], function (angular) {
             if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
                 // If 'unit' is not defined
                 if(item.unit == '' || item.unit == null){
-                    item.unit = 'не указан';
+                    item.unit = 'не указано';
                 }
                 // multiplier correction
                 if(item.multiplier < 0 ){
@@ -272,7 +272,7 @@ define(['angular'], function (angular) {
             if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
                 // If 'unit' is not defined
                 if(item.unit == '' || item.unit == null){
-                    item.unit = 'не указан';
+                    item.unit = 'не указано';
                 }
                 // multiplier correction
                 if(item.multiplier < 0 ){
@@ -519,7 +519,7 @@ define(['angular'], function (angular) {
             if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
                 // If 'unit' is not defined
                 if(item.unit == '' || item.unit == null){
-                    item.unit = 'не указан';
+                    item.unit = 'не указано';
                 }
                 // multiplier correction
                 if(item.multiplier < 0 ){
@@ -601,7 +601,7 @@ define(['angular'], function (angular) {
             if(item.name != '' && angular.isNumber(item.tariff) && angular.isNumber(item.multiplier) && angular.isNumber(item.paid)){
                 // If 'unit' is not defined
                 if(item.unit == '' || item.unit == null){
-                    item.unit = 'не указан';
+                    item.unit = 'не указано';
                 }
                 // multiplier correction
                 if(item.multiplier < 0 ){
