@@ -29,7 +29,7 @@
 
             <div style="margin-left: 20px" >
                 <span class="info-paid">
-                    ОПЛАЧЕННО:  <span class="nat-use">{{currentProject[conf.mainProp].total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject[conf.mainProp].total.paidTotalUsd | number : 1}} USD</span>
+                    ОПЛАЧЕНО:  <span class="nat-use">{{currentProject[conf.mainProp].total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject[conf.mainProp].total.paidTotalUsd | number : 1}} USD</span>
                 </span>
             </div>
 
@@ -67,7 +67,7 @@
                         <th class="text-center hidden-sm hidden-xs">КОЛИЧЕСТВО</th>
                         <th class="text-center hidden-md hidden-sm hidden-xs">ЕДИНИЦА</th>
                         <th class="text-center">СУММА</th>
-                        <th class="text-center">ОПЛАЧЕННО</th>
+                        <th class="text-center">ОПЛАЧЕНО</th>
                         <th class="text-center">ДОПЛАТИТЬ</th>
                         <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
                     </tr>
@@ -148,7 +148,7 @@
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <label ng-class="newItem.usd? 'usd-use' : 'nat-use'">Оплаченно в {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                        <label ng-class="newItem.usd? 'usd-use' : 'nat-use'">Оплачено в {{newItem.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                         <input class="form-control" ng-model="newItem.paid" type="number" required placeholder="сумма или 0"
                                                name="expItemNewPaid" style="{{($eval(conf.addForm).expItemNewPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                     </div>
@@ -211,7 +211,7 @@
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <label ng-class="itemToEdit.usd? 'usd-use' : 'nat-use'">Оплаченно в {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
+                                        <label ng-class="itemToEdit.usd? 'usd-use' : 'nat-use'">Оплачено в {{itemToEdit.usd? "USD" : currentProject.budget.nationalMoney}}</label>
                                         <input class="form-control" ng-model="itemToEdit.paid" type="number" required placeholder="сумма или 0"
                                                name="expItemEditPaid" style="{{($eval(conf.editForm).expItemEditPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                     </div>

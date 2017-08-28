@@ -18,8 +18,8 @@
             </div>
             <hr>
             <div>
-                <p>Оплаченно(аванс): <span class="rest-info-data">{{currentProject.restaurant.total.paidNat}} {{currentProject.budget.nationalMoney}}</span></p>
-                <p ng-show="false">Оплаченно в USD: <span class="rest-info-data">{{currentProject.restaurant.total.paidUsd}}</span></p>
+                <p>Оплачено(аванс): <span class="rest-info-data">{{currentProject.restaurant.total.paidNat}} {{currentProject.budget.nationalMoney}}</span></p>
+                <p ng-show="false">Оплачено в USD: <span class="rest-info-data">{{currentProject.restaurant.total.paidUsd}}</span></p>
             </div>
             <hr>
             <div>
@@ -173,7 +173,7 @@
                             </div>
                             <hr>
                             <div class="form-group text-center">
-                                <label>Оплаченно в {{currentProject.budget.nationalMoney}}
+                                <label>Оплачено в {{currentProject.budget.nationalMoney}}
                                 <input class="form-control text-center" ng-model="currentProject.restaurant.total.paidNat" required type="number"
                                        name="editRestGeneralPaid" style="{{(editRestGeneralDataForm.editRestGeneralPaid.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
                                 </label>

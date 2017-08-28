@@ -99,9 +99,9 @@
                         </td>
                     </tr>
 
-                    <!--Дисерт-->
-                    <tr ng-if="dispalyCategotries.disetrs"><td colspan="8" class="dishes-category">Дисерт</td></tr>
-                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Дисерт'}">
+                    <!--Десерт-->
+                    <tr ng-if="dispalyCategotries.disetrs"><td colspan="8" class="dishes-category">Десерт</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Десерт'}">
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
@@ -167,9 +167,9 @@
                         </td>
                     </tr>
 
-                    <!--Инное-->
-                    <tr ng-if="dispalyCategotries.other"><td colspan="8" class="dishes-category">Инное</td></tr>
-                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Инное'}">
+                    <!--Иное-->
+                    <tr ng-if="dispalyCategotries.other"><td colspan="8" class="dishes-category">Иное</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Иное'}">
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
                         <td>{{item.name}}</td>
                         <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>

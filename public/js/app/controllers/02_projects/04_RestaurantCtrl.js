@@ -662,7 +662,7 @@ define(['angular'], function (angular) {
                if(item.category == 'Основные блюда'){
                    $scope.dispalyCategotries.mainDishes = true;
                }
-               if(item.category == 'Дисерт'){
+               if(item.category == 'Десерт'){
                    $scope.dispalyCategotries.disetrs = true;
                }
                if(item.category == 'Напитки А'){
@@ -674,7 +674,7 @@ define(['angular'], function (angular) {
                if(item.category == 'Фуршет'){
                    $scope.dispalyCategotries.furshet = true;
                }
-               if(item.category == 'Инное'){
+               if(item.category == 'Иное'){
                    $scope.dispalyCategotries.other = true;
                }
             });

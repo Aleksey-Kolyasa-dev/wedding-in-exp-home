@@ -21,11 +21,11 @@ define(['angular'], function (angular) {
             msgNameSm : 'Other',
 
             // Titles setup
-            title : 'ИННОЕ',
+            title : 'ИНОЕ',
             ttlBy : 'РАСХОДАМ',
 
             //Views setup
-            expTableTitle : 'ИННЫЕ РАСХОДЫ',
+            expTableTitle : 'ИНЫЕ РАСХОДЫ',
 
             // Menu buttons setup
             buttons: [],
