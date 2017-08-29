@@ -1,37 +1,10 @@
 <div style="" class="col-xs-12 server-msg-main">
 
-    <!--<div class="panel panel-success col-xs-4 sv-msg-window" style="padding: 0!important;" >
-        <div class="panel-heading" >
-            <div class="logo-div text-left"  >
-                <div style="font-style: italic; ">
-                   <h4  ng-if="currentUser.serverMSG[0].type == 'patch'">ОБНОВЛЕНИЕ v{{currentUser.serverMSG[0].version}}</h4>
-                </div>
-
-            </div>
-            <div style="font-style: italic; float: right">
-                <button class="btn btn-md btn-success" ng-click="svrMsgChecked()">ПРОДОЛЖИТЬ</button>
-            </div>
-        </div>
-
-        <div class="panel-body well">
-            <h4>Что нового:</h4>
-            <p>{{currentUser.serverMSG[0].msg}}</p>
-            <hr>
-            <dl class="text-right">
-                <dt>{{currentUser.serverMSG[0].date | date : "dd MMMM yyyy"}}</dt>
-                <dd> - Администрация</dd>
-            </dl>
-        </div>
-        &lt;!&ndash;<div class="panel-footer text-right" >
-
-        </div>&ndash;&gt;
-    </div>-->
-
     <div ng-if="currentUser.isAuth"  class="sv-msg-window">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button class="close" type="button" ng-click="svrMsgChecked()" >close</button>
+                    <button class="close" type="button" ng-click="svrMsgChecked()">close</button>
                     <h4 class="modal-title">ОБНОВЛЕНИЕ v{{currentUser.serverMSG[0].version}}</h4>
                 </div>
                 <div class="modal-body wed-modals-s" style="color: white">
@@ -39,13 +12,11 @@
                     <ul ng-repeat="note in svrNotesFilter(currentUser.serverMSG[0].msg)" style="padding: 0; list-style: none">
                         <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
                     </ul>
-                    <!--<p>{{currentUser.serverMSG[0].msg}}</p>-->
                     <hr>
                     <dl class="text-right">
                         <dt>{{currentUser.serverMSG[0].date | date : "dd MMMM yyyy"}}</dt>
                         <dd> - Администрация</dd>
                     </dl>
-
                 </div>
             </div>
         </div>
