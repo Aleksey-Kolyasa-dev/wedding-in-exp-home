@@ -5,6 +5,7 @@ define(['angular'], function (angular) {
     usersCtrlModule.controller('wedUsersMainCtrl', wedUsersMainCtrl);
     usersCtrlModule.controller('loginCtrl', loginCtrl);
     usersCtrlModule.controller('registrationCtrl', registrationCtrl);
+    usersCtrlModule.controller('adminCtrl', adminCtrl);
 
 
     /*
@@ -220,6 +221,61 @@ define(['angular'], function (angular) {
         };
 
     }// Ctrl end
+
+
+    /*
+     * USERS ADMIN CTRL
+     * */
+    function adminCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, UsersResourceService, AppService) {
+        $scope.adminMode = function () {
+            if($scope.currentUser.isAdmin){
+                $location.path('admin');
+                $scope.dynamicBackground = 'projects_main';
+                $scope.currentProjectView.mainMenu = 'main';
+
+            }
+        };
+
+        // Project LEFT MENU navigation
+        $scope.projectView = function (view) {
+            switch (view) {
+
+                case "main" :
+                    $scope.currentProjectView.mainMenu = view;
+                    $scope.subView = "announcement";
+                    break;
+
+                case "restaurant" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
+
+                case "arrangement" :
+                    $scope.currentProjectView.mainMenu = view;
+                    break;
+
+            }
+        };
+
+        // Subview shift Fn
+        $scope.subViewShift = function (view) {
+            switch (view) {
+                case "announcement" :
+                    $scope.subView = view;
+                    break;
+                case "info" :
+                    $scope.subView = view;
+                    break;
+                case "reports" :
+                    $scope.subView = view;
+                    break;
+                case "tasks" :
+                    $scope.subView = view;
+                    break;
+            }
+        };
+
+    }// Ctrl end
+
 
 
     return usersCtrlModule;

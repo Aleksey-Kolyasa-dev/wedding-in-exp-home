@@ -40,6 +40,7 @@ require.config({
 		'authServices'          : '../js/app/services/userServices',
 		'controllers'     		: '../js/app/controllers/01_wedMainCtrl',
         'usersCtrlModule'    	: '../js/app/controllers/01_users/01_usersMainCtrl',
+        'adminCtrlModule'    	: '../js/app/controllers/01_users/02_adminMainCtrl',
 		'newProjectCtrlModule' 	: '../js/app/controllers/02_projects/02_wedMain_newProjectCtrl',
         'budgetCtrlModule' 		: '../js/app/controllers/02_projects/03_BudgetCtrl',
         'restaurantCtrlModule' 	: '../js/app/controllers/02_projects/04_RestaurantCtrl',
@@ -93,6 +94,9 @@ require.config({
         'usersCtrlModule' : {
             deps : ['controllers']
         },
+        'adminCtrlModule' : {
+            deps : ['controllers']
+        },
         'newProjectCtrlModule' : {
             deps : ['controllers'],
             exports : 'newProjectCtrlModule'
@@ -139,6 +143,7 @@ require.config({
 				'authServices',
 
 				'usersCtrlModule',
+                'adminCtrlModule',
 
 				'newProjectCtrlModule',
 

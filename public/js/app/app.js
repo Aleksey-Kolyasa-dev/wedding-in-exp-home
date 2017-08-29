@@ -12,6 +12,7 @@ define([
 
 	'controllers',
 	'usersCtrlModule',
+    'adminCtrlModule',
 	'newProjectCtrlModule',
 
 	'budgetCtrlModule',
@@ -38,6 +39,7 @@ define([
 
 		'wedControllers',
 		'usersCtrlModule',
+        'adminCtrlModule',
 		'newProjectCtrlModule',
 
 		'budgetCtrlModule',
@@ -70,6 +72,10 @@ define([
 		}).when('/project', {
             templateUrl : '/views/projects/00_projects_main.html',
             controller : 'wedProjectsMainCtrl'
+
+        }).when('/admin', {
+            templateUrl : '/views/admin/00_00_admin_main.html',
+            controller : 'adminMainCtrl'
 
         }).otherwise({
         	/*template : "<h1 style='color: #ffffff;'>404 Not Found By Me!</h1>"*/

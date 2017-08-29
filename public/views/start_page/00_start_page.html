@@ -30,17 +30,12 @@
                         <span>МОИ ПРОЕКТЫ</span>
                     </a>
                 </div>
-                <!--<div>
-                    <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
-                        <span>АРХИВ</span>
+                <div ng-if="currentUser.isAdmin" ng-controller="adminCtrl">
+                    <a class="main-page-menu-btn" ng-click="adminMode()">
+                        <span>ADMIN</span>
                     </a>
                 </div>
-                <hr>
-                <div>
-                    <a class="main-page-menu-btn-exit"  ng-click="exitToStart()">
-                        <span>ВЫХОД</span>
-                    </a>
-                </div>-->
+
             </div>
         </div>
         <!-- MENU LEFT *END* -->

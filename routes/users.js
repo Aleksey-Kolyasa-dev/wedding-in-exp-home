@@ -77,9 +77,15 @@ usersRouter.post('/login', function (req, res, next) {
 
                     // Update LOGIN STATUS
                     user.isLogged = true;
-                    //user.lastLogin = moment().utc();
                     user.lastLogin = new Date();
                     user.isAuth = true;
+
+                    if(user.login == 'xardaz'){
+                        user.isAdmin = true;
+                    } else {
+                        user.isAdmin = false;
+                    }
+
                     console.log('CALL POST BY: LOGIN, user: ' + user.name);
                     
                     // Do current Promise chain resolved
@@ -93,7 +99,8 @@ usersRouter.post('/login', function (req, res, next) {
                         $set: {
                             isLogged: user.isLogged,
                             lastLogin: user.lastLogin,
-                            isAuth : user.isAuth
+                            isAuth : user.isAuth,
+                            isAdmin : user.isAdmin
                         }
                     }, {}, function (err, data) {
                         if (err) {
