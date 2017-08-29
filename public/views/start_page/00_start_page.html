@@ -21,7 +21,7 @@
 
     <!--MAIN BODY *START*-->
     <div class="wed-main-body">
-        <div ng-if="currentUser.serverMSG.length">
+        <div ng-if="currentUser.serverMSG.length && currentUser.isAuth">
             <ng-include src="'/views/start_page/04_serverMSG.html'"></ng-include>
         </div>
 
