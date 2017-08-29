@@ -1,5 +1,4 @@
 <div ng-if="currentUser.isAdmin">
-    <!--<ng-include src="'/views/home_page/00a_nav_menu.html'"></ng-include>-->
     <ng-include src="'/views/home_page/01_header.html'"></ng-include>
     <ng-include src="'/views/home_page/02_deco_top.html'"></ng-include>
 
@@ -12,7 +11,7 @@
             <nav class="wed-main-body-left">
                 <div class="new-proj-main">
                     <div>
-                        <a ng-class="currentProjectView.mainMenu == 'main'? 'main-page-menu-btn-main-active' : 'main-page-menu-btn-main'" ng-click="projectView('main')">
+                        <a ng-class="adminViewMainMenu == 'main'? 'main-page-menu-btn-main-active' : 'main-page-menu-btn-main'" ng-click="adminMainViewShift('main')">
                             <span>ГЛАВНАЯ</span>
                         </a>
                     </div>
@@ -21,58 +20,14 @@
                             <span>РЕСТОРАН</span>
                         </a>
                     </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'arrangement'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('arrangement')">
-                            <span>ОФОРМЛЕНИЕ</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'program'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('program')">
-                            <span>ПРОГРАММА</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'filming'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('filming')">
-                            <span>СЪЁМКА</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'registration'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('registration')">
-                            <span>РЕГИСТРАЦИЯ</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'marriage'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('marriage')">
-                            <span>ВЕНЧАНИЕ</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'transport'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('transport')">
-                            <span>ТРАНСПОРТ</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'dress'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('dress')">
-                            <span>ДРЕСС-КОД</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'party'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('party')">
-                            <span>ВЕЧЕРИНКИ</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a ng-class="currentProjectView.mainMenu == 'other'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('other')">
-                            <span>ИНОЕ</span>
-                        </a>
-                    </div>
+
                 </div>
             </nav>
             <!-- MENU LEFT *END* -->
 
             <!-- PROJECT'S VIEWS *START* -->
             <section class="wed-project-body-right">
-                <div ng-show="currentProjectView.mainMenu == 'main'">
+                <div ng-show="adminViewMainMenu == 'main'">
                     <ng-include src="'/views/admin/01_00_admin_main_main.html'"></ng-include>
                 </div>
 

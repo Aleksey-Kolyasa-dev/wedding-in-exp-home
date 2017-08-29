@@ -1,18 +1,15 @@
-<div class="budget-main" ng-controller="mainCtrl">
+<div class="budget-main" ng-controller="mainCtrl" ng-if="currentUser.isAdmin">
     <header class="proj-view-header text-right">
-        <nav class="top-sub-menu no-print" ng-if="currentUser.isAuth">
+        <nav class="top-sub-menu no-print" >
             <ul>
                 <li style="{{(subView == 'patchNotes')? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('patchNotes')">Patch Notes</a></li>
-                <li  style="{{(subView == 'info')? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('info')">Проект</a></li>
-                <li  style="{{(subView == 'tasks')? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('tasks')">Задачи</a></li>
+
 
             </ul>
         </nav>
         <h2 >
             <span ng-if="subView == 'patchNotes'"  >PATCH NOTES:</span>
-            <span ng-show="subView == 'info'" >ПРОЕКТ</span>
-            <span ng-show="subView == 'tasks'" >ЗАДАЧИ</span>
-            <span ng-show="subView == 'sms'" >СООБЩЕНИЯ</span>
+
         </h2>
     </header>
 

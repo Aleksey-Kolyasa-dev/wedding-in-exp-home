@@ -142,6 +142,27 @@ define(['angular'], function (angular) {
                         });
                     };
 
+                    // Server MSG fn
+                    $scope.svrMsgChecked = function () {
+                        $scope.currentUser.serverMSG.splice(0,1);
+
+                        var request = {
+                            _id: $scope.currentUser._id,
+                            keyURL : '/svrMsgChecked',
+                            data: $scope.currentUser.serverMSG
+                        };
+                        UsersResourceService._ajaxRequest("PUT", null, request, request.keyURL)
+                            .then(function () {
+                                if (_env()._dev) {
+                                    toastr.success("MSG CHECKED!");
+                                }
+                            })
+                            .catch(function (err) {
+                            toastr.error('USER SMS QTY AJAX FAILED!');
+                            $log.error('USER SMS QTY AJAX FAILED!', err);
+                        });
+                    };
+
                 }, 300);
             } else {
                 $location.path('/start');
@@ -250,6 +271,19 @@ define(['angular'], function (angular) {
                 case "other" :
                     $scope.currentProjectView.mainMenu = view;
                     break;
+            }
+        };
+
+        // Notes Display Filter
+        $scope.svrNotesFilter = function (notes) {
+            if(notes == null){
+                return '';
+            } else {
+                var noteArr = notes.split('*');
+                if(noteArr[0] == ''){
+                    noteArr.splice(0,1);
+                }
+                return noteArr;
             }
         };
 

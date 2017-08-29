@@ -173,6 +173,84 @@ usersRouter.put('/:id/smsQty', function (req, res, next) {
     }
 });
 
+//* PUT USER SERVER MSG
+usersRouter.put('/:id/svrMsgChecked', function (req, res, next) {
+    var request = req.body;
+
+    if(!request.data.join){
+        console.log("CALL PUT USER BY: /svrMsgChecked - validation ERR");
+        res.status(400);
+        res.json({
+            "error" : "PUT ERROR: SERVER MGS validation failed"
+        });
+    } else {
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { serverMSG : request.data}}, {}, function (err, smsQty) {
+            if(err){
+                console.log("CALL PUT USER BY: /svrMsgChecked - update ERR", err);
+                res.send(err);
+            }
+            console.log("CALL PUT USER BY: /svrMsgChecked - update OK");
+            res.json(smsQty);
+        });
+    }
+});
+
+/*ADMIN*/
+// POST PATCH NOTE
+usersRouter.post('/admin/patchNotes', function (req, res) {
+    var request = req.body;
+
+    var promise = new Promise(function (resolve, reject) {
+        // Get all users in DB
+        usersDB[collection].find({}, {}, function (e, users) {
+            console.log('CALL ADMIN POST BY: /patchNotes');
+            users.forEach(function (user) {
+                if(!user.serverMSG){
+                    user.serverMSG = [];
+                }
+                    user.serverMSG.push(request.data);
+
+
+                    // Do current Promise chain resolved
+                    resolve(user);
+
+                    // Do USER LOGIN STATUS update to DB
+                    usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
+                        $set: {
+                            serverMSG : user.serverMSG
+                        }
+                    }, {}, function (err, data) {
+                        if (err) {
+                            res.send(err);
+                        }
+                        //console.log('ok');
+                    });
+            });
+            // If no coincides, do  REJECT - USER NOT FOUND!
+            reject(new UserNotFoundError('USER'));
+        });
+    });
+
+    promise.then(
+        function (success) {
+            // If all ok (no rejects)
+            console.log('PATCH NOTES SENT');
+            res.send("done");
+        },
+        // if rejected, send an error
+        function (err) {
+            console.log(err);
+            res.send(err);
+        }
+    ).catch(function (err) {
+        console.log(err);
+        res.send(err);
+    });
+});
+
+
+
+
 module.exports = usersRouter;
 
 // New User Ctor fn
@@ -189,6 +267,7 @@ function User(user) {
     this.isAdmin = false;
     this.organization = null;
     this.smsQty = [];
+    this.serverMSG = [];
     this.sfx = false;
 }
 

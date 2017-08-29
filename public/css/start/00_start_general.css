@@ -75,3 +75,26 @@
     background-image: url(../../img/main_bg2.jpg);
     background-size: 795%;
 }
+
+/*SERVER MSG*/
+.server-msg-main{
+    /*background: rgba(65, 66, 65, 0.44);*/
+    background: transparent;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    height: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: flex;
+
+}
+.sv-msg-window{
+    display: block;
+    margin: auto;
+
+    /*height: 50%;*/
+
+}

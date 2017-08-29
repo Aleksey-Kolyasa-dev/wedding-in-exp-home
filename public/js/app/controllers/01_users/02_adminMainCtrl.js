@@ -13,52 +13,26 @@ define(['angular'], function (angular) {
      * ADMIN MAIN CTRL
      * */
     function adminMainCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, UsersResourceService, AppService) {
+        $scope.adminViewMainMenu = 'main';
         $scope.adminMode = function () {
             if($scope.currentUser.isAdmin){
                 $location.path('admin');
                 $scope.dynamicBackground = 'projects_main';
-                $scope.currentProjectView.mainMenu = 'main';
-
             }
         };
 
         // Project LEFT MENU navigation
-        $scope.projectView = function (view) {
+        $scope.adminMainViewShift = function (view) {
             switch (view) {
 
                 case "main" :
-                    $scope.currentProjectView.mainMenu = view;
-                    $scope.subView = "announcement";
-                    break;
-
-                case "restaurant" :
-                    $scope.currentProjectView.mainMenu = view;
-                    break;
-
-                case "arrangement" :
-                    $scope.currentProjectView.mainMenu = view;
+                    $scope.adminViewMainMenu = view;
+                    $scope.subView = "patchNotes";
                     break;
 
             }
         };
 
-        // Subview shift Fn
-        $scope.subViewShift = function (view) {
-            switch (view) {
-                case "announcement" :
-                    $scope.subView = view;
-                    break;
-                case "info" :
-                    $scope.subView = view;
-                    break;
-                case "reports" :
-                    $scope.subView = view;
-                    break;
-                case "tasks" :
-                    $scope.subView = view;
-                    break;
-            }
-        };
 
     }// Ctrl end
 
@@ -73,15 +47,6 @@ define(['angular'], function (angular) {
                 case "patchNotes" :
                     $scope.subView = view;
                     break;
-                case "info" :
-                    $scope.subView = view;
-                    break;
-                case "reports" :
-                    $scope.subView = view;
-                    break;
-                case "tasks" :
-                    $scope.subView = view;
-                    break;
             }
         };
     }// Ctrl end
@@ -90,44 +55,37 @@ define(['angular'], function (angular) {
      * MAIN CTRL
      * */
     function patchNoteCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, UsersResourceService, AppService) {
-        // Notes Display Filter
-        $scope.notesFilter = function (notes) {
-            if(notes == null){
-                return '';
-            } else {
-                var noteArr = notes.split('*');
-                if(noteArr[0] == ''){
-                    noteArr.splice(0,1);
-                }
-                return noteArr;
-            }
-        };
+
 
         // Notes Save
-        $scope.noteSave = function () {
+        $scope.noteSave = function (note) {
+            note.type = 'patch';
+            note.date = new Date();
+            note.version = $scope.version;
+
             var request = {
                 _id: $scope.currentProject._id,
-                key: $scope.conf.mainProp + "Notes",
-                keyURL : "/" + $scope.conf.mainProp +"Notes"
+                key: "nnnn",
+                keyURL : "/admin/patchNotes",
+                data : note
             };
-            request[$scope.conf.mainProp + "Notes"] = $scope.currentProject[$scope.conf.mainProp + "Notes"];
 
             // SAVE CHANGES in DB
-            ResourceService._ajaxRequest("PUT", null, request, request.keyURL).then(
+            UsersResourceService._ajaxRequest("POST", null, request, request.keyURL).then(
                 function (data) {
                     if (_env()._dev) {
-                        toastr.info($scope.conf.msgNameBg + ' Notes are saved!');
+                        toastr.info('PATCHED!');
                     } else {
                         toastr.info('OK');
                     }
                 },
                 function (err) {
-                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
-                    throw new Error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
+                    toastr.error('ERROR: PATCH Notes AJAX failed');
+                    throw new Error('ERROR: PATCH Notes AJAX failed');
                 })
                 .catch(function (err) {
-                    toastr.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed');
-                    $log.error('ERROR: ' + $scope.conf.msgNameBg + ' Notes AJAX failed', err);
+                    toastr.error('ERROR: PATCH Notes AJAX failed');
+                    $log.error('ERROR: PATCH Notes AJAX failed', err);
                 });
         };
     }// Ctrl end
