@@ -6,10 +6,11 @@
         <div class="logo-div" style="width: 200px">
             <p class="wed-logo-s">
                 <a>WEDDING_in</a>
-
             </p>
             <div class="betta">
                 <span style="">{{versionStatus}} v{{version}}</span>
+                <br>
+                <span style="color: {{(ping < 250 )? 'white' : (ping > 250 && ping < 500)?  'yellow' : 'red'}}"> ping : {{ping}}</span>
             </div>
         </div>
 

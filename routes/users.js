@@ -172,7 +172,7 @@ usersRouter.put('/:id/ping', function (req, res, next) {
             if (err) {
                 res.send(err);
             } else {
-                console.log('ping');
+                console.log(request.name + ' ONLINE');
                 res.end();
             }
         });
@@ -195,8 +195,8 @@ function checkOnline() {
                     if (err) {
                         console.log(err)
                     } else {
-                        console.log('USER ' + user.name + ' DISCONNECTED, ' + count++);
-                        console.log(process.memoryUsage().heapUsed);
+                        console.log(user.name + ' OFFLINE, ' + count++);
+                        //console.log(process.memoryUsage().heapUsed);
                     }
                 });
             }
@@ -219,7 +219,7 @@ function checkOnline() {
 }
 setInterval(function () {
     checkOnline();
-}, 5000);
+}, 10000);
 //////////////////
 
 //* PUT USER smsQTY

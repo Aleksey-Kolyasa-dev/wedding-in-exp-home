@@ -17,6 +17,7 @@ define(['angular'], function (angular) {
         $scope.currentProjectView = {};
         $scope.toDay = new Date;
         $location.path('/start');
+        $scope.ping = 0;
         $scope.dynamicBackground = "start_main";
         $scope.newSMS = {};
 
