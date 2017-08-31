@@ -5,7 +5,7 @@ define(['angular'], function (angular) {
 
     adminCtrlModule.controller('adminMainCtrl', adminMainCtrl);
     adminCtrlModule.controller('mainCtrl', mainCtrl);
-    adminCtrlModule.controller('patchNoteCtrl', patchNoteCtrl);
+    adminCtrlModule.controller('patchCtrl', patchCtrl);
 
 
 
@@ -17,7 +17,6 @@ define(['angular'], function (angular) {
         $scope.adminMode = function () {
             if($scope.currentUser.isAdmin){
                 $location.path('admin');
-                $scope.dynamicBackground = 'projects_main';
             }
         };
 
@@ -44,7 +43,13 @@ define(['angular'], function (angular) {
         // Subview shift Fn
         $scope.subViewShift = function (view) {
             switch (view) {
+                case "svrAnnouncements" :
+                    $scope.subView = view;
+                    break;
                 case "patchNotes" :
+                    $scope.subView = view;
+                    break;
+                case "patches" :
                     $scope.subView = view;
                     break;
             }
@@ -54,18 +59,46 @@ define(['angular'], function (angular) {
     /*
      * MAIN CTRL
      * */
-    function patchNoteCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, UsersResourceService, AppService) {
+    function patchCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, UsersResourceService, AppService) {
+        // Announcement Send
+        $scope.announcementSend = function (note) {
+            note.type = 'announcement';
+            note.date = new Date();
+
+            var request = {
+                _id: $scope.currentProject._id,
+                keyURL : "/admin/announcement",
+                data : note
+            };
+
+            // SAVE CHANGES in DB
+            UsersResourceService._ajaxRequest("POST", null, request, request.keyURL).then(
+                function (data) {
+                    if (_env()._dev) {
+                        toastr.info('SENT!');
+                    } else {
+                        toastr.info('OK');
+                    }
+                },
+                function (err) {
+                    toastr.error('ERROR: ANNOUNCEMENT  AJAX failed');
+                    throw new Error('ERROR: ANNOUNCEMENT  AJAX failed');
+                })
+                .catch(function (err) {
+                    toastr.error('ERROR: ANNOUNCEMENT  AJAX failed');
+                    $log.error('ERROR: ANNOUNCEMENT  AJAX failed', err);
+                });
+        };
 
 
-        // Notes Save
-        $scope.noteSave = function (note) {
+        // Patch Note Send
+        $scope.patchNoteSend = function (note) {
             note.type = 'patch';
             note.date = new Date();
             note.version = $scope.version;
 
             var request = {
                 _id: $scope.currentProject._id,
-                key: "nnnn",
                 keyURL : "/admin/patchNotes",
                 data : note
             };
@@ -88,6 +121,10 @@ define(['angular'], function (angular) {
                     $log.error('ERROR: PATCH Notes AJAX failed', err);
                 });
         };
+
+
+
+
     }// Ctrl end
 
 

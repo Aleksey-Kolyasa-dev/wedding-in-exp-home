@@ -9,7 +9,7 @@ define(['angular'], function (angular) {
     /*
      * APP MAIN CTRL
      * */
-    function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, toastr, ResourceService, UsersResourceService) {
+    function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, $interval, toastr, ResourceService, UsersResourceService) {
         // Default Values
         $scope.currentUser = {};
         $scope.currentProject = {};
@@ -37,7 +37,6 @@ define(['angular'], function (angular) {
                 $scope.dynamicBackground = "projects_main";
                 $scope.decorNames = false;
                 $scope.$emit('projectsListChange');
-                //updateProjectsList();
                 $scope.currentProjectView.mainMenu = null;
             } else {
                 $scope.exitToStart();
@@ -46,7 +45,7 @@ define(['angular'], function (angular) {
 
         // LOGOUT Fn
         $scope.logOut = function () {
-
+            $scope.currentUser.isLogged = false;
             $scope.$broadcast('logout');// subscriber -> wedUsersMainCtrl
 
             $timeout(function () {

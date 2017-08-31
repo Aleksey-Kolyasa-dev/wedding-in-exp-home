@@ -39,7 +39,7 @@ usersRouter.post('/', function (req, res, next) {
 
     promise.then(
         function () {
-            if(!newUser.login || !newUser.password || !newUser.email){
+            if (!newUser.login || !newUser.password || !newUser.email) {
                 reject(new NewUserValidationError('VALIDATION'));
             } else {
                 // Do save New Registred User in DB (if no rejects)
@@ -48,7 +48,7 @@ usersRouter.post('/', function (req, res, next) {
                         res.send(err);
                     }
                     else {
-                        console.log('CALL POST BY: NEW USER: ' + newUser.name +' REGISTRED');
+                        console.log('CALL POST BY: NEW USER: ' + newUser.name + ' REGISTRED');
                         res.json(registredUser);
                     }
                 });
@@ -80,27 +80,27 @@ usersRouter.post('/login', function (req, res, next) {
                     user.lastLogin = new Date();
                     user.isAuth = true;
 
-                    if(user.login == 'xardaz'){
+                    if (user.login == 'xardaz') {
                         user.isAdmin = true;
                     } else {
                         user.isAdmin = false;
                     }
 
                     console.log('CALL POST BY: LOGIN, user: ' + user.name);
-                    
+
                     // Do current Promise chain resolved
                     resolve(user);
-                    
+
                     // Send USER to Client
                     res.json(user);
-                    
+
                     // Do USER LOGIN STATUS update to DB
                     usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
                         $set: {
                             isLogged: user.isLogged,
                             lastLogin: user.lastLogin,
-                            isAuth : user.isAuth,
-                            isAdmin : user.isAdmin
+                            isAuth: user.isAuth,
+                            isAdmin: user.isAdmin
                         }
                     }, {}, function (err, data) {
                         if (err) {
@@ -119,6 +119,7 @@ usersRouter.post('/login', function (req, res, next) {
         function (success) {
             // If all ok (no rejects)
             console.log('LOGIN SUCCESS');
+
         },
         // if rejected, send an error
         function (err) {
@@ -135,14 +136,19 @@ usersRouter.put('/:id/logout', function (req, res, next) {
     var user = req.body;
     console.log('CALL PUT BY: LOGOUT, user: ' + user.name);
 
-    if(!user._id){
+    if (!user._id) {
         res.status(400);
         res.json({
-            "error" : "PUT ERROR: LOGOUT validation failed"
+            "error": "PUT ERROR: LOGOUT validation failed"
         });
     } else {
-        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { isLogged : user.isLogged, isAuth : user.isAuth}}, {}, function (err, project) {
-            if(err){
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, {
+            $set: {
+                isLogged: user.isLogged,
+                isAuth: user.isAuth
+            }
+        }, {}, function (err, project) {
+            if (err) {
                 res.send(err);
             }
             res.json(project);
@@ -150,20 +156,85 @@ usersRouter.put('/:id/logout', function (req, res, next) {
     }
 });
 
+// PUT USER ONLINE STATUS
+usersRouter.put('/:id/ping', function (req, res, next) {
+    var request = req.body;
+    //console.log('CALL PUT BY: ONLINE, user: ');
+
+    if (!request.moment) {
+        res.status(400);
+        res.json({
+            "error": "PUT ERROR: LOGOUT validation failed"
+        });
+        res.end();
+    } else {
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, {$set: {moment: request.moment}}, {}, function (err, data) {
+            if (err) {
+                res.send(err);
+            } else {
+                console.log('ping');
+                res.end();
+            }
+        });
+    }
+});
+
+// CHECK USERS ONLINE STATUS
+var count = 0;
+function checkOnline() {
+    var start = Date.now();
+    usersDB[collection].find({}, {}, function (e, users) {
+        users.forEach(function (user) {
+           if(user.moment && start - user.moment > 5000){
+                // Do USER LOGIN STATUS update to DB
+                usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
+                    $set: {
+                        isLogged: false
+                    }
+                }, {}, function (err, data) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log('USER ' + user.name + ' DISCONNECTED, ' + count++);
+                        console.log(process.memoryUsage().heapUsed);
+                    }
+                });
+            }
+            /*else if(user.moment){
+               // Do USER LOGIN STATUS update to DB
+               usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
+                   $set: {
+                       isLogged: true
+                   }
+               }, {}, function (err, data) {
+                   if (err) {
+                       console.log(err)
+                   } else {
+                       console.log('USER ' + user.name + ' ONLINE');
+                   }
+               });
+           }*/
+        });
+    });
+}
+setInterval(function () {
+    checkOnline();
+}, 5000);
+//////////////////
 
 //* PUT USER smsQTY
 usersRouter.put('/:id/smsQty', function (req, res, next) {
     var request = req.body;
 
-    if(!request.arr){
+    if (!request.arr) {
         console.log("CALL PUT USER BY: /smsQty - validation ERR");
         res.status(400);
         res.json({
-            "error" : "PUT ERROR: SMS QTY validation failed"
+            "error": "PUT ERROR: SMS QTY validation failed"
         });
     } else {
-        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { smsQty : request.arr}}, {}, function (err, smsQty) {
-            if(err){
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, {$set: {smsQty: request.arr}}, {}, function (err, smsQty) {
+            if (err) {
                 console.log("CALL PUT USER BY: /smsQty - update ERR", err);
                 res.send(err);
             }
@@ -172,20 +243,19 @@ usersRouter.put('/:id/smsQty', function (req, res, next) {
         });
     }
 });
-
 //* PUT USER SERVER MSG
 usersRouter.put('/:id/svrMsgChecked', function (req, res, next) {
     var request = req.body;
 
-    if(!request.data.join){
+    if (!request.data.join) {
         console.log("CALL PUT USER BY: /svrMsgChecked - validation ERR");
         res.status(400);
         res.json({
-            "error" : "PUT ERROR: SERVER MGS validation failed"
+            "error": "PUT ERROR: SERVER MGS validation failed"
         });
     } else {
-        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, { $set : { serverMSG : request.data}}, {}, function (err, smsQty) {
-            if(err){
+        usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, {$set: {serverMSG: request.data}}, {}, function (err, smsQty) {
+            if (err) {
                 console.log("CALL PUT USER BY: /svrMsgChecked - update ERR", err);
                 res.send(err);
             }
@@ -195,36 +265,36 @@ usersRouter.put('/:id/svrMsgChecked', function (req, res, next) {
     }
 });
 
+
 /*ADMIN*/
-// POST PATCH NOTE
-usersRouter.post('/admin/patchNotes', function (req, res) {
+// POST ANNOUNCEMENT NOTE
+usersRouter.post('/admin/announcement', function (req, res) {
     var request = req.body;
 
     var promise = new Promise(function (resolve, reject) {
         // Get all users in DB
         usersDB[collection].find({}, {}, function (e, users) {
-            console.log('CALL ADMIN POST BY: /patchNotes');
+            console.log('CALL ADMIN POST BY: /announcement');
             users.forEach(function (user) {
-                if(!user.serverMSG){
+                if (!user.serverMSG) {
                     user.serverMSG = [];
                 }
-                    user.serverMSG.push(request.data);
+                user.serverMSG.push(request.data);
 
 
-                    // Do current Promise chain resolved
-                    resolve(user);
+                // Do current Promise chain resolved
+                resolve(user);
 
-                    // Do USER LOGIN STATUS update to DB
-                    usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
-                        $set: {
-                            serverMSG : user.serverMSG
-                        }
-                    }, {}, function (err, data) {
-                        if (err) {
-                            res.send(err);
-                        }
-                        //console.log('ok');
-                    });
+                // Do USER LOGIN STATUS update to DB
+                usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
+                    $set: {
+                        serverMSG: user.serverMSG
+                    }
+                }, {}, function (err, data) {
+                    if (err) {
+                        res.send(err);
+                    }
+                });
             });
             // If no coincides, do  REJECT - USER NOT FOUND!
             reject(new UserNotFoundError('USER'));
@@ -234,7 +304,7 @@ usersRouter.post('/admin/patchNotes', function (req, res) {
     promise.then(
         function (success) {
             // If all ok (no rejects)
-            console.log('PATCH NOTES SENT');
+            console.log('CALL ADMIN POST BY: /announcement - Ok');
             res.send("done");
         },
         // if rejected, send an error
@@ -247,8 +317,55 @@ usersRouter.post('/admin/patchNotes', function (req, res) {
         res.send(err);
     });
 });
+// POST PATCH NOTE
+usersRouter.post('/admin/patchNotes', function (req, res) {
+    var request = req.body;
 
+    var promise = new Promise(function (resolve, reject) {
+        // Get all users in DB
+        usersDB[collection].find({}, {}, function (e, users) {
+            console.log('CALL ADMIN POST BY: /patchNotes');
+            users.forEach(function (user) {
+                if (!user.serverMSG) {
+                    user.serverMSG = [];
+                }
+                user.serverMSG.push(request.data);
 
+                // Do current Promise chain resolved
+                resolve(user);
+
+                // Do USER LOGIN STATUS update to DB
+                usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
+                    $set: {
+                        serverMSG: user.serverMSG
+                    }
+                }, {}, function (err, data) {
+                    if (err) {
+                        res.send(err);
+                    }
+                });
+            });
+            // If no coincides, do  REJECT - USER NOT FOUND!
+            reject(new UserNotFoundError('USER'));
+        });
+    });
+
+    promise.then(
+        function (success) {
+            // If all ok (no rejects)
+            console.log('CALL ADMIN POST BY: /patchNotes - Ok');
+            res.send("done");
+        },
+        // if rejected, send an error
+        function (err) {
+            console.log(err);
+            res.send(err);
+        }
+    ).catch(function (err) {
+        console.log(err);
+        res.send(err);
+    });
+});
 
 
 module.exports = usersRouter;

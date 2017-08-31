@@ -1,4 +1,4 @@
-<div class="rest-general-page" ng-controller="patchNoteCtrl" ng-if="currentUser.isAdmin">
+<div class="rest-general-page" ng-controller="patchCtrl" ng-if="currentUser.isAdmin">
 
     <!--NOTES  *START*-->
     <div ng-if="currentUser.isAdmin" class="rest-general-page no-print" style="margin-left: 15px;">
@@ -7,12 +7,9 @@
                 <hr>
                 <div>
                     <p>
-                        <button class="btn btn-default" style="margin-right: 15px" data-target="#budgetNotes" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
-                        PATCH NOTES:
+                        <button class="btn btn-default" style="margin-right: 15px" data-target="#aviso" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                        ANNOUNCEMENT:
                     </p>
-                    <!--<ul ng-repeat="note in notesFilter(currentProject.budgetNotes)" style="padding: 0; list-style: none">
-                        <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
-                    </ul>-->
                 </div>
                 <hr>
             </div>
@@ -21,12 +18,12 @@
     <!--NOTES  *END*-->
 
     <!-- NOTES MODAL *START* -->
-    <div id="budgetNotes" class="modal fade">
+    <div id="aviso" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">close</button>
-                    <h4 class="modal-title">ЗАМЕТКИ</h4>
+                    <h4 class="modal-title">NEW ANNOUNCEMENT</h4>
                 </div>
                 <div class="modal-body wed-modals">
                     <div class="add-new-proj-main">
@@ -39,7 +36,7 @@
                                 <hr>
                                 <button type="submit" class="btn btn-success btn-block"
                                         data-dismiss="modal"
-                                        ng-click="noteSave(note)">
+                                        ng-click="announcementSend(note)">
                                     СОХРАНИТЬ
                                 </button>
                             </div>

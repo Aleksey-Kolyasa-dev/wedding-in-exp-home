@@ -11,7 +11,7 @@ define(['angular'], function (angular) {
     /*
      * USERS MAIN CTRL
      * */
-    function wedUsersMainCtrl($scope, $rootScope, $log, $window, $location, $timeout, toastr, UsersResourceService, AppService) {
+    function wedUsersMainCtrl($scope, $rootScope, $interval ,$log, $window, $location, $timeout, toastr, UsersResourceService, AppService) {
 
         // ON-EVENT: USER LOG OUT
         $scope.$on('logout', function () {
@@ -23,7 +23,7 @@ define(['angular'], function (angular) {
 
             var request = {
                 _id: $scope.currentUser._id,
-                name: $scope.currentUser.realName,
+                name: $scope.currentUser.name,
                 isLogged: false,
                 isAuth: false
             };
@@ -38,6 +38,32 @@ define(['angular'], function (angular) {
         $scope.$on('registrationSuccess', function (event, data) {
             $scope.$broadcast('doLogin', data);
         });
+
+
+        // ONLINE STATUS
+        function uPing() {
+            if($scope.currentUser._id && $scope.currentUser.isLogged){
+                var request = {
+                    _id: $scope.currentUser._id,
+                    moment : Date.now(),
+                    keyURL : '/ping'
+                };
+                UsersResourceService._ajaxRequest("PUT", null, request, request.keyURL).catch(function (err) {
+                    toastr.error('NO SERVER CONNECTION!');
+                });
+            }
+
+
+        }
+        $scope.$on('LoggedIn', function () {
+            if($scope.currentUser._id && $scope.currentUser.isLogged){
+                $interval(function () {
+                    uPing();
+                },2000);
+            }
+        });
+
+
 
     }// Ctrl end
 
