@@ -9,7 +9,7 @@ define(['angular'], function (angular) {
     /*
      * APP MAIN CTRL
      * */
-    function wedMainCtrl($scope, $rootScope, $log, $location, $timeout, $interval, toastr, ResourceService, UsersResourceService) {
+    function wedMainCtrl($scope, $rootScope, $http, $log, $location, $timeout, $interval, toastr, ResourceService, UsersResourceService) {
         // Default Values
         $scope.currentUser = {};
         $scope.currentProject = {};
@@ -221,6 +221,10 @@ define(['angular'], function (angular) {
 
         });
 
+        $scope.$on('ping', function (event, data) {
+           $scope.ping = data;
+        });
+
         // Project LEFT MENU navigation
         $scope.projectView = function (view) {
             switch (view) {
@@ -286,6 +290,62 @@ define(['angular'], function (angular) {
                 return noteArr;
             }
         };
+
+        // ONLINE  STATUS
+        function uOnline() {
+            if($scope.currentUser._id && $scope.currentUser.isLogged){
+                var request = {
+                    _id: $scope.currentUser._id,
+                    name : $scope.currentUser.name,
+                    moment : Date.now(),
+                    keyURL : '/uOnline'
+                };
+                $http({
+                    method : "PUT",
+                    url : _env()._usersURL + request._id + request.keyURL,
+                    data : request
+                }).catch(function (err) {
+                    toastr.error('NO SERVER CONNECTION!');
+                    $log.log(err);
+                });
+            }
+
+
+        }
+        $scope.$on('LoggedIn', function () {
+            if($scope.currentUser._id && $scope.currentUser.isLogged){
+                $interval(function () {
+                    uOnline();
+                },300000); // 5min 300000
+            }
+        });
+
+        // PING STATUS
+        function uPing() {
+            if($scope.currentUser._id && $scope.currentUser.isLogged){
+                var start = Date.now();
+                $http({
+                    method : "GET",
+                    url : _env()._usersURL + $scope.currentUser._id + '/uPing'
+                }).then(
+                    function () {
+                        $scope.ping = Date.now() - start;
+                    }
+                ).catch(function (err) {
+                    toastr.error('NO SERVER CONNECTION!');
+                    $log.log(err);
+                });
+            }
+
+
+        }
+        $scope.$on('LoggedIn', function () {
+            if($scope.currentUser._id && $scope.currentUser.isLogged){
+                $interval(function () {
+                   uPing();
+                },3000);
+            }
+        });
 
     }// Ctrl end
 

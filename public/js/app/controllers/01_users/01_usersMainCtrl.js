@@ -40,40 +40,6 @@ define(['angular'], function (angular) {
         });
 
 
-        // ONLINE STATUS
-        function uPing() {
-            if($scope.currentUser._id && $scope.currentUser.isLogged){
-                var request = {
-                    _id: $scope.currentUser._id,
-                    name : $scope.currentUser.name,
-                    moment : Date.now(),
-                    keyURL : '/ping'
-                };
-                //UsersResourceService._ajaxRequest("PUT", null, request, request.keyURL)
-                    $http({
-                        method : "PUT",
-                        url : _env()._usersURL + request._id + request.keyURL,
-                        data : request
-                    }).then(
-                    function () {
-                        $scope.ping = Date.now() - request.moment;
-                        $log.log(Date.now() - request.moment);
-                    }
-                ).catch(function (err) {
-                    toastr.error('NO SERVER CONNECTION!');
-                    $log.log(err);
-                });
-            }
-
-
-        }
-        $scope.$on('LoggedIn', function () {
-            if($scope.currentUser._id && $scope.currentUser.isLogged){
-                $interval(function () {
-                    uPing();
-                },5000);
-            }
-        });
 
 
 

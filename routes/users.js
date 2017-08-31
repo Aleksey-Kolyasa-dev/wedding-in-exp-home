@@ -157,70 +157,28 @@ usersRouter.put('/:id/logout', function (req, res, next) {
 });
 
 // PUT USER ONLINE STATUS
-usersRouter.put('/:id/ping', function (req, res, next) {
+usersRouter.put('/:id/uOnline', function (req, res, next) {
     var request = req.body;
-    //console.log('CALL PUT BY: ONLINE, user: ');
 
     if (!request.moment) {
         res.status(400);
-        res.json({
-            "error": "PUT ERROR: LOGOUT validation failed"
-        });
         res.end();
     } else {
         usersDB[collection].update({_id: mongojs.ObjectId(req.params.id)}, {$set: {moment: request.moment}}, {}, function (err, data) {
             if (err) {
                 res.send(err);
             } else {
-                console.log(request.name + ' ONLINE');
+                //console.log(request.name + ' ONLINE');
                 res.end();
             }
         });
     }
 });
-
-// CHECK USERS ONLINE STATUS
-var count = 0;
-function checkOnline() {
-    var start = Date.now();
-    usersDB[collection].find({}, {}, function (e, users) {
-        users.forEach(function (user) {
-           if(user.moment && start - user.moment > 5000){
-                // Do USER LOGIN STATUS update to DB
-                usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
-                    $set: {
-                        isLogged: false
-                    }
-                }, {}, function (err, data) {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        console.log(user.name + ' OFFLINE, ' + count++);
-                        //console.log(process.memoryUsage().heapUsed);
-                    }
-                });
-            }
-            /*else if(user.moment){
-               // Do USER LOGIN STATUS update to DB
-               usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
-                   $set: {
-                       isLogged: true
-                   }
-               }, {}, function (err, data) {
-                   if (err) {
-                       console.log(err)
-                   } else {
-                       console.log('USER ' + user.name + ' ONLINE');
-                   }
-               });
-           }*/
-        });
-    });
-}
-setInterval(function () {
-    checkOnline();
-}, 10000);
-//////////////////
+// GET USER PING STATUS
+usersRouter.get('/:id/uPing', function (req, res, next) {
+    //console.log('ping');
+    res.end();
+});
 
 //* PUT USER smsQTY
 usersRouter.put('/:id/smsQty', function (req, res, next) {
@@ -429,3 +387,35 @@ function NewUserValidationError(property) {
     }
 }
 NewUserValidationError.prototype = Object.create(Error.prototype);
+
+// CHECK USERS ONLINE STATUS
+var count = 0;
+function checkOnline() {
+    var start = Date.now();
+    usersDB[collection].find({}, {}, function (e, users) {
+        users.forEach(function (user) {
+            if(user.moment && user.isLogged){
+                if(start - user.moment > 360000) {
+                    // Do USER LOGIN STATUS update to DB
+                    usersDB[collection].update({_id: mongojs.ObjectId(user._id)}, {
+                        $set: {
+                            isLogged: false
+                        }
+                    }, {}, function (err, data) {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log(user.name + ' OFFLINE, ' + count++);
+
+                        }
+                    });
+                }
+            }
+        });
+    });
+}
+setInterval(function () {
+    checkOnline();
+}, 1200000); // 20min 1200000
+checkOnline();
+//////////////////
