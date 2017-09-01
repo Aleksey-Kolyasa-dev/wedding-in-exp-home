@@ -137,7 +137,7 @@ define(['angular'], function (angular) {
 
                     UsersResourceService._ajaxRequest('GET', '/getOnline', null, null).then(
                         function (data) {
-                            $scope.online = data;
+                            $scope.online = data - 1;
                         }
                     ).catch(function (err) {
                         toastr.error('ERROR: /getOnline AJAX failed');
@@ -147,29 +147,28 @@ define(['angular'], function (angular) {
 
                 case "users" :
                     $scope.subView = view;
-
+                    // GET USERS ONLINE STATUS
                     UsersResourceService._ajaxRequest('GET', '/getOnline', null, null).then(
                         function (data) {
-                            $scope.online = data;
+                            $scope.online = data - 1;
                         }
                     ).catch(function (err) {
                         toastr.error('ERROR: /getOnline AJAX failed');
                         $log.error('ERROR: /getOnline AJAX failed', err);
                     });
-
+                    // GET USERS STATISTICS
                     UsersResourceService._ajaxRequest('GET', '/admin/uStats', null, null).then(
                         function (data) {
-                            var arr = data;
                             angular.forEach(data, function (user) {
                                user.age = Math.ceil((new Date() - new Date(user.registrationDate)) / 86400000);
-                               user.offAge = Math.floor((new Date() - new Date(user.moment)) / 86400000);
+                               user.offAge = Math.round((new Date() - new Date(user.moment)) / 86400000);
                             });
                             $scope.uStats = data;
 
                         }
                     ).catch(function (err) {
-                        toastr.error('ERROR: /getOnline AJAX failed');
-                        $log.error('ERROR: /getOnline AJAX failed', err);
+                        toastr.error('ERROR: /uStats AJAX failed');
+                        $log.error('ERROR: /uStats AJAX failed', err);
                     });
 
                     break;
