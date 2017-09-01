@@ -16,7 +16,7 @@
                         </a>
                     </div>
                     <div>
-                        <a ng-class="currentProjectView.mainMenu == 'statistics'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="projectView('statistics')">
+                        <a ng-class="adminViewMainMenu == 'statistics'? 'main-page-menu-btn-active' : 'main-page-menu-btn'" ng-click="adminMainViewShift('statistics')">
                             <span>STATISTICS</span>
                         </a>
                     </div>
@@ -29,6 +29,9 @@
             <section class="wed-project-body-right">
                 <div ng-show="adminViewMainMenu == 'main'">
                     <ng-include src="'/views/admin/01_00_admin_main_main.html'"></ng-include>
+                </div>
+                <div ng-show="adminViewMainMenu == 'statistics'">
+                    <ng-include src="'/views/admin/02_00_admin_main_statistics.html'"></ng-include>
                 </div>
 
 

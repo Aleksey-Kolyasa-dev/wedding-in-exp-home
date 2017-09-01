@@ -324,6 +324,35 @@ usersRouter.post('/admin/patchNotes', function (req, res) {
         res.send(err);
     });
 });
+// GET ONLINE
+usersRouter.get('/getOnline', function (req, res, next) {
+    var count = 0;
+    usersDB[collection].find({}, {}, function (e, users) {
+        users.forEach(function (user) {
+            if(user.isLogged){
+                count++;
+            }
+        });
+
+        res.json(count);
+        console.log(count, req.url);
+    });
+
+});
+// GET uSTATS
+usersRouter.get('/admin/uStats', function (req, res, next) {
+   var arr = [];
+    usersDB[collection].find({}, {}, function (e, users) {
+        users.forEach(function (user) {
+           arr.push(user);
+        });
+
+        res.json(arr);
+        //console.log(count, req.url);
+    });
+
+});
+
 
 
 module.exports = usersRouter;

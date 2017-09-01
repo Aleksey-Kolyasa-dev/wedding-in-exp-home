@@ -6,16 +6,15 @@ define(['angular'], function (angular) {
     adminCtrlModule.controller('adminMainCtrl', adminMainCtrl);
     adminCtrlModule.controller('mainCtrl', mainCtrl);
     adminCtrlModule.controller('patchCtrl', patchCtrl);
-
-
+    adminCtrlModule.controller('statisticsCtrl', statisticsCtrl);
 
     /*
      * ADMIN MAIN CTRL
      * */
-    function adminMainCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, UsersResourceService, AppService) {
-        $scope.adminViewMainMenu = 'main';
+    function adminMainCtrl($scope, $rootScope, $log, $location, $window, $timeout, $interval, toastr, UsersResourceService, AppService) {
+        $scope.adminViewMainMenu = 'statistics';
         $scope.adminMode = function () {
-            if($scope.currentUser.isAdmin){
+            if ($scope.currentUser.isAdmin) {
                 $location.path('admin');
             }
         };
@@ -28,11 +27,13 @@ define(['angular'], function (angular) {
                     $scope.adminViewMainMenu = view;
                     $scope.subView = "patchNotes";
                     break;
+                case "statistics" :
+                    $scope.adminViewMainMenu = view;
+                    $scope.subView = "patchNotes";
+                    break;
 
             }
         };
-
-
     }// Ctrl end
 
     /*
@@ -67,8 +68,8 @@ define(['angular'], function (angular) {
 
             var request = {
                 _id: $scope.currentProject._id,
-                keyURL : "/admin/announcement",
-                data : note
+                keyURL: "/admin/announcement",
+                data: note
             };
 
             // SAVE CHANGES in DB
@@ -90,7 +91,6 @@ define(['angular'], function (angular) {
                 });
         };
 
-
         // Patch Note Send
         $scope.patchNoteSend = function (note) {
             note.type = 'patch';
@@ -99,8 +99,8 @@ define(['angular'], function (angular) {
 
             var request = {
                 _id: $scope.currentProject._id,
-                keyURL : "/admin/patchNotes",
-                data : note
+                keyURL: "/admin/patchNotes",
+                data: note
             };
 
             // SAVE CHANGES in DB
@@ -122,11 +122,65 @@ define(['angular'], function (angular) {
                 });
         };
 
+    }// Ctrl end
 
+    /*
+     * STATISTICS CTRL
+     * */
+    function statisticsCtrl($scope, $rootScope, $log, $location, $window, $timeout, toastr, UsersResourceService, AppService) {
+        $scope.subView = 'users';
+        // Subview shift Fn
+        $scope.subViewShift = function (view) {
+            switch (view) {
+                case "online" :
+                    $scope.subView = view;
+
+                    UsersResourceService._ajaxRequest('GET', '/getOnline', null, null).then(
+                        function (data) {
+                            $scope.online = data;
+                        }
+                    ).catch(function (err) {
+                        toastr.error('ERROR: /getOnline AJAX failed');
+                        $log.error('ERROR: /getOnline AJAX failed', err);
+                    });
+                    break;
+
+                case "users" :
+                    $scope.subView = view;
+
+                    UsersResourceService._ajaxRequest('GET', '/getOnline', null, null).then(
+                        function (data) {
+                            $scope.online = data;
+                        }
+                    ).catch(function (err) {
+                        toastr.error('ERROR: /getOnline AJAX failed');
+                        $log.error('ERROR: /getOnline AJAX failed', err);
+                    });
+
+                    UsersResourceService._ajaxRequest('GET', '/admin/uStats', null, null).then(
+                        function (data) {
+                            var arr = data;
+                            angular.forEach(data, function (user) {
+                               user.age = Math.ceil((new Date() - new Date(user.registrationDate)) / 86400000);
+                               user.offAge = Math.floor((new Date() - new Date(user.moment)) / 86400000);
+                            });
+                            $scope.uStats = data;
+
+                        }
+                    ).catch(function (err) {
+                        toastr.error('ERROR: /getOnline AJAX failed');
+                        $log.error('ERROR: /getOnline AJAX failed', err);
+                    });
+
+                    break;
+                case "patches" :
+                    $scope.subView = view;
+                    break;
+            }
+        };
 
 
     }// Ctrl end
-
 
 
     return adminCtrlModule;
