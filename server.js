@@ -27,7 +27,7 @@ app.use(cors());
 //var port = 443;
 app.set('port', (process.env.PORT/* || port*/));
 app.listen(process.env.PORT/* || port*/, function () {
-    console.log('App is running on port ' + port);
+    console.log('App is running on port ' /*+ port */+ process.env.PORT);
 });
 
 
