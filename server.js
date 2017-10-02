@@ -25,11 +25,15 @@ app.use(cors());
 
 // Server
 //var port = 443;
-app.set('port', (process.env.PORT/* || port*/));
-app.listen(process.env.PORT/* || port*/, function () {
-    console.log('App is running on port ' /*+ port */+ process.env.PORT);
+/*app.set('port', (process.env.PORT/!* || port*!/));
+app.listen(process.env.PORT/!* || port*!/, function () {
+    console.log('App is running on port ' /!*+ port *!/+ process.env.PORT);
+});*/
+var port = 8088;
+app.set('port', (process.env.PORT || port));
+app.listen(process.env.PORT || port, function () {
+    console.log('App is running on port ' + port);
 });
-
 
 
 
