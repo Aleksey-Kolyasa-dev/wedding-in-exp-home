@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, './public')));
 app.use(cors());
 
 // Server
-var port = 443;
+var port = 80;
 app.set('port', (process.env.PORT || port));
 app.listen(process.env.PORT || port, function () {
     console.log('App is running on port ' + port);
