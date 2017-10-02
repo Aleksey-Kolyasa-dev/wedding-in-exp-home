@@ -8,16 +8,18 @@ function _env() {
         _dev : devEnvironment,
 		get _apiURL(){
             if(devEnvironment){
-                return 'http://localhost:5000/api/';
+                return 'http://localhost:80/api/';
             } else {
-                return 'https://wedding-in.herokuapp.com/api/';
+                //return 'https://wedding-in.herokuapp.com/api/';
+                return 'https://wedding-in.com.ua/api/';
             }
 		},
 		get _usersURL(){
             if(devEnvironment){
-                return 'http://localhost:5000/users/';
+                return 'http://localhost:80/users/';
             } else {
-                return 'https://wedding-in.herokuapp.com/users/';
+                //return 'https://wedding-in.herokuapp.com//';
+                return 'https://wedding-in.com.ua/users/';
             }
 		},
         get _angularRuLocale(){
