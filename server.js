@@ -32,7 +32,7 @@ app.listen(process.env.PORT/!* || port*!/, function () {
 //var port = 8088;
 //app.set('port', (process.env.PORT || port));
 var ip = '185.69.154.110';
-app.listen(80, '0.0.0.0', function () {
+app.listen(8000, '0.0.0.0', function () {
     console.log('App is running on port ' + ip);
 });
 
