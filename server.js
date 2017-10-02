@@ -24,20 +24,10 @@ app.use(express.static(path.join(__dirname, './public')));
 app.use(cors());
 
 // Server
-//var port = 443;
-/*app.set('port', (process.env.PORT/!* || port*!/));
-app.listen(process.env.PORT/!* || port*!/, function () {
-    console.log('App is running on port ' /!*+ port *!/+ process.env.PORT);
-});*/
-//var port = 8088;
-//app.set('port', (process.env.PORT || port));
-var ip = '185.69.154.110';
-app.listen(80, function () {
-    console.log('App is running on port ' + ip);
+var port = 443;
+app.set('port', (process.env.PORT || port));
+app.listen(process.env.PORT || port, function () {
+    console.log('App is running on port ' + port);
 });
-
-
-
-
 
 module.exports = app;
