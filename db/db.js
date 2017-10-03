@@ -11,8 +11,8 @@ function _envAPI() {
         _dev : apiDevEnvironment,
         get _projectsDB_URL(){
             if(apiDevEnvironment){
-                //return mongojs('mongodb://localhost:27017/weddings', ['weddings']);
-                return mongojs('mongodb://127.0.0.1:27017/weddings', ['weddings']);// mongodb://185.69.154.110:27017/wedUsers
+                return mongojs('mongodb://localhost:27017/weddings', ['weddings']);
+                //return mongojs('mongodb://127.0.0.1:27017/weddings', ['weddings']);// mongodb://185.69.154.110:27017/wedUsers
             } else {
                 return mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
                 //return mongojs('mongodb://185.69.154.110:27017/weddings', ['weddings']);
@@ -20,8 +20,8 @@ function _envAPI() {
         },
         get _usersDB_URL(){
             if(apiDevEnvironment){
-                //return mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
-                return mongojs('mongodb://127.0.0.1:27017/weddings', ['weddings']);
+                return mongojs('mongodb://localhost:27017/wedUsers', ['wedUsers']);
+                //return mongojs('mongodb://127.0.0.1:27017/weddings', ['weddings']);
             } else {
                 return mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['wedUsers']);
                 //return mongojs('mongodb://185.69.154.110:27017/wedUsers', ['wedUsers']);
