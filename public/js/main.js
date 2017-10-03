@@ -12,7 +12,7 @@ function _env() {
             } else {
                 //return 'https://wedding-in.herokuapp.com/api/';
                 //return 'http://wedding-in.com.ua/api/';
-                return 'http://176.57.214.217:80/api/';
+                return 'http://176.57.214.217:8000/api/';
             }
 		},
 		get _usersURL(){
@@ -21,7 +21,7 @@ function _env() {
             } else {
                 //return 'https://wedding-in.herokuapp.com//';
                 //return 'http://wedding-in.com.ua/users/';
-                return 'http://176.57.214.217:80/users/';
+                return 'http://176.57.214.217:8000/users/';
             }
 		},
         get _angularRuLocale(){
