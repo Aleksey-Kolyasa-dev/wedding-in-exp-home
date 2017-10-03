@@ -32,7 +32,7 @@ app.use(cors());
 // Server
 var port = 80;
 app.set('port', (process.env.PORT || port));
-app.listen(process.env.PORT || port, '176.57.214.217', function () {
+app.listen(process.env.PORT || port, function () {
     console.log('App is running on port ' + port);
 });
 
