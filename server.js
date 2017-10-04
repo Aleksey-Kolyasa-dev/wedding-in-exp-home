@@ -30,7 +30,7 @@ app.use(function (req,res, next) {
 app.use(cors());
 
 // Server
-var port = 80;
+var port = 8000;
 app.set('port', (process.env.PORT || port));
 app.listen(process.env.PORT || port, function () {
     console.log('App is running on port ' + port);
