@@ -12,12 +12,14 @@ app.use(bodyParser.json());
 // View engine setup
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+
 app.use(function (req,res, next) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', "GET,PUT,POST, DELETE");
     res.header('Access-Control-Allow-Headers', "Content-Type");
     next();
 });
+
 // Routes
 app.use('/', require('./routes/projects'));
 app.use('/api', require('./routes/projects'));
