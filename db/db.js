@@ -4,7 +4,7 @@ var mongojs = require('mongojs');
 // ENVIRONMENT SWITCH Fn
 function _envAPI() {
     // MAIN SET
-    var apiDevEnvironment = false;
+    var apiDevEnvironment = true;
 
     // Auto
     return {
