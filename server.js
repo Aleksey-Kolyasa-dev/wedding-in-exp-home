@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
+// Access-Control-Allow-Origin [must be b4 routers!!!]
 app.use(function (req,res, next) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', "GET,PUT,POST, DELETE");
