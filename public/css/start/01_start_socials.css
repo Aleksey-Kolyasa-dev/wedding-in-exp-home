@@ -1,0 +1,57 @@
+.social-fb a{
+    background: url("../../img/socials/facebook.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-fb a:hover{
+    background: url("../../img/socials/facebook.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+
+.social-in a{
+    background: url("../../img/socials/instagram.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-in a:hover{
+    background: url("../../img/socials/instagram.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+.social-vk a{
+    background: url("../../img/socials/vk.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-vk a:hover{
+    background: url("../../img/socials/vk.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+.social-tw a{
+    background: url("../../img/socials/twitter.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-tw a:hover{
+    background: url("../../img/socials/twitter.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
