@@ -4,17 +4,33 @@
     <ng-include src="'/views/start_page/01_header.html'"></ng-include>
     <!--header-->
 
-    <!--key access btn-->
-    <div ng-if="!currentUser._id" class="new-proj-mains" style="float: right; margin-right: 15px; margin-top: 15px">
-        <div>
-            <a class="main-page-menu-btn" data-toggle="modal" data-target="#keyAccess">
-                <span>ВВЕСТИ КЛЮЧ ПРОЕКТА</span>
-            </a>
-        </div>
-    </div>
-    <!--key access btn-->
 </div>
 <!-- HEADER *END*-->
+
+<!-- START-MENU  *START*-->
+<div class="container-fluid main-page-functional-body-start-menu" style="margin-top: 60px; border: 0; " ng-if="!currentUser.isLogged">
+
+    <!--MAIN BODY *START*-->
+    <div class="wed-main-bodysa">
+        <!--key access btn-->
+        <div ng-if="!currentUser._id" class="new-proj-mains" style="float: left; margin: auto 15px">
+            <div>
+                <a class="main-page-menu-btn-access" data-toggle="modal" data-target="#keyAccess">
+                    <span>ВВЕСТИ КЛЮЧ ПРОЕКТА</span>
+                </a>
+            </div>
+        </div>
+        <!--key access btn-->
+
+
+
+
+    </div>
+    <!--MAIN BODY *END*-->
+
+</div>
+<!-- START-MENU *END*-->
+
 
 <!-- BODY  *START*-->
 <div class="container-fluid main-page-functional-body" style="margin-top: 60px; border: 0" ng-if="currentUser.isLogged">
@@ -99,7 +115,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">close</button>
-                <h4 class="modal-title">KEY ACCESS</h4>
+                <h4 class="modal-title">КЛЮЧ ДОСТУПА</h4>
             </div>
 
             <div class="modal-body wed-modals-s">

@@ -9,18 +9,18 @@
             </p>
             <div class="betta">
                 <span style="">{{versionStatus}} v{{version}}</span>
-                <br>
-                <span style="color: {{(ping < 250 )? 'white' : (ping > 250 && ping < 500)?  'yellow' : 'red'}}"> ping : {{ping}}</span>
+                <!--<br>
+                <span style="color: {{(ping < 250 )? 'white' : (ping > 250 && ping < 500)?  'yellow' : 'red'}}"> ping : {{ping}}</span>-->
             </div>
         </div>
 
         <!--login/reg-->
         <div class="log-reg-btn-mains" style="float: right; margin-top: 50px; margin-right: 15px" ng-if="!currentUser.isLogged">
             <div style="margin-right: 20px">
-                <a class="main-page-menu-btn-start" data-toggle="modal" data-target="#login"><span>LOGIN</span></a>
+                <a class="main-page-menu-btn-start" data-toggle="modal" data-target="#login"><span>АВТОРИЗАЦИЯ</span></a>
             </div>
             <div style="float:right;">
-                <a class="main-page-menu-btn-start" data-toggle="modal" data-target="#registration"><span>REGISTER</span></a>
+                <a class="main-page-menu-btn-start" data-toggle="modal" data-target="#registration"><span>РЕГИСТРАЦИЯ</span></a>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
 <!--HEADER *END*-->
 
 <!--HEADER DOWN LINE-->
-<div class="main-page-functional-body-s"></div>
+<div class="main-page-functional-body-s" ng-if="currentUser.isLogged" ></div>
 
 
 <!-- LOGIN NEW MODAL *START* -->
@@ -45,29 +45,29 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">close</button>
-                <h4 class="modal-title">LOGIN</h4>
+                <h4 class="modal-title">АВТОРИЗАЦИЯ</h4>
             </div>
             <div class="modal-body wed-modals-s">
                 <div class="add-new-proj-main">
                     <form name="loginForm" novalidate ng-submit="">
                         <div>
                             <div class="form-group">
-                                <label>Login</label>
+                                <label>Логин</label>
                                 <input name="LoginName" class="form-control" ng-model="user.login"
-                                       type="text" required ng-minlength='1'
+                                       type="text" required ng-minlength='1' placeholder="Латиницей"
                                        ng-class="(loginForm.LoginName.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
+                                <label>Пароль</label>
                                 <input name="LoginPassword" class="form-control" ng-model="user.password"
-                                       type="password" required ng-minlength='1'
+                                       type="password" required ng-minlength='1' placeholder="Латиницей"
                                        ng-class="(loginForm.LoginPassword.$invalid)? 'invalid-input' : 'null'">
                             </div>
 
                             <button type="submit" class="btn btn-success btn-block"
                                     ng-disabled="loginForm.$invalid" data-dismiss="modal"
                                     ng-click="doLogin(user)">
-                                <b>LOGIN</b>
+                                <b>АВТОРИЗОВАТЬСЯ</b>
                             </button>
                         </div>
                     </form>
@@ -84,28 +84,28 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">close</button>
-                <h4 class="modal-title">REGISTRATION</h4>
+                <h4 class="modal-title">РЕГИСТРАЦИЯ</h4>
             </div>
             <div class="modal-body wed-modals-s">
                 <div class="add-new-proj-main">
                     <form name="registrationForm" novalidate ng-submit="">
                         <div>
                             <div class="form-group">
-                                <label>Login</label>
+                                <label>Логин</label>
                                 <input name="registrationName" class="form-control" ng-model="user.login"
-                                       type="text" required ng-minlength='1'
+                                       type="text" required ng-minlength='1' placeholder="Латиницей"
                                        ng-class="(registrationForm.registrationName.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
+                                <label>Пароль</label>
                                 <input name="registrationPassword" class="form-control" ng-model="user.password"
-                                       type="password" required ng-minlength='1'
+                                       type="password" required ng-minlength='1' placeholder="Латиницей"
                                        ng-class="(registrationForm.registrationPassword.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
-                                <label>Confirm password</label>
+                                <label>Подтвердить пароль</label>
                                 <input name="confirmPassword" class="form-control" ng-model="user.confirmPassword"
-                                       type="password" required ng-minlength='1'
+                                       type="password" required ng-minlength='1' placeholder="Латиницей"
                                        ng-class="(registrationForm.confirmPassword.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <hr>
@@ -116,7 +116,7 @@
                                        ng-class="(registrationForm.registrationEmail.$invalid)? 'invalid-input' : 'null'">
                             </div>
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>Имя</label>
                                 <input name="registrationRealName" class="form-control" ng-model="user.name"
                                        type="text" required ng-minlength='1'
                                        ng-class="(registrationForm.registrationRealName.$invalid)? 'invalid-input' : 'null'">
@@ -131,7 +131,7 @@
                             <button type="submit" class="btn btn-success btn-block"
                                     ng-disabled="registrationForm.$invalid" data-dismiss="modal"
                                     ng-click="doRegister(user)">
-                                <b>REGISTER</b>
+                                <b>ЗАРЕГИСТРИРОВАТЬСЯ</b>
                             </button>
                         </div>
                     </form>

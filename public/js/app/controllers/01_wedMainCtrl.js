@@ -22,8 +22,8 @@ define(['angular'], function (angular) {
         $scope.newSMS = {};
 
         // Version
-        $scope.version = '0.5.7';
-        $scope.versionStatus = 'betta';
+        $scope.version = '0.6.0';
+        $scope.versionStatus = 'beta';
 
         // Exit to START PAGE
         $scope.exitToStart = function () {
