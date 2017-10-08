@@ -208,6 +208,7 @@
     transition: background, color 600ms ease;
 }
 .main-page-menu-btn-access:hover{
+    font-weight: bolder;
     color: rgb(43, 43, 103);
     background: rgba(255, 255, 255, 0.91);
     text-shadow: 6px 4px 7px #8c8b8b;
