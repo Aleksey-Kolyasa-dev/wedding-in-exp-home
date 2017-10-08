@@ -23,6 +23,7 @@
 .main-page-menu-btn-start:hover{
     text-decoration: none !important;
     cursor: pointer;
+    font-weight: bold;
     color: rgb(81, 81, 162);
     background: #ffffff;
     text-shadow: 6px 4px 7px #8c8b8b;

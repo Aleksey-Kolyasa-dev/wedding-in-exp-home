@@ -7,6 +7,8 @@ define([
 	'angularToastr',
 	'twitterBootstrap',
 
+	'socials',
+
 	'projServices',
 	'authServices',
 
