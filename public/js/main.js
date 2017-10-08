@@ -1,7 +1,7 @@
 // ENVIRONMENT SWITCH Fn
 function _env() {
     // MAIN SET
-    var devEnvironment = true;
+    var devEnvironment = false;
 
     // Auto
     return {
