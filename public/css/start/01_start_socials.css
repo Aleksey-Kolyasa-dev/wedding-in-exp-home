@@ -85,3 +85,35 @@
     background-size: 40px;
     transform: rotate(10deg) scale(1.2);
 }
+/*SHARE BTN*/
+.social-share{
+    border: 2px solid #0088f7;
+    border-radius: 25px;
+    width: 150px;
+}
+.social-share a{
+    cursor: pointer;
+    text-decoration: none;
+}
+.social-share a div:first-child{
+    background: url("../../img/socials/share.hover.png") no-repeat;
+    background-size: 30px;
+    background-position-x: 8px;
+    background-position-y: 4px;
+    transition: all 0.4s;
+}
+.social-share:hover{
+    transition: all 0.4s;
+    border: 2px solid #ffffff;
+}
+.social-share:hover a div:first-child{
+    background: url("../../img/socials/share1.png") no-repeat;
+    background-size: 30px;
+    background-position-x: 12px;
+    background-position-y: 4px;
+}
+.social-share:hover a div div:last-child{
+    transition: all 0.4s;
+    color: #ffffff;
+}
+
