@@ -1,7 +1,7 @@
 {
   "name": "wedding_in",
   "version": "1.0.0",
-  "description": "wedding events management app",
+  "description": "wedding events budget management app",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "github:gulpjs/gulp#4.0",
     "gulp-debug": "^3.1.0",
     "gulp-if": "^2.0.2",
     "gulp-sourcemaps": "^2.6.1"
