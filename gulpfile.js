@@ -8,7 +8,13 @@ const del = require('del');
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
 gulp.task('default', function () {
-  return gulp.src('public/**/*.*')
+  return gulp.src('frontend/**/*.*')
       .pipe(debug())
-      .pipe(gulp.dest('frontend'));
+      .pipe(gulp.dest('public'));
 });
+
+gulp.task('clean', function () {
+   return del('public');
+});
+
+gulp.task('build', gulp.series('clean', 'default'));
