@@ -1,5 +1,7 @@
 /.idea
+/frontend
 /node_modules
 /tmp
 /sendgrid.env
 sh.exe.stackdump
+gulpfile.js
