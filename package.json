@@ -27,7 +27,11 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-debug": "^3.1.0",
+    "gulp-if": "^2.0.2",
+    "gulp-sourcemaps": "^2.6.1"
   },
   "engines": {
     "node": "6.9.4"
