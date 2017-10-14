@@ -4,8 +4,10 @@
     top: -35px;
     right: 0;
     height: 50px;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(92, 65, 47, 0.74)), to(rgba(37, 37, 37, 0.62)));
     background: linear-gradient(rgba(92, 65, 47, 0.74), rgba(37, 37, 37, 0.62));
     border-bottom: 1px solid #ffffff;
+    -webkit-transition: top 400ms ease;
     transition: top 400ms ease;
     z-index: 5;
 }
@@ -31,6 +33,7 @@
     color: #feffef;
     text-shadow: 2px 2px 10px #f8b152;
     font-size: 450%;
+    -webkit-transition: font-size 200ms ease;
     transition: font-size 200ms ease;
 }
 .wed-logo a:hover{
@@ -48,6 +51,7 @@
     color: #feffef;
     text-shadow: 2px 2px 10px #f8b152;
     font-size: 450%;
+    -webkit-transition: font-size 200ms ease;
     transition: font-size 200ms ease;
 }
 .wed-logo-sm a:hover{
@@ -69,7 +73,6 @@
     padding: 15px;
 }
 .main-page-functional-body-start-2{
-    /*background-color: rgb(0, 191, 165);*/
     background-color: #6f9c11;
     margin-top: 800px;
     height: 800px;
@@ -80,6 +83,7 @@
     margin-bottom: 20px;
 
     display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 
     -webkit-box-pack: center;
@@ -89,6 +93,7 @@
     margin-bottom: 20px;
 
     display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 
     -webkit-box-pack: center;
@@ -97,6 +102,7 @@
     width: 220px;
 
     display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 
     -webkit-box-pack: center;
@@ -121,6 +127,7 @@
     font-weight: bold;
     font-size: 100%;
     cursor: pointer;
+    -webkit-transition: background, color 600ms ease;
     transition: background, color 600ms ease;
 }
 .main-page-menu-btn-main-active,
@@ -150,6 +157,7 @@
     font-weight: bold;
     font-size: 100%;
     cursor: pointer;
+    -webkit-transition: background, color 600ms ease;
     transition: background, color 600ms ease;
 }
 .main-page-menu-btn-active,
@@ -179,6 +187,7 @@
     font-weight: bold;
     font-size: 100%;
     cursor: pointer;
+    -webkit-transition: background, color 600ms ease;
     transition: background, color 600ms ease;
 }
 .main-page-menu-btn-exit:hover{
@@ -205,6 +214,7 @@
     font-weight: normal;
     font-size: 100%;
     cursor: pointer;
+    -webkit-transition: background, color 600ms ease;
     transition: background, color 600ms ease;
 }
 .main-page-menu-btn-access:hover{
@@ -214,11 +224,10 @@
     text-shadow: 6px 4px 7px #8c8b8b;
 }
 /*key access*/
-
-
 .deco-farames{
     width: 100%;
     display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 .deco-farames div{
@@ -248,6 +257,7 @@
     text-decoration: none;
     font-style: italic;
     color: rgba(255, 246, 237, 0.8);
+    -webkit-transition: color 600ms ease;
     transition: color 600ms ease;
 }
 .projects-list ul li p a:hover {
@@ -269,7 +279,6 @@
     color: #160051;
     font-size: 120%;
 }
-
 
 /*SMS SIGNS*/
 .msgSign{

@@ -37,13 +37,11 @@
     color: #ffffff;
     font-style: italic;
     font-weight: bold;
-
 }
 .budget-table-list-link:hover{
     text-decoration: none;
     color: #f9cb73;
 }
-
 
 /*SMS*/
 .sms-author{
@@ -76,20 +74,25 @@
 .bar-budget-line{
     width: 46%;
     border-radius: 4px;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #608866), color-stop(80%, #00ff25), color-stop(10%, #608866));
     background: linear-gradient(#608866 10%, #00ff25 80%, #608866 10%);
     height: 6px;
     float: left;
 }
 .bar-budget-good{
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #608866), color-stop(80%, #00ff25), color-stop(10%, #608866));
     background: linear-gradient(#608866 10%, #00ff25 80%, #608866 10%);
 }
 .bar-budget-half{
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #afa727), color-stop(80%, #fff73d), color-stop(10%, #afa727));
     background: linear-gradient(#afa727 10%, #fff73d 80%, #afa727 10%);
 }
 .bar-budget-warn{
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #d67206), color-stop(80%, #ffae00), color-stop(10%, #d67206));
     background: linear-gradient(#d67206 10%, #ffae00 80%, #d67206 10%);
 }
 .bar-budget-danger{
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #CB0010), color-stop(80%, #ff0011), color-stop(10%, #cb0010));
     background: linear-gradient(#CB0010 10%, #ff0011 80%, #cb0010 10%);
 }
 .percent-small{
