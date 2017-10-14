@@ -5,12 +5,14 @@
     width: 45px;
     height: 45px;
     display: inline-block;
+    -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 .social-fb a:hover{
     background: url("../../img/socials/facebook.hover.png") no-repeat;
     background-size: 40px;
-    transform: rotate(10deg) scale(1.2);
+    -webkit-transform: rotate(10deg) scale(1.2);
+            transform: rotate(10deg) scale(1.2);
 }
 
 .social-vk a{
@@ -20,12 +22,14 @@
     width: 45px;
     height: 45px;
     display: inline-block;
+    -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 .social-vk a:hover{
     background: url("../../img/socials/vk.hover.png") no-repeat;
     background-size: 40px;
-    transform: rotate(10deg) scale(1.2);
+    -webkit-transform: rotate(10deg) scale(1.2);
+            transform: rotate(10deg) scale(1.2);
 }
 .social-tw a{
     background: url("../../img/socials/twitter.png") no-repeat;
@@ -34,12 +38,14 @@
     width: 45px;
     height: 45px;
     display: inline-block;
+    -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 .social-tw a:hover{
     background: url("../../img/socials/twitter.hover.png") no-repeat;
     background-size: 40px;
-    transform: rotate(10deg) scale(1.2);
+    -webkit-transform: rotate(10deg) scale(1.2);
+            transform: rotate(10deg) scale(1.2);
 }
 .social-gl a{
     background: url("../../img/socials/g_plus.png") no-repeat;
@@ -48,12 +54,14 @@
     width: 45px;
     height: 45px;
     display: inline-block;
+    -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 .social-gl a:hover{
     background: url("../../img/socials/g_plus.hover.png") no-repeat;
     background-size: 40px;
-    transform: rotate(10deg) scale(1.2);
+    -webkit-transform: rotate(10deg) scale(1.2);
+            transform: rotate(10deg) scale(1.2);
 }
 
 .social-ldn a{
@@ -63,12 +71,14 @@
     width: 45px;
     height: 45px;
     display: inline-block;
+    -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 .social-ldn a:hover{
     background: url("../../img/socials/linkedin.hover.png") no-repeat;
     background-size: 40px;
-    transform: rotate(10deg) scale(1.2);
+    -webkit-transform: rotate(10deg) scale(1.2);
+            transform: rotate(10deg) scale(1.2);
 }
 
 .social-odk a{
@@ -78,12 +88,14 @@
     width: 45px;
     height: 45px;
     display: inline-block;
+    -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 .social-odk a:hover{
     background: url("../../img/socials/odki.hover.png") no-repeat;
     background-size: 40px;
-    transform: rotate(10deg) scale(1.2);
+    -webkit-transform: rotate(10deg) scale(1.2);
+            transform: rotate(10deg) scale(1.2);
 }
 /*SHARE BTN*/
 .social-share{
@@ -100,9 +112,11 @@
     background-size: 30px;
     background-position-x: 8px;
     background-position-y: 4px;
+    -webkit-transition: all 0.4s;
     transition: all 0.4s;
 }
 .social-share:hover{
+    -webkit-transition: all 0.4s;
     transition: all 0.4s;
     border: 2px solid #ffffff;
 }
@@ -113,6 +127,7 @@
     background-position-y: 4px;
 }
 .social-share:hover a div div:last-child{
+    -webkit-transition: all 0.4s;
     transition: all 0.4s;
     color: #ffffff;
 }
