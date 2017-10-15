@@ -7,9 +7,10 @@ const newer = require('gulp-newer');
 const autoprefixer = require('gulp-autoprefixer');
 const remember = require('gulp-remember');
 const imagemin = require('gulp-imagemin');
-/*const minify = require('gulp-minify');*/
 const ngAnnotate = require('gulp-ng-annotate');
 const uglify = require('gulp-uglify');
+const cleanCSS = require('gulp-clean-css');
+const htmlmin = require('gulp-htmlmin');
 const del = require('del');
 const browserSync = require('browser-sync').create();
 
@@ -25,17 +26,29 @@ gulp.task('clean', function () {
 gulp.task('copyHTML', function () {
     return gulp.src('frontend/**/*.html', { since : gulp.lastRun('copyHTML')})
         .pipe(newer('public'))
+        .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('public'));
 });
 
 // Copy CSS from FRONTEND
 gulp.task('copyCSS', function () {
-    return gulp.src('frontend/**/*.css', { since : gulp.lastRun('copyCSS')})
+    return gulp.src('frontend/css/**/*.css', { since : gulp.lastRun('copyCSS')})
         .pipe(newer('public'))
         .pipe(debug())
         .pipe(autoprefixer())
         .pipe(remember('copyCSS'))
-        .pipe(gulp.dest('public'));
+        /*.pipe(sourcemaps.init())
+        .pipe(cleanCSS())
+        .pipe(sourcemaps.write())*/
+        .pipe(gulp.dest('public/css'));
+});
+
+// Copy CSS from FRONTEND
+gulp.task('copyLibsCSS', function () {
+    return gulp.src('frontend/libs/css/**/*.css', { since : gulp.lastRun('copyLibsCSS')})
+        .pipe(newer('public'))
+        .pipe(remember('copyLibsCSS'))
+        .pipe(gulp.dest('public/libs/css'));
 });
 
 // Copy JS from FRONTEND
@@ -88,7 +101,7 @@ gulp.task('copyFVICO', function () {
 });
 
 // ASSEMBLER COPY TASK
-gulp.task('copy', gulp.series('copyHTML', 'copyCSS', 'copyJS', 'copyLibsJS', 'copyIMG', 'copyFONTS-PB', 'copyFONTS-GLF', 'copyFVICO'));
+gulp.task('copy', gulp.series('copyHTML', 'copyCSS', 'copyLibsCSS', 'copyJS', 'copyLibsJS', 'copyIMG', 'copyFONTS-PB', 'copyFONTS-GLF', 'copyFVICO'));
 
 // "WATCH" Fn
 gulp.task('watch', function () {

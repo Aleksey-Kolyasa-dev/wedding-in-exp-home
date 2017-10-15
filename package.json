@@ -4,8 +4,8 @@
   "description": "wedding events budget management app",
   "main": "server.js",
   "scripts": {
-    "start" : "node server.js",
-    "dev" : "concurrently \"node server.js\" \"gulp\""
+    "start": "node server.js",
+    "dev": "concurrently \"node server.js\" \"gulp\""
   },
   "repository": {
     "type": "git",
@@ -33,7 +33,9 @@
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.9.0",
     "gulp-debug": "^3.1.0",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^3.4.0",
     "gulp-newer": "^1.3.0",
