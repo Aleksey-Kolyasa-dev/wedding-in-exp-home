@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var compression = require('compression');
 
 // Express
 var app = express();
@@ -25,7 +26,9 @@ app.use(function (req,res, next) {
 app.use('/', require('./routes/projects'));
 app.use('/api', require('./routes/projects'));
 app.use('/users', require('./routes/users'));
+
 // Static folder
+app.use(compression());
 app.use(express.static(path.join(__dirname, './public')));
 
 
