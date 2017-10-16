@@ -37,9 +37,7 @@ gulp.task('copyCSS', function () {
         .pipe(debug())
         .pipe(autoprefixer())
         .pipe(remember('copyCSS'))
-        /*.pipe(sourcemaps.init())
-        .pipe(cleanCSS())
-        .pipe(sourcemaps.write())*/
+        .pipe(cleanCSS({rebase: false}))
         .pipe(gulp.dest('public/css'));
 });
 
@@ -48,6 +46,7 @@ gulp.task('copyLibsCSS', function () {
     return gulp.src('frontend/libs/css/**/*.css', { since : gulp.lastRun('copyLibsCSS')})
         .pipe(newer('public'))
         .pipe(remember('copyLibsCSS'))
+        .pipe(cleanCSS({rebase: false}))
         .pipe(gulp.dest('public/libs/css'));
 });
 
@@ -101,11 +100,11 @@ gulp.task('copyFVICO', function () {
 });
 
 // ASSEMBLER COPY TASK
-gulp.task('copy', gulp.series('copyHTML', 'copyCSS', 'copyLibsCSS', 'copyJS', 'copyLibsJS', 'copyIMG', 'copyFONTS-PB', 'copyFONTS-GLF', 'copyFVICO'));
+gulp.task('build', gulp.series('copyHTML', 'copyCSS', 'copyLibsCSS', 'copyJS', 'copyLibsJS', 'copyIMG', 'copyFONTS-PB', 'copyFONTS-GLF', 'copyFVICO'));
 
 // "WATCH" Fn
 gulp.task('watch', function () {
-    gulp.watch('frontend/**/*.*', gulp.series('copy'));
+    gulp.watch('frontend/**/*.*', gulp.series('build'));
 });
 // BROWSER-SYNC config
 gulp.task('serve', function () {
@@ -120,7 +119,7 @@ gulp.task('serve', function () {
 * */
 
 // build PRODUCTION
-gulp.task('prod', gulp.series('clean', 'copy'));
+gulp.task('prod', gulp.series('clean', 'build'));
 
 // build DEV & WATCH & BROWSER-SYNC
-gulp.task('default', gulp.series('clean','copy', gulp.parallel('watch', 'serve')));
+gulp.task('default', gulp.series('clean','build', gulp.parallel('watch', 'serve')));
