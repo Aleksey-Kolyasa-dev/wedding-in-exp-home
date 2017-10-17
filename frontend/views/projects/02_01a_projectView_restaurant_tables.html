@@ -1,0 +1,44 @@
+<div class="guests-list-main">
+    <ul ng-repeat="table in tablesCollection" ng-if="table.length">
+        <li>
+            <!-- GUESTS TABLES *START*-->
+            <div class="fiance-side-main-t" style="float: left">
+
+                <!--header-->
+                <header class="guests-fiance-side text-center">
+                    <h4 class="guests-side-head text-right" style="font-size: 200%;">СТОЛ №{{$index + 1}}</h4>
+                </header>
+                <!--header-->
+
+                <!--guests table-->
+                <section>
+                    <table class="table info-glass-panel table-responsive" style="min-width: 500px">
+                        <thead class="guest-side-table-head-t">
+                            <tr style="color: white">
+                                <th class="text-center">№</th>
+                                <th >Имя</th>
+                                <th class="text-center">Отношение</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+
+
+                            <!-- body guests -->
+                            <tr ng-repeat="guest in table"  ng-class="guest.side == 'M' ? 'sideM' : 'sideW'" >
+                                <td class="text-center">{{$index + 1}}</td>
+                                <td>{{guest.name | uppercase}}</td>
+                                <td class="text-center">{{guest.relation  | lowercase}}</td>
+                            </tr>
+                            <!-- body guests -->
+                        </tbody>
+                    </table>
+
+                </section>
+                <!--guests table-->
+            </div>
+            <!-- GUESTS TABLES *END*-->
+        </li>
+    </ul>
+</div>

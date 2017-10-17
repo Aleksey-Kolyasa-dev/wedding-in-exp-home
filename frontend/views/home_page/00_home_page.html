@@ -1,0 +1,253 @@
+<div ng-if="currentUser._id && currentUser.isAuth">
+    <!--<ng-include src="'/views/home_page/00a_nav_menu.html'"></ng-include>-->
+    <ng-include src="'/views/home_page/01_header.html'"></ng-include>
+    <ng-include src="'/views/home_page/02_deco_top.html'"></ng-include>
+
+
+    <div class="container-fluid main-page-functional-body">
+        <!--MAIN BODY *START*-->
+        <div class="wed-main-body">
+            <!-- MENU LEFT *START* -->
+            <div class="wed-main-body-left"><!--col-lg-2 col-md-2 col-sm-3 col-xs-4-->
+                <div class="new-proj-main">
+                    <div>
+                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#new">
+                            <span>НОВЫЙ ПРОЕКТ</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="main-page-menu-btn" data-toggle="modal" data-target="#archive">
+                            <span>АРХИВ</span>
+                        </a>
+                    </div>
+                    <hr>
+                    <div>
+                        <a class="main-page-menu-btn-exit"  ng-click="exitToStart()">
+                            <span>ВЫХОД</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- MENU LEFT *END* -->
+
+            <!-- PROJECTS LIST *START* -->
+            <div class="wed-main-body-right">
+                <div class="projects-list">
+                    <ul ng-repeat="project in projects | orderBy : 'weddingDate'" >
+                        <li ng-if="projectListDateCheck(project)">
+                            <p>
+                                <a ng-click="goToSelectedProject(project._id)">Свадьба
+                                    <span>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</span>
+                                    жених: <span>{{project.fianceName | uppercase}}</span>,
+                                    невеста: <span>{{project.fianceeName | uppercase}}</span>,
+                                    бюджет: <span>{{(project.wedBudget | number : 0 )}}</span> USD
+                                    <span class="glyphicon glyphicon-envelope msgSign" ng-if="newSMS[project._id]">
+                                        <a class="smsCounter" ng-if="newSMS[project._id]">
+                                            <span>{{newSMS[project._id]}}</span>
+                                        </a>
+                                    </span>
+                                </a>
+                                <a style="margin-left: 5px; color: #1eaf84" ng-click="editProject(project._id)" data-toggle="modal" data-target="#editProject"><span class="glyphicon glyphicon-cog"></span></a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- PROJECTS LIST *END* -->
+        </div>
+        <!--MAIN BODY *END*-->
+
+        <!-- CREATE NEW MODAL *START* -->
+        <div id="new" class="modal fade" ng-controller="newProjectCtrl">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">close</button>
+                        <h4 class="modal-title"><span>НОВЫЙ ПРОЕКТ</span></h4>
+                    </div>
+
+                    <div class="modal-body wed-modals">
+                        <div class="add-new-proj-main">
+                            <form name="addNewProj" novalidate ng-submit="">
+                                <div class="">
+                                    <div class="form-group">
+                                        <label>Имя жениха</label>
+                                        <input name="fianceName" class="form-control" ng-model="newProject.fianceName"
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(addNewProj.fianceName.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Имя невесты</label>
+                                        <input name="fianceeName" class="form-control" ng-model="newProject.fianceeName"
+                                               type="text" required ng-minlength='2' ng-class="(addNewProj.fianceeName.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Дата свадьбы</label>
+                                        <input name="weddingDate" class="form-control" ng-model="newProject.weddingDate"
+                                               type="text" directive-datepicker required
+                                               ng-class="(addNewProj.weddingDate.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Запланированный бюджет USD</label>
+                                        <input name="wedBudget" class="form-control" ng-model="newProject.wedBudget"
+                                               type="number" required ng-minlength='2'
+                                               ng-class="(addNewProj.wedBudget.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                        <input name="eMail" class="form-control" ng-model="newProject.email"
+                                               type="email" required
+                                               ng-class="(addNewProj.eMail.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Контактный телефон(ы)</label>
+                                        <input name="telephones" class="form-control" ng-model="newProject.telephones"
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(addNewProj.telephones.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Заметки</label>
+                                        <textarea name="notes" class="form-control" ng-model="newProject.notes"
+                                                  type="text" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-block"
+                                            ng-disabled="addNewProj.$invalid" data-dismiss="modal"
+                                            ng-click="createNewProject(newProject)">
+                                        <span>СОЗДАТЬ</span>
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="deco-farames text-center">
+                                <div>
+                                    <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CREATE NEW MODAL *END* -->
+
+        <!-- ARCHIVE MODAL *START* -->
+        <div id="archive" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">close</button>
+                        <h4 class="modal-title"><span>АРХИВ ПРОЕКТОВ</span></h4>
+                    </div>
+
+                    <div class="modal-body wed-modals">
+                        <div class="projects-list">
+                            <ul ng-repeat="project in projects | orderBy : '-weddingDate'" >
+                                <li ng-if="!projectListDateCheck(project)">
+                                    <p>
+                                        <a data-dismiss="modal" ng-click="goToSelectedProject(project._id, true)" style="font-size: 130%" >Свадьба
+                                            <span>{{project.weddingDate | date : "dd MMMM yyyy"}}г.</span>
+                                            жених: <span>{{project.fianceName | uppercase}}</span>,
+                                            невеста: <span>{{project.fianceeName | uppercase}}</span>,
+                                            бюджет: <span>{{(project.budget.budgetUSD | number : 0 )}}</span> USD
+                                        </a>
+                                        <a style="margin-left: 5px" ng-click="editProject(project._id)" data-toggle="modal" data-target="#editProject"><span class="glyphicon glyphicon-cog"></span></a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="deco-farames text-center">
+                            <div>
+                                <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ARCHIVE MODAL *END* -->
+
+        <!-- EDIT MODAL *START* -->
+        <div id="editProject" class="modal fade" ng-controller="editProjectCtrl">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">close</button>
+                        <h4 class="modal-title"><span>РЕДАКТИРОВАТЬ ПРОЕКТ</span></h4>
+                    </div>
+
+                    <div class="modal-body wed-modals">
+                        <div class="add-new-proj-main">
+                            <form name="editProj" novalidate ng-submit="">
+                                <div>
+                                    <div class="form-group">
+                                        <label>Имя жениха</label>
+                                        <input name="fianceName" class="form-control" ng-model="editProject.fianceName"
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(editProj.fianceName.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Имя невесты</label>
+                                        <input name="fianceeName" class="form-control" ng-model="editProject.fianceeName"
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(editProj.fianceeName.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Дата свадьбы</label>
+                                        <input name="weddingDate" class="form-control" ng-model="editProject.weddingDate"
+                                               type="text" directive-datepicker required
+                                               ng-class="(editProj.weddingDate.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Запланированный бюджет USD</label>
+                                        <input name="wedBudget" class="form-control" ng-model="editProject.wedBudget"
+                                               type="number" required ng-minlength='2'
+                                               ng-class="(editProj.wedBudget.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                        <input name="eMail" class="form-control" ng-model="editProject.email"
+                                               type="email" required
+                                               ng-class="(editProj.eMail.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Контактный телефон(ы)</label>
+                                        <input name="telephone" class="form-control" ng-model="editProject.telephones"
+                                               type="text" required ng-minlength='2'
+                                               ng-class="(editProj.telephone.$invalid)? 'invalid-input' : 'null'">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Заметки</label>
+                                        <textarea name="notes" class="form-control" ng-model="editProject.notes"
+                                                  type="text" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="delete-trigger" style="cursor: pointer">
+                                        <input id="delete-trigger" class="form-controls" ng-model="deleteProjectTrigger"
+                                                  type="checkbox" style="height: 16px; width: 16px; cursor: pointer;  margin-right: 5px">Удалить проект</label>
+                                    </div>
+                                    <button ng-if="deleteProjectTrigger" type="submit" class="btn btn-danger btn-block" data-dismiss="modal" ng-click="deleteProject(editProject._id)">
+                                        ПОДТВЕРДИТЬ УДАЛЕНИЕ
+                                    </button>
+                                    <button type="submit" class="btn btn-success btn-block"
+                                            ng-disabled="editProj.$invalid" data-dismiss="modal"
+                                            ng-click="editProjectApply(editProject)" ng-if="!deleteProjectTrigger">
+                                        <span>ПРИМЕНИТЬ</span>
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="deco-farames text-center">
+                                <div>
+                                    <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- EDIT NEW MODAL *END* -->
+    </div>
+
+
+    <ng-include src="'/views/home_page/03_deco_bottom.html'"></ng-include>
+</div>

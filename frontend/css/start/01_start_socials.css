@@ -1,0 +1,119 @@
+.social-fb a{
+    background: url("../../img/socials/facebook.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-fb a:hover{
+    background: url("../../img/socials/facebook.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+
+.social-vk a{
+    background: url("../../img/socials/vk.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-vk a:hover{
+    background: url("../../img/socials/vk.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+.social-tw a{
+    background: url("../../img/socials/twitter.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-tw a:hover{
+    background: url("../../img/socials/twitter.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+.social-gl a{
+    background: url("../../img/socials/g_plus.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-gl a:hover{
+    background: url("../../img/socials/g_plus.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+
+.social-ldn a{
+    background: url("../../img/socials/linkedin.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-ldn a:hover{
+    background: url("../../img/socials/linkedin.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+
+.social-odk a{
+    background: url("../../img/socials/odki.png") no-repeat;
+    background-size: 40px;
+    background-origin: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+.social-odk a:hover{
+    background: url("../../img/socials/odki.hover.png") no-repeat;
+    background-size: 40px;
+    transform: rotate(10deg) scale(1.2);
+}
+/*SHARE BTN*/
+.social-share{
+    border: 2px solid #0088f7;
+    border-radius: 25px;
+    width: 150px;
+}
+.social-share a{
+    cursor: pointer;
+    text-decoration: none;
+}
+.social-share a div:first-child{
+    background: url("../../img/socials/share.hover.png") no-repeat;
+    background-size: 30px;
+    background-position-x: 8px;
+    background-position-y: 4px;
+    transition: all 0.4s;
+}
+.social-share:hover{
+    transition: all 0.4s;
+    border: 2px solid #ffffff;
+}
+.social-share:hover a div:first-child{
+    background: url("../../img/socials/share1.png") no-repeat;
+    background-size: 30px;
+    background-position-x: 12px;
+    background-position-y: 4px;
+}
+.social-share:hover a div div:last-child{
+    transition: all 0.4s;
+    color: #ffffff;
+}
+

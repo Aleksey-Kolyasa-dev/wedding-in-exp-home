@@ -1,0 +1,409 @@
+<div class="rest-plus-page" ng-controller="restaurantMenuMainCtrl">
+
+    <!--MENU ITEMS TABLE *START*-->
+    <div class="fiance-side-main col-xs-11">
+        <!--Header-->
+        <div style="padding: 0">
+            <div ng-if="currentUser.isAuth" style="float: left">
+                <button class="btn btn-warning sort-btn" data-target="#addNewMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+            <header class="guests-fiance-side" style="float: right">
+                <h4 class="guests-side-head" style="font-style: italic; color: rgb(233, 241, 179)">МЕНЮ РЕСТОРАНА</h4>
+            </header>
+        </div>
+        <!--Header-->
+
+        <!--Table-->
+        <div>
+            <table class="table table-responsive info-glass-panel">
+
+                <thead class="guest-side-table-head">
+                    <tr style="color: white">
+                        <th class="text-center hidden-md hidden-sm hidden-xs">№</th>
+                        <th>БЛЮДО</th>
+                        <th class="text-center hidden-md hidden-sm hidden-xs">ВЕС ПОРЦИИ</th>
+                        <th class="text-center hidden-sm hidden-xs">ЦЕНА ПОРЦИИ</th>
+                        <th class="text-center hidden-sm hidden-xs">КОЛ. ПОРЦИЙ</th>
+                        <th class="text-center">СУММА</th>
+                        <th class="text-center">ОБЩИЙ ВЕС</th>
+                        <th class="text-center"><span class="glyphicon glyphicon-edit"></span></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!--Холодные закуски-->
+                    <tr ng-if="dispalyCategotries.coldDishes"><td colspan="8" class="dishes-category">Холодные закуски</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Холодные закуски'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Салаты-->
+                    <tr ng-if="dispalyCategotries.salads"><td colspan="8" class="dishes-category">Салаты</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Салаты'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Горячие закуски-->
+                    <tr ng-if="dispalyCategotries.hotDishes"><td colspan="8" class="dishes-category">Горячие закуски</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Горячие закуски'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Основные блюда-->
+                    <tr ng-if="dispalyCategotries.mainDishes"><td colspan="8" class="dishes-category">Основные блюда</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Основные блюда'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Десерт-->
+                    <tr ng-if="dispalyCategotries.disetrs"><td colspan="8" class="dishes-category">Десерт</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Десерт'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Напитки А-->
+                    <tr ng-if="dispalyCategotries.drinksA"><td colspan="8" class="dishes-category">Напитки А</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Напитки А'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Напитки Б/А-->
+                    <tr ng-if="dispalyCategotries.drinksBA"><td colspan="8" class="dishes-category">Напитки Б/А</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Напитки Б/А'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Фуршет-->
+                    <tr ng-if="dispalyCategotries.furshet"><td colspan="8" class="dishes-category">Фуршет</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Фуршет'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Иное-->
+                    <tr ng-if="dispalyCategotries.other"><td colspan="8" class="dishes-category">Иное</td></tr>
+                    <tr class="guest" ng-repeat="item in items | filter : {category : 'Иное'}">
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">{{item.portionWeight}} гр.</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionPrice | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center   hidden-sm hidden-xs">{{item.portionQty}} {{item.category == "Напитки А" || item.category == "Напитки Б/А" ? "ед." : "пор."}}</td>
+                        <td class="text-center">{{item.toPay | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{item.totalWeight  | number}} гр.</td>
+                        <td class="text-center">
+                            <div>
+                                <button class="btn btn-primary" ng-click="editExpenseItem(items.indexOf(item))" data-target="#editMenuItem" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <!--footers-->
+                    <tr><td colspan="8" style="border-top: 0!important;"></td></tr>
+                    <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">
+                        <td class="hidden-md hidden-sm hidden-xs"></td>
+                        <td class="text-left  hidden-xs hidden-sm" colspan="3" style="font-style: italic; font-weight: inherit">ИТОГО ПО МЕНЮ:</td>
+                        <td class="visible-lg" colspan="1"></td>
+                        <td class="visible-sm"></td>
+                        <td class="visible-xs"></td>
+                        <td class="text-center">{{total.totalMenuPriceNat | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{(total.totalMenuWeight / 1000)  | number : 2}} кг еды всего</td>
+                        <td class="text-center"></td>
+                    </tr>
+                    <tr class="guest total-footer-data" ng-if="currentProject.restaurantMenu.expCollection.length">
+                        <td class="hidden-md hidden-sm hidden-xs"></td>
+                        <td class="text-left  hidden-xs hidden-sm" colspan="3" style="font-style: italic; font-weight: inherit">ИТОГО НА ОДНОГО ГОСТЯ:</td>
+                        <td class="visible-lg" colspan="1"></td>
+                        <td class="visible-sm"></td>
+                        <td class="visible-xs"></td>
+                        <td class="text-center">{{total.calculatedCheck | number : 1}} {{currentProject.budget.nationalMoney}}</td>
+                        <td class="text-center">{{total.weightPerGuest  | number : 0}} гр еды на чел.</td>
+                        <td class="text-center"></td>
+                    </tr>
+                    <!--footers-->
+                </tbody>
+            </table>
+        </div>
+        <!--Table-->
+    </div>
+    <!--MENU ITEMS TABLE  *END*-->
+
+
+    <!-- ADD MENU ITEM MODAL *START* -->
+    <div ng-if="currentUser.isAuth" id="addNewMenuItem" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">close</button>
+                    <h4 class="modal-title"><span>ДОБАВИТЬ</span></h4>
+                </div>
+                <div class="modal-body wed-modals">
+                    <div class="add-new-proj-main">
+                        <form name="addNewMenuItemForm" novalidate>
+                            <div>
+                                <div class="form-group">
+                                    <label>Наименование блюда / единицы</label>
+                                    <input class="form-control" ng-model="newItem.name"
+                                           type="text" required ng-minlength='1'
+                                           name="addNewMenuName" style="{{(addNewMenuItemForm.addNewMenuName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Вес порции в гр.(для напитков - 0)</label>
+                                    <input class="form-control" ng-model="newItem.portionWeight" type="number" required placeholder="150, 200 ... или 0"
+                                           name="addNewMenuPW" style="{{(addNewMenuItemForm.addNewMenuPW.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Цена за порцию / единицу {{currentProject.budget.nationalMoney}}</label>
+                                    <input class="form-control" ng-model="newItem.portionPrice" type="number" required placeholder="цена или 0"
+                                           name="addNewMenuPP" style="{{(addNewMenuItemForm.addNewMenuPP.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Количество порций / единиц</label>
+                                    <input class="form-control" ng-model="newItem.portionQty" type="number" required placeholder="Количество или 0"
+                                           name="addNewMenuPQ" style="{{(addNewMenuItemForm.addNewMenuPQ.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Категория</label>
+                                    <select class="form-control" ng-model="newItem.category" ng-options="item for item in categories" required ng-minlength='1'
+                                            name="addNewMenuCat" style="{{(addNewMenuItemForm.addNewMenuCat.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                    </select>
+                                </div>
+                                <hr>
+
+                                <button type="submit" class="btn btn-success btn-block"
+                                        ng-disabled="addNewMenuItemForm.$invalid" data-dismiss="modal"
+                                        ng-click="addNewExpenseItem(newItem)">
+                                    <span>ПРИМЕНИТЬ</span>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="deco-farames text-center">
+                            <div>
+                                <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ADD MENU ITEM MODAL MODAL *END* -->
+
+    <!-- EDIT MENU ITEM MODAL *START* -->
+    <div ng-if="currentUser.isAuth" id="editMenuItem" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">close</button>
+                    <h4 class="modal-title"><span>ИЗМЕНИТЬ</span></h4>
+                </div>
+                <div class="modal-body wed-modals">
+                    <div class="add-new-proj-main">
+                        <form name="editMenuItemForm" novalidate>
+                            <div>
+                                <div class="form-group">
+                                    <label>Наименование блюда / единицы</label>
+                                    <input class="form-control" ng-model="itemToEdit.name"
+                                           type="text" required ng-minlength='1' placeholder="Наименование блюда"
+                                           name="editNewMenuName" style="{{(editMenuItemForm.editNewMenuName.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Вес порции в гр. (для напитков - 0)</label>
+                                    <input class="form-control" ng-model="itemToEdit.portionWeight" type="number" required placeholder="150, 200 ... или 0"
+                                           name="editNewMenuPW" style="{{(editMenuItemForm.editNewMenuPW.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Цена за единицу / порцию {{currentProject.budget.nationalMoney}}</label>
+                                    <input class="form-control" ng-model="itemToEdit.portionPrice" type="number" required placeholder="цена или 0"
+                                           name="editNewMenuPP" style="{{(editMenuItemForm.editNewMenuPP.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Количество порций / единиц</label>
+                                    <input class="form-control" ng-model="itemToEdit.portionQty" type="number" required placeholder="Количество или 0"
+                                           name="editNewMenuPQ" style="{{(editMenuItemForm.editNewMenuPQ.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Категория</label>
+                                    <select class="form-control" ng-model="itemToEdit.category" ng-options="item for item in categories" required ng-minlength='1'
+                                            name="editNewMenuCat" style="{{(editMenuItemForm.editNewMenuCat.$invalid)? 'background: rgba(226, 251, 96, 0.81)' : 'null'}}">
+                                    </select>
+                                </div>
+                                <hr>
+                                <div class="text-center">
+                                    <div class="form-group" style="width: 100%">
+                                        <label style="cursor: pointer; font-size: 90%; color: silver">
+                                            <input style="width: 16px; display: none; height: 16px; cursor: pointer" ng-model="removeTrigger.status"
+                                                   type="checkbox">Удалить запись</label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <button ng-if="removeTrigger.status" type="submit" class="btn btn-danger btn-block"
+                                        data-dismiss="modal"
+                                        ng-click="deleteExpenseItem(items.indexOf(itemToEdit))">
+                                    <span>ПОДТВЕРДИТЬ УДАЛЕНИЕ</span>
+                                </button>
+                                <button ng-if="!removeTrigger.status" type="submit" class="btn btn-success btn-block"
+                                        ng-disabled="editMenuItemForm.$invalid" data-dismiss="modal"
+                                        ng-click="editExpenseItemSave(itemToEdit)">
+                                    <span>ПРИМЕНИТЬ</span>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="deco-farames text-center">
+                            <div>
+                                <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- EDIT MENU ITEM  MODAL *END* -->
+
+
+    <!--MENU NOTES  *START*-->
+    <div ng-if="currentUser.isAuth" class="rest-general-page" style="margin-left: 15px;">
+        <div class="rest-general-list">
+            <div class="info-glass-panel">
+                <hr>
+                <div>
+                    <p>
+                        <button class="btn btn-default" style="margin-right: 15px" data-target="#menuNotes" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span></button>
+                        Заметки:
+                    </p>
+                    <ul ng-repeat="note in notesFilter(currentProject.menuNotes)" style="padding: 0; list-style: none">
+                        <li style="font-size: 90%"><span class="rest-info-data">{{'- ' + note}}</span></li>
+                    </ul>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <!--MENU NOTES  *END*-->
+
+    <!-- NOTES MODAL *START* -->
+    <div id="menuNotes" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">close</button>
+                    <h4 class="modal-title"><span>ЗАМЕТКИ</span></h4>
+                </div>
+                <div class="modal-body wed-modals">
+                    <div class="add-new-proj-main">
+                        <form>
+                            <div>
+                                <div class="form-group" style="margin-top: 10px">
+                                    <label></label>
+                                    <textarea class="form-control" ng-model="currentProject.menuNotes" placeholder="Каждую новую заметку начинайте с символа (*) и с новой строки"></textarea>
+                                </div>
+                                <hr>
+                                <button type="submit" class="btn btn-success btn-block"
+                                        data-dismiss="modal"
+                                        ng-click="noteSave()">
+                                    <span>СОХРАНИТЬ</span>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="deco-farames text-center">
+                            <div>
+                                <img src="img/frame1.png" alt="deco-frame" style="width: 150px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- NOTES MODAL *END* -->
+</div>

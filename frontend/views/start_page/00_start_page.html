@@ -1,0 +1,181 @@
+<!-- HEADER *START*-->
+<div>
+    <!--header-->
+    <ng-include src="'/views/start_page/01_header.html'"></ng-include>
+    <!--header-->
+</div>
+<!-- HEADER *END*-->
+
+<!-- START-MENU  *START*-->
+<div class="container-fluid main-page-functional-body-start-menu" style="margin-top: 60px; border: 0; " ng-if="!currentUser.isLogged">
+
+    <!--MAIN BODY *START*-->
+    <div class="wed-main-bodysa">
+        <!--key access btn-->
+        <div ng-if="!currentUser._id" class="new-proj-mains" style="float: left; margin: auto 15px">
+            <div>
+                <a class="main-page-menu-btn-access" data-toggle="modal" data-target="#keyAccess">
+                    <span>ВВЕСТИ КЛЮЧ ПРОЕКТА</span>
+                </a>
+            </div>
+        </div>
+        <!--key access btn-->
+
+        <div style="display: inline-flex">
+            <div class="social-share" data-toggle="modal" data-target="#socials" style="margin-left: 20px">
+                <a href="#" class="share">
+                    <div style="display: inline-flex">
+                        <div style="width: 30px; height: 36px">
+                        </div>
+                        <div style="margin-top: 8px; margin-left: 30px">
+                            <span style="font-size: 120%;">Share</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <!--MAIN BODY *END*-->
+
+</div>
+<!-- START-MENU *END*-->
+
+<!-- NEXT PAGE PANEL  *START*-->
+<div class="container-fluid main-page-functional-body-start-2" style="" ng-if="!currentUser.isLogged">
+    <div class="wed-main-body-2">
+        <div hidden>
+            <h2>
+                WEDDING-IN - Лучший персональный онлайн-сервис для невест, свадебных евентеров и свадебных агентств!
+            </h2>
+            <ul>
+                <li>
+                    <h3>
+                        Вы хотите рассчитать свадебный бюджет? Не проблема, в WEDDING-IN вы можете рассчитать любые свадебные затраты
+                    </h3>
+                </li>
+                <li>
+                    <h3>
+                        Вы искали свадебный калькулятор? - Наш сервис это не просто калькулятор свадьбы, а ваш личный свадебный органайзер! Вы можете рассчитать бюджет свадьбы и все данные сохраняться в Вашем аккаунте!
+                    </h3>
+                </li>
+                <li>
+                    <h3>
+                        Вы хотите планировать свадебный бюджет? - в любое время Вы можете изменять свой план затрат, авансы, заметки, количество гостей на свадьбе, рассадку гостей в ресторане, и даже вести параллельный расчет свадебного бюджета в национальной валюте или в Долларах США, переключаясь между валютами буквально в один клик, менять курс валют на актуальный и многое другое!
+                    </h3>
+                </li>
+                <li>
+                    <h3>
+                        Нужно внести новые данные в свадебный бюджет, а вы не дома? - не проблема, WEDDING-IN доступен с любых устройств, заходите в свой аккаунт и вносите изменения в бюджет свадьбы на лету! Все данные сохраняются в Вашем аккаунте навсегда!
+                    </h3>
+                </li>
+                <li>
+                    <h3>
+                        Слишком много свадебных хлопот нужно держать в голове? - у Вас теперь есть свой свадебный чек-лист онлайн, заполняйте его и весь список свадебных задач теперь у Вас всегда кармане! Более того, на каждой категории свадебных затрат есть свой "блокнотик" для заметок, как видите, теперь ничего не упустить!
+                    </h3>
+                </li>
+                <li>
+                    <h3>
+                        А если вы свадебный организатор, тогда этот инструмент станет для Вас просто находкой! Создавайте проекты свадеб, всегда имея доступ к ним для внесения изменений, чек-листов, списка задач, заметок и так далее!
+                    </h3>
+                </li>
+                <li>
+                    <h3>
+                        Вы свадебный евентер, и невеста хочет быть всегда в курсе текущих задач по организации свадьбы? - мы и это можем, перешлите невесте уникальный КЛЮЧ ДОСТУПА К ПРОЕКТУ СВАДЬБЫ, и она всегда сможет видеть весь ход организации свадьбы, и даже написать Вам сообщение прямо в проекте свадьбы, без регистрации, просто введя ключ доступа к проекту!
+                    </h3>
+                </li>
+                <li>
+                    <h3>
+                        Больше никаких блокнотов, калькуляторов, таблиц и прочих вещей, в WEDDING-IN все изменения рассчитываются мгновенно и перед вами всегда актуальный свадебный бюджет, в телефоне, в планшете, в домашнем ПК! Все что вам нужно, это доступ к интернету, и ваш свадебный органайзер всегда с вами!
+                    </h3>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+<!--  NEXT PAGE PANEL  *END*-->
+
+
+<!-- BODY  *START*-->
+<div class="container-fluid main-page-functional-body" style="margin-top: 60px; border: 0" ng-if="currentUser.isLogged">
+
+    <!--MAIN BODY *START*-->
+    <div class="wed-main-body">
+        <div ng-if="currentUser.serverMSG.length && currentUser.isAuth">
+            <ng-include src="'/views/start_page/04_serverMSG.html'"></ng-include>
+        </div>
+
+        <!-- MENU LEFT *START* -->
+        <div class="wed-main-body-left">
+            <div class="new-proj-main">
+                <div>
+                    <a class="main-page-menu-btn" ng-click="goToHomePage()">
+                        <span>МОИ ПРОЕКТЫ</span>
+                    </a>
+                </div>
+                <div ng-if="currentUser.isAdmin" ng-controller="adminCtrl">
+                    <a class="main-page-menu-btn" ng-click="adminMode()">
+                        <span>ADMIN</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <!-- MENU LEFT *END* -->
+
+        <!-- PROJECTS LIST *START* -->
+        <div class="wed-main-body-right">
+            <div class="projects-list">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci asperiores consectetur ex
+                    exercitationem, fuga ipsam, labore laudantium magni, molestiae mollitia nam obcaecati perferendis
+                    porro quibusdam ratione repellendus reprehenderit voluptatem!
+                </p>
+            </div>
+        </div>
+        <!-- PROJECTS LIST *END* -->
+
+    </div>
+    <!--MAIN BODY *END*-->
+
+</div>
+<!-- BODY *END*-->
+
+
+<!-- KEY ACCESS MODAL *START* -->
+<div id="keyAccess" class="modal fade" ng-controller="loginCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">close</button>
+                <h4 class="modal-title">КЛЮЧ ДОСТУПА</h4>
+            </div>
+
+            <div class="modal-body wed-modals-s">
+                <div class="add-new-proj-main">
+                    <form name="keyAccessForm" novalidate ng-submit="">
+                        <div>
+                            <div class="form-group">
+                                <label>Введите ключ доступа к проекту</label>
+                                <input name="projectKey" class="form-control" ng-model="key"
+                                       type="text" required ng-minlength='1'
+                                       ng-class="(keyAccessForm.projectKey.$invalid)? 'invalid-input' : 'null'">
+                            </div>
+
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-success btn-sm"
+                                        ng-disabled="loginForm.$invalid" data-dismiss="modal"
+                                        ng-click="accessByKey(key)">
+                                    <b>ВВОД</b>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- KEY ACCESS MODAL *END* -->

@@ -1,0 +1,103 @@
+<div class="projects-list" ng-controller="restaurantMainCtrl">
+    <!--Header-->
+    <header class="proj-view-header text-right">
+        <nav class="top-sub-menu no-print"  ng-if="!currentProject.restaurant.quickView">
+            <ul>
+                <li style="{{subView == 'restaurant'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurant')">Ресторан</a></li>
+                <li style="{{subView == 'guests'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('guests')">Гости</a></li>
+                <li style="{{subView == 'tables'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('tables')">Столы</a></li>
+                <li style="{{subView == 'restaurantMenu'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurantMenu')">Меню</a></li>
+                <li style="{{subView == 'restaurantCakes'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurantCakes')">Кондитер</a></li>
+                <li style="{{subView == 'restaurantPlus'? 'background: hsla(291, 74%, 49%, 0.78); font-weight:bold' : 'inherit'}}"><a ng-click="subViewShift('restaurantPlus')">Ресторан +</a></li>
+            </ul>
+        </nav>
+        <h2>РЕСТОРАН {{count}}</h2>
+    </header>
+    <!--Header-->
+
+    <!--Info-panel-->
+    <section class="info-panel" style="{{subView == 'guests'? currentProject.restaurant.quickView ? 'padding: 3px 0 3px' :'padding: 3px 0 1px' : 'inherit'}}">
+
+        <div ng-if="currentUser.isAuth" class="top-sub-menu-shift">
+            <ul class="visible-lg">
+                <li ng-show="!currentProject.restaurant.quickView && subView == 'guests'">
+                    <a ng-click="quickView(currentProject)" style="color: rgb(119, 119, 119)">
+                        <span class="glyphicon glyphicon-calendar" style="color: #ffffff" title="Быстрый расчет"></span>
+
+                    </a>
+                </li>
+                <li ng-show="currentProject.restaurant.quickView && subView == 'guests'" style="background: rgba(0, 150, 136, 0.51);">
+                    <a ng-click="quickView(currentProject)">
+                        <span class="glyphicon glyphicon-calendar" style="color: rgb(169, 241, 0);"></span>
+                        <strong>Быстрый расчет</strong>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div style="font-size: 95%">
+            <div>
+                <span style="font-style: italic">
+                    Гостей:  {{guestsQty(currentProject)}} чел.
+                </span>
+            </div>
+
+            <div style="margin-left: 20px" ng-if="currentProject.restaurant.quickView">
+                <span style="font-style: italic">
+                    СУММА:  <span class="nat-use">{{currentProject.restaurant.quickData.planNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.restaurant.quickData.planUsd | number : 1}} USD</span>
+                </span>
+            </div>
+
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView" class="hidden-md hidden-sm hidden-xs">
+                <span style="font-style: italic; color: white">
+                     ЗА ВЕСЬ РЕСТОРАН:
+                </span>
+            </div>
+
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
+                <span class="info-plan">
+                    ПЛАН РАСХОДОВ:  <span class="nat-use">{{currentProject.restaurant.total.planTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.restaurant.total.planTotalUsd | number : 1}} USD</span>
+                </span>
+            </div>
+
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
+                <span class="info-paid">
+                    ОПЛАЧЕНО:  <span class="nat-use">{{currentProject.restaurant.total.paidTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.restaurant.total.paidTotalUsd | number : 1}} USD</span>
+                </span>
+            </div>
+
+            <div style="margin-left: 20px" ng-if="!currentProject.restaurant.quickView">
+                <span class="info-rest">
+                    ДОПЛАТАТИТЬ: <span class="nat-use">{{currentProject.restaurant.total.restTotalNat | number : 1}} {{currentProject.budget.nationalMoney}} /</span> <span class="usd-use">{{currentProject.restaurant.total.restTotalUsd | number : 1}} USD</span>
+                </span>
+            </div>
+
+        </div>
+    </section>
+    <!--Info-panel-->
+
+    <!--Views-->
+    <div ng-show="currentProject.restaurant.quickView  && subView == 'guests'">
+        <ng-include src="'/views/projects/02_02_projectView_restaurant_quick.html'"></ng-include>
+    </div>
+    <div ng-show="!currentProject.restaurant.quickView && subView == 'guests'">
+        <ng-include src="'/views/projects/02_01_projectView_restaurant_guestsList.html'"></ng-include>
+    </div>
+    <div ng-show="!currentProject.restaurant.quickView && subView == 'tables'">
+        <ng-include src="'/views/projects/02_01a_projectView_restaurant_tables.html'"></ng-include>
+    </div>
+    <div ng-show="subView == 'restaurantMenu'">
+        <ng-include src="'/views/projects/02_03_projectView_restaurant_menu.html'"></ng-include>
+    </div>
+    <div ng-show="subView == 'restaurantCakes'">
+        <ng-include src="'/views/projects/02_04_projectView_restaurant_cakes.html'"></ng-include>
+    </div>
+    <div ng-show="subView == 'restaurant'">
+        <ng-include src="'/views/projects/02_05_projectView_restaurant_general.html'"></ng-include>
+    </div>
+    <div ng-show="subView == 'restaurantPlus'">
+        <ng-include src="'/views/projects/02_06_projectView_restaurant_plus.html'"></ng-include>
+    </div>
+    <!--Views-->
+
+</div>
