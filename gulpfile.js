@@ -1,8 +1,8 @@
 "use strict";
 const gulp = require('gulp');
-const sourcemaps = require('gulp-sourcemaps');
+//const sourcemaps = require('gulp-sourcemaps');
 const debug = require('gulp-debug');
-const gulpIf = require('gulp-if');
+//const gulpIf = require('gulp-if');
 const newer = require('gulp-newer');
 const autoprefixer = require('gulp-autoprefixer');
 const remember = require('gulp-remember');
@@ -36,9 +36,9 @@ gulp.task('copyHTML', function () {
 gulp.task('copyCSS', function () {
     return gulp.src('frontend/css/**/*.css', { since : gulp.lastRun('copyCSS')})
         .pipe(newer('public'))
-        .pipe(remember('copyCSS'))
         //.pipe(debug())
         .pipe(autoprefixer())
+        .pipe(remember('copyCSS'))
         .pipe(cleanCSS({rebase: false}))
         .pipe(gulp.dest('public/css'));
 });
@@ -102,12 +102,32 @@ gulp.task('copyFVICO', function () {
 });
 
 // ASSEMBLER COPY TASK
-gulp.task('build', gulp.series('copyHTML', 'copyCSS', 'copyLibsCSS', 'copyJS', 'copyLibsJS', 'copyIMG', 'copyFONTS-PB', 'copyFONTS-GLF', 'copyFVICO'));
+gulp.task('build',
+    gulp.series([
+        'copyHTML',
+        'copyCSS',
+        'copyLibsCSS',
+        'copyJS',
+        'copyLibsJS',
+        'copyIMG',
+        'copyFONTS-PB',
+        'copyFONTS-GLF',
+        'copyFVICO'
+    ]));
 
 // "WATCH" Fn
 gulp.task('watch', function () {
-    gulp.watch('frontend/**/*.*', gulp.series('build'));
+    gulp.watch('frontend/**/*.html', gulp.series('copyHTML'));
+    gulp.watch('frontend/css/**/*.css', gulp.series('copyCSS'));
+    gulp.watch('frontend/libs/css/**/*.css', gulp.series('copyLibsCSS'));
+    gulp.watch('frontend/js/**/*.js', gulp.series('copyJS'));
+    gulp.watch('frontend/libs/js/**/*.js', gulp.series('copyLibsJS'));
+    gulp.watch('frontend/img/**/*.{png,jpg}', gulp.series('copyIMG'));
+    gulp.watch('frontend/img/fonts/**/*.*', gulp.series('copyFONTS-PB'));
+    gulp.watch('frontend/libs/fonts/**/*.*', gulp.series('copyFONTS-GLF'));
+    gulp.watch('frontend/*.ico', gulp.series('copyFVICO'));
 });
+
 // BROWSER-SYNC config
 gulp.task('serve', function () {
     browserSync.init({

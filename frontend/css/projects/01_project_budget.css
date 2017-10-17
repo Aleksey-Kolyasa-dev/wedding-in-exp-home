@@ -1,0 +1,98 @@
+.wed-project-body-right{
+    border-left: 1px solid #feffef;
+    padding-left: 15px;
+}
+.info-panel-budget{
+    width: 100%;
+    display: block;
+    background: rgba(37, 17, 144, 0.24);
+    padding: 3px 0;
+    border-bottom: 1px solid #ffffff;
+}
+.info-panel-budget div{
+    text-align: center;
+    display: inline-block;
+    padding: 3px 0;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 100%;
+}
+.info-panel-budget div div{
+    margin-right: 20px
+}
+.info-panel-dyn-good{
+    color: rgb(25, 239, 182);
+}
+.report-panel{
+   padding-top: 4px;
+}
+.report-panel table{
+    margin-top: 2px !important;
+}
+.report-panel table tbody tr{
+    height: 47px;
+}
+.budget-table-list-link{
+    cursor: pointer;
+    color: #ffffff;
+    font-style: italic;
+    font-weight: bold;
+}
+.budget-table-list-link:hover{
+    text-decoration: none;
+    color: #f9cb73;
+}
+
+/*SMS*/
+.sms-author{
+    color: #f0ad4e;
+    font-size: 100%;
+}
+.sms-time{
+    color: #5cb85c;
+    font-size: 68%;
+}
+.sms-text{
+    color: #ffffff;
+    font-size: 100%;
+}
+.sms-empty{
+    color: #919191;
+    font-size: 100%;
+}
+.sms-panel{
+    max-height: 450px;
+    overflow-y: scroll;
+}
+
+/*STATUS BARS*/
+.bar-budget{
+    width: 100%;
+    background: rgb(136, 121, 131);
+    border-radius: 4px;
+}
+.bar-budget-line{
+    width: 46%;
+    border-radius: 4px;
+    background: linear-gradient(#608866 10%, #00ff25 80%, #608866 10%);
+    height: 6px;
+    float: left;
+}
+.bar-budget-good{
+    background: linear-gradient(#608866 10%, #00ff25 80%, #608866 10%);
+}
+.bar-budget-half{
+    background: linear-gradient(#afa727 10%, #fff73d 80%, #afa727 10%);
+}
+.bar-budget-warn{
+    background: linear-gradient(#d67206 10%, #ffae00 80%, #d67206 10%);
+}
+.bar-budget-danger{
+    background: linear-gradient(#CB0010 10%, #ff0011 80%, #cb0010 10%);
+}
+.percent-small{
+    font-size: 60%;
+    color: #ffffff;
+    font-style: italic;
+}
+

@@ -3,8 +3,6 @@ var express = require('express');
 var projectsRouter = express.Router();
 var mongojs = require('mongojs');
 var db = require('../db/db');
-//var db = mongojs('mongodb://localhost:27017/weddings', ['weddings']);
-//var db = mongojs('mongodb://alex:4444@ds149132.mlab.com:49132/alkol_db', ['weddings']);
 var projectsDB = db()._projectsDB_URL;
 
 /*

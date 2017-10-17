@@ -1,0 +1,88 @@
+.log-reg-btn-main{
+    position: absolute;
+    top:50px;
+    right: -5px;
+}
+.log-reg-btn-main div{
+    display: inline-block;
+}
+.main-page-menu-btn-start{
+    display: block;
+    border-radius: 2px;
+    width: 150px;
+    padding: 10px 15px;
+    text-decoration: none !important;
+    background: rgba(120, 180, 0, 0.74);
+    text-align: center;
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 100%;
+    cursor: pointer;
+    transition: background, color 600ms ease;
+}
+.main-page-menu-btn-start:hover{
+    text-decoration: none !important;
+    cursor: pointer;
+    font-weight: bold;
+    color: rgb(81, 81, 162);
+    background: #ffffff;
+    text-shadow: 6px 4px 7px #8c8b8b;
+}
+.main-page-menu-btn-logout{
+    display: block;
+    border-radius: 2px;
+    width: 125px;
+    padding: 10px 15px;
+    text-decoration: none !important;
+    background: rgba(114, 26, 150, 0.84);
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 100%;
+    cursor: pointer;
+    transition: background, color 600ms ease;
+}
+.main-page-menu-btn-logout:hover{
+    text-decoration: none !important;
+    cursor: pointer;
+    color: rgb(84, 23, 114);
+    background: #ffffff;
+    text-shadow: 6px 4px 7px #8c8b8b;
+}
+.wed-logo-s{
+    position: relative;
+    top: 20px;
+    left: 10px;
+    font-family: "Rage Italic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.wed-logo-s a{
+    text-decoration: none;
+    color: #feffef;
+    text-shadow: 2px 2px 10px #f8b152;
+    font-size: 450%;
+}
+.main-page-functional-body-s{
+    background: rgba(32, 32, 32, 0.60);
+    border-bottom: 2px solid #ffffff;
+}
+.wed-modals-s{
+    background-image: url(../../img/main_bg2.jpg);
+    background-size: 795%;
+}
+/*SERVER MSG*/
+.server-msg-main{
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    height: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: flex;
+
+}
+.sv-msg-window{
+    display: block;
+    margin: auto;
+}

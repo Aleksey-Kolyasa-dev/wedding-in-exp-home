@@ -1,0 +1,37 @@
+<div class="rest-general-page" ng-if="currentUser.isAdmin">
+    <div class="rest-general-page">
+        <ul>
+            <li ng-repeat="user in uStats">
+                <!--general data-->
+                <div class="rest-general-list">
+                    <div class="info-glass-panel">
+                        <hr>
+                        <div>
+                            <p>Name: <span class="rest-info-data">{{user.name}}</span></p>
+                            <p>Nick: <span class="rest-info-data">{{user.nickname}}</span></p>
+                            <p>Login: <span class="rest-info-data">{{user.login}}</span></p>
+                            <p>Email: <span class="rest-info-data">{{user.email}}</span></p>
+                            <hr>
+
+                            <p>Registred: <span class="rest-info-data">{{user.registrationDate | date : 'dd.MMM.yyyy'}} y.</span></p>
+                            <p>Age: <span class="rest-info-data">{{user.age}} days</span></p>
+                            <p>Online: <span class="rest-info-data" style="color: {{(user.isLogged)? 'green' : 'red'}}">{{user.isLogged}}</span></p>
+                            <p>last Online: <span class="rest-info-data">{{user.moment | date : 'dd.MMM.yyyy / hh:mm'}}</span></p>
+                            <p>Offline age: <span class="rest-info-data">{{user.offAge}} day(s) </span></p>
+                        </div>
+                        <hr>
+
+                    </div>
+                </div>
+                <!--general data-->
+            </li>
+        </ul>
+
+
+
+    </div>
+
+
+
+</div>
+
