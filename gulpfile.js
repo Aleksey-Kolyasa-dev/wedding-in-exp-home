@@ -37,7 +37,7 @@ gulp.task('copyCSS', function () {
     return gulp.src('frontend/css/**/*.css', { since : gulp.lastRun('copyCSS')})
         .pipe(newer('public'))
         .pipe(remember('copyCSS'))
-        .pipe(debug())
+        //.pipe(debug())
         .pipe(autoprefixer())
         .pipe(cleanCSS({rebase: false}))
         .pipe(gulp.dest('public/css'));
@@ -58,7 +58,7 @@ gulp.task('copyJS', function () {
         .pipe(newer('public'))
         .pipe(ngAnnotate())
         .pipe(uglify())
-        .pipe(debug())
+        //.pipe(debug())
         .pipe(gulp.dest('public/js'));
 });
 
@@ -67,7 +67,7 @@ gulp.task('copyLibsJS', function () {
     return gulp.src('frontend/libs/js/**/*.js', { since : gulp.lastRun('copyLibsJS')})
         .pipe(newer('public'))
         .pipe(uglify())
-        .pipe(debug())
+        //.pipe(debug())
         .pipe(gulp.dest('public/libs/js'));
 });
 
