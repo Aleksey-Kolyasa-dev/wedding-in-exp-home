@@ -10,6 +10,7 @@ const imagemin = require('gulp-imagemin');
 const ngAnnotate = require('gulp-ng-annotate');
 const uglify = require('gulp-uglify');
 const cleanCSS = require('gulp-clean-css');
+const removeHtmlComments = require('gulp-remove-html-comments');
 const htmlmin = require('gulp-htmlmin');
 const del = require('del');
 const browserSync = require('browser-sync').create();
@@ -26,6 +27,7 @@ gulp.task('clean', function () {
 gulp.task('copyHTML', function () {
     return gulp.src('frontend/**/*.html', { since : gulp.lastRun('copyHTML')})
         .pipe(newer('public'))
+        .pipe(removeHtmlComments())
         .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('public'));
 });
@@ -34,9 +36,9 @@ gulp.task('copyHTML', function () {
 gulp.task('copyCSS', function () {
     return gulp.src('frontend/css/**/*.css', { since : gulp.lastRun('copyCSS')})
         .pipe(newer('public'))
+        .pipe(remember('copyCSS'))
         .pipe(debug())
         .pipe(autoprefixer())
-        .pipe(remember('copyCSS'))
         .pipe(cleanCSS({rebase: false}))
         .pipe(gulp.dest('public/css'));
 });
