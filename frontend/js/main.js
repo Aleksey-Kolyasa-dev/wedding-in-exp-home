@@ -10,14 +10,16 @@ function _env() {
             if(devEnvironment){
                 return 'http://localhost:80/api/';
             } else {
-                return 'http://wedding-in.com.ua/api/';
+                // return 'http://wedding-in.com.ua/api/';
+                return 'https://wedding-in.herokuapp.com/api/';
             }
         },
         get _usersURL(){
             if(devEnvironment){
                 return 'http://localhost:80/users/';
             } else {
-                return 'http://wedding-in.com.ua/users/';
+                // return 'http://wedding-in.com.ua/users/';
+                return 'https://wedding-in..herokuapp.com/users/';
             }
         },
         get _angularRuLocale(){
