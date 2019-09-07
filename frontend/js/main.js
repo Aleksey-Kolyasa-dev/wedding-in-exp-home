@@ -11,7 +11,7 @@ function _env() {
                 return 'http://localhost:80/api/';
             } else {
                 // return 'http://wedding-in.com.ua/api/';
-                return 'https://wedding-in.herokuapp.com/api/';
+                return 'https://wedding-in-home.herokuapp.com/api/';
             }
         },
         get _usersURL(){
@@ -19,7 +19,7 @@ function _env() {
                 return 'http://localhost:80/users/';
             } else {
                 // return 'http://wedding-in.com.ua/users/';
-                return 'https://wedding-in..herokuapp.com/users/';
+                return 'https://wedding-in-home.herokuapp.com/users/';
             }
         },
         get _angularRuLocale(){
